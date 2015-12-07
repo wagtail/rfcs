@@ -29,15 +29,15 @@ Listing view
 
 This view will display a paginated listing of revisions of the page, most recent first. For each revision, this will display the following information:
 
- * The date and time the revision was made
- * The full name (as reported by ``User.get_full_name``) of the user who made the revision
- * Whether this revision was ever published or submitted for moderation. (This information is not currently stored, so this may be left as a future enhancement.)
+* The date and time the revision was made
+* The full name (as reported by ``User.get_full_name``) of the user who made the revision
+* Whether this revision was ever published or submitted for moderation. (This information is not currently stored, so this may be left as a future enhancement.)
 
 For each revision, the following actions will be available:
 
- * View
- * Revert
- * Compare (optional)
+* View
+* Revert
+* Compare (optional)
 
 View revision
 -------------
@@ -60,15 +60,15 @@ Rationale for design decisions
 
 We considered several alternative locations for the link / button that opens the revision listing:
 
- * A new button on the page explorer listing, alongside "Edit", "Move", "Copy" and so on. This was rejected because it would be more natural for a user to access this from the page editor rather than the listing; "View revisions" is not really an action in the same way that the others are; and it was felt that the list of actions is long enough already.
- * A new 'Revisions' tab alongside "Content", "Promote" and so on. It was felt that this was too prominent for a feature that would probably only get occasional use. Also, if the listing is to exist as a separate URL view, then this would break the tab paradigm whereby users should be able to freely switch tabs without losing data.
- * Within the "Settings" tab. Revisions are not really a 'setting' as such, and this would set us down the path of Settings becoming a catch-all "miscellaneous" placeholder.
- * Making the "last modified by" text into a link. It was felt that this was not discoverable enough.
+* A new button on the page explorer listing, alongside "Edit", "Move", "Copy" and so on. This was rejected because it would be more natural for a user to access this from the page editor rather than the listing; "View revisions" is not really an action in the same way that the others are; and it was felt that the list of actions is long enough already.
+* A new 'Revisions' tab alongside "Content", "Promote" and so on. It was felt that this was too prominent for a feature that would probably only get occasional use. Also, if the listing is to exist as a separate URL view, then this would break the tab paradigm whereby users should be able to freely switch tabs without losing data.
+* Within the "Settings" tab. Revisions are not really a 'setting' as such, and this would set us down the path of Settings becoming a catch-all "miscellaneous" placeholder.
+* Making the "last modified by" text into a link. It was felt that this was not discoverable enough.
 
 We also considered opening the revision listing in a modal, rather than a separate view, so that the user would not have to leave the page editor interface. However, modal popups are difficult to use on mobile.
 
 Open Questions
 ==============
 
- * Should 'view revision' open in a new window?
- * Is mobile use the *only* downside of opening the listing in a modal? If so, why are we more concerned about it here than in all the other places we've used modals?
+* Should 'view revision' open in a new window?
+* Is mobile use the *only* downside of opening the listing in a modal? If so, why are we more concerned about it here than in all the other places we've used modals?
