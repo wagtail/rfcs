@@ -1,8 +1,8 @@
 =================================
-WEP X - Admin Modules
+WEP 3 - Admin Modules
 =================================
 
-:WEP: X
+:WEP: 3
 :Author: Karl Hobley
 :Status: Draft
 :Created: 2015-12-15
