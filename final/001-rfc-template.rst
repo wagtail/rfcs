@@ -1,8 +1,8 @@
 =================================
-WEP 1: Purpose and format
+RFC 1: Purpose and format
 =================================
 
-:WEP: 1
+:RFC: 1
 :Author: Matthew Westcott
 :Status: Draft / Accepted (means spec is agreed) / Final (means implemented)
 :Created: 2015-08-05
