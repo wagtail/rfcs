@@ -1,8 +1,8 @@
 ===================
-WEP 2: Revisions UI
+RFC 2: Revisions UI
 ===================
 
-:WEP: 2
+:RFC: 2
 :Author: Matthew Westcott
 :Status: Draft
 :Created: 2015-12-07
