@@ -1,9 +1,9 @@
-Wagtail Enhancement Proposals (WEPs)
-====================================
+Wagtail RFCs
+============
 
-Wagtail Enhancement Proposals (WEPs) are a formal way of proposing large feature additions to Wagtail CMS (https://wagtail.io).
+Wagtail RFCs are a formal way of proposing large feature additions to Wagtail CMS (https://wagtail.io).
 
-See `WEP 1 <final/001-wep-template.rst>`_ for details.
+See `RFC 1 <final/001-rfc-template.rst>`_ for details.
 
-To submit a new WEP, clone the repository, copy `WEP 1 <final/001-wep-template.rst>`_,
+To submit a new RFC, clone the repository, copy `RFC 1 <final/001-rfc-template.rst>`_,
 make the necessary changes and submit a pull request.
