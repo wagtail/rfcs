@@ -26,7 +26,7 @@ use snippets.
 
 Snippets are not ideal for this as they require a developer to rewrite the
 models for every new site and the admin UI isn't very well suited for editing
-multiple at once.
+multiple items at once.
 
 This RFC proposes a new "menus" contrib module that'll provide the models and
 user interface for building menus using the admin interface. It will also
@@ -70,6 +70,11 @@ added to the menu model by using the ``max_depth`` attribute:
         # This menu should be flat
         max_depth = 1
 
+Template tags
+-------------
+
+Define names and behaviour of menu template tags here.
+
 Internals
 ---------
 
@@ -82,7 +87,7 @@ The builtin ``Menu`` model is abstract and contains the following:
 Rationale for design decisions
 ==============================
 
-1. Why does each menu require it's own model?
+1. Why does each menu require its own model?
 
    The main reason for this decision is because each menu needs its own
    ``treebeard`` tree. Using different models provides this separation.
