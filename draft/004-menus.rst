@@ -1,8 +1,8 @@
 ============
-RFC X: Menus
+RFC 4: Menus
 ============
 
-:RFC: X
+:RFC: 4
 :Author: Karl Hobley
 :Status: Draft
 :Created: 2016-02-10
