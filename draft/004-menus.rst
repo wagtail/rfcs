@@ -94,3 +94,5 @@ Rationale for design decisions
 
 Open Questions
 ==============
+
+ 1. What should the default value for ``max_depth`` be?
