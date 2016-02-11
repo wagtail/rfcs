@@ -26,9 +26,53 @@ This RFC proposes a new "menus" contrib module that'll provide the models and us
 Specification
 =============
 
+Defining and registering menus
+------------------------------
+
+Each menu has its own model that inherits from the ``wagtail.contrib.menus.models.Menu`` class. Each individual instance of this model represents an item in that menu.
+
+Menu models are registered using a ``register_menu`` decorator/function:
+
+.. code-block:: python
+
+    # mysite/menus/models.py
+    from wagtail.contrib.menus.models import Menu, register_menu
+
+    @register_menu
+    class MainMenu(Menu):
+        pass
+
+    @register_menu
+    class FooterMenu(Menu):
+        pass
+
+Limiting the depth of a menu
+----------------------------
+
+Sometimes, menus should only be one or two levels deep. This constraint can be added to the menu model using the ``max_depth`` attribute:
+
+.. code-block:: python
+
+    @register_menu
+    class SecondaryMenu(Menu):
+        # This menu should be flat
+        max_depth = 1
+
+Internals
+---------
+
+The builtin ``Menu`` model is abstract and contains the following:
+ - A title field
+ - Internal and external link fields
+ - Treebeard's materialised path tree.
+
 Rationale for design decisions
 ==============================
 
+1. Why does each menu require it's own model?
+
+   The main reason for this decision is because each menu needs its own ``treebeard`` tree. Using different models provides this separation.
+
+
 Open Questions
 ==============
-
