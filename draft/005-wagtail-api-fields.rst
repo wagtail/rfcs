@@ -44,31 +44,15 @@ The default response returns the ``id``, ``type``, ``detail_url`` and ``title`` 
         "title": "Wagtail by Mark Harkin"
     }
 
-Specifying fields manually
---------------------------
-
-As before, you can specify a plain list of fields. Doing this will override *all* of
-the default fields (previously, you could only override the ``title`` field):
-
-.. code-block::
-
-    GET /api/images/?fields=id,tags
-
-    {
-        "id": 4,
-        "tags": []
-    }
-
 Adding fields to the response
------------------------------
+-----------------------
 
-Having to remember each field could be tedious and I expect those default fields would
-be useful on most occasions. Prepending a ``+`` allows additional fields to be specified
-without removing the defaults:
+As before, you can specify a plain list of extra fields which will be added to
+the response:
 
 .. code-block::
 
-    GET /api/images/?fields=+tags
+    GET /api/images/?fields=tags
 
     {
         "id": 4,
@@ -83,7 +67,8 @@ without removing the defaults:
 Removing fields from the response
 ---------------------------------
 
-Prepending a ``-`` will remove a field from the response:
+Prepending a ``-`` will remove a field from the response, this can be used on
+any default field:
 
 .. code-block::
 
@@ -100,7 +85,7 @@ Prepending a ``-`` will remove a field from the response:
 All fields shortcut
 -------------------
 
-Setting fields to ``*`` will return all fields:
+Setting fields to ``*`` will add all available fields to the response:
 
 .. code-block::
 
@@ -148,7 +133,7 @@ Using brackets, the syntax described above can be used to specify the fields for
 
 .. code-block::
 
-    /?fields=+myforeignkey
+    /?fields=myforeignkey
 
     {
         "id": 4,
@@ -165,22 +150,7 @@ Using brackets, the syntax described above can be used to specify the fields for
         }
     }
 
-    /?fields=+myforeignkey(id,name)
-
-    {
-        "id": 4,
-        "meta": {
-            "type": "wagtailimages.Image",
-            "detail_url": "http://localhost:8000/api/v2beta/images/4/"
-        },
-        "title": "Wagtail by Mark Harkin",
-        "myforeignkey": {
-            "id": 10,
-            "name": "Foo"
-        }
-    }
-
-    /?fields=+myforeignkey(+name)
+    /?fields=myforeignkey(name)
 
     {
         "id": 4,
@@ -194,6 +164,21 @@ Using brackets, the syntax described above can be used to specify the fields for
             "meta": {
                 "type": "core.MyModel"
             },
+            "name": "Foo"
+        }
+    }
+
+    /?fields=myforeignkey(name,-type)
+
+    {
+        "id": 4,
+        "meta": {
+            "type": "wagtailimages.Image",
+            "detail_url": "http://localhost:8000/api/v2beta/images/4/"
+        },
+        "title": "Wagtail by Mark Harkin",
+        "myforeignkey": {
+            "id": 10,
             "name": "Foo"
         }
     }
