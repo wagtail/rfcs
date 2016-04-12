@@ -4,7 +4,7 @@ RFC 5: Wagtail API fields
 
 :RFC: 5
 :Author: Karl Hobley
-:Status: Draft
+:Status: Accepted
 :Created: 2015-02-25
 :Last-Modified: 2015-02-25
 
