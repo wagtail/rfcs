@@ -4,7 +4,7 @@ RFC 2: Revisions UI
 
 :RFC: 2
 :Author: Matthew Westcott
-:Status: Draft
+:Status: Final
 :Created: 2015-12-07
 :Last-Modified: 2015-12-07
 
