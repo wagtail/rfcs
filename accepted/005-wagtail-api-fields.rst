@@ -121,6 +121,19 @@ to be returned:
         "height": 100
     }
 
+No fields shortcut
+------------------
+
+Like the "all fields shortcut" the ``_`` character can be used to remove all fields.
+This would typically be used by developers who know they only need specific fields:
+
+.. code-block::
+
+    /?fields=_,title
+
+    {
+        "title": "Wagtail by Mark Harkin"
+    }
 
 Nested objects
 --------------
