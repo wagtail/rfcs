@@ -1,8 +1,8 @@
 =================
-RFC 6: PageConfig
+RFC 7: PageConfig
 =================
 
-:RFC: 6
+:RFC: 7
 :Author: Tim Heap
 :Status: Draft
 :Created: 2016-04-28
