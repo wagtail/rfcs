@@ -30,10 +30,10 @@ Wagtail will have two APIs, the public API and the (private) admin API. The publ
 
 Some of the main differences between the two APIs are:
 
- - The admin API requires a user to with privileges to access the admin interface to be logged in and all relevant admin permissions will be applied to the admin API as well
- - All content will be available in the admin API, only publically-accessible content will be available in the public API (no draft pages or pages behind a restriction)
- - The admin API would also include fields that either don't make sense to be in the public API (live/has_unpublished_changes) or are expensive to query in listings (parent/descendants)
- - Write actions may be implemented in the admin API, but not in the public API
+- The admin API requires a user to with privileges to access the admin interface to be logged in and all relevant admin permissions will be applied to the admin API as well
+- All content will be available in the admin API, only publically-accessible content will be available in the public API (no draft pages or pages behind a restriction)
+- The admin API would also include fields that either don't make sense to be in the public API (live/has_unpublished_changes) or are expensive to query in listings (parent/descendants)
+- Write actions may be implemented in the admin API, but not in the public API
 
 We'll try to keep them as similar as possible to improve maintainability and also allow us to create a single client-side library that works for both.
 
@@ -47,7 +47,8 @@ For the public API, two versions will be supported, the "stable" version and the
 
 Site implementors will have the choice of which version to use. The "stable" version is almost guaranteed to never change whereas the "unstable" version contains the latest features but may have breaking changes between Wagtail releases. I expect projects that have clients which are hard to update (eg, mobile phone apps) would use the "stable" version.
 
-All new features and changes will only be made in the "unstable" version and the "stable" version will only receive bug fixes. However, there may be a few exceptions:
+All new features and changes will only be made in the "unstable" version and the "stable" version will only receive bug fixes. However, there may be some exceptions:
+
  - Fixing security issues
  - Changes elsewhere in Wagtail that change/remove a feature exposed in the API
 
@@ -58,10 +59,10 @@ Stabilisation process
 
 Here's what we'll do when we want to stabilise the next version of the API:
 
- - The current "stable" version will be removed from Wagtail (it could be moved into a separate package so those who rely on it can still use it, but support would be community based)
- - The current "unstable" version will become the new "stable" version
- - The code for the new "stable" version will be copied to create the new "unstable" version
- - The admin API will be updated to be based on to the new "unstable" public API
+- The current "stable" version will be removed from Wagtail (it could be moved into a separate package so those who rely on it can still use it, but support would be community based)
+- The current "unstable" version will become the new "stable" version
+- The code for the new "stable" version will be copied to create the new "unstable" version
+- The admin API will be updated to be based on to the new "unstable" public API
 
 Release cycle
 `````````````
@@ -91,8 +92,8 @@ This class was previously hidden away in a ``urls.py`` file and the developer ju
 
 There's two reasons for this:
 
- - The API is now spread across multiple modules so there isn't really a good place for us to define the router anymore
- - Gives the developer full control of the API endpoints and makes customising the API more obvious
+- The API is now spread across multiple modules so there isn't really a good place for us to define the router anymore
+- Gives the developer full control of the API endpoints and makes customising the API more obvious
 
 2.2 Admin API
 ^^^^^^^^^^^^^
