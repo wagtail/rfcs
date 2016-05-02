@@ -26,12 +26,12 @@ This section gives a quick overview of the APIs we will support in Wagtail, why 
 1.1 - Public and admin APIs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Wagtail will have two APIs, the public API and the (private) admin API. The public API would be used primarily by the site implementor for providing content to their site frontend, mobile phones, external sites/tools, etc. The admin API would be used for providing data for some components in the Wagtail admin (eg explorer interface, choosers, etc)
+Wagtail will have two APIs, the public API and the (private) admin API. The public API would be used primarily by the site implementor for providing content to their site frontend, mobile phones, external sites/tools, etc. The admin API would be used for providing data for some components of the Wagtail admin (eg explorer interface, choosers, etc)
 
 Some of the main differences between the two APIs are:
 
-- The admin API requires a user to with privileges to access the admin interface to be logged in and all relevant admin permissions will be applied to the admin API as well
-- All content will be available in the admin API, only publically-accessible content will be available in the public API (no draft pages or pages behind a restriction)
+- The admin API requires a logged in user with privileges to access the admin interface; all relevant admin permissions will be applied to the admin API as well
+- All content will be available in the admin API but only publically-accessible content will be available in the public API (no draft pages or pages behind a restriction)
 - The admin API would also include fields that either don't make sense to be in the public API (live/has_unpublished_changes) or are expensive to query in listings (parent/descendants)
 - Write actions may be implemented in the admin API, but not in the public API
 
@@ -53,7 +53,7 @@ All new features and changes will only be made in the "unstable" version and the
 - Fixing security issues
 - Changes elsewhere in Wagtail that change/remove a feature exposed in the API
 
-We will support only one version of the admin API at a time. This would always be based on the "unstable" version of the public API.
+We will support only one version of the admin API at a time, which would be based on the "unstable" version of the public API. As such, there will be no guarentees for its stability between Wagtail releases.
 
 Stabilisation process
 `````````````````````
@@ -68,7 +68,7 @@ Here's what we'll do when we want to stabilise the next version of the API:
 Release cycle
 `````````````
 
-We haven't defined period of time for releasing new versions of the API so they'll be released when we feel they're ready.
+We haven't defined period of time for releasing new versions of the public API so they'll be released when we feel they're ready.
 
 2 - Project structure
 ---------------------
