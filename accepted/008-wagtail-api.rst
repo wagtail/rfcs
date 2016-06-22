@@ -4,7 +4,7 @@ RFC 8: Wagtail API
 
 :RFC: 8
 :Author: Karl Hobley
-:Status: Draft
+:Status: Accepted
 :Created: 2016-04-29
 :Last-Modified: 2016-04-29
 
