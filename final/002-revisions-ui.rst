@@ -52,7 +52,7 @@ This will return the user to the page editor, with the form fields prefilled wit
 Compare
 -------
 
-If implemented, this will show a field-by-field comparison between the selected revision and the previous one, or the selected revision and the current page state. (Further specification of this feature is out of scope for this WEP, but see https://github.com/torchbox/wagtail/pull/1946 for an existing implementation.)
+If implemented, this will show a field-by-field comparison between the selected revision and the previous one, or the selected revision and the current page state. (Further specification of this feature is out of scope for this RFC, but see https://github.com/torchbox/wagtail/pull/1946 for an existing implementation.)
 
 
 Rationale for design decisions

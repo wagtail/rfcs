@@ -1,5 +1,5 @@
-Final WEPs
+Final RFCs
 ==========
 
-WEPs that have been approved and fully implemented.
-See `WEP 1 <../final/0001-wep-template.rst>`_ for details.
+RFCs that have been approved and fully implemented.
+See `RFC 1 <../final/001-rfc-template.rst>`_ for details.

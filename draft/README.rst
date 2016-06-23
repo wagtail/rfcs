@@ -1,5 +1,5 @@
-Draft WEPs
+Draft RFCs
 ==========
 
-WEPs that are still in the process of being drafted and have not yet been
-approved. See `WEP 1 <../final/0001-wep-template.rst>`_ for details.
+RFCs that are still in the process of being drafted and have not yet been
+approved. See `RFC 1 <../final/001-rfc-template.rst>`_ for details.

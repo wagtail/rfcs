@@ -1,5 +1,5 @@
-Accepted WEPs
+Accepted RFCs
 =============
 
-WEPs that have been approved are in the process of being implemented.
-See `WEP 1 <../final/0001-wep-template.rst>`_ for details.
+RFCs that have been approved are in the process of being implemented.
+See `RFC 1 <../final/001-rfc-template.rst>`_ for details.
