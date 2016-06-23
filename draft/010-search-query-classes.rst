@@ -24,7 +24,7 @@ This RFC proposes an API for supporting new types of query in Wagtail.
 What we have now
 ================
 
-The first argument to the ``.search()`` method (on both the search ackend and
+The first argument to the ``.search()`` method (on both the search backend and
 on QuerySets) currently either takes a plain-text search query (as a string) or
 ``None`` (which triggers Wagtail to run a ``match_all`` query).
 
@@ -37,7 +37,7 @@ Specification
 =============
 
 I propose adding a new set of classes to Wagtail which represent different
-types of search query that could be run. Instances of these clases can be
+types of search query that could be run. Instances of these classes can be
 passed as the first argument of the search method.
 
 These classes will be importable from ``wagtail.wagtailsearch.query``.
