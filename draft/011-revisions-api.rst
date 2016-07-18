@@ -49,12 +49,27 @@ URL structure
 
 We will add a new endpoint underneath the pages endpoint allowing access to revisions of specific pages.
 
-View all revisions for a page
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+View all revisions of a page
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This will be paginated to show up to 20 revisions at a time.
 
 .. code-block::
 
     GET /api/pages/1/revisions/
+
+The list will be formatted the same way as other listings in the API:
+
+.. code-block:: json
+
+    {
+        "meta": {
+            "total_count": 50,
+        },
+        "items": [
+            # Revisions here
+        ]
+    }
 
 Filter by date/time range
 `````````````````````````
