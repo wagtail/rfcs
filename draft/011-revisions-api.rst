@@ -61,7 +61,7 @@ Filter by date/time range
 
 Date or date/time in ISO8601 format. If a date is specified, both ends of the range are inclusive (equivilent to django's __gte and __lte queries)
 
-The start and end times are separated by three dots: '...'. One date/time may be omitted.
+The start and end times are separated by three dots: '...'. One end of the range may be omitted making that end unbounded.
 
 .. code-block::
 
@@ -72,6 +72,8 @@ The start and end times are separated by three dots: '...'. One date/time may be
 
 Filter by author
 ````````````````
+
+Filters by the value of the ``USERNAME_FIELD`` on the user model
 
 .. code-block::
 
