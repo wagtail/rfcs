@@ -53,7 +53,7 @@ View all revisions for a page
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block::
-```
+
     GET /api/pages/1/revisions/
 
 Filter by date/time range
