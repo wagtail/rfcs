@@ -1,8 +1,8 @@
-==========================
-RFC X: Revisions Admin API
-==========================
+===========================
+RFC 11: Revisions Admin API
+===========================
 
-:RFC: X
+:RFC: 11
 :Author: Karl Hobley
 :Status: Draft
 :Created: 2016-07-18
