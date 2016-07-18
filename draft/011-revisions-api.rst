@@ -107,6 +107,8 @@ By ID
 By earliest/latest created at date
 ``````````````````````````````````
 
+These redirect to the earliest/latest revision of the page. The redirect to earliest is permanent but the redirect to latest is temporary as this could change at any time.
+
 .. code-block::
 
     GET /api/pages/1/revisions/latest/
@@ -139,3 +141,14 @@ Saves and publishes the new revision
 .. code-block::
 
     POST /api/pages/1/revisions/new/?publish=true
+
+Safeguarding against double-edit
+````````````````````````````````
+
+Double editing can be implemented by sending the previous revision id to the server on save. If there is a more recent revision that has already been committed to the server, the revision being submitted would be rejected.
+
+.. code-block::
+
+    POST /api/pages/1/revisions/new/?current_revision_id=1
+
+Note that this doesn't mean that the user is told they must refresh the page and lose their changes. It may even be possible to resolve conflicts manually by retriving the latest revision and merging the two. This process is out of scope for this RFC though.
