@@ -30,7 +30,7 @@ Data format
 All of the responses return revisions in the following format
 
 
-.. code-block::json
+.. code-block:: json
 
     {
         "id": 1,
