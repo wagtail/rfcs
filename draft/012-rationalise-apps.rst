@@ -57,7 +57,7 @@ default implementation or are customised by the developer.
 Since these apps only implement admin ui, they should be merged into
 ``wagtailadmin``.
 
-How they should be done
+How this should be done
 =======================
 
 The merging of ``wagtailsites`` and ``wagtailusers`` into ``wagtailadmin``
