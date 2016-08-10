@@ -6,7 +6,7 @@ RFC 9: Page translations
 :Author: Tim Heap
 :Status: Draft
 :Created: 2016-05-05
-:Last-Modified: 2016-05-05
+:Last-Modified: 2016-08-10
 
 .. contents:: Table of Contents
    :depth: 3
@@ -54,8 +54,6 @@ Requirements
 
   * Fairly seamless, in terms of defining models and edit handlers
 
-  * A clear distinction between translated and non-translated fields
-
   * Easy to find all translations of a page
 
 * Nice to use as an editor
@@ -63,6 +61,8 @@ Requirements
   * The behaviour of editing pages not significantly changed
 
   * Adding a translation is easy
+
+  * Page slugs can be translated
 
   * Different translations can be reviewed, moderated, approved, and published separately
 
@@ -104,112 +104,214 @@ A few model classes will be provided.
 A ``Language`` model will be created as part of the translations app.
 Each language a site supports will have a ``Language`` entry in the database.
 Administrators can add and remove these through the settings menu.
-One language will be set as the default language.
-
-Each page that is translatable must subclass ``TranslatedPage``.
-Each ``TranslatablePage`` subclass must have a ``TranslatedFields`` class as an attribute.
-
-The fields for a ``TranslatedPage`` that need translating
-must be added to the ``TranslatedFields`` class:
+One language will be set as the default language:
 
 .. code-block:: python
 
-    from modelcluster.fields import ParentalKey
+    from django.db import models
+
+    class Language(models.Model):
+        code = models.CharField(
+            max_length=12,
+            help_text="One of the languages defined in LANGUAGES")
+
+        is_default = models.BooleanField(
+            default=False, help_text="""
+            Visitors with no language preference will see the site in this
+            language
+            """)
+
+        order = models.IntegerField(
+            help_text="""
+            Language choices and translations will be displayed in this order
+            """)
+
+        live = models.BooleanField(
+            default=True,
+            help_text="Is this language available for visitors to view?")
+
+        class Meta:
+            ordering = ['order']
+
+Each page that is translatable must subclass ``TranslatedPage``:
+
+.. code-block:: python
+
+    from django.db import models
+    from wagtail.wagtailcore.models import Page
+    from django.utils.translation import activate
+
+    class TranslatedPage(Page):
+        # Explicitly defined with a unique name so that clashes are unlikely
+        translated_page_ptr = models.OneToOneField(
+            parent_link=True, related_name='+', on_delete=models.CASCASE)
+
+        # Pages with identical translation_keys are translations of each other
+        # Users can change this through the admin UI, although the raw UUID
+        # value should never be shown.
+        translation_key = models.UUIDField(db_index=True, default=uuid.uuid4)
+
+        # Deleting a language that still has pages is not allowed, as it would
+        # either lead to tree corruption, or to pages with a null language.
+        language = models.ForeignKey(Language, on_delete=models.PREVENT)
+
+        class Meta:
+            # This class is *not* abstract, so that the unique_together
+            # constraint holds across all page classes. Translations of a page
+            # do not have to be of the same page type.
+
+            unique_together = [
+                # Only one language allowed per translation group
+                ('translation_key', 'language'),
+            ]
+
+        def serve(self, request, *args, **kwargs):
+            activate(self.language.code)
+            super().serve(request, *args, **kwargs)
+
+Pages should then subclass ``TranslatedPage``:
+
+.. code-block:: python
+
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
     from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailcore.models import Page
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailimages.fields import ImageField
 
-    class ContentPage(TranslatedPage):
+    class ContentPage(TranslatedPage, Page):
+        body = RichTextField()
         feature_image = ImageField()
 
-        class TranslatedFields:
-            page_title = models.CharField(max_length=255)
-            body = RichTextField()
-
-            panels = [
-                FieldPanel('title'),
-                FieldPanel('body'),
-            ]
-
         content_panels = [
+            FieldPanel('title'),
+            FieldPanel('body'),
             ImageChooserPanel('feature_image'),
         ]
 
-When fetched from the database, a ``TranslatedPage``
-will automatically fetch the translation for the currently active language,
-or for the default language if there is no translation for the current language.
+An ``AbstractTranslationIndexPage`` class will be provided.
+This page class can serve as a home page for a site.
+Site administrators can create one page tree for each language
+as children of this index.
+When the page is accessed directly,
+visitors will be redirected to the most relevant language for them.
 
-Proxy attributes for each of the translated fields will be added to the ``Page`` instance
-which reference the translation in the current language.
+.. code-block:: python
+
+    def get_user_languages(request):
+        """
+        Get the best matching Languages for a request, in order from best to worst.
+        The default language (if there is one) will always appear in this list.
+        """
+        pass  # Implementation left as an exercise to the reader
+
+    class AbstractTranslationIndexPage(Page):
+
+        def serve(self, request):
+            languages = get_user_languages(request)
+            candidate_pages = TranslatedPage.objects\
+                .live().specific()\
+                .child_of(self)
+
+            for language in languages:
+                try:
+                    # Try and get a translation in the users language
+                    translation = candidate_pages.filter(language=language).get()
+                    # Redirect them to that page instead
+                    return redirect(translation.url)
+                except TranslatedPage.DoesNotExist:
+                    continue
+
+            # No translation was found, not even in the default language! Oh dear.
+            raise Http404
+
+        class Meta:
+            abstract = True
+
+
+Developers should subclass ``AbstractTranslationIndexPage`` in their own site,
+and define ``subpage_types`` and similar things:
+
+.. code-block:: python
+
+    class TranslationHomePage(AbstractTranslationIndexPage):
+        subpage_types = ['HomePage']
+
+``TranslatedPage``\s directly under an ``AbstractTranslationIndexPage``
+may have slugs that relate to their language, in order to present urls like
+``/en/`` for the English home page, or ``/nl/nieuws/`` for the Dutch news page.
+If pages are created in this manner, they will produce URLs much the same as ``i18n_patterns`` would.
 
 Admin UI
 --------
 
 Creating/editing a page behaves exactly like the current page editor.
-All non-translated fields are editable in the normal manner.
-Translated fields are not editable from the page editing interface.
+A new "Translations" tab in the editing interface will be added.
+This tab will allow editors to select the language this page is written in.
+Editors can also choose an existing page that this page is a translation of.
+For example, with a "News" page translated in to three languages,
+selecting any other "News" page will add this page as another translation in the "News" group.
+If this page is the first of the 'translation group', a unique translation key
+will be generated without the editor having to make any changes.
 
-Once a page has been created (as a draft, or published),
-editors will be able to add translations for the page.
-A list of supported languages, the status of their translations,
-and a link to edit these translations will be present on the page listing,
-and on the page edit screens.
-Clicking one of the languages will take the editor
-to a page where they can fill out the translated fields for that language.
-
-
-TODO: Is there a nice way of allowing editors to set the translated fields while creating a page?
-The two-step process is not great from a usability point of view.
-The problems with this is how to integrate the two sets of edit handlers -
-for the ``Page``, and for the ``TranslatedFields``.
-Editing the translated fields from the ``Page`` edit view
-once the ``Page`` has been created should not be possible.
-Translations exist in their own moderation cycle, separate from pages.
+In the explorer, a new drop down button will be added for each translatable page
+that lists all the translations of that page,
+so that editors can quickly review and edit them all.
 
 Frontend
 --------
 
 Template authors will not have to change how they make templates.
-Translated fields will be accessible right next to normal fields on a ``Page`` instance.
 
-A template tag that prints a form, allowing visitors to switch language will be provided.
-The template for this form will be overridable in the normal Django manner.
-
-.. code-block:: html+django
-
-    <html>
-        <head>
-            <title>{{ page.page_title }}</title>
-        </head>
-        <body>
-            <h1>{{ page.page_title }}</h1>
-            {{ page.body|richtext }}
-
-            {% load wagtailtranslations_tags %}
-            {% language_picker %}
-        </body>
-    </html>
-
-A route must be added to a sites ``URLConf`` for the language picker to work:
+``TranslatedPage``\s will have a ``get_translations`` method
+which returns a queryset of all the translations of that page:
 
 .. code-block:: python
 
-    url_patterns += [
-        url('_set-language$', include('wagtail.wagtailtranslations.urls')),
-    ]
+    def get_translations(self):
+        return TranslatedPage.objects\
+            .select_related('language')\
+            .filter(translation_key=self.translation_key,
+                    language__in=Language.objects.live())\
+            .order_by(language__order)
+
+Template authors can iterate over this queryset to build a list of links to translations:
+
+.. code-block:: html
+
+    <nav><ul>
+        {% for translation in page.get_translations %}
+            <a href="{% pageurl translation %}" class="{% if translation == page %}current{% endif %}">
+                {{ translation.title }} ({{ translation.language }})
+            </a>
+        {% endfor %}
+    </ul></nav>
+
+As each ``TranslatedPage`` activates the relevant language locale when served,
+static site content can be translated using the standard .po/.mo files
+and ``{% trans %}`` template tags.
 
 Site visitors
 -------------
 
-On the first visit to a site,
-a new visitor will be presented content in the default language.
-Visitors will be able to select their preferred language
-from the set of available languages defined for that site.
-This selection will affect the whole site,
-and be stores in the visitors session for later visits.
+A ``AbstractTranslationIndexPage``\s default serve view
+will examine the preferred language of the user and the set of available languages,
+and redirect the user to the most relevant child page.
+Browsing the site should otherwise operate as normal.
 
-Django's existing support for switching languages on the front end will be used.
-This will automatically support using standard .po/.mo files
-to translate non-dynamic sections of the site,
-such as section titles and footer content.
+Issues
+======
+
+The above approach is simple, and effective, but it is not perfect.
+
+It requires site administrators to effectively make one site tree per language,
+keeping the site structure in sync manually.
+If the site needs to be restructured, and pages moved around,
+the page tree for each language will need to be updated manually.
+The proposed implementation does mean that the site structure for each language does not have to be identical though,
+which means each language could get a highly localised site structure.
+
+Content that should be kept in sync across translations of a Page
+will require extra work on behalf of the site administrators.
+This content could be background images or similar language-independent content.
+Again though, while this might be a hassle, it does allow for maximum flexibility.
