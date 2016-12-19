@@ -26,7 +26,10 @@ Acquiring a lock
 ----------------
 1. On opening the editing interface for a unlocked page, a lock on that page is acquired.
 2. On opening the editing interface for a locked page, an intermediate page is shown. The page allows to take the lock.
-3. The lock is released using the actions at the bottom of the screen.
+
+Releasing a lock
+----------------
+1. The lock is released whene using the actions at the bottom of the editing interface.
 
 Locking mechanism
 -----------------
