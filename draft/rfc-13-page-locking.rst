@@ -1,10 +1,10 @@
 =====================================
-RFC n: Page locking
+RFC 13: Page locking
 =====================================
 
-:RFC: n
+:RFC: 13
 :Author: Roel Bruggink
-:Status: Daft
+:Status: Draft
 :Created: 2019-12-19
 :Last-Modified: 2019-12-19
 
@@ -14,26 +14,28 @@ RFC n: Page locking
 
 Abstract
 ========
-
-Provides a short description of the purpose of the feature and the functionality
-it will deliver, including the reasons why it is desirable.
+Provide a way to prevent user overriding changes when multiple users open a page for editing.
 
 Specification
 =============
+a. anyone who can edit a page can acquire a lock.
+b. anyone who can edit a page can take the lock.
+c. the lock must result in a validation error if user is not the lock owner.
 
-The technical specification should describe the syntax and semantics of any new feature.
-The specification should be detailed enough to allow implementation -- that is,
-developers other than the author should (given the right experience) be able to
-independently implement the feature, given only the RFC.
+Acquiring a lock
+----------------
+1. On opening the editing interface for a unlocked page, a lock on that page is acquired.
+2. On opening the editing interface for a lockd page, an intermediate page is shown. The page allows to take the lock.
+3. The lock is released using the actions at the bottom of the screen.
 
-Include subheadings as necessary.
-
-Sub-headings 1
---------------
-
-Sub-heading n
--------------
+Locking mechanism
+-----------------
+Two field will be added to the Page schema: lock_userid and lock_datetime.
+a. The field lock_ownerid is a FK to user, alike the owner_id field.
+b. The lock_datetime contains the datetime on which the lock has been acquired.
+c. The fields should NOT be part of the editing interface.
 
 Open Questions
 ==============
-// Include any questions until Status is ‘Accepted’
+Should a lock automatically be released?
+- This is possible, but only wanted when the lock can automatically be prolonged, ie by using websockets or regural ajax calls.
