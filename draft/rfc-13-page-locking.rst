@@ -41,4 +41,4 @@ c. The fields should NOT be part of the editing interface.
 Open Questions
 ==============
 Should a lock automatically be released?
-- This is possible, but only when the lock can automatically be extended, ie by using websockets or regular ajax calls.
+- This is possible, but only when the lock can automatically be prolonged, ie by using websockets or regular ajax calls.
