@@ -14,7 +14,7 @@ RFC 13: Page locking
 
 Abstract
 ========
-Provide a way to prevent user overriding changes when multiple users open a page for editing.
+Provide a way to prevent users overriding changes when multiple users open a page for editing.
 
 Specification
 =============
