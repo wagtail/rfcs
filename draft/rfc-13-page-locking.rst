@@ -20,18 +20,18 @@ Specification
 =============
 a. anyone who can edit a page can acquire a lock.
 b. anyone who can edit a page can take the lock.
-c. the lock must result in a validation error if user is not the lock owner.
+c. not owning the lock must result in a validation error on save.
 
 Acquiring a lock
 ----------------
 1. On opening the editing interface for a unlocked page, a lock on that page is acquired.
-2. On opening the editing interface for a lockd page, an intermediate page is shown. The page allows to take the lock.
+2. On opening the editing interface for a locked page, an intermediate page is shown. The page allows to take the lock.
 3. The lock is released using the actions at the bottom of the screen.
 
 Locking mechanism
 -----------------
 Two field will be added to the Page schema: lock_userid and lock_datetime.
-a. The field lock_ownerid is a FK to user, alike the owner_id field.
+a. The field lock_ownerid is a FK to user, like the owner_id field.
 b. The lock_datetime contains the datetime on which the lock has been acquired.
 c. The fields should NOT be part of the editing interface.
 
