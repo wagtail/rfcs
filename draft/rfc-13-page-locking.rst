@@ -24,8 +24,11 @@ c. not owning the lock must result in a validation error on save.
 
 Acquiring a lock
 ----------------
-1. On opening the editing interface for a unlocked page, a lock on that page is acquired.
-2. On opening the editing interface for a locked page, an intermediate page is shown. The page allows to take the lock.
+a. opening the editing interface
+ 1. On opening the editing interface for a unlocked page, a lock on that page is acquired.
+ 2. On opening the editing interface for a locked page, an intermediate page is shown. The page allows to take the lock.
+b. validation error of lock ownership on save
+ 1. an option to re-acquire the lock should be be available
 
 Releasing a lock
 ----------------
