@@ -15,11 +15,16 @@ RFC 11: Revisions Admin API
 Abstract
 ========
 
-Currently, the Admin API can only access the live version of a page's content. In order to support page editing, we must allow the admin API to access the latest draft and also create new revisions and publish them
+Currently, the Admin API can only access the live version of apage's content.
+In order to support page editing, we must allow the admin API to access the
+latest draft and also create new revisions and publish them.
 
-I also think that the revisions UI currently in Wagtail would be better implemented using the admin API as this would allow us to implement it in a way that doesn't require the user to navigate away from the editor.
+I also think that the revisions UI currently in Wagtail would be better
+implemented using the admin API as this would allow us to implement it in a
+way that doesn't require the user to navigate away from the editor.
 
-This RFC proposes an extension to the Admin API to allow page revisions to be retrieved and created.
+This RFC proposes an extension to the Admin API to allow page revisions to be
+retrieved and created.
 
 Specification
 =============
@@ -47,7 +52,8 @@ All of the responses return revisions in the following format
 URL structure
 -------------
 
-We will add a new endpoint underneath the pages endpoint allowing access to revisions of specific pages.
+We will add a new endpoint underneath the pages endpoint allowing access to
+revisions of specific pages.
 
 View all revisions of a page
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -74,9 +80,11 @@ The list will be formatted the same way as other listings in the API:
 Filter by date/time range
 `````````````````````````
 
-Date or date/time in ISO8601 format. If a date is specified, both ends of the range are inclusive (equivalent to Django's __gte and __lte queries)
+Date or date/time in ISO8601 format. If a date is specified, both ends of the
+range are inclusive (equivalent to Django's __gte and __lte queries)
 
-The start and end times are separated by three dots: '...'. One end of the range may be omitted making that end unbounded.
+The start and end times are separated by three dots: '...'. One end of the
+range may be omitted making that end unbounded.
 
 .. code-block::
 
@@ -107,7 +115,8 @@ By ID
 By earliest/latest created at date
 ``````````````````````````````````
 
-Like the rest of the API, the revisions API also supports sorting/limiting which allows fetching the latest/earliest revisions.
+Like the rest of the API, the revisions API also supports sorting/limiting
+which allows fetching the latest/earliest revisions.
 
 .. code-block::
 
@@ -118,7 +127,8 @@ Like the rest of the API, the revisions API also supports sorting/limiting which
 Create a new revision (edit a page)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Creating a new revision is done by submitting the value of the "content" field as a JSON dictionary to the following URL
+Creating a new revision is done by submitting the value of the "content" field
+as a JSON dictionary to the following URL
 
 .. code-block::
 
@@ -145,10 +155,15 @@ Saves and publishes the new revision
 Safeguarding against double-edit
 ````````````````````````````````
 
-Double editing can be implemented by sending the previous revision id to the server on save. If there is a more recent revision that has already been committed to the server, the revision being submitted would be rejected.
+Double editing can be implemented by sending the previous revision id to the
+server on save. If there is a more recent revision that has already been
+committed to the server, the revision being submitted would be rejected.
 
 .. code-block::
 
     POST /api/pages/revisions/?page_id=1&current_revision_id=1
 
-Note that this doesn't mean that the user is told they must refresh the page and lose their changes. It may even be possible to resolve conflicts manually by retrieving the latest revision and merging the two. This process is out of scope for this RFC though.
+Note that this doesn't mean that the user is told they must refresh the page
+and lose their changes. It may even be possible to resolve conflicts manually
+by retrieving the latest revision and merging the two. This process is out of
+scope for this RFC though.
