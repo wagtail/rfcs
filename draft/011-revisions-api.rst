@@ -15,7 +15,7 @@ RFC 11: Revisions Admin API
 Abstract
 ========
 
-Currently, the Admin API can only access the live version of apage's content.
+Currently, the Admin API can only access the live version of a page's content.
 In order to support page editing, we must allow the admin API to access the
 latest draft and also create new revisions and publish them.
 
