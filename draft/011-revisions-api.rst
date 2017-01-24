@@ -167,3 +167,10 @@ Note that this doesn't mean that the user is told they must refresh the page
 and lose their changes. It may even be possible to resolve conflicts manually
 by retrieving the latest revision and merging the two. This process is out of
 scope for this RFC though.
+
+Locked pages
+````````````
+
+A page cannot be edited in any way if it is locked, so attempting to create a
+new revision for a locked page will result in a ``423 Locked`` response code
+and the new revision will not be saved.
