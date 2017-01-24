@@ -161,7 +161,7 @@ committed to the server, the revision being submitted would be rejected.
 
 .. code-block::
 
-    POST /api/pages/revisions/?page_id=1&current_revision_id=1
+    POST /api/pages/revisions/?page_id=1&if_current_revision_id=1
 
 Note that this doesn't mean that the user is told they must refresh the page
 and lose their changes. It may even be possible to resolve conflicts manually
