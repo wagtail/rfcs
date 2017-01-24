@@ -74,7 +74,7 @@ The list will be formatted the same way as other listings in the API:
 Filter by date/time range
 `````````````````````````
 
-Date or date/time in ISO8601 format. If a date is specified, both ends of the range are inclusive (equivilent to django's __gte and __lte queries)
+Date or date/time in ISO8601 format. If a date is specified, both ends of the range are inclusive (equivalent to Django's __gte and __lte queries)
 
 The start and end times are separated by three dots: '...'. One end of the range may be omitted making that end unbounded.
 
@@ -151,4 +151,4 @@ Double editing can be implemented by sending the previous revision id to the ser
 
     POST /api/pages/revisions/?page_id=1&current_revision_id=1
 
-Note that this doesn't mean that the user is told they must refresh the page and lose their changes. It may even be possible to resolve conflicts manually by retriving the latest revision and merging the two. This process is out of scope for this RFC though.
+Note that this doesn't mean that the user is told they must refresh the page and lose their changes. It may even be possible to resolve conflicts manually by retrieving the latest revision and merging the two. This process is out of scope for this RFC though.
