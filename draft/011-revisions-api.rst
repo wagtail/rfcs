@@ -56,7 +56,7 @@ This will be paginated to show up to 20 revisions at a time.
 
 .. code-block::
 
-    GET /api/pages/1/revisions/
+    GET /api/pages/revisions/?page_id=1
 
 The list will be formatted the same way as other listings in the API:
 
@@ -80,10 +80,10 @@ The start and end times are separated by three dots: '...'. One end of the range
 
 .. code-block::
 
-    GET /api/pages/1/revisions/?created_at=2016-07-18...
-    GET /api/pages/1/revisions/?created_at=...2016-07-18
-    GET /api/pages/1/revisions/?created_at=2016-01-01...2016-07-18
-    GET /api/pages/1/revisions/?created_at=2016-07-18T16:37:00+01:00...
+    GET /api/pages/revisions/?page_id=1&created_at=2016-07-18...
+    GET /api/pages/revisions/?page_id=1&created_at=...2016-07-18
+    GET /api/pages/revisions/?page_id=1&created_at=2016-01-01...2016-07-18
+    GET /api/pages/revisions/?page_id=1&created_at=2016-07-18T16:37:00+01:00...
 
 Filter by author
 ````````````````
@@ -92,7 +92,7 @@ Filters by the value of the ``USERNAME_FIELD`` on the user model
 
 .. code-block::
 
-    GET /api/pages/1/revisions/?author=karl
+    GET /api/pages/revisions/?page_id=1&author=karl
 
 View a particular revision
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -102,17 +102,17 @@ By ID
 
 .. code-block::
 
-    GET /api/pages/1/revisions/123/
+    GET /api/pages/revisions/123/
 
 By earliest/latest created at date
 ``````````````````````````````````
 
-These redirect to the earliest/latest revision of the page. The redirect to earliest is permanent but the redirect to latest is temporary as this could change at any time.
+Like the rest of the API, the revisions API also supports sorting/limiting which allows fetching the latest/earliest revisions.
 
 .. code-block::
 
-    GET /api/pages/1/revisions/latest/
-    GET /api/pages/1/revisions/earliest/
+    GET /api/pages/revisions/?page_id=1&order=-created_at&limit=1  (latest)
+    GET /api/pages/revisions/?page_id=1&order=created_at&limit=1   (earliest)
 
 
 Create a new revision (edit a page)
@@ -122,7 +122,7 @@ Creating a new revision is done by submitting the value of the "content" field a
 
 .. code-block::
 
-    POST /api/pages/1/revisions/new/
+    POST /api/pages/revisions/?page_id=1
 
 Submit for moderation
 `````````````````````
@@ -131,7 +131,7 @@ Saves and submits the new revision for moderation
 
 .. code-block::
 
-    POST /api/pages/1/revisions/new/?submit_for_moderation=true
+    POST /api/pages/revisions/?submit_for_moderation=true
 
 Publish
 ```````
@@ -140,7 +140,7 @@ Saves and publishes the new revision
 
 .. code-block::
 
-    POST /api/pages/1/revisions/new/?publish=true
+    POST /api/pages/revisions/?page_id=1&publish=true
 
 Safeguarding against double-edit
 ````````````````````````````````
@@ -149,6 +149,6 @@ Double editing can be implemented by sending the previous revision id to the ser
 
 .. code-block::
 
-    POST /api/pages/1/revisions/new/?current_revision_id=1
+    POST /api/pages/revisions/?page_id=1&current_revision_id=1
 
 Note that this doesn't mean that the user is told they must refresh the page and lose their changes. It may even be possible to resolve conflicts manually by retriving the latest revision and merging the two. This process is out of scope for this RFC though.
