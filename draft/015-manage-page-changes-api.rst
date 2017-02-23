@@ -1,8 +1,8 @@
 =============================================
-RFC 12: Manage page changes via the Admin API
+RFC 15: Manage page changes via the Admin API
 =============================================
 
-:RFC: 12
+:RFC: 15
 :Author: Marco Fucci, Ravi Kotecha, Tyom Semonov
 :Status: Draft
 :Created: 2017-02-22
