@@ -4,8 +4,9 @@ RFC 11: Revisions Admin API
 
 :RFC: 11
 :Author: Karl Hobley
-:Status: Draft
+:Status: Accepted
 :Created: 2016-07-18
+:Accepted: 2017-01-31
 :Last-Modified: 2016-07-18
 
 .. contents:: Table of Contents
