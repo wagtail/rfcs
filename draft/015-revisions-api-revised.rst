@@ -181,7 +181,15 @@ This will set ``live`` to ``False``.
     POST /api/pages/unpublish/?page_id=<page-id>
 
 
-Open Questions
-==============
- 
-I suggest we keep this RFC simple and ignore double editing.
+Safeguarding against double-edit
+--------------------------------
+
+We will ignore double editing to keep this RFC simple.
+
+
+Locked pages
+------------
+
+A page cannot be edited in any way if it is locked, so attempting to create a
+new revision for a locked page will result in a ``423 Locked`` response code
+and the new revision will not be saved.
