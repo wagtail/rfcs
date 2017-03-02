@@ -71,14 +71,10 @@ The endpoints are grouped as some relate to revisions and some to pages.
 Revisions
 ---------
 
-View all revisions
-^^^^^^^^^^^^^^^^^^
+View revisions
+^^^^^^^^^^^^^^
 
 This will be paginated to show up to 20 revisions at a time.
-
-.. code-block:: http
-
-    GET /api/pages/revisions/
 
 The list will be formatted the same way as other listings in the API:
 
@@ -93,38 +89,22 @@ The list will be formatted the same way as other listings in the API:
         ]
     }
 
-
-Filter by author
-````````````````
-
-Filters by the value of the ``USERNAME_FIELD`` on the user model
-
-.. code-block:: http
-
-    GET /api/pages/revisions/?author=<author-username>
-
-
-View all revisions of a page
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This will be paginated to show up to 20 revisions at a time.
+All revisions of a page
+```````````````````````
 
 .. code-block:: http
 
     GET /api/pages/<page-id>/revisions/
 
-The list will be formatted the same way as other listings in the API:
+All revisions
+`````````````
 
-.. code-block:: json
+You can use `'-'` if you don't want to filter by a specific page id.
 
-    {
-        "meta": {
-            "total_count": 50,
-        },
-        "items": [
-            # Revisions here
-        ]
-    }
+.. code-block:: http
+
+    GET /api/pages/-/revisions/
+
 
 Filter by author
 ````````````````
@@ -146,7 +126,8 @@ By page and revision id
 
     GET /api/pages/<page-id>/revisions/<revision-id>/
 
-This returns an error if `<revision-id>` does not refer to `<page-id>`.
+This returns a 404 error if `<revision-id>` does not reference a 
+revision that belongs to the page.
 
 By revision id only
 ```````````````````
