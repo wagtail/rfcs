@@ -6,7 +6,7 @@ RFC 15: Revisions Admin API (Revised)
 :Author: Karl Hobley, Marco Fucci, Ravi Kotecha, Tyom Semonov
 :Status: Draft
 :Created: 2017-02-22
-:Last-Modified: 2017-03-01
+:Last-Modified: 2017-03-02
 
 .. contents:: Table of Contents
    :depth: 3
@@ -71,15 +71,14 @@ The endpoints are grouped as some relate to revisions and some to pages.
 Revisions
 ---------
 
-
-View all revisions of a page
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+View all revisions
+^^^^^^^^^^^^^^^^^^
 
 This will be paginated to show up to 20 revisions at a time.
 
 .. code-block:: http
 
-    GET /api/pages/revisions/?page_id=<page-id>
+    GET /api/pages/revisions/
 
 The list will be formatted the same way as other listings in the API:
 
@@ -102,23 +101,74 @@ Filters by the value of the ``USERNAME_FIELD`` on the user model
 
 .. code-block:: http
 
-    GET /api/pages/revisions/?page_id=<page-id>&author=<author-username>
+    GET /api/pages/revisions/?author=<author-username>
+
+
+View all revisions of a page
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This will be paginated to show up to 20 revisions at a time.
+
+.. code-block:: http
+
+    GET /api/pages/<page-id>/revisions/
+
+The list will be formatted the same way as other listings in the API:
+
+.. code-block:: json
+
+    {
+        "meta": {
+            "total_count": 50,
+        },
+        "items": [
+            # Revisions here
+        ]
+    }
+
+Filter by author
+````````````````
+
+Filters by the value of the ``USERNAME_FIELD`` on the user model
+
+.. code-block:: http
+
+    GET /api/pages/<page-id>/revisions/?author=<author-username>
 
 
 Get a particular revision
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: http
-
-    GET /api/pages/revisions/<revision-id>/
-
-
-To get the latest revision of a page, you use ``head`` as 
-``revision-id`` and filter by ``page-id``:
+By page and revision id
+```````````````````````
 
 .. code-block:: http
 
-    GET /api/pages/revisions/head/?page_id=<page-id>
+    GET /api/pages/<page-id>/revisions/<revision-id>/
+
+This returns an error if `<revision-id>` does not refer to `<page-id>`.
+
+By revision id only
+```````````````````
+
+You can use `'-'` instead of `<page-id>` if you only care about or know the revision id.
+
+.. code-block:: http
+
+    GET /api/pages/-/revisions/<revision-id>/
+
+
+Get the latest revision of a page
+`````````````````````````````````
+
+To get the latest revision of a page, you use ``'head'`` as 
+``revision-id``:
+
+.. code-block:: http
+
+    GET /api/pages/<page-id>/revisions/head/
+
+This redirects to ``/api/pages/<page-id>/revisions/<revision-id>/``
 
 
 Create a new revision
@@ -127,59 +177,78 @@ Create a new revision
 Creating a new revision is done by submitting the value of the "content" field
 as a JSON dictionary to the following URLs
 
-To create a new revision of an existing page:
+
+Create a new revision of an existing page
+`````````````````````````````````````````
 
 .. code-block:: http
 
-    POST /api/pages/revisions/?page_id=<page-id>
+    POST /api/pages/<page-id>/revisions/
 
 
-To create the first revision of a new page:
+Create the first revision of a new page
+```````````````````````````````````````
 
 .. code-block:: http
 
-    POST /api/pages/revisions/
+    POST /api/pages/-/revisions/
 
 
 The return value will include the related `<page-id>` and `<revision-id>`.
 
 
-Submit for / reject moderation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To submit or reject a revision for moderation, make a ``PATCH`` 
-call with ``submitted_for_moderation=true|false`` as data.
-
-.. code-block:: http
-
-    PATCH /api/pages/revisions/<revision-id>/
-
-
 Pages
 -----
 
+Moderation
+^^^^^^^^^^
+
+Submit for moderation
+`````````````````````
+
+.. code-block:: http
+
+    POST /api/pages/<page-id>/moderation/submit/
+
+
+This works the same as creating a new revision but it submits it 
+for moderation as well instead of just saving it as a draft.
+
+If previous revisions were submitted for moderation, this will
+reset those to make sure that there's only one awaiting moderation.
+
+Reject moderation
+`````````````````
+
+.. code-block:: http
+
+    POST /api/pages/<page-id>/moderation/reject/
+
+This will reject the revision awaiting moderation.
+
+
+Publishing
+^^^^^^^^^^
 
 Publish a page
-^^^^^^^^^^^^^^
-
-To publish a revision, call the ``publish`` ``POST`` action with the ``id`` 
-of the revision you want to publish.
+``````````````
 
 .. code-block:: http
 
-    POST /api/pages/publish/?page_id=<page-id>&revision-id=<id>
+    POST /api/pages/<page-id>/publish/
 
+This works the same as creating a new revision but it publishes it 
+as well instead of just saving it as a draft.
 
 Unpublish a page
-^^^^^^^^^^^^^^^^
+````````````````
 
-To unpublish a page, call the ``unpublish`` ``POST`` action. 
-This will set ``live`` to ``False``.
 
 .. code-block:: http
 
-    POST /api/pages/unpublish/?page_id=<page-id>
+    POST /api/pages/<page-id>/unpublish/
 
+This will unpublish the currently published revision.
 
 Safeguarding against double-edit
 --------------------------------
