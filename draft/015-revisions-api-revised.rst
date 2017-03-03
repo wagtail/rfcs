@@ -178,6 +178,18 @@ Create the first revision of a new page
 The return value will include the related `<page-id>` and `<revision-id>`.
 
 
+Create and publish a revision
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To publish a revision, you pass `?then=publish` to the create endpoint.
+
+.. code-block:: http
+
+    POST /api/pages/<page-id>/revisions/?then=publish
+
+`<page-id>` is the id of the page you want to change or `'-'` if you are
+publishing a new page.
+
 Create and submit a revision for moderation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -191,31 +203,30 @@ to the create endpoint.
 `<page-id>` is the id of the page you want to change or `'-'` if you are
 submitting a new page for moderation.
 
+Approve moderation
+^^^^^^^^^^^^^^^^^^
 
-Create and publish a revision
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To publish a revision, you pass `?then=publish` to the create endpoint.
+To approve a revision previously submitted for moderation:
 
 .. code-block:: http
 
-    POST /api/pages/<page-id>/revisions/?then=publish
+    POST /api/pages/<page-id>/revisions/<revision-id>/moderation/approve/
 
-`<page-id>` is the id of the page you want to change or `'-'` if you are
-publishing a new page.
-
-Pages
------
+This returns a 400 error if the revision has not been submitted for moderation.
 
 Reject moderation
 ^^^^^^^^^^^^^^^^^
 
+To reject a revision previously submitted for moderation:
+
 .. code-block:: http
 
-    POST /api/pages/<page-id>/moderation/reject/
+    POST /api/pages/<page-id>/revisions/<revision-id>/moderation/reject/
 
-This will reject the revision awaiting moderation.
+This returns a 400 error if the revision has not been submitted for moderation.
 
+Pages
+-----
 
 Unpublish a page
 ^^^^^^^^^^^^^^^^
