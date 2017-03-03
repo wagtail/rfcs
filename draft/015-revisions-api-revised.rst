@@ -181,12 +181,12 @@ The return value will include the related `<page-id>` and `<revision-id>`.
 Create and submit a revision for moderation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To submit a revision for moderation, you pass `?post_save=submit-for-moderation`
+To submit a revision for moderation, you pass `?then=submit-for-moderation`
 to the create endpoint.
 
 .. code-block:: http
 
-    POST /api/pages/<page-id>/revisions/?post_save=submit-for-moderation
+    POST /api/pages/<page-id>/revisions/?then=submit-for-moderation
 
 `<page-id>` is the id of the page you want to change or `'-'` if you are
 submitting a new page for moderation.
@@ -195,11 +195,11 @@ submitting a new page for moderation.
 Create and publish a revision
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To publish a revision, you pass `?post_save=publish` to the create endpoint.
+To publish a revision, you pass `?then=publish` to the create endpoint.
 
 .. code-block:: http
 
-    POST /api/pages/<page-id>/revisions/?post_save=publish
+    POST /api/pages/<page-id>/revisions/?then=publish
 
 `<page-id>` is the id of the page you want to change or `'-'` if you are
 publishing a new page.
