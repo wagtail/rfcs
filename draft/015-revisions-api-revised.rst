@@ -6,7 +6,7 @@ RFC 15: Revisions Admin API (Revised)
 :Author: Karl Hobley, Marco Fucci, Ravi Kotecha, Tyom Semonov
 :Status: Draft
 :Created: 2017-02-22
-:Last-Modified: 2017-03-02
+:Last-Modified: 2017-03-03
 
 .. contents:: Table of Contents
    :depth: 3
@@ -178,28 +178,37 @@ Create the first revision of a new page
 The return value will include the related `<page-id>` and `<revision-id>`.
 
 
-Pages
------
+Create and submit a revision for moderation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Moderation
-^^^^^^^^^^
-
-Submit for moderation
-`````````````````````
+To submit a revision for moderation, you pass `?post_save=submit-for-moderation`
+to the create endpoint.
 
 .. code-block:: http
 
-    POST /api/pages/<page-id>/moderation/submit/
+    POST /api/pages/<page-id>/revisions/?post_save=submit-for-moderation
+
+`<page-id>` is the id of the page you want to change or `'-'` if you are
+submitting a new page for moderation.
 
 
-This works the same as creating a new revision but it submits it 
-for moderation as well instead of just saving it as a draft.
+Create and publish a revision
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If previous revisions were submitted for moderation, this will
-reset those to make sure that there's only one awaiting moderation.
+To publish a revision, you pass `?post_save=publish` to the create endpoint.
+
+.. code-block:: http
+
+    POST /api/pages/<page-id>/revisions/?post_save=publish
+
+`<page-id>` is the id of the page you want to change or `'-'` if you are
+publishing a new page.
+
+Pages
+-----
 
 Reject moderation
-`````````````````
+^^^^^^^^^^^^^^^^^
 
 .. code-block:: http
 
@@ -208,22 +217,8 @@ Reject moderation
 This will reject the revision awaiting moderation.
 
 
-Publishing
-^^^^^^^^^^
-
-Publish a page
-``````````````
-
-.. code-block:: http
-
-    POST /api/pages/<page-id>/publish/
-
-This works the same as creating a new revision but it publishes it 
-as well instead of just saving it as a draft.
-
 Unpublish a page
-````````````````
-
+^^^^^^^^^^^^^^^^
 
 .. code-block:: http
 
