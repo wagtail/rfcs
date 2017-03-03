@@ -1,37 +1,26 @@
-=================================
-RFC 5: Wagtail API fields
-=================================
+# RFC 5: Wagtail API fields
 
-:RFC: 5
-:Author: Karl Hobley
-:Status: Accepted
-:Created: 2015-02-25
-:Last-Modified: 2015-02-25
+* RFC: 5
+* Author: Karl Hobley
+* Status: Accepted
+* Created: 2016-02-25
+* Last Modified: 2016-02-25
 
-.. contents:: Table of Contents
-   :depth: 3
-   :local:
-
-Abstract
-========
+## Abstract
 
 This RFC describes some syntax improvements we could add to the ``?fields=`` parameter
 on all Wagtail API endpoints.
 
-Specification
-=============
+## Specification
 
 We will use the images API endpoint as an example, this change would apply to all other
 endpoints as well.
 
 I've also cut down the examples to a single object for brevity.
 
-The default response
---------------------
+### The default response
 
 The default response returns the ``id``, ``type``, ``detail_url`` and ``title`` fields:
-
-.. code-block::
 
     GET /api/images/
 
@@ -44,13 +33,10 @@ The default response returns the ``id``, ``type``, ``detail_url`` and ``title`` 
         "title": "Wagtail by Mark Harkin"
     }
 
-Adding fields to the response
------------------------
+### Adding fields to the response
 
 As before, you can specify a plain list of extra fields which will be added to
 the response:
-
-.. code-block::
 
     GET /api/images/?fields=tags
 
@@ -64,13 +50,10 @@ the response:
         "title": "Wagtail by Mark Harkin"
     }
 
-Removing fields from the response
----------------------------------
+### Removing fields from the response
 
 Prepending a ``-`` will remove a field from the response, this can be used on
 any default field:
-
-.. code-block::
 
     GET /api/images/?fields=-detail_url
 
@@ -82,12 +65,9 @@ any default field:
         "title": "Wagtail by Mark Harkin"
     }
 
-All fields shortcut
--------------------
+### All fields shortcut
 
 Setting fields to ``*`` will add all available fields to the response:
-
-.. code-block::
 
     /?fields=*
 
@@ -106,8 +86,6 @@ Setting fields to ``*`` will add all available fields to the response:
 This can be combined with the ``-`` operator to allow all except a particular field
 to be returned:
 
-.. code-block::
-
     /?fields=*,-tags
 
     {
@@ -121,13 +99,10 @@ to be returned:
         "height": 100
     }
 
-No fields shortcut
-------------------
+### No fields shortcut
 
 Like the "all fields shortcut" the ``_`` character can be used to remove all fields.
 This would typically be used by developers who know they only need specific fields:
-
-.. code-block::
 
     /?fields=_,title
 
@@ -135,16 +110,12 @@ This would typically be used by developers who know they only need specific fiel
         "title": "Wagtail by Mark Harkin"
     }
 
-Nested objects
---------------
+### Nested objects
 
 The API has support for nesting objects, but doesn't yet allow specifying the fields
 for those nested objects.
 
 Using brackets, the syntax described above can be used to specify the fields for these:
-
-
-.. code-block::
 
     /?fields=myforeignkey
 
