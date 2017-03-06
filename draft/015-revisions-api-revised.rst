@@ -167,17 +167,6 @@ Create a new revision of an existing page
     POST /api/pages/<page-id>/revisions/
 
 
-Create the first revision of a new page
-```````````````````````````````````````
-
-.. code-block:: http
-
-    POST /api/pages/-/revisions/
-
-
-The return value will include the related `<page-id>` and `<revision-id>`.
-
-
 Create and publish a revision
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -187,8 +176,6 @@ To publish a revision, you pass `?then=publish` to the create endpoint.
 
     POST /api/pages/<page-id>/revisions/?then=publish
 
-`<page-id>` is the id of the page you want to change or `'-'` if you are
-publishing a new page.
 
 Create and submit a revision for moderation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -200,8 +187,6 @@ to the create endpoint.
 
     POST /api/pages/<page-id>/revisions/?then=submit-for-moderation
 
-`<page-id>` is the id of the page you want to change or `'-'` if you are
-submitting a new page for moderation.
 
 Approve moderation
 ^^^^^^^^^^^^^^^^^^
