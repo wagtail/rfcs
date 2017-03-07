@@ -138,6 +138,8 @@ You can use ``'-'`` instead of ``<page-id>`` if you only care about or know the 
 
     GET /api/pages/-/revisions/<revision-id>/
 
+This redirects to ``/api/pages/<page-id>/revisions/<revision-id>/``
+
 
 Get the latest revision of a page
 `````````````````````````````````
