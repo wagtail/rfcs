@@ -88,6 +88,11 @@ class PageRevision(models.Model):
     ...
 ```
 
+## Images and documents
+
+This also extends to images and documents as well. The only difference would be
+the ``tags`` field of both models will be moved out of "meta".
+
 ## Alternatives
 
 ### Keep it the way it is
