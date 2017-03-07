@@ -99,7 +99,7 @@ All revisions of a page
 All revisions
 `````````````
 
-You can use `'-'` if you don't want to filter by a specific page id.
+You can use ``'-'`` if you don't want to filter by a specific page id.
 
 .. code-block:: http
 
@@ -126,13 +126,13 @@ By page and revision id
 
     GET /api/pages/<page-id>/revisions/<revision-id>/
 
-This returns a 404 error if `<revision-id>` does not reference a 
+This returns a 404 error if ``<revision-id>`` does not reference a 
 revision that belongs to the page.
 
 By revision id only
 ```````````````````
 
-You can use `'-'` instead of `<page-id>` if you only care about or know the revision id.
+You can use ``'-'`` instead of ``<page-id>`` if you only care about or know the revision id.
 
 .. code-block:: http
 
@@ -143,7 +143,7 @@ Get the latest revision of a page
 `````````````````````````````````
 
 To get the latest revision of a page, you use ``'head'`` as 
-``revision-id``:
+``<revision-id>``:
 
 .. code-block:: http
 
@@ -156,11 +156,7 @@ Create a new revision
 ^^^^^^^^^^^^^^^^^^^^^
 
 Creating a new revision is done by submitting the value of the "content" field
-as a JSON dictionary to the following URLs
-
-
-Create a new revision of an existing page
-`````````````````````````````````````````
+as a JSON dictionary to the following URL:
 
 .. code-block:: http
 
@@ -170,7 +166,7 @@ Create a new revision of an existing page
 Create and publish a revision
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To publish a revision, you pass `?then=publish` to the create endpoint.
+To publish a revision, you pass ``?then=publish`` to the create endpoint.
 
 .. code-block:: http
 
@@ -180,7 +176,7 @@ To publish a revision, you pass `?then=publish` to the create endpoint.
 Create and submit a revision for moderation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To submit a revision for moderation, you pass `?then=submit-for-moderation`
+To submit a revision for moderation, you pass ``?then=submit-for-moderation``
 to the create endpoint.
 
 .. code-block:: http
@@ -209,6 +205,7 @@ To reject a revision previously submitted for moderation:
     POST /api/pages/<page-id>/revisions/<revision-id>/moderation/reject/
 
 This returns a 400 error if the revision has not been submitted for moderation.
+
 
 Pages
 -----
