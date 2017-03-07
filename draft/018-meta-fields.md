@@ -1,6 +1,6 @@
-# RFC X: Meta fields
+# RFC 18: Meta fields
 
-* RFC: X
+* RFC: 18
 * Author: Karl Hobley
 * Status: Draft
 * Created: 2017-03-07
