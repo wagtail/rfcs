@@ -6,7 +6,7 @@ RFC 15: Revisions Admin API (Revised)
 :Author: Karl Hobley, Marco Fucci, Ravi Kotecha, Tyom Semonov
 :Status: Draft
 :Created: 2017-02-22
-:Last-Modified: 2017-03-03
+:Last-Modified: 2017-03-09
 
 .. contents:: Table of Contents
    :depth: 3
@@ -65,10 +65,7 @@ URL structure
 We will add a new endpoint underneath the pages endpoint allowing access to
 revisions of specific pages.
 
-The endpoints are grouped as some relate to revisions and some to pages.
-
-
-Revisions
+Endpoints
 ---------
 
 View revisions
@@ -207,19 +204,6 @@ To reject a revision previously submitted for moderation:
     POST /api/pages/<page-id>/revisions/<revision-id>/moderation/reject/
 
 This returns a 400 error if the revision has not been submitted for moderation.
-
-
-Pages
------
-
-Unpublish a page
-^^^^^^^^^^^^^^^^
-
-.. code-block:: http
-
-    POST /api/pages/<page-id>/unpublish/
-
-This will unpublish the currently published revision.
 
 Safeguarding against double-edit
 --------------------------------
