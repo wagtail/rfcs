@@ -1,6 +1,6 @@
-# RFC X: Admin API - Page actions
+# RFC 19: Admin API - Page actions
 
-* RFC: X
+* RFC: 19
 * Author: Karl Hobley
 * Status: Draft
 * Created: 2017-03-09
