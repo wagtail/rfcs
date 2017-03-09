@@ -26,7 +26,7 @@ assumes that RFC is accepted.
 
 ### Creation
 
-TODO
+To create a
 
 ### Setting the edit lock
 
@@ -35,7 +35,7 @@ To set the edit lock, send a ``PUT`` request to: ``/api/pages/<page-id>/edit-loc
 If the edit lock was created, this will return a ``201`` response. If the edit
 lock already existed, this will return a ``409`` response.
 
-### Release the edit lock
+### Releasing the edit lock
 
 To release the edit lock, send a ``DELETE`` request to: ``/api/pages/<page-id>/edit-lock/``
 
@@ -48,6 +48,8 @@ To alter a page's metadata send either a ``PUT`` or a ``PATCH`` request to
 ``/api/pages/<page-id>/meta/``
 
 Initially, this will only allow changing the ``first_published_at`` field.
+
+TODO: Examples
 
 ### Unpublishing
 
