@@ -71,7 +71,7 @@ Perhaps something like:
 ```python
 
 class PageRevision(models.Model):
-    IGNORED_FIELDS = [
+    META_FIELDS = [
         'id',
         'path',
         'depth',
