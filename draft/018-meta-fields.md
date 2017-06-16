@@ -61,16 +61,16 @@ make sure we reconfigure the admin API as well. There may also be cases where
 a third-party app would want to find out the list of unversioned fields for the
 version of Wagtail they are running on.
 
-I'd like to also propose we add an attribute to ``PageRevision`` listing these
+I'd like to also propose we add an attribute to ``Page`` listing these
 unversioned fields. this would be used by ``as_page_object`` to exclude these
 fields and also the admin API to automatically work out which fields need to be
 in "meta".
 
-Perhaps something like:
-
 ```python
 
-class PageRevision(models.Model):
+class Page(...):
+    ...
+
     META_FIELDS = [
         'id',
         'path',
