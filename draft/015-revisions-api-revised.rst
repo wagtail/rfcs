@@ -42,20 +42,34 @@ Specification
 Data format
 -----------
 
-All of the responses return revisions in the following format
+All of the responses return a dictionary containing the content fields of the
+page with a "meta" section for the revisions metadata. All editable fields on
+the page (except meta fields as defined by RFC 18) are included and they are
+all serialized using Django REST Framework (so not the same as the JSON in the
+database).
 
+The "meta" section contains other fields from the ``PageRevision`` model. This
+includes: ``id``, ``page``, ``author`` and ``in_moderation``
+
+For example:
 
 .. code-block:: json
 
     {
-        "id": 1,
-        "created_at": "2016-07-18T16:37:00+01:00",
-        "author": "karl",
-        "in_moderation": false,
-        "content": {
-            "title": "Home",
-            "body": "foo"
-        }
+        "meta": {
+            "id": 1,
+            "page": {
+                "meta": {
+                    "id": 1,
+                    "type": "demo.HomePage"
+                }
+            },
+            "created_at": "2016-07-18T16:37:00+01:00",
+            "author": "karl",
+            "in_moderation": false,
+         },
+         "title": "Home",
+         "body": "foo"
    }
 
 
@@ -150,17 +164,29 @@ To get the latest revision of a page, you use ``'head'`` as
 
 This redirects to ``/api/pages/<page-id>/revisions/<revision-id>/``
 
+This also works when the page id is ``-``, this redirects to the 
+latest revision of the site:
+
+.. code-block:: http
+
+    GET /api/pages/-/revisions/head/
+
 
 Create a new revision
 ^^^^^^^^^^^^^^^^^^^^^
 
-Creating a new revision is done by submitting the value of the "content" field
-as a JSON dictionary to the following URL:
+Creating a new revision is done by submitting a revision in the above
+format (excluding "meta") to the following URL:
 
 .. code-block:: http
 
     POST /api/pages/<page-id>/revisions/
 
+Note: The currently logged in user must have permission to edit the page
+or a 403 error will be returned.
+
+Note: Unlike the previous URLs, you must specify a page number. Specifying
+``-`` as the page ID will return a 404 error.
 
 Create and publish a revision
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -170,6 +196,9 @@ To publish a revision, you pass ``?then=publish`` to the create endpoint.
 .. code-block:: http
 
     POST /api/pages/<page-id>/revisions/?then=publish
+
+Note: The currently logged in user must have permission to publish the page
+or a 403 error will be returned.
 
 
 Create and submit a revision for moderation
@@ -193,6 +222,7 @@ To approve a revision previously submitted for moderation:
     POST /api/pages/<page-id>/revisions/<revision-id>/moderation/approve/
 
 This returns a 400 error if the revision has not been submitted for moderation.
+This returns a 403 error if the user does not have permission to approve the revision.
 
 Reject moderation
 ^^^^^^^^^^^^^^^^^
@@ -204,12 +234,7 @@ To reject a revision previously submitted for moderation:
     POST /api/pages/<page-id>/revisions/<revision-id>/moderation/reject/
 
 This returns a 400 error if the revision has not been submitted for moderation.
-
-Safeguarding against double-edit
---------------------------------
-
-We will ignore double editing to keep this RFC simple.
-
+This returns a 403 error if the user does not have permission to approve the revision.
 
 Locked pages
 ------------
