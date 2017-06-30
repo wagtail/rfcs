@@ -2,9 +2,9 @@
 
 * RFC: 18
 * Author: Karl Hobley
-* Status: Draft
+* Status: Final
 * Created: 2017-03-07
-* Last Modified: 2017-03-07
+* Last Modified: 2017-06-30
 
 ## Abstract
 
