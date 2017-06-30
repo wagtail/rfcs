@@ -2,7 +2,7 @@
 
 * RFC: 11
 * Author: Karl Hobley
-* Status: Accepted
+* Status: Superseded by RFC 15
 * Created: 2016-07-18
 * Last Modified: 2016-07-31
 

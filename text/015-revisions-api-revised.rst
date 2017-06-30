@@ -4,9 +4,9 @@ RFC 15: Revisions Admin API (Revised)
 
 :RFC: 15
 :Author: Karl Hobley, Marco Fucci, Ravi Kotecha, Tyom Semonov
-:Status: Draft
+:Status: Final
 :Created: 2017-02-22
-:Last-Modified: 2017-03-09
+:Last-Modified: 2017-06-30
 
 .. contents:: Table of Contents
    :depth: 3
