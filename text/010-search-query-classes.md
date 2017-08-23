@@ -38,7 +38,7 @@ this API.
 
 ### Standard query types
 
-#### ``PlainText(query_string, fields=[])``
+#### ``PlainText(query_string, fields=[], operator='or')``
 
 This is the default query type which will be used if a string is passed to the
  the ``.search()`` method. So I don't expect this class to be used directly,
