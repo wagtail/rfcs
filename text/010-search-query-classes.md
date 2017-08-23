@@ -32,7 +32,9 @@ passed as the first argument of the search method.
 
 These classes will be importable from ``wagtail.wagtailsearch.query``.
 
-The following classes will be created:
+The query classes are only responsible for selecting and scoring results, so
+features like autocomplete, faceting, hightlighting, etc are out of scope for
+this API.
 
 ### ``PlainTextQuery(query_string, fields=[])``
 
