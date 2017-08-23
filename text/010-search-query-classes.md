@@ -91,10 +91,6 @@ Matches any term within the specified Levenshtein distance of the specified term
 
 Multiplies the scores of all the results by the specified value.
 
-#### ``ConstantScore(query, score=1.0)``
-
-Overrides the score of all the results to be a constant value.
-
 ### Combinators
 
 Queries can be combined with logical operators ``and``, ``or`` and ``not`` and
