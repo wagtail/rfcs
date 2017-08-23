@@ -38,16 +38,16 @@ this API.
 
 ### Standard query types
 
-#### ``PlainTextQuery(query_string, fields=[])``
+#### ``PlainText(query_string, fields=[])``
 
 This is the default query type which will be used if a string is passed to the
  the ``.search()`` method. So I don't expect this class to be used directly,
 but it is provided for completeness.
 
 ```python
-from wagtail.wagtailsearch.query import PlainTextQuery
+from wagtail.wagtailsearch.query import PlainText
 
->>> Page.objects.search(PlainTextQuery("Hello world"))
+>>> Page.objects.search(PlainText("Hello world"))
 [<Page: Hello world>]
 
 # Simple version
@@ -55,15 +55,15 @@ from wagtail.wagtailsearch.query import PlainTextQuery
 [<Page: Hello world>]
 ```
 
-#### ``MatchAllQuery()``
+#### ``MatchAll()``
 
 This query type matches all items in the index, replacing the current,
 confusing ``None`` behaviour.
 
 ```python
-from wagtail.wagtailsearch.query import MatchAllQuery
+from wagtail.wagtailsearch.query import MatchAll
 
->>> Page.objects.search(MatchAllQuery())
+>>> Page.objects.search(MatchAll())
 [<lots of pages>]
 ```
 
@@ -71,15 +71,15 @@ from wagtail.wagtailsearch.query import MatchAllQuery
 
 These query types allow developers to build up queries from individual terms.
 
-#### ``TermQuery(term, fields=[])``
+#### ``Term(term, fields=[])``
 
 Matches if the specified term is in one of the specified fields.
 
-#### ``PrefixQuery(prefix, fields=[])``
+#### ``Prefix(prefix, fields=[])``
 
 Matches if a term exists within one of the specified fields with the prefix.
 
-#### ``FuzzyQuery(term, max_distance=3, fields=[])``
+#### ``Fuzzy(term, max_distance=3, fields=[])``
 
 Matches if a term like the specified exists within one of the specified fields.
 
@@ -92,7 +92,7 @@ all of the query classes will support being combined with ``&``, ``|`` and ``~``
 operators respectively. These operators will wrap the operands with one of the
 following combinator query classes:
 
-#### ``AndQuery(subqueries, score_function='avg')``
+#### ``And(subqueries, score_function='avg')``
 
 Combines the two queries with the and operator. This performs an intersection
 of their result sets and performs the specified score function to combine the
@@ -101,17 +101,17 @@ scores of each subquery.
 Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
 
 ```python
-from wagtail.wagtailsearch.query import TermQuery, AndQuery
+from wagtail.wagtailsearch.query import Term, And
 
->>> Page.objects.search(TermQuery("Hello") & TermQuery("world"))
+>>> Page.objects.search(Term("Hello") & Term("world"))
 [<Page: Hello world>]
 
 # This is equivilant to:
->>> Page.objects.search(AndQuery([TermQuery("Hello"), TermQuery("world")]))
+>>> Page.objects.search(And([Term("Hello"), Term("world")]))
 [<Page: Hello world>]
 ```
 
-#### ``OrQuery(subqueries, score_function='avg')``
+#### ``Or(subqueries, score_function='avg')``
 
 Combines the two queries with the and operator. This performs a union of their
 result sets and performs the specified score function to combine the scores of
@@ -120,46 +120,46 @@ each subquery.
 Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
 
 ```python
-from wagtail.wagtailsearch.query import TermQuery, OrQuery
+from wagtail.wagtailsearch.query import Term, Or
 
->>> Page.objects.search(TermQuery("Hello") | TermQuery("world"))
+>>> Page.objects.search(Term("Hello") | Term("world"))
 [<Page: Hello world>, <Page: Hello everyone>]
 
 # This is equivilant to:
->>> Page.objects.search(OrQuery([TermQuery("Hello"), TermQuery("world")]))
+>>> Page.objects.search(Or([Term("Hello"), Term("world")]))
 [<Page: Hello world>, <Page: Hello everyone>]
 ```
 
-#### ``NotQuery(subquery, score=1.0)``
+#### ``Not(subquery, score=1.0)``
 
 Returns all results that do not match the given query. All results are initially
 given the specified score.
 
 ```python
-from wagtail.wagtailsearch.query import TermQuery, NotQuery
+from wagtail.wagtailsearch.query import Term, Not
 
->>> Page.objects.search(~TermQuery("Hello"))
+>>> Page.objects.search(~Term("Hello"))
 [<Page: Goodbye>]
 
 # This is equivilant to:
->>> Page.objects.search(NotQuery(TermQuery("Hello")))
+>>> Page.objects.search(Not(Term("Hello")))
 [<Page: Goodbye>]
 ```
 
-#### ``FilterQuery(subquery, include=None, exclude=None)``
+#### ``Filter(subquery, include=None, exclude=None)``
 
 Takes the results and scores from ``subquery`` and filters them to remove any
 results that don't match ``include`` or do match ``exclude``.
 
 ```python
-from wagtail.wagtailsearch.query import TermQuery, FilterQuery
+from wagtail.wagtailsearch.query import Term, Filter
 
 # Removes any documents that match "World" from the query for "Hello"
->>> Page.objects.search(FilterQuery(TermQuery("Hello"), exclude=TermQuery("World")))
+>>> Page.objects.search(Filter(Term("Hello"), exclude=Term("World")))
 [<Page: Hello>]
 
-# Similar to AndQuery(["Hello", "World"]) except for the score is only taken from "Hello"
->>> Page.objects.search(FilterQuery(TermQuery("Hello"), include=TermQuery("World")))
+# Similar to And(["Hello", "World"]) except for the score is only taken from "Hello"
+>>> Page.objects.search(Filter(Term("Hello"), include=Term("World")))
 [<Page: Hello World>]
 ```
 
@@ -169,19 +169,19 @@ To keep this RFC focused on the basic syntax, the following query types are out
 of scope. I've included them here to show, potentially, what this enhancement
 could lead to in the future.
 
-#### ``QueryStringQuery(query_string, search_fields=[], filter_fields[])``
+#### ``QueryString(query_string, search_fields=[], filter_fields[])``
 
-This query type is similar to ``PlainTextQuery`` but it has syntax for
+This query type is similar to ``PlainText`` but it has syntax for
 filtering and operators.
 
 ```python
-from wagtail.wagtailsearch.query import QueryStringQuery
+from wagtail.wagtailsearch.query import QueryString
 
->>> Page.objects.search(QueryStringQuery("live:true -author:karl Hello world", filter_fields=['author', 'live']))
+>>> Page.objects.search(QueryString("live:true -author:karl Hello world", filter_fields=['author', 'live']))
 [<Page: Hello world>]
 ```
 
-#### ``SimilarItemsQuery(object, fields=[])``
+#### ``SimilarItems(object, fields=[])``
 
 NOTE: I'm not 100% sure of the name of this one
 
@@ -189,8 +189,8 @@ This query type performs a ``more_like_this`` query to find similar objects
 to the one specified.
 
 ```python
-from wagtail.wagtailsearch.query import SimilarItemsQuery
+from wagtail.wagtailsearch.query import SimilarItems
 
->>> Page.objects.search(SimilarItemsQuery(hello_page, fields=['title']))
+>>> Page.objects.search(SimilarItems(hello_page, fields=['title']))
 [<Page: Hello world>]
 ```
