@@ -38,11 +38,15 @@ this API.
 
 ### Standard query types
 
-#### ``PlainText(query_string, fields=[], operator='or')``
+#### ``PlainText(query_string, fields=None, operator=None)``
 
 This is the default query type which will be used if a string is passed to the
  the ``.search()`` method. So I don't expect this class to be used directly,
 but it is provided for completeness.
+
+If fields or operator are not specified, they will fall back to the values
+passed in to the ``search()`` method. Failing that, they will fall back to
+the default values specified by the backend.
 
 ```python
 from wagtail.wagtailsearch.query import PlainText
@@ -71,27 +75,25 @@ from wagtail.wagtailsearch.query import MatchAll
 
 These query types allow developers to build up queries from individual terms.
 
-#### ``Term(term, fields=[])``
+#### ``Term(term, fields=None)``
 
-Matches if the specified term is in one of the specified fields.
+Matches a term by exact value.
 
-#### ``Prefix(prefix, fields=[])``
+#### ``Prefix(prefix, fields=None)``
 
-Matches if a term exists within one of the specified fields with the prefix.
+Matches any term with the specified prefix.
 
-#### ``Fuzzy(term, max_distance=3, fields=[])``
+#### ``Fuzzy(term, max_distance=3, fields=None)``
 
-Matches if a term like the specified exists within one of the specified fields.
+Matches any term within the specified Levenshtein distance of the specified term.
 
-The distance is the Levenshtein distance to the term.
+#### ``Boost(query, boost)``
 
-#### ``Boost(subquery, boost)``
+Multiplies the scores of all the results by the specified value.
 
-Multiplies the scores of all the subqueries by the specified value.
+#### ``ConstantScore(query, score=1.0)``
 
-#### ``ConstantScore(subquery, score=1.0)``
-
-Overrides the score of the subquery to be the same for all results
+Overrides the score of all the results to be a constant value.
 
 ### Combinators
 
@@ -154,9 +156,9 @@ from wagtail.wagtailsearch.query import Term, Not
 [<Page: Goodbye>]
 ```
 
-#### ``Filter(subquery, include=None, exclude=None)``
+#### ``Filter(query, include=None, exclude=None)``
 
-Takes the results and scores from ``subquery`` and filters them to remove any
+Takes the results and scores from ``query`` and filters them to remove any
 results that don't match ``include`` or do match ``exclude``.
 
 ```python
