@@ -36,7 +36,7 @@ The query classes are only responsible for selecting and scoring results, so
 features like autocomplete, faceting, hightlighting, etc are out of scope for
 this API.
 
-### Basic query types
+### Standard query types
 
 #### ``PlainTextQuery(query_string, fields=[])``
 
@@ -67,6 +67,24 @@ from wagtail.wagtailsearch.query import MatchAllQuery
 [<lots of pages>]
 ```
 
+### Low level query types
+
+These query types allow developers to build up queries from individual terms.
+
+#### ``TermQuery(term, fields=[])``
+
+Matches if the specified term is in one of the specified fields.
+
+#### ``PrefixQuery(prefix, fields=[])``
+
+Matches if a term exists within one of the specified fields with the prefix.
+
+#### ``FuzzyQuery(term, max_distance=3, fields=[])``
+
+Matches if a term like the specified exists within one of the specified fields.
+
+The distance is the Levenshtein distance to the term.
+
 ### Combinators
 
 Queries can be combined with logical operators ``and``, ``or`` and ``not`` and
@@ -83,13 +101,13 @@ scores of each subquery.
 Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
 
 ```python
-from wagtail.wagtailsearch.query import PlainTextQuery, AndQuery
+from wagtail.wagtailsearch.query import TermQuery, AndQuery
 
->>> Page.objects.search(PlainTextQuery("Hello") & PlainTextQuery("world"))
+>>> Page.objects.search(TermQuery("Hello") & TermQuery("world"))
 [<Page: Hello world>]
 
 # This is equivilant to:
->>> Page.objects.search(AndQuery([PlainTextQuery("Hello"), PlainTextQuery("world")]))
+>>> Page.objects.search(AndQuery([TermQuery("Hello"), TermQuery("world")]))
 [<Page: Hello world>]
 ```
 
@@ -102,13 +120,13 @@ each subquery.
 Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
 
 ```python
-from wagtail.wagtailsearch.query import PlainTextQuery, OrQuery
+from wagtail.wagtailsearch.query import TermQuery, OrQuery
 
->>> Page.objects.search(PlainTextQuery("Hello") | PlainTextQuery("world"))
+>>> Page.objects.search(TermQuery("Hello") | TermQuery("world"))
 [<Page: Hello world>, <Page: Hello everyone>]
 
 # This is equivilant to:
->>> Page.objects.search(OrQuery([PlainTextQuery("Hello"), PlainTextQuery("world")]))
+>>> Page.objects.search(OrQuery([TermQuery("Hello"), TermQuery("world")]))
 [<Page: Hello world>, <Page: Hello everyone>]
 ```
 
@@ -118,14 +136,31 @@ Returns all results that do not match the given query. All results are initially
 given the specified score.
 
 ```python
-from wagtail.wagtailsearch.query import PlainTextQuery, OrQuery
+from wagtail.wagtailsearch.query import TermQuery, NotQuery
 
->>> Page.objects.search(~PlainTextQuery("Hello"))
+>>> Page.objects.search(~TermQuery("Hello"))
 [<Page: Goodbye>]
 
 # This is equivilant to:
->>> Page.objects.search(NotQuery(PlainTextQuery("Hello")))
+>>> Page.objects.search(NotQuery(TermQuery("Hello")))
 [<Page: Goodbye>]
+```
+
+#### ``FilterQuery(subquery, include=None, exclude=None)``
+
+Takes the results and scores from ``subquery`` and filters them to remove any
+results that don't match ``include`` or do match ``exclude``.
+
+```python
+from wagtail.wagtailsearch.query import TermQuery, FilterQuery
+
+# Removes any documents that match "World" from the query for "Hello"
+>>> Page.objects.search(FilterQuery(TermQuery("Hello"), exclude=TermQuery("World")))
+[<Page: Hello>]
+
+# Similar to AndQuery(["Hello", "World"]) except for the score is only taken from "Hello"
+>>> Page.objects.search(FilterQuery(TermQuery("Hello"), include=TermQuery("World")))
+[<Page: Hello World>]
 ```
 
 ### Future enhancements
