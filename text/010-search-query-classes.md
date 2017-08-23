@@ -36,13 +36,13 @@ The query classes are only responsible for selecting and scoring results, so
 features like autocomplete, faceting, hightlighting, etc are out of scope for
 this API.
 
-### ``PlainTextQuery(query_string, fields=[])``
+### Basic query types
+
+#### ``PlainTextQuery(query_string, fields=[])``
 
 This is the default query type which will be used if a string is passed to the
  the ``.search()`` method. So I don't expect this class to be used directly,
 but it is provided for completeness.
-
-Example:
 
 ```python
 from wagtail.wagtailsearch.query import PlainTextQuery
@@ -55,18 +55,77 @@ from wagtail.wagtailsearch.query import PlainTextQuery
 [<Page: Hello world>]
 ```
 
-### ``MatchAllQuery()``
+#### ``MatchAllQuery()``
 
 This query type matches all items in the index, replacing the current,
 confusing ``None`` behaviour.
-
-Example:
 
 ```python
 from wagtail.wagtailsearch.query import MatchAllQuery
 
 >>> Page.objects.search(MatchAllQuery())
 [<lots of pages>]
+```
+
+### Combinators
+
+Queries can be combined with logical operators ``and``, ``or`` and ``not`` and
+all of the query classes will support being combined with ``&``, ``|`` and ``~``
+operators respectively. These operators will wrap the operands with one of the
+following combinator query classes:
+
+#### ``AndQuery(subqueries, score_function='avg')``
+
+Combines the two queries with the and operator. This performs an intersection
+of their result sets and performs the specified score function to combine the
+scores of each subquery.
+
+Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
+
+```python
+from wagtail.wagtailsearch.query import PlainTextQuery, AndQuery
+
+>>> Page.objects.search(PlainTextQuery("Hello") & PlainTextQuery("world"))
+[<Page: Hello world>]
+
+# This is equivilant to:
+>>> Page.objects.search(AndQuery([PlainTextQuery("Hello"), PlainTextQuery("world")]))
+[<Page: Hello world>]
+```
+
+#### ``OrQuery(subqueries, score_function='avg')``
+
+Combines the two queries with the and operator. This performs a union of their
+result sets and performs the specified score function to combine the scores of
+each subquery.
+
+Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
+
+```python
+from wagtail.wagtailsearch.query import PlainTextQuery, OrQuery
+
+>>> Page.objects.search(PlainTextQuery("Hello") | PlainTextQuery("world"))
+[<Page: Hello world>, <Page: Hello everyone>]
+
+# This is equivilant to:
+>>> Page.objects.search(OrQuery([PlainTextQuery("Hello"), PlainTextQuery("world")]))
+[<Page: Hello world>, <Page: Hello everyone>]
+```
+
+#### ``NotQuery(subquery, score=1.0)``
+
+Returns all results that do not match the given query. All results are initially
+given the specified score.
+
+```python
+from wagtail.wagtailsearch.query import PlainTextQuery, OrQuery
+
+>>> Page.objects.search(~PlainTextQuery("Hello"))
+[<Page: Goodbye>]
+
+# This is equivilant to:
+>>> Page.objects.search(NotQuery(PlainTextQuery("Hello")))
+[<Page: Goodbye>]
 ```
 
 ### Future enhancements
@@ -79,8 +138,6 @@ could lead to in the future.
 
 This query type is similar to ``PlainTextQuery`` but it has syntax for
 filtering and operators.
-
-Example:
 
 ```python
 from wagtail.wagtailsearch.query import QueryStringQuery
@@ -95,8 +152,6 @@ NOTE: I'm not 100% sure of the name of this one
 
 This query type performs a ``more_like_this`` query to find similar objects
 to the one specified.
-
-Example:
 
 ```python
 from wagtail.wagtailsearch.query import SimilarItemsQuery
