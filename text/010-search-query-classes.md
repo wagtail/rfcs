@@ -53,37 +53,6 @@ from wagtail.wagtailsearch.query import PlainTextQuery
 [<Page: Hello world>]
 ```
 
-### ``QueryStringQuery(query_string, search_fields=[], filter_fields[])``
-
-This query type is similar to ``PlainTextQuery`` but it has syntax for
-filtering and operators. This class will not be implemented as part of this
-RFC.
-
-Example:
-
-```python
-from wagtail.wagtailsearch.query import QueryStringQuery
-
->>> Page.objects.search(QueryStringQuery("live:true -author:karl Hello world", filter_fields=['author', 'live']))
-[<Page: Hello world>]
-```
-
-### ``SimilarItemsQuery(object, fields=[])``
-
-NOTE: I'm not 100% sure of the name of this one
-
-This query type performs a ``more_like_this`` query to find similar objects
-to the one specified. This class is also out of scope for this RFC.
-
-Example:
-
-```python
-from wagtail.wagtailsearch.query import SimilarItemsQuery
-
->>> Page.objects.search(SimilarItemsQuery(hello_page, fields=['title']))
-[<Page: Hello world>]
-```
-
 ### ``MatchAllQuery()``
 
 This query type matches all items in the index, replacing the current,
@@ -96,4 +65,40 @@ from wagtail.wagtailsearch.query import MatchAllQuery
 
 >>> Page.objects.search(MatchAllQuery())
 [<lots of pages>]
+```
+
+### Future enhancements
+
+To keep this RFC focused on the basic syntax, the following query types are out
+of scope. I've included them here to show, potentially, what this enhancement
+could lead to in the future.
+
+#### ``QueryStringQuery(query_string, search_fields=[], filter_fields[])``
+
+This query type is similar to ``PlainTextQuery`` but it has syntax for
+filtering and operators.
+
+Example:
+
+```python
+from wagtail.wagtailsearch.query import QueryStringQuery
+
+>>> Page.objects.search(QueryStringQuery("live:true -author:karl Hello world", filter_fields=['author', 'live']))
+[<Page: Hello world>]
+```
+
+#### ``SimilarItemsQuery(object, fields=[])``
+
+NOTE: I'm not 100% sure of the name of this one
+
+This query type performs a ``more_like_this`` query to find similar objects
+to the one specified.
+
+Example:
+
+```python
+from wagtail.wagtailsearch.query import SimilarItemsQuery
+
+>>> Page.objects.search(SimilarItemsQuery(hello_page, fields=['title']))
+[<Page: Hello world>]
 ```
