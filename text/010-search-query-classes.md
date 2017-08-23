@@ -85,6 +85,14 @@ Matches if a term like the specified exists within one of the specified fields.
 
 The distance is the Levenshtein distance to the term.
 
+#### ``Boost(subquery, boost)``
+
+Multiplies the scores of all the subqueries by the specified value.
+
+#### ``ConstantScore(subquery, score=1.0)``
+
+Overrides the score of the subquery to be the same for all results
+
 ### Combinators
 
 Queries can be combined with logical operators ``and``, ``or`` and ``not`` and
