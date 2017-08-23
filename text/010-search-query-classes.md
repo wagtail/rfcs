@@ -104,7 +104,7 @@ following combinator query classes:
 
 #### ``And(subqueries, score_function='avg')``
 
-Combines the two queries with the and operator. This performs an intersection
+Combines the subqueries with the and operator. This performs an intersection
 of their result sets and performs the specified score function to combine the
 scores of each subquery.
 
@@ -116,14 +116,14 @@ from wagtail.wagtailsearch.query import Term, And
 >>> Page.objects.search(Term("Hello") & Term("world"))
 [<Page: Hello world>]
 
-# This is equivilant to:
+# This is equivalent to:
 >>> Page.objects.search(And([Term("Hello"), Term("world")]))
 [<Page: Hello world>]
 ```
 
 #### ``Or(subqueries, score_function='avg')``
 
-Combines the two queries with the and operator. This performs a union of their
+Combines the subqueries with the and operator. This performs a union of their
 result sets and performs the specified score function to combine the scores of
 each subquery.
 
@@ -135,7 +135,7 @@ from wagtail.wagtailsearch.query import Term, Or
 >>> Page.objects.search(Term("Hello") | Term("world"))
 [<Page: Hello world>, <Page: Hello everyone>]
 
-# This is equivilant to:
+# This is equivalent to:
 >>> Page.objects.search(Or([Term("Hello"), Term("world")]))
 [<Page: Hello world>, <Page: Hello everyone>]
 ```
@@ -151,7 +151,7 @@ from wagtail.wagtailsearch.query import Term, Not
 >>> Page.objects.search(~Term("Hello"))
 [<Page: Goodbye>]
 
-# This is equivilant to:
+# This is equivalent to:
 >>> Page.objects.search(Not(Term("Hello")))
 [<Page: Goodbye>]
 ```
