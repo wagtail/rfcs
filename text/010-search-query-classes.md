@@ -38,7 +38,7 @@ this API.
 
 ### Standard query types
 
-#### ``PlainText(query_string, fields=None, operator=None)``
+#### ``PlainText(query_string, fields=None, operator=None, boost=1.0)``
 
 This is the default query type which will be used if a string is passed to the
  the ``.search()`` method. So I don't expect this class to be used directly,
@@ -75,21 +75,21 @@ from wagtail.wagtailsearch.query import MatchAll
 
 These query types allow developers to build up queries from individual terms.
 
-#### ``Term(term, fields=None)``
+#### ``Term(term, fields=None, boost=1.0)``
 
 Matches a term by exact value.
 
-#### ``Prefix(prefix, fields=None)``
+#### ``Prefix(prefix, fields=None, boost=1.0)``
 
 Matches any term with the specified prefix.
 
-#### ``Fuzzy(term, max_distance=3, fields=None)``
+#### ``Fuzzy(term, max_distance=3, fields=None, boost=1.0)``
 
 Matches any term within the specified Levenshtein distance of the specified term.
 
 #### ``Boost(query, boost)``
 
-Multiplies the scores of all the results by the specified value.
+Multiplies the boost of all subqueries by the specified value.
 
 ### Combinators
 
@@ -98,13 +98,11 @@ all of the query classes will support being combined with ``&``, ``|`` and ``~``
 operators respectively. These operators will wrap the operands with one of the
 following combinator query classes:
 
-#### ``And(subqueries, score_function='avg')``
+#### ``And(subqueries)``
 
 Combines the subqueries with the and operator. This performs an intersection
 of their result sets and performs the specified score function to combine the
 scores of each subquery.
-
-Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
 
 ```python
 from wagtail.wagtailsearch.query import Term, And
@@ -117,13 +115,11 @@ from wagtail.wagtailsearch.query import Term, And
 [<Page: Hello world>]
 ```
 
-#### ``Or(subqueries, score_function='avg')``
+#### ``Or(subqueries)``
 
 Combines the subqueries with the and operator. This performs a union of their
 result sets and performs the specified score function to combine the scores of
 each subquery.
-
-Valid score functions are: ``avg``, ``min``, ``max`` and ``sum``
 
 ```python
 from wagtail.wagtailsearch.query import Term, Or
@@ -136,7 +132,7 @@ from wagtail.wagtailsearch.query import Term, Or
 [<Page: Hello world>, <Page: Hello everyone>]
 ```
 
-#### ``Not(subquery, score=1.0)``
+#### ``Not(subquery)``
 
 Returns all results that do not match the given query. All results are initially
 given the specified score.
