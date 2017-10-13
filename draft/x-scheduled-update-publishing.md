@@ -1,11 +1,11 @@
 # RFC X: Scheduled Publishing for Page updates
 
 
-*   RFC: X
+*   RFC: 21
 *   Author: Patrick Woods
 *   Status: Draft
 *   Created: 2017-10-04
-*   Last Modified: 2017-10-04
+*   Last Modified: 2017-10-13
 
 ## Abstract
 
