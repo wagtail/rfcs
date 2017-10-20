@@ -38,7 +38,7 @@ this API.
 
 ### Standard query types
 
-#### ``PlainText(query_string, fields=None, operator=None, boost=1.0)``
+#### ``PlainText(query_string, operator=None, boost=1.0)``
 
 This is the default query type which will be used if a string is passed to the
  the ``.search()`` method. So I don't expect this class to be used directly,
@@ -75,15 +75,15 @@ from wagtail.wagtailsearch.query import MatchAll
 
 These query types allow developers to build up queries from individual terms.
 
-#### ``Term(term, fields=None, boost=1.0)``
+#### ``Term(term, boost=1.0)``
 
 Matches a term by exact value.
 
-#### ``Prefix(prefix, fields=None, boost=1.0)``
+#### ``Prefix(prefix, boost=1.0)``
 
 Matches any term with the specified prefix.
 
-#### ``Fuzzy(term, max_distance=3, fields=None, boost=1.0)``
+#### ``Fuzzy(term, max_distance=3, boost=1.0)``
 
 Matches any term within the specified Levenshtein distance of the specified term.
 
@@ -171,7 +171,7 @@ To keep this RFC focused on the basic syntax, the following query types are out
 of scope. I've included them here to show, potentially, what this enhancement
 could lead to in the future.
 
-#### ``QueryString(query_string, search_fields=[], filter_fields[])``
+#### ``QueryString(query_string, allowed_filter_fields[])``
 
 This query type is similar to ``PlainText`` but it has syntax for
 filtering and operators.
