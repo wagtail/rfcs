@@ -4,7 +4,7 @@
 * Author: Duco Dokter
 * Status: Draft
 * Created: 2018-03-14
-* Last Modified: 2018-03-14
+* Last Modified: 2018-03-20
 
 ## Abstract
 
@@ -104,6 +104,14 @@ This proposal consists of the following:
 
 This way, a consumer always only needs to know one URL, being the root
 URL for the API. All further navigation is provided.
+
+
+## Sometimes a working demo says more than a thousend words
+
+... and usually is much less work to write. So you may want to check
+out wagtail.campsix from Github, install it, andsee what I mean:
+
+    https://github.com/ddokter/wagtail.campsix
 
 
 ## Open Questions
