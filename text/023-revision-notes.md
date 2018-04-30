@@ -1,10 +1,10 @@
-# RFC 19: Release Notes on Revisions
+# RFC 23: Release Notes on Revisions
 
-* RFC: 19
+* RFC: 23
 * Author: Edward Henderson
 * Status: Draft
 * Created: 2018-03-29
-* Last Modified: 2018-03-29
+* Last Modified: 2018-04-30
 
 ## Abstract
 
