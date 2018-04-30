@@ -15,6 +15,24 @@ Enhance the revision system to allow release notes to be added when publishing.
 The current revision system is great, but does not offer a way to provide release
 notes for a revision. This RFC proposes that the mechanism be expanded to allow a custom release model to be used for a page, and a way to override the publish dialog to support addition of release notes.
 
+### User Experience
+
+Adding comments for a draft should be optional, but allowed. I could see a simple option, possibly with a keyboard enabler, such as Control+Click on Save Draft will show
+a comments dialog. Another option would be make comments be a page specific option, so they are turned on/off for a page
+
+### Editing Notes
+
+One appraoch here would be to allow editing revision notes in the Settings panel. I don't think this should be a "required" option, but more of a optional one, enabled
+in configuraiton.
+
+If notes are part of the UI, then they should be paged, since it would be possible to have many notes.
+
+Also, if notes are captured during draft mode, they should be consolidated and condensed during release, so there would only be draft notes betwween publishes, and all drafts would be combined into the publish notes.
+
+### Tagging Revisions
+
+This was not part of my original idea. I don't personally see a need to tag revisions, since I assume that revisions are a linear history of a given page.
+
 
 ## Open Questions
 
@@ -33,3 +51,4 @@ I would suggest an "alternate" Revision model, that could be conigured in settin
 a new PageRevision model. The core of wagtail could offere multiple such model, and users would be able to provide their own.
 
 Custom models would require some ability to specify UI updates
+
