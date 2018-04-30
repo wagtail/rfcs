@@ -1,6 +1,6 @@
-# RFC NNN: Release Notes on Revisions
+# RFC 24: Release Notes on Revisions
 
-* RFC: NNN
+* RFC: 24
 * Author: Edward Henderson
 * Status: Draft
 * Created: 2018-03-29
