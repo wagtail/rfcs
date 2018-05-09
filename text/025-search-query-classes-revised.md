@@ -1,6 +1,6 @@
-# RFC X: Search query classes (revised)
+# RFC 25: Search query classes (revised)
 
-* RFC: X
+* RFC: 25
 * Author: Karl Hobley
 * Created: 2018-05-08
 * Last-Modified: 2018-05-08
