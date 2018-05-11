@@ -26,7 +26,7 @@ compared to `InlinePanel` that can only edit one level of blocks
 of the same type.
 
 `InlinePanel` & `StreamField` have very different user interfaces,
-with different possibility. For example, `InlinePanel` can only append inlines
+with different possibilities. For example, `InlinePanel` can only append inlines
 at the end of the list, whereas `StreamField` allows it anywhere.
 
 Note that dropping `InlinePanel` is out of the question.
