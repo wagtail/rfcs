@@ -419,7 +419,10 @@ the vertical bar, here with a grip icon.
 ![Simple InlinePanel](026-data/inlinepanel-simple.png)
 
 In case the inline model doesn’t inherit from `Orderable`,
-drag-and-drop is removed, as well as all “+” buttons except the last one:
+these interactions are removed:
+- drag-and-drop
+- move arrows
+- all “+” buttons except the last one.
 
 ![Unsortable simple InlinePanel](026-data/inlinepanel-simple-unsortable.png)
 
@@ -466,8 +469,11 @@ class Article(Page):
 
 ![Open collapsible InlinePanel](026-data/inlinepanel-collapsible-open.png)
 
-In case the inline doesn’t inherit from `Orderable`,
-drag-and-drop gets disabled and all “+” except the last one:
+In case the inline model doesn’t inherit from `Orderable`,
+these interactions are removed:
+- drag-and-drop
+- move arrows
+- all “+” buttons except the last one.
 
 ![Open unsortable collapsible InlinePanel](026-data/inlinepanel-collapsible-open-unsortable.png)
 
