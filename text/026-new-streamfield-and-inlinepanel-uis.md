@@ -507,6 +507,31 @@ A reusable JavaScript library will be created for drag-and-drop.
 For optimal performance, it will be written in pure JavaScript following
 the 6th edition of the ECMAScript specification.
 
+### Events
+
+Events will be available to add callbacks when blocks are:
+- added (`tree:add`)
+- moved (`tree:move`)
+- deleted (`tree:delete`)
+
+These three events are there only to define general behaviour, like add a 
+confirm dialog before deleting a block. It is not done to bind event callbacks
+inside blocks, like adding a date picker.
+
+A special method will be available to bind events to descendants DOM nodes.
+The purpose of this method is to delegate to the JS library the responsibility
+to bind/unbind/rebind events to descendants DOM nodes. This is critical because
+blocks will be often cloned, and we can easily make mistakes
+when binding events manually using `tree:add`, `tree:move` or `tree:delete`.
+
+Example usage:
+
+```javascript
+tree.addNodeEvent('click focus', 
+                  '.admin_date_time_input input',
+                  openDatePicker);
+```
+
 ## Bonuses
 
 If there is time left, these features will also be implemented:
