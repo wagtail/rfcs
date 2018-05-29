@@ -116,23 +116,6 @@ from wagtail.wagtailsearch.query import PlainText, Not
 [<Page: Goodbye>]
 ```
 
-#### ``Filter(query, include=None, exclude=None)``
-
-Takes the results and scores from ``query`` and filters them to remove any
-results that don't match ``include`` or do match ``exclude``.
-
-```python
-from wagtail.wagtailsearch.query import PlainText, Filter
-
-# Removes any documents that match "World" from the query for "Hello"
->>> Page.objects.search(Filter(PlainText("Hello"), exclude=PlainText("World")))
-[<Page: Hello>]
-
-# Similar to And(["Hello", "World"]) except for the score is only taken from "Hello"
->>> Page.objects.search(Filter(PlainText("Hello"), include=PlainText("World")))
-[<Page: Hello World>]
-```
-
 ### Changes from RFC 10
 
 #### Removal of "Low level query types"
@@ -141,6 +124,11 @@ After attempting to implement them, we found that it is difficult to make
 them behave consistently across all search backends. We also decided that
 they didn't add anything useful to the API that can't be achieved with
 ``PlainText`` queries.
+
+#### Removal of "Filter" query type
+
+It's possible to implement the same functionality using the combinator
+types so it's not very useful to have a separate class for this.
 
 #### Removal of "future enhancements"
 
