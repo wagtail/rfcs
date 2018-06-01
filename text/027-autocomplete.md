@@ -60,7 +60,7 @@ The `partial_match` argument will be replaced with a new field type called
 `AutocompleteField`.
 
 Fields that require autocomplete will need to configure the `AutocompleteField`
-in addition to any other field types they are using. For example:
+in addition to any other field types they are using for that field. For example:
 
 ```python
 class Book(index.Indexed, models.Model):
@@ -80,9 +80,9 @@ The existing `.search()` API will no longer do partial matching. Instead, a new
 `.autocomplete()` API will be added which can be called on the backend or on
 page/image/document `QuerySet`s.
 
-Like `.search()`, this will support filtering through the `QuerySet` and will
-return a `SearchResults` object. Unlike `.search()` this will not support
-search query classes (but support for that may be added in the future).
+Like `.search()`, it will support filtering through on the base `QuerySet` and
+return a `SearchResults` object. Unlike `.search()`, it will not support search
+query classes (but support for them may be added in the future).
 
 For example:
 
@@ -103,21 +103,21 @@ should change the behaviour considerately and make it clear to developers how
 they should update their code.
 
 As per Wagtail’s deprecation policy, the partial match behaviour should still
-work for two releases after introducing the `.autocomplete()` API. It should
+work for two releases after introducing the `.autocomplete()` API. But it should
 be possible for developers to completely disable partial match once they’ve
-updated their code
+updated their code.
 
 Developers could disable partial match by removing all the `partial_match=True`
-from `SearchField`s they’ve defined. But for page models this is tricky as
+from `SearchField`s they’ve defined. But for page models, this is tricky as
 search configuration of the “title” field is within Wagtail itself, and we
-can’t just remove it here as that’s a breaking change.
+can’t just remove it there as that’s a breaking change.
 
-Instead, I think we should allow developers to opt-out of partial matching
-through the `.search()` API itself and raise a deprecation warning whenever the
-developer hasn’t opted out. This should provide an impulse for developers to
+Instead, we should allow developers to opt-out of partial matching through a
+flag on the `.search()` API itself. A deprecation warning should be raised if
+developer hasn’t opted out. This should give an impulse to developers to
 consider whether they need to switch to the new `.autocomplete()` API.
 
-Search code should be updated in one of two ways:
+Search code can be updated in one of two ways:
 
 ```python
 >>> Page.objects.search("foo")
@@ -130,9 +130,9 @@ Search code should be updated in one of two ways:
 >>> Page.objects.autocomplete("foo")
 ```
 
-Once partial match is removed, we then deprecate the `partial_match` argument.
+Once partial match is removed, we then deprecate this `partial_match` argument.
 
-This is the proposed deprecation timeline:
+In summary, here is a proposed deprecation timeline:
 
 **Wagtail 2.2**
 
