@@ -23,7 +23,7 @@ Without hacks, it’s not possible to switch partial matching off for a search
 query. So the only way to disable partial matching is by removing
 `partial_match=True` from your `search_fields` configuration.
 
-In general, “partial match” It’s only useful for showing suggestions while the
+In general, “partial match” is only useful for showing suggestions while the
 user is typing their query. Once they’ve finished typing their query and they
 hit enter, the search that is performed shouldn’t use partial matching.
 
@@ -40,7 +40,14 @@ search query contains the word “up”, this would match “upper”, “upset�
 
 ## Hard to implement for PostgreSQL
 
-TODO
+On Elasticsearch, partial_match=True has an impact on indexing, and no impact
+on querying. On PostgreSQL, it should be the opposite, since this backend needs
+to use a special type of query for autocomplete (aka. prefix matching) and
+nothing special during indexing.
+
+So the current partial_match behaviour cannot work on PostgreSQL. To have an
+API that would work on all backends, we need to specify “autocomplete” both
+during indexing and querying.
 
 # Specification
 
