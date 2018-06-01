@@ -36,16 +36,16 @@ query. It’s not clear to the developer how this affects ranking.
 
 All words in search queries are treated as prefixes. For example, if your
 search query contains the word “up”, this would match “upper”, “upset”,
-“upgrade”, etc and incorrectly rank those items.
+“upgrade”, etc and incorrectly rank any items that contain those terms.
 
 ## Hard to implement for PostgreSQL
 
-On Elasticsearch, partial_match=True has an impact on indexing, and no impact
+On Elasticsearch, ``partial_match=True`` has an impact on indexing, and no impact
 on querying. On PostgreSQL, it should be the opposite, since this backend needs
 to use a special type of query for autocomplete (aka. prefix matching) and
 nothing special during indexing.
 
-So the current partial_match behaviour cannot work on PostgreSQL. To have an
+So the current partial match behaviour cannot work on PostgreSQL. To have an
 API that would work on all backends, we need to specify “autocomplete” both
 during indexing and querying.
 
