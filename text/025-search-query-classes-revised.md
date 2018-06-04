@@ -116,6 +116,23 @@ from wagtail.wagtailsearch.query import PlainText, Not
 [<Page: Goodbye>]
 ```
 
+### Special query types
+
+#### ``Boost(subquery, boost)``
+
+Boosts all subqueries by the specified boost factor.
+
+```python
+from wagtail.wagtailsearch.query import PlainText, Not
+
+>>> Page.objects.search(Boost(PlainText("Boosted") | PlainText("Also boosted"), 2.0))
+[<Page: Goodbye>]
+
+# This is equivalent to:
+>>> Page.objects.search(PlainText("Hello world", boost=2.0) | PlainText("Also boosted", boost=2.0))
+[<Page: Goodbye>]
+```
+
 ### Changes from RFC 10
 
 #### Removal of "Low level query types"
