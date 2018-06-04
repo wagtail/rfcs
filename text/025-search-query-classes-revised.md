@@ -123,7 +123,7 @@ from wagtail.wagtailsearch.query import PlainText, Not
 Boosts all subqueries by the specified boost factor.
 
 ```python
-from wagtail.wagtailsearch.query import PlainText, Not
+from wagtail.wagtailsearch.query import PlainText, Boost
 
 >>> Page.objects.search(Boost(PlainText("Boosted") | PlainText("Also boosted"), 2.0))
 [<Page: Goodbye>]
