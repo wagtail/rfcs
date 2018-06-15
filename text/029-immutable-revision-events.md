@@ -10,7 +10,7 @@
 
 Based on [these notes](https://hackmd.io/s/ByDdmUZWm) from discussions held at Wagtail Space US 2018.
 
-Let's make Wagtail a first class system for reviewing and approving content. This is a large problems space, but we believe we have identified one architectural improvement that will enable future solutions in this problem space.
+Let's make Wagtail a first class system for reviewing and approving content. This is a large problem space, but we believe we have identified one architectural improvement that will enable future solutions in this problem space.
 
 In short, we propose that we create a new RevisionEvents model that records immutable events that occur to a specific page Revision, such as being submitted for moderation, published, unpublished, etc. Further, we propose that this model be accompanied by an API to allow Wagtail developers to add their own events to facilitate their own custom workflows.
 
@@ -18,7 +18,7 @@ In short, we propose that we create a new RevisionEvents model that records immu
 
 ### Goals
 
- - Revision list should be easier to grok (what changed on each revision, what is relevant to me).  Currently a new Revision is saved on every page save or major state change, so we end up with lots or revisions.  Should be able to see what fields changed, a label showing if the Revision was ever live or submitted for review, etc
+ - Revision list should be easier to grok (what changed on each revision, what is relevant to me).  Currently a new Revision is saved on every page save or major state change, so we end up with lots of revisions.  Should be able to see what fields changed, a label showing if the Revision was ever live or submitted for review, etc
 
  - Making the revision diff view easier to grok.  Look at pre-rendering content (including RichTextFields & StreamBlock elements) and displaying the rendered differences.
  
