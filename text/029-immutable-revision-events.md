@@ -45,11 +45,11 @@ In other words:
   - publish
   - unpublish
   - *expandable by user...*
-  - Timestamp
-      - When the event occurred. For example, if you wanted to know when a Revision was last published, you would get the most recent Timestamp for the `publish` event.
-  - Event Data (JSON)
-      - Optional structure containing meta data about the event (e.g. for a theoretical "Comment" type event, it could contain the text of the comment)
-  - User
+- Timestamp
+    - When the event occurred. For example, if you wanted to know when a Revision was last published, you would get the most recent Timestamp for the `publish` event.
+- Event Data (JSON)
+    - Optional structure containing meta data about the event (e.g. for a theoretical "Comment" type event, it could contain the text of the comment)
+- User
 
 ## Open Questions
 
