@@ -2,7 +2,6 @@
 
 * RFC: 27
 * Author: Karl Hobley
-* Status: Draft
 * Created: 2018-06-01
 * Last Modified: 2018-06-01
 
