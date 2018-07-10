@@ -53,9 +53,9 @@ For example:
         "created_at": "2016-07-18T16:37:00+01:00",
         "author": "karl",
         "in_moderation": false,
-        },
-        "title": "Home",
-        "body": "foo"
+    },
+    "title": "Home",
+    "body": "foo"
 }
 ```
 
