@@ -1,6 +1,6 @@
-# RFC X: Changes API
+# RFC 30: Changes API
 
-* RFC: X
+* RFC: 30
 * Author: Karl Hobley
 * Created: 2018-07-12
 * Last Modified: 2018-07-12
