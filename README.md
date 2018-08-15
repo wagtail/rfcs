@@ -60,7 +60,7 @@ more likely to make progress than those that don't receive any comments.
 * Eventually, the [core team] will decide whether the RFC is a candidate for
 inclusion in Wagtail.
 * RFCs that are candidates for inclusion in Wagtail will enter a "final comment
-period" lasting 7 days. The beginning of this period will be signaled with a
+period" lasting 10 days. The beginning of this period will be signaled with a
 comment and tag on the RFC's pull request. Furthermore, a link to the RFC will
 be included in the following week's "This Week In Wagtail" newsletter to attract
 the community's attention.
