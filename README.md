@@ -1,9 +1,9 @@
 # Wagtail RFCs
 
-Many changes, including bug fixes and documentation improvements can be
+Many changes, including bug fixes and documentation improvements, can be
 implemented and reviewed via the normal GitHub pull request workflow.
 
-Some changes though are "substantial", and we ask that these be put through a
+Some changes, though, are "substantial", and we ask that these be put through a
 bit of a design process and produce a consensus among the Wagtail core team.
 
 The "RFC" (request for comments) process is intended to provide a consistent
@@ -11,9 +11,9 @@ and controlled path for new features to enter the CMS.
 
 [Active RFC List](https://github.com/wagtail/rfcs/pulls)
 
-## When you need to follow this process
+## When should follow this process
 
-You need to follow this process if you intend to make "substantial" changes to
+You should this process if you intend to make "substantial" changes to
 Wagtail, or its documentation. What constitutes a "substantial" change is
 evolving based on community norms, but may include the following.
 
@@ -23,7 +23,7 @@ evolving based on community norms, but may include the following.
 
 Some changes do not require an RFC:
 
-   - Rephrasing, reorganizing or refactoring (unless substantial)
+   - Internal rephrasing, reorganizing or refactoring
    - Additions that strictly improve objective, numerical quality
 criteria (speedup, better browser support)
    - Additions only likely to be _noticed by_ other implementors-of-Wagtail,
@@ -57,13 +57,13 @@ from the larger community, and the author should be prepared to revise it in
 response.
 * Build consensus and integrate feedback. RFCs that have broad support are much
 more likely to make progress than those that don't receive any comments.
-* Eventually, the [core team] will decide whether the RFC is a candidate for
+* Eventually, the core team will decide whether the RFC is a candidate for
 inclusion in Wagtail.
 * RFCs that are candidates for inclusion in Wagtail will enter a "final comment
 period" lasting 10 days. The beginning of this period will be signaled with a
-comment and tag on the RFC's pull request. Furthermore, a link to the RFC will
-be included in the following week's "This Week In Wagtail" newsletter to attract
-the community's attention.
+comment and tag on the RFC's pull request. Furthermore, the RFC will be
+advertised widely (for example, it may be posted on Wagtail's official Twitter
+account and included in the following week's "This Week In Wagtail" newsletter).
 * An RFC can be modified based upon feedback from the core team and community.
 Significant modifications may trigger a new final comment period.
 * An RFC may be rejected by the core team after public discussion has settled
@@ -85,7 +85,7 @@ Furthermore, the fact that a given RFC has been accepted and is 'active'
 implies nothing about what priority is assigned to its implementation, nor
 whether anybody is currently working on it.
 
-Modifications to active RFC's can be done in followup PR's. We strive to write
+Modifications to active RFCs can be done in followup PRs. We strive to write
 each RFC in a manner that it will reflect the final design of the feature; but
 the nature of the process means that we cannot expect every merged RFC to
 actually reflect what the end result will be at the time of the next major
@@ -103,7 +103,7 @@ If you are interested in working on the implementation for an 'active' RFC, but
 cannot determine if someone else is already working on it, feel free to ask
 (e.g. by leaving a comment on the associated issue).
 
-## Reviewing RFC's
+## Reviewing RFCs
 
 Each week the core team will attempt to review some set of open RFC pull
 requests.
