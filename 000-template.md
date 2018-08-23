@@ -2,7 +2,6 @@
 
 * RFC: 1
 * Author: Matthew Westcott
-* Status: Draft / Accepted (means spec is agreed) / Final (means implemented)
 * Created: 2015-08-05
 * Last Modified: 2015-08-05
 
