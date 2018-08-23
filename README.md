@@ -11,9 +11,9 @@ and controlled path for new features to enter the CMS.
 
 [Active RFC List](https://github.com/wagtail/rfcs/pulls)
 
-## When should follow this process
+## When you should follow this process
 
-You should this process if you intend to make "substantial" changes to
+You should follow this process if you intend to make "substantial" changes to
 Wagtail, or its documentation. What constitutes a "substantial" change is
 evolving based on community norms, but may include the following.
 
