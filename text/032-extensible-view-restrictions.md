@@ -1,6 +1,6 @@
-# RFC xxx: Extensible view restrictions
+# RFC 32: Extensible view restrictions
 
-* RFC: xxx
+* RFC: 32
 * Author: Matt Westcott
 * Created: 2019-01-22
 * Last Modified: 2019-01-22
