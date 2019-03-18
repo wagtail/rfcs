@@ -37,12 +37,6 @@ We will also add a new “Add redirect here” button in the “more” menu. Th
 
 An alternative to this would be to create a “RedirectPage” type which is a page type that acts as a redirect when served, but these aren’t as flexible and are more heavier to handle in the database than redirects are.
 
-## Management of masked redirects
-
-Redirects are only used for requests that return a 404. So if a redirect exists for a URL that contains a page or is routable from Django, the redirect would be considered “masked”.
-
-Masked redirects may not be considered bad, but it might be useful to surface them in the admin interface and make them filterable.
-
 ## Bulk actions
 
 Removing many redirects at once is quite tedious. This will be more of a problem when we start adding new ways to add redirects.
