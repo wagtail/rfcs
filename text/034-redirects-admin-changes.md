@@ -54,10 +54,6 @@ If this is checked when the page is published with the new slug, a redirect to t
 
 When unpublishing or deleting a page, the user can add a redirect from that page’s URL to another page. If they create one, they will be given the option to repoint existing redirects at the new page, delete the existing redirects, or (when not deleting) do nothing.
 
-#### Deleting redirects when pages are created in their place
-
-Whenever a page is created, moved, or re-slugged in a way that causes it, or one of its descendants to clash with a redirect. That or those redirects should be deleted. The user should always be given a warning if this is going to happen, with an option of overriding it if they want to keep them.
-
 ### Redirect management
 
 #### Searching for prefix redirects
