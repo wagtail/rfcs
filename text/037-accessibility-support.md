@@ -63,6 +63,14 @@ Convert issues found in the audit into dev-level tasks ready to be estimated & i
 
 > WIP: [WCAG2.1 AA compliance project board](https://github.com/wagtail/wagtail/projects/5)
 
+#### Training & accessibility awareness
+
+Identify training resources for contributors to Wagtail to understand key principles of accessibility.
+
+- To be referenced in Wagtail’s official documentation
+- Identify training resources for manual testing with assistive technologies so the core team has more testing expertise
+- Create a manual checklist of acceptance criteria for accessibility reviews
+
 #### Tooling R&D
 
 Identify tools to use for automated testing, and dev workflow integration.
@@ -75,7 +83,6 @@ Identify tools to use for automated testing, and dev workflow integration.
 - Automated testing, for full coverage
   - Browser automation: Pa11y
 - Identify resources for manual accessibility testing
-- Create a manual checklist of acceptance criteria for accessibility reviews
 
 > WIP: [#4871 – [Discussion] choose appropriate tool for WCAG auto testing / visual regression tests](https://github.com/wagtail/wagtail/issues/4871)
 
@@ -103,7 +110,7 @@ Fix identified issues.
 
 #### State Wagtail’s commitment to accessibility
 
-Have a statement on Wagtail’s main GitHub repository or on its website, advertising the project’s commitment to accesssibility.
+Have a statement on Wagtail’s main GitHub repository or on its website, advertising the project’s commitment to accessibility.
 
 Example: https://www.drupal.org/about/features/accessibility
 
@@ -119,6 +126,7 @@ Commission an accessibility audit of a representative subset of the administrati
 
 - https://digitalaccessibilitycentre.org/
 - https://www.rnib.org.uk/rnib-business
+- https://abilitynet.org.uk/accessibility-services/products-and-services
 - https://www.deque.com/
 
 #### State Wagtail’s compliance with international standards
