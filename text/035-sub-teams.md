@@ -1,4 +1,4 @@
-# RFC 35: Immutable Revision Events
+# RFC 35: Sub teams
 
 * Authors: Karl Hobley, Naomi Morduch Toubman
 * Created: 2019-04-18
