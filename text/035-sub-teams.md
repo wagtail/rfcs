@@ -75,7 +75,7 @@ While I’ve taken bits out of that RFC I’ve taken into account some differenc
 - Rust has many more full time core team members than Wagtail has
     - I expect Wagtail sub teams would work at a much slower pace as, in most cases, team leaders would be using their spare time
     - They also have more time to write RFCs -- sorry this RFC isn’t as detailed as theirs!
-- The Rust project has many components to it (compiler, libs, dev tools) where as Wagtail is just one
+- The Rust project has many components to it (compiler, libs, dev tools) whereas Wagtail is just one
     - Because of this, the Rust core team is made up of only sub team leaders and they are still able to have a development focused core team. I am not suggesting that we change the core team membership of Wagtail.
 - They make most of their decisions through an RFC process, which we don’t do so much so I haven’t included any mention of RFCs here.
 
