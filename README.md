@@ -47,7 +47,8 @@ and may be implemented with the goal of eventual inclusion into Wagtail.
 
 * Fork the RFC repo http://github.com/wagtail/rfcs
 * Copy `000-template.md` to `text/000-my-feature.md` (where 'my-feature' is
-descriptive. don't assign an RFC number yet).
+descriptive. don't assign an RFC number yet as this must match the number of
+the pull request that you will later submit).
 * Fill in the RFC. Put care into the details: **RFCs that do not present
 convincing motivation, demonstrate understanding of the impact of the design,
 or are disingenuous about the drawbacks or alternatives tend to be
@@ -55,6 +56,10 @@ poorly-received**.
 * Submit a pull request. As a pull request the RFC will receive design feedback
 from the larger community, and the author should be prepared to revise it in
 response.
+* (optional) Now that you have submitted a pull request, you can now assign the
+RFC number in the filename and title. This must always match the PR number to
+make the PR easy to find after the RFC has been merged. It's OK to skip this as
+it can be done while the RFC is being merged.
 * Build consensus and integrate feedback. RFCs that have broad support are much
 more likely to make progress than those that don't receive any comments.
 * Eventually, the core team will decide whether the RFC is a candidate for
