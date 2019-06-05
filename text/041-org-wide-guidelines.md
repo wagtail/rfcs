@@ -90,12 +90,10 @@ group and they _might_ respond.
 
 All repos _must_ have a LICENSE file.
 
-Wagtail will suggest one (probably MIT or BSD), but the only thing we should enforce is
-that it is a “permissive and open source compatible license that allows commercial use”
-(example statement).
+As Wagtail is BSD, using the BSD license is preferred. However the main thing is that the chosen
+license is a “permissive and open source compatible license that allows commercial use”.
 
 ## Open Questions
 
 Should each project have their own sub-team?
-What license do we want to suggest?
 Are we suggesting a license - or enforcing one?
