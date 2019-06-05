@@ -53,7 +53,7 @@ migration simpler (see what (ala
 
 ### Code of conduct
 
-All Wagtail org projects must adhere to \[Wagtails code of conduct)[https://github.com/wagtail/wagtail/blob/master/CODE_OF_CONDUCT.md]
+All Wagtail org projects must adhere to [Wagtails code of conduct)[https://github.com/wagtail/wagtail/blob/master/CODE_OF_CONDUCT.md]
 and must reference it in their readme file.
 
 ### Contributing guidelines
