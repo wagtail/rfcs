@@ -2,13 +2,19 @@
 
 * Authors: Karl Hobley, Naomi Morduch Toubman
 * Created: 2019-04-18
-* Last Modified: 2019-04-18
+* Last Modified: 2019-09-30
 
 The Wagtail core team is relatively small and largely focused on the development of Wagtail. Wagtail would benefit from the input of a wider variety of community members.
 
 Sub teams will supplement the core team with more diverse teams focused on specific areas, each led by a member of the core team.
 
 The core team will still be responsible for setting the overall goals and vision of Wagtail and will decide on sub team creation, leadership, and disbandment.
+
+The benefits of this approach include:
+
+- More focus, the sub-teams can be more narrowly focused on each area giving it the care needed
+- Enable more 'levels' of involvement, volunteers can fill a gap in a sub team which may be slightly more commitment than just a contributor but without the commitment of a core team member
+- May help with processing PRs faster, giving a clearer touch point of who to ask for PR review from the core team (as they will be a sub team leader of an area that may match the focus of a PR)
 
 ## The sub teams
 
@@ -23,7 +29,8 @@ Examples of interest areas:
 - Documentation
 - Accessibility
 
-Development area and specific feature sub teams can be created for development aligned with the goals/roadmap of the core team. Temporary sub teams may be spun up to work on a single feature, or to continue work started at sprints.
+Development area sub teams can be created for development that focuses on a specific part of Wagtail or an installable module.
+In addition, temporary sub teams may be spun up to work on a single feature, or to continue work started at sprints.
 
 Examples of development areas and features:
 
