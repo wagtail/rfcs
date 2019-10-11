@@ -1,6 +1,6 @@
-# RFC : Author specific page locking
+# RFC 43: Author specific page locking
 
-* RFC:
+* RFC: 43
 * Authors: Karl Hobley
 * Created: 2019-10-08
 * Last Modified: 2019-10-11
