@@ -90,9 +90,6 @@ unlikely to forget to unlock it.
 Q: Possibly, we could automatically unlock the page when the user publishes, or
 maybe just prompt to unlock the page somehow when they publish
 
-Administrators will still have permission to unlock any page, even if they
-didn't lock it.
-
 ### New "My locked pages" dashboard panel
 
 We will add a new panel to the admin dashboard called "My locked pages" this
