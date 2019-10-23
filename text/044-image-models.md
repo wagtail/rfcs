@@ -1,4 +1,4 @@
-# RFC X: Make "custom image model" the default
+# RFC 44: Make "custom image model" the default
 
 * Authors: Karl Hobley
 * Created: 2019-10-23
