@@ -16,7 +16,7 @@ This also applies to document models as well.
 
 ## Specification
 
-To implement this RFC, we will make the following changes.
+To implement this RFC, we will make the following changes:
 
 
 ### Update the project template to use a custom image model
