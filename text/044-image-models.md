@@ -35,7 +35,7 @@ We will add the `assets` app as described in the previous section and update the
 
 Currently, custom image models are often called `CustomImage` or `WebsiteNameImage`. This is because you can’t call the model `Image` because this would cause the name of a reverse relation to clash.
 
-We will not remove the built-in image model as that would force developers to perform a migration that this RFC hopes to put an end to. But we could rename it to something obsolete sounding to discourage it’s use (`LegacyImage`?). This should only require developers to update foreign keys and create a simple schema migration to update for.
+We will not remove the built-in image model as that would force developers to perform a migration that this RFC hopes to put an end to. But we could rename it to something obsolete sounding to discourage its use (`LegacyImage`?). This should only require developers to update foreign keys and create a simple schema migration to update for.
 
 
 ### Tweak the beginners tutorial so it uses the custom image model
