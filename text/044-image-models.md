@@ -10,7 +10,7 @@ Custom image models is a feature that Wagtail has had since the very beginning. 
 
 The problem is it’s very hard to migrate to them once you already have built a website that uses Wagtail’s built-in image model. This also makes it difficult for us to build optional add-on features for images that require a custom image model (such as AMP support or translation).
 
-This RFC proposes that we start recommending that all new Wagtail projects uses custom image model from the start. This will add a small amount of extra code to the project template, which I know we would want to avoid. But I think avoiding a potentially very difficult migration later outweighs the overhead of having on extra app in the project.
+This RFC proposes that we start creating all new Wagtail projects with a custom image model from the start. This will add a small amount of extra code to the project template, which I know we would want to avoid. But I think avoiding a potentially very difficult migration later outweighs the overhead of having one extra app in the project.
 
 This also applies to document models as well.
 
