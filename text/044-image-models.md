@@ -12,7 +12,7 @@ The problem is it’s very hard to migrate to them once you already have built a
 
 This RFC proposes that we start creating all new Wagtail projects with a custom image model from the start. This will add a small amount of extra code to the project template, which I know we would want to avoid. But I think avoiding a potentially very difficult migration later outweighs the overhead of having one extra app in the project.
 
-This also applies to document models as well.
+This also applies to image rendition and document models as well.
 
 ## Specification
 
