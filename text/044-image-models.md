@@ -19,7 +19,7 @@ This also applies to document models as well.
 To implement this RFC, we will make the following changes:
 
 
-### Update the project template to use a custom image model
+### Update the project template to use custom image, rendition, and document models
 
 We will add a new app called `assets` into the base project template. This will contain three models: `Image`, `Rendition` and `Document`.
 
