@@ -8,15 +8,13 @@
 
 "Custom image models" is a feature that allows developers to supply a
 model for Wagtail to use to store image metadata instead of using the
-built-in one. This feature enables developers to add custom fields to
-images and customise Wagtail's behaviour by overriding its methods.
+built-in one. It enables developers to add custom fields to images and
+override Wagtail's default image handling behaviour.
 
-The problem is that it\'s challenging to switch to a custom image model
-once the site has already made use of Wagtail's built-in image model.
-Because of this, it\'s difficult for us to build optional add-on
-features for images that require a custom image model (such as AMP
-support or translation) as many users will need to go through a
-complicated migration to use them.
+It's challenging to switch to a custom image model once a site
+has already made use of Wagtail's built-in image model. Because of
+this, we can't add new features that require a custom image model as it
+may not be feasible for some users to migrate to one.
 
 This RFC proposes that we start creating new Wagtail projects with a
 custom image model from the start. This change will add a small amount
