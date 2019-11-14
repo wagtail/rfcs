@@ -13,27 +13,26 @@ This RFC proposes how we can implement multi-stage configurable workflow in Wagt
 
 ### Workflows
 
-Workflows are configured in Wagtail by an administrator. Each workflow has a name and a list of tasks arranged in a sequence.
+Workflows are configured in Wagtail by an administrator. Each workflow has a name and a sequence of steps.
 
-Workflows are triggered when a user clicks the "Submit for Review" action in the page editor. This action creates a "workflow state" object and begins the first task in the workflow.
+Workflows are triggered when a user clicks the "Submit for Review" action in the page editor. This creates a "workflow state" object and starts the first step in the workflow.
+The steps in the workflow must be completed in the same order as defined by the administrator. When the workflow is completed, the page is published.
 
-The workflow that gets used depends on the position of the page in the tree. Wagtail finds the workflow to use from the closest ancestor page that has a workflow associated with it. Out of the box, the "Root" page in Wagtail has the "Default" workflow linked with it, so pages use this workflow if none of their ancestor pages has overridden it.
+Wagtail finds the workflow to use from the closest ancestor page that has a workflow associated with it. Out of the box, the "Root" page in Wagtail has the "Default" workflow linked with it, so this will be used in any section that hasn't got a more specific workflow assigned to it.
 
 The "Submit for Review" button is not shown when there isn't a workflow configured.
 
 ### Tasks
 
-Tasks represent the checks that must pass for a page to be published. Each task has a name, a type, and some additional configuration dependant on the chosen type.
+Each step in a workflow has a task that must be completed in order to go to the next step. Tasks are defined separately to workflows, allowing them to be to shared.
 
-Tasks are defined separately to workflows, allowing workflows to share tasks.
+Examples of tasks include reviews by members of specific user groups, examples for this could be "Editorial Review" or "Legal Review".
+Different task types can be defined by developers using models. This allows custom tasks to be defined. For example, this could be used to implement automated grammer and spelling checking.
 
-Tasks are started when the previous task completes successfully, or when it's the first task in the workflow. Starting a task creates a "task state" object and executes any actions that the task type has defined (For example, send an email).
+When a task starts, it creates a "task state" object. This object tracks the current progress for completing a task in a workflow for an individual revision. The "task state" object may also be customised
+for each task type allowing fields like "review comment" to be implemented, for example.
 
-The "task state" object tracks the current progress for completing a task; these are associated with a workflow state and a page revision. Depending on the task type, The "task state" may be an instance of TaskState or an instance of a custom model that inherits TaskState.
-
-If the page is changed while a review is taking place, the existing "task state" objects will no longer be valid because they are associated with the previous revision. A new set of task state objects are created, and the review starts again at the first task.
-
-"task state" objects from previous successful reviews of the page would be available for uses such as generating diffs from the last reviewed version.
+If the page has changed while a review is taking place, the workflow will return to the first step of the workflow and any "in progress" tasks will be cancelled. "task state" objects from previous successful reviews of the page would be available for uses such as generating diffs from the last reviewed version.
 
 ## Models
 
