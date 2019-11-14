@@ -27,7 +27,7 @@ The "Submit for Review" button is not shown when there isn't a workflow configur
 Each step in a workflow has a task that must be completed in order to go to the next step. Tasks are defined separately to workflows, allowing them to be to shared.
 
 Examples of tasks include reviews by members of specific user groups, examples for this could be "Editorial Review" or "Legal Review".
-Different task types can be defined by developers using models. This allows custom tasks to be defined. For example, this could be used to implement automated grammer and spelling checking.
+Different task types can be defined by developers using models. This allows custom tasks to be defined. For example, this could be used to implement automated grammar and spelling checks.
 
 When a task starts, it creates a "task state" object. This object tracks the current progress for completing a task in a workflow for an individual revision. The "task state" object may also be customised
 for each task type allowing fields like "review comment" to be implemented, for example.
