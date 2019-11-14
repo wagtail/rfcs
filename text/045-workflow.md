@@ -59,15 +59,20 @@ with the action name passed through.
 
 #### ``user_can_access_editor(workflow_state, task_state, user)``
 
-Returns ``True`` if the user is allowed to access the page editor. By default, this queries ``UserPagePermissionsProxy``.
+Returns ``True`` if the user is allowed to access the page editor. By default, this returns ``False``.
 
-Note that this can only grant access to a user who doesn't usually have access to the editor and not take this away. To prevent users from editing pages, use ``page_locked_for_user`` instead.
+If this returns ``False``, Wagtail will fall back to querying ``UserPagePermissionsProxy`` so this can't be used to revoke editor permissions for a user that would usually have access to this.
+This is to prevent broken links in the admin as areas of the admin which link to the edit view (such as the explorer) won't be aware of workflows.
 
-Also, this does not make the page appear in the explorer.
+To prevent users from editing pages while the task is active, use ``page_locked_for_user`` instead.
+
+Also, this does not make the page appear in the explorer if the user wouldn't normally have permission to edit the page.
 
 #### ``page_locked_for_user(workflow_state, task_state, user)``
 
-Returns ``True`` if the page should be locked for the specified user. By default, this queries ``UserPagePermissionsProxy``.
+Returns ``True`` if the page should be locked for the specified user. By default, this returns ``False``.
+
+Note that this method won't unlock the page if it is locked to a specific user using Wagtail's edit lock feature.
 
 #### ``page_lockable_by_user(workflow_state, task_state, user)``
 
@@ -79,7 +84,7 @@ Returns ``True`` if the page can be unlocked by the specified user. By default, 
 
 ### Workflow
 
-The ``Workflow`` model has a Name and an ordered list of tasks. It is not customisable.
+The ``Workflow`` model has a ``name`` field and an orderable link model to ``Task`` called ``WorkflowStep``. It is not customisable.
 
 The ``Page`` model has a ``ForeignKey`` to ``Workflow``. This specifies which workflow to use on the page and its descendants.
 
