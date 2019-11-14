@@ -92,7 +92,7 @@ These two models store the current status of active workflows and keep a history
  - ``id``
  - ``workflow`` - A ``ForeignKey`` to ``Workflow``
  - ``page`` - A ``ForeignKey`` to ``Page``
- - ``status`` - Either "In progress", "Approved", "Rejected" or "Cancelled"
+ - ``status`` - Either "In progress" (default), "Approved", "Rejected" or "Cancelled"
  - ``created_at``
  - ``requested_by``
  - ``current_task_state`` - A ``ForeignKey`` to the most recent ``TaskState``
@@ -102,7 +102,7 @@ These two models store the current status of active workflows and keep a history
  - ``id``
  - ``workflow_state`` - A ``ForeignKey`` to ``WorkflowState``
  - ``page_revision`` - A ``ForeignKey`` to ``PageRevision``
- - ``status`` - Either "In progress", "Approved", "Rejected" or "Skipped""
+ - ``status`` - Either "In progress" (default), "Approved", "Rejected" or "Skipped"
  - ``started_at``
  - ``finished_at``
 
