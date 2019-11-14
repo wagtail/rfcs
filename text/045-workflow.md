@@ -32,7 +32,7 @@ Different task types can be defined by developers using models. This allows cust
 When a task starts, it creates a "task state" object. This object tracks the current progress for completing a task in a workflow for an individual revision. The "task state" object may also be customised
 for each task type allowing fields like "review comment" to be implemented, for example.
 
-If the page has changed while a review is taking place, the workflow will return to the first step of the workflow and any "in progress" tasks will be cancelled. "task state" objects from previous successful reviews of the page would be available for uses such as generating diffs from the last reviewed version.
+If the page has changed while a review is taking place, the workflow will return to the first step of the workflow and any "in progress" tasks will be cancelled. "task state" objects from previous reviews of the page would be available for uses such as generating diffs from the last reviewed version, they are kept indefinitely and can be viewed by users in the "Workflow history" interface.
 
 ## Models
 
