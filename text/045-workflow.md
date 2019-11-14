@@ -27,7 +27,7 @@ Tasks represent the checks that must pass for a page to be published. Each task 
 
 Tasks are defined separately to workflows, allowing workflows to share tasks.
 
-Tasks are "triggered" when the previous task completes successfully, or when it's the first task in the workflow. Triggering a task creates a "task state" object and executes any trigger actions that the task type has defined (For example, send an email).
+Tasks are started when the previous task completes successfully, or when it's the first task in the workflow. Starting a task creates a "task state" object and executes any actions that the task type has defined (For example, send an email).
 
 The "task state" object tracks the current progress for completing a task; these are associated with a workflow state and a page revision. Depending on the task type, The "task state" may be an instance of TaskState or an instance of a custom model that inherits TaskState.
 
@@ -43,9 +43,9 @@ The ``Task`` model is the base that all task types inherit. It is a concrete mod
 
 This model has an ID and Name fields. It also has the following methods that are overridable:
 
-#### ``on_trigger(workflow_state)``
+#### ``start(workflow_state)``
 
-This is called when the task is triggered in a workflow. Tasks are triggered when they are the first task of the workflow, or their previous task was just completed.
+This is called when the task is started in a workflow.
 
 This is responsible for creating an instance of ``TaskState``, which itself could be customised per task type.
 
@@ -104,10 +104,10 @@ These two models store the current status of active workflows and keep a history
  - ``workflow_state`` - A ``ForeignKey`` to ``WorkflowState``
  - ``page_revision`` - A ``ForeignKey`` to ``PageRevision``
  - ``status`` - Either "In progress", "Approved", "Rejected" or "Skipped""
- - ``triggered_at``
+ - ``started_at``
  - ``finished_at``
 
-``TaskState`` is overridable per task type. This is done by overriding the ``on_trigger`` method on ``Task`` to return a different ``TaskState`` model.
+``TaskState`` is overridable per task type. This is done by overriding the ``start`` method on ``Task`` to return a different ``TaskState`` model.
 
 #### Adding/removing/reordering tasks when they are in use
 
@@ -139,7 +139,7 @@ There will also be a section in the header which shows the current workflow that
 
 Currently, the “Submit for moderation" button saves a revision with the “submitted for moderation” field set to True.
 
-This is changed to use the new workflow models instead. Clicking “Submit for moderation” creates an instance of “workflow state” on the page and then triggers the first task of that workflow for the current page revision.
+This is changed to use the new workflow models instead. Clicking “Submit for moderation” creates an instance of “workflow state” on the page and then starts the first task of that workflow for the current page revision.
 
 The workflow chosen is based on the position of the page in the tree. The “Submit for moderation” button is not displayed when there is no workflow configured for the section of the page tree or when there is a workflow currently in progress.
 
