@@ -86,7 +86,7 @@ Returns ``True`` if the page can be unlocked by the specified user. By default, 
 
 The ``Workflow`` model has a ``name`` field and an orderable link model to ``Task`` called ``WorkflowStep``. It is not customisable.
 
-The ``Page`` model has a ``ForeignKey`` to ``Workflow``. This specifies which workflow to use on the page and its descendants.
+Pages are linked to workflows with the ``PageWorkflow`` model. This model has a ``OneToOneField`` to a page and a ``ForeignKey`` to a workflow to link to that page. If a page isn't linked to a workflow, it inherits the workflow of its parent.
 
 ### WorkflowState and TaskState
 
