@@ -68,17 +68,17 @@ To prevent users from editing pages while the task is active, use ``page_locked_
 
 Also, this does not make the page appear in the explorer if the user wouldn't normally have permission to edit the page.
 
-#### ``page_locked_for_user(workflow_state, task_state, user)``
+#### ``is_page_locked_for_user(workflow_state, task_state, user)``
 
 Returns ``True`` if the page should be locked for the specified user. By default, this returns ``False``.
 
 Note that this method won't unlock the page if it is locked to a specific user using Wagtail's edit lock feature.
 
-#### ``page_lockable_by_user(workflow_state, task_state, user)``
+#### ``is_page_lockable_by_user(workflow_state, task_state, user)``
 
 Returns ``True`` if the page can be locked by the specified user. By default, this queries ``UserPagePermissionsProxy``.
 
-#### ``page_unlockable_by_user(workflow_state, task_state, user)``
+#### ``is_page_unlockable_by_user(workflow_state, task_state, user)``
 
 Returns ``True`` if the page can be unlocked by the specified user. By default, this queries ``UserPagePermissionsProxy``.
 
