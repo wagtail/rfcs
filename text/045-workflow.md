@@ -16,7 +16,10 @@ This RFC proposes how we can implement multi-stage configurable workflow in Wagt
 Workflows are configured in Wagtail by an administrator. Each workflow has a name and a sequence of steps.
 
 Workflows are triggered when a user clicks the "Submit for Review" action in the page editor. This creates a "workflow state" object and starts the first step in the workflow.
-The steps in the workflow must be completed in the same order as defined by the administrator. When the workflow is completed, the page is published.
+
+The steps in the workflow must be completed in the same order as defined by the administrator. When the last step in the workflow is completed successfully, the workflow closes with "successful" status and the page is published.
+
+If any task in the workflow completes with "rejected" status, the workflow is cancelled. The author will be able to view the reason for this rejection when they next visit the edit view, then can make any changes and resubmit. This behaviour could be overridden by custom task types do something else such as go back and repeat a previous task for example.
 
 Wagtail finds the workflow to use from the closest ancestor page that has a workflow associated with it. Out of the box, the "Root" page in Wagtail has the "Default" workflow linked with it, so this will be used in any section that hasn't got a more specific workflow assigned to it.
 
@@ -32,7 +35,7 @@ Different task types can be defined by developers using models. This allows cust
 When a task starts, it creates a "task state" object. This object tracks the current progress for completing a task in a workflow for an individual revision. The "task state" object may also be customised
 for each task type allowing fields like "review comment" to be implemented, for example.
 
-If the page changes while a step task is taking place, the workflow will return to the first step of the workflow and any "in progress" tasks will be cancelled. Any "task state" objects from previous steps will be kept indefinitely, and will be available for uses such as generating diffs between versions. All "task state" objects can be viewed by users in the "Workflow history" interface.
+If the page changes while a workflow is "in progress", the workflow returns to the first step. This is because "task state" objects are linked to revisions and changing the page creates a new revision. The tasks need to be completed again for the new revision. However, the "task state" objects for the previous review remain in the database so we can generate a diff from the previously reviewed revision, making this re-review faster.
 
 ## Models
 
@@ -44,9 +47,21 @@ This model has an ID and Name fields. It also has the following methods that are
 
 #### ``start(workflow_state)``
 
-This is called when the task is started in a workflow.
+This method is called when the task is started in a workflow. It is responsible for creating an instance of ``TaskState``, which itself could be customised per task type.
 
-This is responsible for creating an instance of ``TaskState``, which itself could be customised per task type.
+This method can be overridden per task-type allowing custom logic to be inserted. Examples of how this could be customised include:
+
+ - Sending an email notification
+ - Triggering an external review service
+ - Skipping the task
+
+The ``workflow_state`` can be used to find results of previous tasks allowing the skipping feature to be used to support basic branching. For example, the following tasks could be set up:
+
+ Choose Review Type => Review Type A => Review Type B
+
+The first task requires a user to select the review type to use. When this is selected, this would be saved in the ``TaskState`` object for the "Choose Review Type" task.
+
+The "Review Type A" and "Review Type B" tasks would override the ``.start()`` method and check whether their review type was selected by the user in the first task and skip to the next task if not.
 
 #### ``get_action_menu_items(workflow_state, task_state)``
 
