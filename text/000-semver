@@ -1,0 +1,49 @@
+# RFC 048: Adopt SemVer
+
+* RFC: 048
+* Author: Dan Braghis
+* Created: 2020-03-05
+* Last Modified: 2020-03-05
+
+## Abstract
+
+At the moment Wagtail uses a pseudo-semantic versioning, in that MAJOR version changes with significant features 
+(e.g. StreamField in v2.x) , while backward-incompatible changes can be introduced in MINOR versions following the 
+2 point releases process (i.e if marked for deprecation in 2.1, will be deprecated in 2.3)
+
+I propose that Wagtail starts using the SemVer.
+
+SemVer (or Semantic Versioning) is a scheme to determine how to assign versions to changes:
+
+> Given a version number MAJOR.MINOR.PATCH, increment the:
+> 1. MAJOR version when you make incompatible API changes,
+> 2. MINOR version when you add functionality in a backwards-compatible manner, and
+> 3. PATCH version when you make backwards-compatible bug fixes.
+
+
+## Specification
+
+It is worth noting that, as of version 2.0, Django changed to use a loose form of SemVer in that following the release 
+of an LTS, the MAJOR version changes and allows for deprecations and backwards-incompatible changes to be introduced. 
+It is worth pointing out that the deprecation policy does not conform to pure SemVer in that deprecations started in an 
+LTS release (X.2) will be dropped in a non-dot-zero release (Y.1) to accommodate our policy of keeping deprecation shims 
+for at least two feature releases.
+
+Wagtail, being much younger, changes significantly and requires more frequent releases, therefore we cannot align with 
+Django’s release cycle. However, by adopting SemVer, we would align closer to Django.
+
+# PROs and CONs
+
+| PROs                                                                | CONs                                                                                          |
+| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Aligned with Django’s versioning policy                             | Can’t make breaking changes between point versions                                            |
+| Predictable breaking changes pattern                                | Backward compatible shims potentially needing maintainance for longer                         |
+| Better suited for more mature systems                               | Wagtail is changing substantially, so a much more frequent version bump (Chrome 79 syndrome?) |
+| Easier to estimate upgrades (i.e. point releases should be trivial) | Needs revisiting LTS schedule                                                                 |
+|                                                                     |                                                                                               |
+
+
+## Open Questions
+
+- What is the impact on the LTS schedule?
+- Does this increase maintainance burden?
