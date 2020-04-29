@@ -18,7 +18,9 @@ The benefits of this approach include:
 
 ## The sub teams
 
-Creation and disbandment of sub teams must be agreed on by the core team. This RFC doesn’t propose to create any yet, since ideas for sub teams will be discussed after this RFC is accepted.
+Sub teams are delegated by the core team and a participating core team member is assigned.
+
+This RFC doesn’t propose to create any yet, since ideas for sub teams will be discussed after this RFC is accepted.
 
 The sub teams that will most strengthen our work will be defined by interest area and involve people with varied skills (e.g. design, marketing, community management) and viewpoints (e.g. designers, experts, stakeholders).
 
@@ -43,6 +45,15 @@ Examples of development areas and features:
 - Draftail
 - Wagtail import export
 
+As a rule of thumb, any sub team should have at least one core team member, however certain areas of interest or temporary teams could be spun up without a core team member in it.
+
+### Sub-teams in GitHub
+
+We use a mix of labels (e.g. `Accessibility`) and GitHub teams (e.g. `@wagtail/documentation`).
+Any area with a label that matches a sub team name is owned by the given sub team. Mismatched labels should
+be updated for clarity.
+
+
 ## Team leaders
 
 Each sub team has a leader who is a member of the core team. Leaders don't have to be an expert on their team's area, nor do they need to contribute code in that area, but they need to be passionate about making that part of Wagtail better. If a team leader decides they no longer want to be a team leader or thinks their team is no longer useful, they must hand their leadership to another core team member or recommend disbanding the sub team.
@@ -59,12 +70,20 @@ In addition, they may also:
 - Help members find things to work on
 - Find reviewers for work done in their area
 - Write blog posts about their team’s work
+- Manage/moderate the public Slack channel for that area
+- Aid in directing responses for area specific questions on [StackOverflow](https://stackoverflow.com/questions/tagged/wagtail)
+- Monitoring for common issues and requests direct to Github issues.
+- Assist in labelling GitHub issues for that area
 
 ## Members
 
 Like core team membership, new members must be approved by existing members. Sub teams may also have minimum participation requirements for their members. Members who are no longer participating should be removed from the team.
 
 All sub team members are made members of the Wagtail organisation on Github and are welcome to use the badge on their profile. They may be given commit rights to repos but not the main Wagtail repo (core team members only).
+
+### Special mentions
+
+A honorary `Alumni` sub team will be created to list and thank previous core or sub team members.
 
 ## Inspiration
 
