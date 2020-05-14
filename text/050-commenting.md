@@ -7,7 +7,7 @@
 
 ## Abstract
 
-Currently, commenting on a draft version of a page is done through (Wagtail Review)[https://github.com/wagtail/wagtail-review/], which has been reworked for the upcoming Workflow feature. However, this has several downsides:
+Currently, commenting on a draft version of a page is done through [Wagtail Review](https://github.com/wagtail/wagtail-review/), which has been reworked for the upcoming Workflow feature. However, this has several downsides:
 
 - Comments are only visible on a preview version of a page, not in the editor
 - Comments are linked to offsets in the frontend html, so cannot be accurately traced back to positions in the database representation (due to filtering, particularly the `richtext` filter). As a result, inline comments cannot be transferred between revisions - viewing a comment made on a previous revision requires previewing that revision.
