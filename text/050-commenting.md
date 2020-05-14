@@ -58,7 +58,7 @@ To resolve this, we suggest an additional model for inline comments, which links
 
 While anchored comments should be a third party or contrib app due to the different UX, to provide this functionality, the following changes in core would be necessary:
 - Adding a unique ID shared between Draftail paragraphs/ContentBlock and the database html representation.  This is also useful for diffing and translation.
-- Adding a way to hook in at specific points in the ContentState to db html conversion process (to generate the offsets in the db representation accurately, this is necessary, and the existing rich text features hook is insufficient). This could be in the form of additional hooks, or adding priority options on the existing hooks.
+- Adding a way to hook in at specific points in the ContentState to db html conversion process (to generate the offsets in the db representation accurately, this is necessary, and the existing rich text features hook is insufficient). This could be in the form of additional hooks for pre- and post- conversion functions.
 - Comparing revision content before saving a new revision. This is more generally useful as well: it would prevent the creation of spurious revisions and make for a cleaner edit history, as well as working better for detecting edits during a workflow.
 
 
