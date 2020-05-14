@@ -1,6 +1,6 @@
-# RFC 1: Commenting in the Wagtail Editor
+# RFC 50: Commenting in the Wagtail Editor
 
-* RFC: 1
+* RFC: 50
 * Author: Jacob Topp-Mugglestone
 * Created: 2020-05-14
 * Last Modified: 2020-05-14
