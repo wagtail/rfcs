@@ -67,9 +67,15 @@ Additionally, [annotations are not currently possible when using `specific()`](h
 meaning given the following query:
 
 ```python
-news_pages = Page.objects.type((BlogPage, PressReleasePage)).specific().annotate(
-    author_name=Concat('owner__first_name', models.Value(' '), 'owner__last_name')
-).order_by('-first_published_at')
+page_types = tuple([BlogPage, PressReleasePage, ])
+author_name = Concat('owner__first_name', models.Value(' '), 'owner__last_name')
+news_pages = (
+    Page.objects
+        .type(page_types)
+        .specific()
+        .annotate(author_name=author_name)
+        .order_by('-first_published_at')
+)
 ```
 
 Would return a list of pages as their specific classes and `news_pages.first().category` would work,
@@ -97,7 +103,7 @@ class AbstractPage(MP_Node, index.Indexed, ClusterableModel, metaclass=PageBase)
         help_text=_("The page title as you'd like it to be seen by the public")
     )
 
-    # ...
+    # other default fields...
 
     class Meta:
         swappable = swapper.swappable_setting('wagtailcore', 'Page')
@@ -132,12 +138,17 @@ This would be inherited by the user's custom `Page` class:
 from wagtail.core.models import AbstractPage
 
 class Page(AbstractPage):
-    thumbnail = models.ForeignKey(
-        get_image_model_string(),
+    category = models.ForeignKey(
+        'foo.Category',
         null=True,
-        blank=True,
+        blank=False,
         on_delete=models.SET_NULL,
         related_name='+'
+    )
+
+    is_featured = models.BooleanField(
+        verbose_name="Feature this page on the home page",
+        default=False
     )
 
     class Meta(AbstractPage.Meta):
