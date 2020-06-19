@@ -56,15 +56,17 @@ On the homepage of the site, we'd like to show all the featured pages, and displ
 of the category they belong to. Currently, this query would fail:
 
 ```python
-featured = Page.objects.filter(is_featured=True).select_related('category', 'owner')
+featured = Page.objects.select_related('category', 'owner').filter(is_featured=True)
 ```
 
-Because `is_featured` and `category` do not exist on the concrete `Page` model.
+Because `is_featured` and `category` do not exist on the concrete `Page` model. The solution would
+be to query each model indiviually, and then combine the querysets - a cumbersome and slow operation
+that is difficult to scacle.
 
 We may also want to show a list of the most recently published pages of multiple types and their category.
 The `specific()` method exists on `PageQuerySet`, but it comes at the cost of extra database queries.
 Additionally, [annotations are not currently possible when using `specific()`](https://github.com/wagtail/wagtail/issues/2340#issuecomment-496987132),
-meaning given the following query:
+meaning the following query:
 
 ```python
 page_types = tuple([BlogPage, PressReleasePage, ])
@@ -174,6 +176,25 @@ class FooPage(Page):
     )
 ```
 
+And previously complex multi-model Page queries become trivial:
+
+```python
+author_name = Concat('owner__first_name', models.Value(' '), 'owner__last_name')
+
+featured_foo_posts = (
+    Page.objects
+        .live()
+        .filter(category='foo', is_featured=True)
+        .annotate(
+            tag_count=Count('tags'),
+            author_name=author_name
+        )
+        .order_by('-first_published_at')
+        .values('title', 'slug', 'tag_count', 'author_name')
+)
+```
+
+
 ### Rationale
 * Improves performance - fewer lookups as shared page attributes will be on the concrete `Page` model
 * Reduces code complexity - filtering by custom attributes like `Page.objects.filter(language='fr')`
@@ -201,6 +222,7 @@ manner as Django does with [custom user models](https://docs.djangoproject.com/e
 ## Open Questions
 * How do we implement this in a way that is frictionless for new starters?
 * What are the implications for third-party packages?
+* What happens to required attributes like `title` if user has the option to override? Do we protect them somehow?
 * What other consequences might there be for introducing this change?
 
 ## References / further reading
