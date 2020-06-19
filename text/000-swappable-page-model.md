@@ -59,7 +59,7 @@ of the category they belong to. Currently, this query would fail:
 featured = Page.objects.filter(is_featured=True).select_related('category', 'owner')
 ```
 
-Because `is_featured` and `cateogy` do not exist on the concrete `Page` model.
+Because `is_featured` and `category` do not exist on the concrete `Page` model.
 
 We may also want to show a list of the most recently published pages of multiple types and their category.
 The `specific()` method exists on `PageQuerySet`, but it comes at the cost of extra database queries.
