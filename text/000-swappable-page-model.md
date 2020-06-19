@@ -10,6 +10,71 @@
 This RFC proposes that Wagtail should give users the option to specify a custom `Page` model,
 rather than inheriting the concrete one provided at `wagtail.core.models.Page`.
 
+## Why?
+
+Consider a Wagtail site with 3 page types - `BlogPage`, `PressReleasePage` and `CompetitionPage`.
+Each of these pages can be assigned a category and marked as featured content:
+
+```python
+
+class Category(models.Model):
+    name = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+class PageBase(Page):
+    class Meta:
+        abstract = True
+
+    category = models.ForeignKey(
+        'foo.Category',
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    is_featured = models.BooleanField(
+        verbose_name="Feature this page on the home page",
+        default=False
+    )
+
+class BlogPage(PageBase):
+    pass
+
+class PressReleasePage(PageBase):
+    pass
+
+class CompetitionPage(PageBase):
+    pass
+
+```
+
+On the homepage of the site, we'd like to show all the featured pages, and display the name
+of the category they belong to. Currently, this query would fail:
+
+```python
+featured = Page.objects.filter(is_featured=True).select_related('category', 'owner')
+```
+
+Because `is_featured` and `cateogy` do not exist on the concrete `Page` model.
+
+We may also want to show a list of the most recently published pages of multiple types and their category.
+The `specific()` method exists on `PageQuerySet`, but it comes at the cost of extra database queries.
+Additionally, [annotations are not currently possible when using `specific()`](https://github.com/wagtail/wagtail/issues/2340#issuecomment-496987132),
+meaning given the following query:
+
+```python
+news_pages = Page.objects.type((BlogPage, PressReleasePage)).specific().annotate(
+    author_name=Concat('owner__first_name', models.Value(' '), 'owner__last_name')
+).order_by('-first_published_at')
+```
+
+Would return a list of pages as their specific classes and `news_pages.first().category` would work,
+but `news_pages.first().owner_name` will throw an exception, even though the query ran without error.
+
 ## Specification
 
 Django has undocumented support for [swappable models](https://code.djangoproject.com/ticket/19103),
