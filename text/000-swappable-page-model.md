@@ -180,11 +180,10 @@ And previously complex multi-model Page queries become trivial:
 
 ```python
 author_name = Concat('owner__first_name', models.Value(' '), 'owner__last_name')
-
 featured_foo_posts = (
     Page.objects
         .live()
-        .filter(category='foo', is_featured=True)
+        .filter(category__name='Foo', is_featured=True)
         .annotate(
             tag_count=Count('tags'),
             author_name=author_name
