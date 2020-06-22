@@ -1,9 +1,9 @@
-# RFC 000: Swappable Page model
+# RFC 53: Swappable Page model
 
-* RFC: 000
+* RFC: 53
 * Author: Sonny Baker
 * Created: 2020-06-19
-* Last Modified: 2020-06-19
+* Last Modified: 2020-06-20
 
 ## Abstract
 
