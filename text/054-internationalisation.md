@@ -44,7 +44,7 @@ One example of this is when we refactored the explorer menu into a React compone
 
 **Language-aware URL routing**
 
-Wagtail’s built-in [`serve`](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) [view](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) does not account for the language set by Django’s `LocaleMiddleware`/`i18n_patterns`. So the homepage model has to override `route()` method to route requests in a locale-aware way.
+Wagtail’s built-in [`serve` view](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) does not account for the language set by Django’s `LocaleMiddleware`/`i18n_patterns`. So the homepage model has to override `route()` method to route requests in a locale-aware way.
 
 The problem with relying on Pages to override the `route()` method is there’s no way for Wagtail to be able to reverse this logic for generating URLs to translated pages.
 
@@ -72,7 +72,7 @@ Well, we’ll just have to live with it then. In this document I will go into al
 
 **Use Django's existing utilities**
 
-Wagtail’s internationalisation implementation should work well with existing Django internationalisation utilities such as `[i18n_patterns](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#django.conf.urls.i18n.i18n_patterns)` and the `[LocaleMiddleware](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware)` and not reinvent anything unless there is no other way.
+Wagtail’s internationalisation implementation should work well with existing Django internationalisation utilities such as [`i18n_patterns`](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#django.conf.urls.i18n.i18n_patterns) and the [`LocaleMiddleware`](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware) and not reinvent anything unless there is no other way.
 
 **Don’t get in the way when translations are not required**
 
@@ -82,7 +82,7 @@ We will introduce a setting called `WAGTAIL_I18N_ENABLED` that is `False` by def
 
 **Don’t break existing internationalisation implementations**
 
-There are already many sites out there that run on existing tools like `[wagtailtrans](https://github.com/wagtail/wagtailtrans)` and `[wagtail-modeltranslation](https://github.com/infoportugal/wagtail-modeltranslation)` as well as a bunch of bespoke implementations.
+There are already many sites out there that run on existing tools like [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) and [`wagtail-modeltranslation`](https://github.com/infoportugal/wagtail-modeltranslation) as well as a bunch of bespoke implementations.
 
 We should do our best to avoid breaking backwards compatibility for these. The goal is that anyone with an existing internationalisation implementation will continue to work, after these changes have been made, but they just won’t get all of the improvements specified later in this RFC.
 
@@ -157,7 +157,7 @@ This term is also used in this way by Django, the `LocaleMiddleware` implements 
 
 ## Approaches for joining translations together
 
-We need to decide a way to identify which pages are translations of one another. This RFC proposes to add a `translation_key` field to all translatable models. This idea originally came from `[RFC-9](https://github.com/neon-jungle/wagtail-rfcs/blob/0008-translations/draft/0009-translations.rst)`.
+We need to decide a way to identify which pages are translations of one another. This RFC proposes to add a `translation_key` field to all translatable models. This idea originally came from [`RFC-9`](https://github.com/neon-jungle/wagtail-rfcs/blob/0008-translations/draft/0009-translations.rst).
 
 The `translation_key` is a `UUID` field that tells us which instances are translations of one another as translations share the same value for this field. When we create a new object, we generate a new UUID. But when we translate an instance, we copy it’s UUID to the new object.
 
@@ -218,7 +218,7 @@ It should be possible to write a data migration to migrate existing implementati
 
 ## wagtail-localize
 
-Wagtail Localize (originally wagtail-i18n) was developed from work I did for Google in November 2018, and updated since then for Department of International Trade and Mozilla. It started out as a rewrite of `[wagtailtrans](https://github.com/wagtail/wagtailtrans)` to use mixins instead of an intermediate page model which allows it to translate snippets. It couldn’t later be re-merged due to the complexity of migrating existing `wagtailtrans` implementations to use mixins.
+Wagtail Localize (originally wagtail-i18n) was developed from work I did for Google in November 2018, and updated since then for Department of International Trade and Mozilla. It started out as a rewrite of [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) to use mixins instead of an intermediate page model which allows it to translate snippets. It couldn’t later be re-merged due to the complexity of migrating existing `wagtailtrans` implementations to use mixins.
 
 The models in this RFC are very similar to what `wagtail-localize` currently has. It should be easy to refactor it as a translation workflow module using the new models.  Except for Mozilla, there are currently no production users of Wagtail localize so migration won’t be a problem.
 
@@ -236,27 +236,29 @@ When set to `True`, this enables all of the UI enhancements specified later on i
 
 (list, default `[]`)
 
-A list of languages that Wagtail content can exist in. This list is in the exact same format as Django’s `[LANGUAGES](https://docs.djangoproject.com/en/3.0/ref/settings/#languages)` setting. It’s separate from that because you might not want all your Django `[LANGUAGES](https://docs.djangoproject.com/en/3.0/ref/settings/#languages)` to have a copy of the Wagtail content.
+A list of languages that Wagtail content can exist in. This list is in the exact same format as Django’s [`LANGUAGES`](https://docs.djangoproject.com/en/3.0/ref/settings/#languages) setting. It’s separate from that because you might not want all your Django [`LANGUAGES`](https://docs.djangoproject.com/en/3.0/ref/settings/#languages) to have a copy of the Wagtail content.
 
-For example, you may have the following in your Django `[LANGUAGES](https://docs.djangoproject.com/en/3.0/ref/settings/#languages)`:
+For example, you may have the following in your Django [`LANGUAGES`](https://docs.djangoproject.com/en/3.0/ref/settings/#languages):
 
-
+```python
     LANGUAGES = [
        ('en-GB', "English (United Kingdom)"),
        ('en-US', "English (United States)"),
        ('es-ES', "Spanish (Spain)"),
        ('es-MX', "Spanish (Mexico)"),
     ]
+```
 
 But only support the generic languages in your `WAGTAIL_LANGUAGES`:
 
-
+```python
     WAGTAIL_LANGUAGES = [
         ('en', "English"),
         ('es', "Spanish"),
     ]
+```
 
-This would mean that your site will respond on the URLs `https://www.mysite.com/es-ES/` but you can only author content in one variant of English and Spanish. You can set `WAGTAIL_LANGUAGES` to be the same as `[LANGUAGES](https://docs.djangoproject.com/en/3.0/ref/settings/#languages)` as well.
+This would mean that your site will respond on the URLs `https://www.mysite.com/es-ES/` but you can only author content in one variant of English and Spanish. You can set `WAGTAIL_LANGUAGES` to be the same as [`LANGUAGES`](https://docs.djangoproject.com/en/3.0/ref/settings/#languages) as well.
 
 ## The `Locale` model
 
