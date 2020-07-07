@@ -264,7 +264,7 @@ This would mean that your site will respond on the URLs `https://www.mysite.com/
 
 ## The `Locale` model
 
-The `Locale` model defines the set of locales that can be used on a site. The locales are kept in sync with the `WAGTAIL_LANGUAGES` setting on startup. If `WAGTAIL_LANGUAGES` is not defined, a single `Locale` instance will be created for the default `LANGUAGE_CODE`.
+The `Locale` model defines the set of locales that can be used on a site. The locales are kept in sync with the `WAGTAIL_LANGUAGES` setting on startup. If `WAGTAIL_LANGUAGES` is not defined, a single `Locale` instance will be created for the default `LANGUAGE_CODE` (the `locale` field isn't nullable, so we need a single `Locale` instance to use as a value for this field for sites that don't require internationalisation).
 
 When `WAGTAIL_I18N_ENABLED` is `False` all pages will have the same `Locale` as defined in the `LANGUAGE_CODE` setting. This is to satisfy the database constraints but also makes it easy for someone to switch on internationalisation later.
 
@@ -285,7 +285,7 @@ The `TranslatableMixin` abstract model can be applied to any other Django model.
 
 **Fields:**
 
-- `locale` Foreign Key to `Locale`. For pages, this defaults to the locale of the parent page (unless the parent is “Root”, more on that later).
+- `locale` Foreign Key to `Locale`. For pages, this defaults to the locale of the parent page.
 - `translation_key` A UUID that is randomly generated whenever a new model instance is created. This is shared with all translations of that instance so can be used for querying translations.
 
 Both of these fields will have a unique key to prevent something from being translated into the same language twice.
