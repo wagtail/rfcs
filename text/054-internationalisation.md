@@ -336,7 +336,7 @@ Adding `TranslatableMixin` to an existing model is trickier as the `translation_
 - The `translation_key` needs a unique UUID for each instance. However, Django’s `default` is only called once when applying a migration so by default, all instances will be given the same UUID
 - The `locale` needs to be populated with the locale that the `LANGUAGE_CODE` setting points to. This in most cases would be locale ID 1 so we could instruct the user to do this manually. But as we need something custom to handle `translation_key` why not handle this too?
 
-`**BootstrapTranslatableMixin**` **and** `**BootstrapTranslatableModel**`
+**`BootstrapTranslatableMixin` and `BootstrapTranslatableModel`**
 
 `BootstrapTranslatableMixin` is a variant of `TranslatableMixin` without the unique and `not null` constraints on the `locale` and `translation_key` fields. The first step to making existing models translatable is to add this mixin to the model and create a migration.
 
