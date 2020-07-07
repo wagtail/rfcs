@@ -64,7 +64,9 @@ If we decide on a standard approach, it would provide a foundation for building 
 
 **What if it turns out later to not be the best approach?**
 
-Well, we’ll just have to live with it then. In this document I will go into all the other approaches we've come across in the past and compare them so you can decide if this is the best approach. It’s been 6 years since Wagtail was released so we’ve most likely found most of the possible approaches for translation already. We’re in the best place we’ve ever been to pick a standard approach.
+In this document I will go into all the other approaches we've come across in the past and compare them so you can decide if this is the best approach. It’s been 6 years since Wagtail was released so we’ve most likely found most of the possible approaches for translation already. We’re in the best place we’ve ever been to pick a standard approach.
+
+If we do find a better approach later, we might be able to support it for a perioud of time alongside this approach to allow users to migrate (if a migration is necessary), then remove this approach in a subsequent major release.
 
 # High level design
 
