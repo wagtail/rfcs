@@ -34,7 +34,7 @@ This RFC effectively replaces [RFC 9](https://github.com/wagtail/rfcs/pull/9). T
 
 There are a few things that are really hard/impossible to implement in a third party package:
 
-**Deeper integration with other Wagtail features and UI**
+**Deeper integration with other Wagtail features and UI without needing a lot of hooks**
 
 In the “Integration with the rest of Wagtail" section below, I describe some ways we can improve other parts of Wagtail to be aware of locales.
 
