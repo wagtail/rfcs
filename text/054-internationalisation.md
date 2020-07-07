@@ -1,4 +1,4 @@
-# RFC : Internationalisation of Wagtail content
+# RFC 54: Internationalisation of Wagtail content
 
 * Authors: Karl Hobley
 * Created: 2020-07-07
