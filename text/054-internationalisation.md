@@ -12,7 +12,7 @@ In particular, it proposes the following:
 
 - Add a `Locale` model to represent all of the locales used on a Wagtail instance
 - Add `locale` and `translation_key` fields to `Page` to make them translatable
-- Use the [multi-page](#) [separated-tree](#) approach for structuring content
+- Use the [multi-page](#multi-page-translation) [separated-tree](#separated-vs-combined-language-trees) approach for structuring content
 - Add a `TranslatableMixin` with the `locale` and `translation_key` fields to allow Snippets, modeladmin models, and settings to be translated
 - Implement some unopinionated UI enhancements for translated content (such as filters and language switchers). These enhancements would be disabled by default and enabled with `WAGTAIL_I18N_ENABLED` setting
 - Implement a solution for language-aware URL routing that works with Django's `i18n_patterns` and `LocaleMiddleware`
@@ -22,7 +22,7 @@ This RFC does not propose any solution for translation management or workflow. T
 
 ## Differences from RFC 9
 
-This RFC effectively replaces [RFC 9](https://github.com/wagtail/rfcs/pull/9) that was written in 2016. The main differences are:
+This RFC effectively replaces [RFC 9](https://github.com/wagtail/rfcs/pull/9). The main differences are:
 
 - Adds the fields directly to `Page` instead of a creating separate page model
 - Provides support for translating non-page models
@@ -44,7 +44,7 @@ One example of this is when we refactored the explorer menu into a React compone
 
 **Language-aware URL routing**
 
-Wagtail’s built-in `[serve](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10)` [view](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) does not account for the language set by Django’s `LocaleMiddleware`/`i18n_patterns`. So the homepage model has to override `route()` method to route requests in a locale-aware way.
+Wagtail’s built-in [`serve`](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) [view](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) does not account for the language set by Django’s `LocaleMiddleware`/`i18n_patterns`. So the homepage model has to override `route()` method to route requests in a locale-aware way.
 
 The problem with relying on Pages to override the `route()` method is there’s no way for Wagtail to be able to reverse this logic for generating URLs to translated pages.
 
