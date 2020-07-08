@@ -128,7 +128,7 @@ Advantages of **separated tree** are:
 
 The models in this RFC could, in theory, work with both of these approaches. But allowing both approaches will complicate some of the logic so we will only support the **separated tree** approach for now.
 
-**What about multiple-sites?**
+#### What about multiple-sites?
 
 Wagtail instances that have multiple sites already have multiple trees. The locale-specific trees will also be created at the root level, so if you have two sites in two languages you will end up with four pages at the root.
 
@@ -160,16 +160,16 @@ This term is also used in this way by Django, the [`LocaleMiddleware`](https://d
 
 We need to decide a way to identify which pages are translations of one another. This RFC proposes to add a `translation_key` field to all translatable models. This idea originally came from [`RFC-9`](https://github.com/neon-jungle/wagtail-rfcs/blob/0008-translations/draft/0009-translations.rst).
 
-The `translation_key` is a `UUID` field that tells us which instances are translations of one another as translations share the same value for this field. When we create a new object, we generate a new UUID. But when we translate an instance, we copy it’s UUID to the new object.
+The `translation_key` is a `UUID` field that tells us which instances are translations of one another as translations share the same value for this field. When we create a new object, we generate a new UUID. But when we translate an instance, we copy its UUID to the new instance.
 
 The advantages of this are:
 
-* Database constraints are easy to define. You just need a `unique_together` on `translation_key` and locale
+* Database constraints are easy to define. You just need a `unique_together` on `translation_key` and `locale`
 * It's easy to create new instances and query an instance for its translations
 * It doesn't require an external model to track translations and also doesn’t require a default language to be defined for the whole site.
-* The UUID can be repurposed as an identifier for the instance in a translation system. It it also used by [`wagtail-localize`](https://github.com/wagtail/wagtail-localize) for as a stable identifier for child objects (which is needed to identify where a translatable string came from. Child objects can sometimes have `None` as their primary key before they’re published).
+* The UUID can be repurposed as an identifier for the instance in a translation system. It it also used by [`wagtail-localize`](https://github.com/wagtail/wagtail-localize) for as a stable identifier for child objects (which is needed to identify where a translatable string came from. Child objects can have `None` as their primary key before they’re published).
 
-#### UUIDs are random numbers, If I had a site with millions of pages, what are the chances that two of them would be assigned the same UUID by mistake?
+#### UUIDs are random numbers, if I had a site with millions of pages, what are the chances that two of them would be assigned the same UUID by mistake?
 
 According to Wikipedia:
 
@@ -185,13 +185,13 @@ If however, you are running Wagtail in a predictable environment (the random num
 
 All the alternatives have a space saving advantage in that `ForeignKey`s are usually 32 bit integers but UUID’s are 128 bits so 4 times bigger. But none of them have any advantage beyond that. Each one has disadvantages that I think outweigh this one advantage:
 
-* A `ForeignKey` to the source page (as used by [`wagtailtrans`](https://github.com/wagtail/wagtailtrans))
+* A `ForeignKey` to the source page (For example `canonical_page` in [`wagtailtrans`](https://github.com/wagtail/wagtailtrans))
   * You can’t have a `unique_together` constraint on this `ForeignKey` and `locale` because the source pages will have this field set to `None` (they can’t have a `ForeignKey` to themself!)
   * Querying logic needs to also take this fact into account and query for both the source pages and translations using separate filters (For example, `Q(id=source_id) | Q(source_id=source_id)`). This isn’t a huge deal, but you have to do this in a lot of places!
   * Deletion of the source requires choosing a new source language and updating all the translations
 * A `ForeignKey` to a different model (where there is one instance of that model for each group of translated instances)
-  * This one is very similar to the proposed UUID approach, but instead of generating a UUID, it’s generating an ID from the `AutoField` of another model. This ID could be treated exactly the same as the UUID.
-  * The tricky part of this approach is that we either have to find a way to create an instance of this model whenever something translatable is created (which could also be a non-page model). Or allow `None` in this field and generate the instance when the first translation is made, but this would require making the database constraints less restricted. In my mind, a stronger database constraint beats a slightly smaller field size.
+  * This one is very similar to the proposed UUID approach, but instead of generating a UUID, it’s generating an ID from the `AutoField` of another model. This ID could be treated exactly the same as the UUID for querying and database constraints.
+  * The tricky part of this approach is that we either have to find a way to create an instance of this model whenever something translatable is created (which could also be a non-page model). Or allow `None` in this field and generate the instance when the first translation is made, but this would require making the database constraints less restricted. In my opinion, a stronger database constraint beats a slightly smaller field size.
 * An additional `AutoField` that generates integer translation keys instead of `UUID`s
   * Unfortunately, Django doesn’t allow more than one `AutoField` on a model
 
@@ -521,7 +521,7 @@ Using locale-specific settings would be transparent to the template developer. W
 
 The sitemaps module that generates XML sitemaps will be updated to take translations into account.
 
-There will be one entry for each unique `translation_key` value. The URL of that entry would be the URL of the page in the default locale (as defined by the `LANGUAGE_CODE` setting). URLs to other languages will be added using `<xhtml:link rel=``"``alternate``"` `hreflang={language code here} />` tags as specified in: [https://support.google.com/webmasters/answer/189077?hl=en](https://support.google.com/webmasters/answer/189077?hl=en)
+There will be one entry for each unique `translation_key` value. The URL of that entry would be the URL of the page in the default locale (as defined by the `LANGUAGE_CODE` setting). URLs to other languages will be added using `<xhtml:link rel="alternate" hreflang={language code here} />` tags as specified in: [https://support.google.com/webmasters/answer/189077?hl=en](https://support.google.com/webmasters/answer/189077?hl=en)
 
 Note: if there isn’t a translation in the default locale, the page with the lowest ID would be considered the default instead.
 
