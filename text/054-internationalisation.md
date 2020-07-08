@@ -44,25 +44,24 @@ One example of this is when we refactored the explorer menu into a React compone
 
 #### Language-aware URL routing
 
-Wagtail’s built-in [`serve` view](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) does not account for the language set by Django’s [`LocaleMiddleware`](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware)/[`i18n_patterns`](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#django.conf.urls.i18n.i18n_patterns). So the homepage model has to override `route()` method to route requests in a locale-aware way.
+Wagtail’s built-in [`serve` view](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) does not account for the language set by Django’s [`LocaleMiddleware`](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware)/[`i18n_patterns`](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#django.conf.urls.i18n.i18n_patterns). Both `wagtail-localize` and `wagtailtrans` work around this issue in different ways:
 
-The problem with relying on Pages to override the `route()` method is there’s no way for Wagtail to be able to reverse this logic for generating URLs to translated pages.
+* `wagtail-localize` overrides the `route()` method on homepages to redirect requests into the correct language tree. But the problem with this is Wagtail is unable to reverse the URLs to non-english pages so it also monkey-patches `Site.get_root_paths` and `Page.get_url`. to override this logic.
+* `wagtailtrans` sets the slug of the homepages to match the language codes, but this relies on editors to set them correctly and doesn't make use of `i18n_patterns` which the site should be using anyway for Django views (eg, search).
 
-Having a standard approach for how languages should be represented in URLs would mean that Wagtail can handle both routing and reversing of URL paths and third-party apps wouldn't need to monkey-patch `Site.get_root_paths` or `Page.get_url`.
+If this logic was standardised, we could implement this in a way that works well with Django tools without having to monkey-patch Wagtail's internal logic from third-party modules.
 
 #### Simpler queries for filtering by language
 
-Having the locale filter on the base page model makes it much simpler to filter pages by language. Both [`wagtail-localize`](https://github.com/wagtail/wagtail-localize) and [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) add fields
-
-This is also important for the API module where it mostly works with the base `Page` model and has no ability to filter on page-specific files
+Having the `locale` field on the base `Page` model makes it much simpler to filter pages by language. This is important for supporting locale filters in the page explorer and the API as both of these places work with the base `Page` model and having to `JOIN` data from child models would impact performance.
 
 #### A standard approach that can be built on by many third-party libraries
 
-If we decide on a standard approach, it would provide a foundation for building better translation workflows. New translation apps could be built that don’t need to reinvent how the models are done each time. Using the same models means a user could even switch between translation apps over time without having to migrate.
+Currently, each translation app has to reinvent these models. If we decide on a standard approach, it would provide a foundation for building better translation workflows. It would also make it easier for users to migrate between different workflow modules as more get created in the future.
 
 ### Drawbacks
 
-**What if it turns out later to not be the best approach?**
+#### What if it turns out later to not be the best approach?
 
 In this document I will go into all the other approaches we've come across in the past and compare them so you can decide if this is the best approach. It’s been 6 years since Wagtail was released so we’ve most likely found most of the possible approaches for translation already. We’re in the best place we’ve ever been to pick a standard approach.
 
@@ -86,15 +85,15 @@ We will introduce a setting called [`WAGTAIL_I18N_ENABLED`](#settings) that is `
 
 There are already many sites out there that run on existing tools like [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) and [`wagtail-modeltranslation`](https://github.com/infoportugal/wagtail-modeltranslation) as well as a bunch of bespoke implementations.
 
-We should do our best to avoid breaking backwards compatibility for these. The goal is that anyone with an existing internationalisation implementation will continue to work, after these changes have been made, but they just won’t get all of the improvements specified later in this RFC.
+We should do our best to avoid breaking backwards compatibility for these. The goal is that anyone with an existing internationalisation implementation will continue to work after these changes have been made, but they won’t get all of the improvements specified later in this RFC.
 
 #### Leave unnecessary parts out to allow innovation
 
-This RFC purposefully leaves out any UI to actually create and manage translations. There is probably quite a few different ways this can be done that we haven’t explored yet. Wagtail Localize has made a lot of progress recently on its workflow, but it would be a while until it’s fully mature. But even when that matures, there are probably other ways to manage translations and there’s no need to standardise on one approach for that now.
+This RFC purposefully leaves out any UI to actually create and manage translations. There is probably quite a few different ways this can be done that we haven’t explored yet. `wagtail-localize` has made a lot of progress recently on its workflow, but it would be a while until it’s fully mature. But even when that matures, there are probably other ways to manage translations and there’s no need to standardise on one approach for that now as hooking the views required for these apps is simple.
 
 ### Multi-page translation
 
-As mentioned in the summary, this RFC proposes to implement **multi-page** translation. This section compares this approach to the other possible way, **multi-field** translation.
+As mentioned in the summary, this RFC proposes to implement **multi-page** translation. This section compares this approach with the other possible way, **multi-field** translation.
 
 In **multi-page** translation, each language of a page is represented with a different page.
 
@@ -206,23 +205,23 @@ Many Wagtail internationalisation implementations are completely bespoke (in fac
 
 It’s hard to say how these will be impacted as not everybody would’ve followed the documentation. I think as long as they don’t already have a `locale` or `translation_key` field (the documentation used different fields) and they leave `WAGTAIL_I18N_ENABLED` off, they should be unaffected.
 
-### wagtail-modeltrans
+### [`wagtail-modeltranslation`](https://github.com/infoportugal/wagtail-modeltranslation)
 
 This module uses the multi-field approach. While this isn’t the approach I propose supporting in Wagtail core, I think this is a valid approach in specific circumstances (small site, few languages, polyglot editors).
 
-As this uses a fundamentally different approach, I don’t think makes sense to migrate to these new models. We should make sure that none of our changes prevent users of `wagtail-modeltrans` from updating Wagtail.
+As this uses a fundamentally different approach, I don’t think makes sense to migrate to these new models. We should make sure that none of our changes prevent users of `wagtail-modeltranslation` from updating Wagtail.
 
-### wagtailtrans
+### [`wagtailtrans`](https://github.com/wagtail/wagtailtrans)
 
 This module is the first internationalisation package to be supported by the Wagtail core team. It’s an implementation of the multi-page approach and based on RFC 9.
 
-It should be possible to write a data migration to migrate existing implementations to use the new builtin fields and take advantage of the new UI improvements in Wagtail. The rest of [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) would still exist to provide a simple translation workflow.
+It should be possible to write a data migration to migrate existing implementations to use the new builtin fields and take advantage of the new UI improvements in Wagtail. The rest of `wagtailtrans` would still exist to provide a simple translation workflow.
 
-### wagtail-localize
+### [`wagtail-localize`](https://github.com/wagtail/wagtail-localize)
 
-Wagtail Localize (originally wagtail-i18n) was developed from work I did for Google in November 2018, and updated since then for Department of International Trade and Mozilla. It started out as a rewrite of [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) to use mixins instead of an intermediate page model which allows it to translate snippets. It couldn’t later be re-merged due to the complexity of migrating existing [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) implementations to use mixins.
+Wagtail Localize (originally wagtail-i18n) was developed from work I did for Google in November 2018, and updated since then for Department of International Trade and Mozilla. It started out as a rewrite of `wagtailtrans` to use mixins instead of an intermediate page model which allows it to translate snippets. It couldn’t later be re-merged due to the complexity of migrating existing `wagtailtrans` implementations to use mixins.
 
-The models in this RFC are very similar to what [`wagtail-localize`](https://github.com/wagtail/wagtail-localize) currently has. It should be easy to refactor it as a translation workflow module using the new models.  Except for Mozilla, there are currently no production users of Wagtail localize so migration won’t be a problem.
+The models in this RFC are very similar to what `wagtail-localize` currently has. It should be easy to refactor it as a translation workflow module using the new models.  Except for Mozilla, there are currently no production users of Wagtail localize so migration won’t be a problem.
 
 ## Detailed specification of core changes
 
@@ -260,7 +259,18 @@ WAGTAIL_LANGUAGES = [
 ]
 ```
 
-This would mean that your site will respond on the URLs `https://www.mysite.com/es-ES/` but you can only author content in one variant of English and Spanish. You can set `WAGTAIL_LANGUAGES` to be the same as [`LANGUAGES`](https://docs.djangoproject.com/en/3.0/ref/settings/#languages) as well.
+This would mean that your site will respond on the URLs `https://www.mysite.com/es-ES/` but you can only author content in one variant of English and Spanish.
+
+The structure has been made the same on purpose, so you can set them both to the same value if you want to:
+
+```python
+LANGUAGES = WAGTAIL_LANGUAGES = [
+    ('en-GB', "English (United Kingdom)"),
+    ('en-US', "English (United States)"),
+    ('es-ES', "Spanish (Spain)"),
+    ('es-MX', "Spanish (Mexico)"),
+]
+```
 
 ### The `Locale` model
 
@@ -290,7 +300,7 @@ The `TranslatableMixin` abstract model can be applied to any other Django model.
 
 Both of these fields will have a unique key to prevent something from being translated into the same language twice.
 
-Note that these fields will exist regardless of whether `WAGTAIL_I18N_ENABLED` has been set. They shouldn’t get in the way of anything. Neither [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) nor `wagtail-modeltranslation` use these field names.
+Note that these fields will exist regardless of whether `WAGTAIL_I18N_ENABLED` has been set. They shouldn’t get in the way of anything. Neither [`wagtailtrans`](https://github.com/wagtail/wagtailtrans) nor [`wagtail-modeltranslation`](https://github.com/infoportugal/wagtail-modeltranslation) use these field names.
 
 #### Methods
 
