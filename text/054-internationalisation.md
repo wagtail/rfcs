@@ -309,7 +309,7 @@ Note that these fields will exist regardless of whether `WAGTAIL_I18N_ENABLED` h
 * `get_translation_or_none(locale)` - Returns a translated object if one exists in the specified locale, otherwise returns `None`
 * `has_translation(locale)` - Returns a boolean if a translation for this object exists in the specified locale.
 * `copy_for_translation(locale)` - Generates a copy of the object with the same content and `translation_key` but a different `locale`
-* @`classmethod get_translation_model()` - Returns the model which `TranslatableMixin` is defined. This is useful to help some logic handle models that use multi-table inheritance.
+* `@classmethod get_translation_model()` - Returns the model which `TranslatableMixin` is defined. This is useful to help some logic handle models that use multi-table inheritance.
 
 #### Checking the `unique_together` constraint is not accidentally removed
 
@@ -319,7 +319,7 @@ We will add a system check to make sure the `unique_together` constraint is not 
 
 ### Other changes to `Page` model
 
-Apart from inheriting `TranslatableMixin` and taking on its fields and methods, some other changes are made directly to the `Page` model.
+Apart from inheriting [`TranslatableMixin`](#the-translatablemixin-abstract-model) and taking on its fields and methods, some other changes are made directly to the `Page` model.
 
 Apart from `locale` and `translation_key` that come from `TranslatableMixin` no other fields will be added to `Page`.
 
@@ -339,7 +339,7 @@ Apart from `locale` and `translation_key` that come from `TranslatableMixin` no 
 
 ### Setting up translations on existing models
 
-Creating a new non-page model that is translatable is easy, you just need to add `TranslatableMixin` to the bases of the class.
+Creating a new non-page model that is translatable is easy, you just need to add [`TranslatableMixin`](#the-translatablemixin-abstract-model) to the bases of the class.
 
 Adding `TranslatableMixin` to an existing model is trickier as the `translation_key` and `locale` fields need to be populated for existing instances:
 
@@ -373,7 +373,7 @@ class Migration(migrations.Migration):
 
 Note: In this example, I have to bootstrap the page models, this wouldn’t be required if the base `Page` model provided these fields.
 
-The final step is to change occurrences of `BootstrapTranslatableMixin` to `TranslatableMixin` then create another migration. This last migration adds the database constraints that were not added in the first migration.
+The final step is to change occurrences of `BootstrapTranslatableMixin` to [`TranslatableMixin`](#the-translatablemixin-abstract-model) then create another migration. This last migration adds the database constraints that were not added in the first migration.
 
 **What about pages?**
 
@@ -456,7 +456,7 @@ When `WAGTAIL_I18N_ENABLED` is `True`, pages will all gain a new `meta` field co
     "meta": { "total_count": 1 },
     "items": [
         {
-            "id": 60
+            "id": 60,
             "meta": {
                 "type": "base.HomePage",
                 "detail_url": "http://127.0.0.1:8000/admin/api/main/pages/60/",
@@ -503,17 +503,17 @@ The search module could take the language into account when indexing pages. Diff
 
 ### Snippets and Modeladmin
 
-Snippets/modeladmin models with `TranslatableMixin` applied would automatically get a `locale` filter on the index and a language switcher on the edit view.
+Snippets/modeladmin models with [`TranslatableMixin`](#the-translatablemixin-abstract-model) applied would automatically get a `locale` filter on the index and a language switcher on the edit view.
 
 ### Snippet and page choosers
 
 When editing pages, we will pass the locale of the page being edited into any snippet or page chooser widgets. The options in the modal will be filtered to only show snippets/pages in the same locale.
 
-If the snippet does not have `TranslatableMixin`, this parameter will be ignored.
+If the snippet does not have [`TranslatableMixin`](#the-translatablemixin-abstract-model), this parameter will be ignored.
 
 ### Settings models
 
-Like snippets, settings models could also take `TranslatableMixin` to make them locale-specific. If you add `TranslatableMixin` to a setting, a language switcher will appear in the setting edit view.
+Like snippets, settings models could also take [`TranslatableMixin`](#the-translatablemixin-abstract-model) to make them locale-specific. If you add [`TranslatableMixin`](#the-translatablemixin-abstract-model) to a setting, a language switcher will appear in the setting edit view.
 
 Using locale-specific settings would be transparent to the template developer. When rendering the template, Wagtail will pick the settings object that matches the active language, or fall back to the default as defined by the `LANGUAGE_CODE` setting.
 
