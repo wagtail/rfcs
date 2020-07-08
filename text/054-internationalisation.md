@@ -46,7 +46,7 @@ One example of this is when we refactored the explorer menu into a React compone
 
 Wagtail’s built-in [`serve` view](https://github.com/wagtail/wagtail/blob/master/wagtail/core/views.py#L10) does not account for the language set by Django’s [`LocaleMiddleware`](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware)/[`i18n_patterns`](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#django.conf.urls.i18n.i18n_patterns). Both `wagtail-localize` and `wagtailtrans` work around this issue in different ways:
 
-* `wagtail-localize` overrides the `route()` method on homepages to redirect requests into the correct language tree. But the problem with this is Wagtail is unable to reverse the URLs to non-english pages so it also monkey-patches `Site.get_root_paths` and `Page.get_url`. to override this logic.
+* `wagtail-localize` overrides the `route()` method on homepages to redirect requests into the correct language tree. But the problem with this is Wagtail is unable to reverse the URLs to non-english pages so it also monkey-patches [`Site.get_root_paths`](https://github.com/wagtail/wagtail/blob/8c306910dd86e09cea11196715da47c6a54c722b/wagtail/core/models.py#L169-L185) and [`Page.get_url`](https://github.com/wagtail/wagtail/blob/8c306910dd86e09cea11196715da47c6a54c722b/wagtail/core/models.py#L874-L906). to override this logic.
 * `wagtailtrans` sets the slug of the homepages to match the language codes, but this relies on editors to set them correctly and doesn't make use of `i18n_patterns` which the site should be using anyway for Django views (eg, search).
 
 If this logic was standardised, we could implement this in a way that works well with Django tools without having to monkey-patch Wagtail's internal logic from third-party modules.
@@ -122,7 +122,7 @@ Advantages of **combined tree** are:
 
 Advantages of **separated tree** are:
 
-* **Page queries are simplified** - you don’t need to filter out other languages from get_children or get_siblings. Also, you can perform any query from any page and get correct results (running get_children from a translation will never return results)
+* **Page queries are simplified** - you don’t need to filter out other languages from `get_children` or `get_siblings`. Also, you can perform any query from any page and get correct results (running `get_children` from a translation will never return results)
 * **Permissions and Workflows can be configured per-language** - Wagtail permissions and workflows are both hooked into the tree and inherited. Using a separated tree approach allows translators to be grouped by their locale and only given permission to pages in that locale
 * **Different locales can be structured differently** - I’m not sure why people would want to purposefully structure different language sections in different ways. But the main advantage to this is it allows page structure to be updated asynchronously.
 
@@ -441,7 +441,7 @@ There are two possible approaches we could use for this:
 1. Sites have one root page as they do now, if the user’s language is different to the language on that page, Wagtail will look for a translation of the root page and route to that instead
 2. We could change the site model to support multiple root pages. This would allow the user to specify which root page they would like to use for each language in Django’s `LANGUAGES` setting
 
-We also need to modify `Site.get_root_paths` to return paths to each language tree, this allows page URL reversal to work.
+We also need to modify [`Site.get_root_paths`](https://github.com/wagtail/wagtail/blob/8c306910dd86e09cea11196715da47c6a54c722b/wagtail/core/models.py#L169-L185) to return paths to each language tree, this allows page URL reversal to work.
 
 **Will slugs be translatable?**
 
