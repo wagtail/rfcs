@@ -65,7 +65,7 @@ Currently, each translation app has to reinvent these models. If we decide on a 
 
 In this document I will go into all the other approaches we've come across in the past and compare them so you can decide if this is the best approach. It’s been 6 years since Wagtail was released so we’ve most likely found most of the possible approaches for translation already. We’re in the best place we’ve ever been to pick a standard approach.
 
-If we do find a better approach later, we might be able to support it for a perioud of time alongside this approach to allow users to migrate (if a migration is necessary), then remove this approach in a subsequent major release.
+If we do find a better approach later, we might be able to support it for a period of time alongside this approach to allow users to migrate (if a migration is necessary), then remove this approach in a subsequent major release.
 
 ## High level design
 
@@ -107,7 +107,7 @@ Advantages of multi-page translation over multi-field are:
 * **It doesn't require any magic to insert fields into models** - duplicating the fields can get unwieldy if done manually. So usually some sort of meta-class has to be used to add them. This can make page models harder to work with.
 * **Page slugs can also be translated** - Wagtail only has one slug field and this can’t be duplicated without customising the way Wagtail’s routing works.
 
-The main disadvantage to this approach is non-translated fields that you might want to remain the same for all languages will be duplicated for each language. But this is a translation management concern so this is left to the third-party module to solve (`wagtail-localize` has solved this).
+The main disadvantage to this approach is non-translated fields that you might want to remain the same for all languages will be duplicated for each language. It is possible to keep these fields in sync across all the pages, but this synchronisation is best done at the point translations are applied to a page to prevent inconsistencies from occuring (such as an image and its caption not matching). For this reason, this bit of logic should be implemented by the third-party translation management module.
 
 ### Separated vs combined language trees
 
@@ -122,23 +122,29 @@ Advantages of **combined tree** are:
 
 Advantages of **separated tree** are:
 
-* **Page queries are simplified** - you don’t need to filter out other languages from `get_children` or `get_siblings`. Also, you can perform any query from any page and get correct results (running `get_children` from a translation will never return results)
+* **Page queries are simplified** - you don’t need to filter out other languages from `get_children` or `get_siblings`. Also, you can perform any query from any page and get correct results (when using the **combined tree** approach, running `get_children` from a translation will never return results)
 * **Permissions and Workflows can be configured per-language** - Wagtail permissions and workflows are both hooked into the tree and inherited. Using a separated tree approach allows translators to be grouped by their locale and only given permission to pages in that locale
-* **Different locales can be structured differently** - I’m not sure why people would want to purposefully structure different language sections in different ways. But the main advantage to this is it allows page structure to be updated asynchronously.
+* **Different locales can be structured differently** - The main advantage to this is it allows page structure to be updated asynchronously, which would be good for performance on sites with many locales.
 
-The models in this RFC could, in theory, work with both of these approaches. But allowing both approaches will complicate some of the logic so we will only support the **separated tree** approach for now.
+The models in this RFC could, in theory, work with both of these approaches. But in order to actually allow this there are a few places that would need to take both approaches into account:
+
+* `copy_for_translation` would need to be able to copy pages into either structure
+* We would need support two completely different methods to route translatated pages and each of these would require a different method of generating page URLs too
+* There are a few smaller areas of logic to consider such as moving pages and updating the logic for the `Page.max_num` attribute.
+
+To keep it simple, I propose we only support the **separate tree** approach for now. It would be possible to add support for combined tree later if there is demand for that.
 
 #### What about multiple-sites?
 
 Wagtail instances that have multiple sites already have multiple trees. The locale-specific trees will also be created at the root level, so if you have two sites in two languages you will end up with four pages at the root.
 
-So the react page explorer doesn’t get too cluttered, we will add a filter so it only displays one language at a time at the root level. See the screenshot later in this document for an example of how this might look. This feature would be enabled by the `WAGTAIL_I18N_ENABLED` setting.
+So the page explorer doesn’t get too cluttered, we will add a filter so it only displays one language at a time at the root level. See the screenshot later in this document for an example of how this might look. This feature would be enabled by the `WAGTAIL_I18N_ENABLED` setting.
 
 ## Important technical decisions
 
 ### Locales and Languages
 
-This RFC proposes to add a `Locale` model with a `language_code` field. The locales are defined by a setting called `WAGTAIL_LANGUAGES`. This looks inconsistent, I know. But locales have a different meaning to languages:
+This RFC proposes to add a `Locale` model with a `language_code` field. The options for the `language_code` field are defined by a setting called `WAGTAIL_CONTENT_LANGUAGES`. This looks inconsistent, but locales have a different meaning to languages:
 
 > Locale A collection of international preferences, generally related to a language and geographic region that a (certain category) of users require. These are usually identified by a shorthand identifier or token, such as a language tag, that is passed from the environment to various processes to get culturally affected behaviour.
 
@@ -155,6 +161,16 @@ Developers and users should be thinking in locales as the language used in each 
 However, browsers only send us a ”language code” in the format `en-GB` so I think it makes sense for the locales to be defined by their language code.
 
 This term is also used in this way by Django, the [`LocaleMiddleware`](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware) implements the logic for deciding which language to use from the user’s web browser’s language code or a cookie.
+
+#### Why store Locales in the database when they are already defined in settings?
+
+It's possible that the list of locales can change over time and having a `Locale` database record allows the langauge code to be changed easily. I think it's also beneficial to have a setting that restricts the possible language codes a locale can have, so that editors don't use locales are not supported on the site (for example, langauges that don't have template translations or are incompatible with any bespoke localisation code).
+
+#### How are locale records created?
+
+The first `Locale` record is created by a migration using the language code defined in `LANGUAGE_CODE`. All existing pages will get this locale. For non-internationalised sites, this will be the only `Locale`.
+
+Any subsequent locales are created in a management interface by an adminstrator or developer.
 
 ### Approaches for joining translations together
 
@@ -233,7 +249,7 @@ The models in this RFC are very similar to what `wagtail-localize` currently has
 
 When set to `True`, this enables all of the UI enhancements specified later on in this RFC.
 
-#### `WAGTAIL_LANGUAGES`
+#### `WAGTAIL_CONTENT_LANGUAGES`
 
 (list, default `[]`)
 
@@ -243,51 +259,61 @@ For example, you may have the following in your Django [`LANGUAGES`](https://doc
 
 ```python
 LANGUAGES = [
-    ('en-GB', "English (United Kingdom)"),
-    ('en-US', "English (United States)"),
-    ('es-ES', "Spanish (Spain)"),
-    ('es-MX', "Spanish (Mexico)"),
+    ('en-GB', _("English (United Kingdom)")),
+    ('en-US', _("English (United States)")),
+    ('es', _("Spanish (Spain)")),
+    ('es-MX', _("Spanish (Mexico)")),
 ]
 ```
 
-But only support the generic languages in your `WAGTAIL_LANGUAGES`:
+But only support the generic languages in your `WAGTAIL_CONTENT_LANGUAGES`:
 
 ```python
-WAGTAIL_LANGUAGES = [
-    ('en', "English"),
-    ('es', "Spanish"),
+WAGTAIL_CONTENT_LANGUAGES = [
+    ('en', _("English")),
+    ('es', _("Spanish")),
 ]
 ```
 
 This would mean that your site will respond on the URLs `https://www.mysite.com/es-ES/` but you can only author content in one variant of English and Spanish.
 
+Note: `WAGTAIL_CONTENT_LANGUAGES` must be a subset of `LANGUAGES`, hence why I used `es` instead of `es-ES` for the "Spanish (Spain)" locale. This allows us generate URLs to pages from the admin. If we allowed content to be created using a code that isn't `LANGUAGES` we wouldn't know what language code to use for these URLs.
+
 The structure has been made the same on purpose, so you can set them both to the same value if you want to:
 
 ```python
-LANGUAGES = WAGTAIL_LANGUAGES = [
-    ('en-GB', "English (United Kingdom)"),
-    ('en-US', "English (United States)"),
-    ('es-ES', "Spanish (Spain)"),
-    ('es-MX', "Spanish (Mexico)"),
+LANGUAGES = WAGTAIL_CONTENT_LANGUAGES = [
+    ('en-GB', _("English (United Kingdom)")),
+    ('en-US', _("English (United States)")),
+    ('es-ES', _("Spanish (Spain)")),
+    ('es-MX', _("Spanish (Mexico)")),
 ]
 ```
 
 ### The `Locale` model
 
-The `Locale` model defines the set of locales that can be used on a site. The locales are kept in sync with the `WAGTAIL_LANGUAGES` setting on startup. If `WAGTAIL_LANGUAGES` is not defined, a single `Locale` instance will be created for the default `LANGUAGE_CODE` (the `locale` field isn't nullable, so we need a single `Locale` instance to use as a value for this field for sites that don't require internationalisation).
+The `Locale` model defines the set of locales that can be used on a site. The locales are kept in sync with the `WAGTAIL_CONTENT_LANGUAGES` setting on startup. If `WAGTAIL_CONTENT_LANGUAGES` is not defined, a single `Locale` instance will be created for the default `LANGUAGE_CODE` (the `locale` field isn't nullable, so we need a single `Locale` instance to use as a value for this field for sites that don't require internationalisation).
 
-When `WAGTAIL_I18N_ENABLED` is `False` all pages will have the same `Locale` as defined in the `LANGUAGE_CODE` setting. This is to satisfy the database constraints but also makes it easy for someone to switch on internationalisation later.
+When `WAGTAIL_I18N_ENABLED` is `False` all newpages will inherit their parents locale. This is to satisfy the database constraints but also makes it easy for someone to switch on internationalisation later.
+
+#### Changing `LANGUAGE_CODE`
+
+It's possible that a site may change it's language code during development. If this happens, we will not update the `Locale` object or create a new one. If `WAGTAIL_I18N_ENABLED` is `False`, pages will continue to inherit their parent's locale even if that doesn't match the current `LANGUAGE_CODE`.
+
+For sites that don't have `WAGTAIL_I18N_ENABLED`, it's important that we make sure all pages share the same locale as this will make it much easier for them to enable internationalisation later.
+
+All locales (except for the initial one created in a migration) will be set up by an administrator. If the `LANGUAGE_CODE` on a site is changed, it's up to an administrator or developer to update the `Locale` record to match it.
 
 #### Fields
 
-* `language_code` (string, unique) - This is a language code taken from the list in `WAGTAIL_LANGUAGES`. Locales are defined by their language. The language code must be a [BCP 47 language tag](https://tools.ietf.org/html/bcp47) (the same format used in Django).
-* `is_active` (boolean) - Rather than deleting locales when they are removed form `WAGTAIL_LANGUAGES`, this boolean is set to `False` preventing new content from being translated into this `Locale`. It’s up to the developer to clean up their database.
+* `language_code` (string, unique) - This is a language code taken from the list in `WAGTAIL_CONTENT_LANGUAGES`. Locales are defined by their language. The language code must be a [BCP 47 language tag](https://tools.ietf.org/html/bcp47) (the same format used in Django).
+* `is_active` (boolean) - Rather than deleting locales when they are removed form `WAGTAIL_CONTENT_LANGUAGES`, this boolean is set to `False` preventing new content from being translated into this `Locale`. It’s up to the developer to clean up their database.
 
 #### Methods
 
 * `@classmethod get_default()` - This returns the default `locale` based on the value of the `LANGUAGE_CODE` setting
 * `@classmethod get_active()` - This returns the currently activated locale
-* `get_display_name()` - This returns the display name that is defined in `WAGTAIL_LANGUAGES`
+* `get_display_name()` - This returns the display name that is defined in `WAGTAIL_CONTENT_LANGUAGES`
 
 ### The `TranslatableMixin` abstract model
 
@@ -311,6 +337,10 @@ Note that these fields will exist regardless of whether `WAGTAIL_I18N_ENABLED` h
 * `copy_for_translation(locale)` - Generates a copy of the object with the same content and `translation_key` but a different `locale`
 * `@classmethod get_translation_model()` - Returns the model which `TranslatableMixin` is defined. This is useful to help some logic handle models that use multi-table inheritance.
 
+#### Clusterable models
+
+`copy_for_translation` would need to behave differently for models that inherit from Django modelcluster's `ClusterableModel` as these models will have "child objects" that would need to be copied as well. If these child objects are translatable, we will need to update their locale too.
+
 #### Checking the `unique_together` constraint is not accidentally removed
 
 When you add `unique_together` constraints in abstract models, it’s possible that it could be removed by a model that uses it if that model also overrides any `Meta` options.
@@ -331,7 +361,7 @@ Apart from `locale` and `translation_key` that come from `TranslatableMixin` no 
 
 #### Overridden methods
 
-* `copy_for_translation(locale, copy_parents=False)`  - Overridden to be based on `Page.copy()` but also implement a `copy_parents` flag. When set to `True` this will copy any parents that are not translated yet in order for the structure to match the source tree. If the parent doesn’t exist and `copy_parents` is `False`, this method would raise a `ParentNotTranslated` exception.
+* `copy_for_translation(locale, copy_parents=False)`  - Overridden to be based on `Page.copy()` but also implement a `copy_parents` flag. When set to `True` this will copy any parents that are not translated yet in order for the structure to match the source tree. If the parent doesn’t exist and `copy_parents` is `False`, this method would raise a `ParentNotTranslated` exception. This method always creates copies in draft.
 
 #### Other logic
 
@@ -375,7 +405,7 @@ Note: In this example, I have to bootstrap the page models, this wouldn’t be r
 
 The final step is to change occurrences of `BootstrapTranslatableMixin` to [`TranslatableMixin`](#the-translatablemixin-abstract-model) then create another migration. This last migration adds the database constraints that were not added in the first migration.
 
-**What about pages?**
+##### What about pages?
 
 Adding these fields to existing pages would require a similar migration to the above for pages. But the page model is managed by Wagtail core so this migration would be implemented in Wagtail core. Developers who don’t want translations or only want translations on pages do not need to care about this migration.
 
@@ -387,32 +417,33 @@ Note that these integrations will take into account the `WAGTAIL_I18N_ENABLED` s
 
 ### Page management UI
 
-**Creating pages at the root**
+In the following section, I will talk a bit about some UI improvements we can make on top of the new models changes.
+
+Please note that this section is only meant to describe some ideas to support the RFC. It is non-normative and the ideas described here may change significantly when we implement them.
+
+#### Creating pages at the root
+
 Creating pages at the root level will prompt users to specify a locale of the new page. Pages that are not in the root level will always inherit the locale of their parent.
 
 If `WAGTAIL_I18N_ENABLED` is `False`. All new pages at the root will use the locale that is set in the `LANGUAGE_CODE` setting.
 
 #### Editing pages
 
-When `WAGTAIL_I18N_ENABLED` is `True`, a new “Translations” menu item will appear at the top of the page editor:
+When `WAGTAIL_I18N_ENABLED` is `True`, a new language switcher will appear at the top of the page editor. We will implement a hook to allow third-party apps to add their own buttons here too. A translation app could then hook in any extra UI they need, such as displaying translation progress for example.
 
-![](https://paper-attachments.dropbox.com/s_447CE1D894BBD41C78540EBB08A4706330CCCE70BE0BB00C4C6B8C7EFCD9AF76_1594118046048_image.png)
+![Wagtail page editor language dropdown](./assets/054/wagtaileditdropdown.png)
 
-Clicking this opens a modal showing the translations of the page and a link to the editor for that page.
+Please note that we're working on this right now so the actual layout might change during implementation. Also, only the dropdown of languages will be implement in Wagtail core. The translation progress and "6 translations" button will be implemented by `wagtail-localize`.
 
-![](https://paper-attachments.dropbox.com/s_447CE1D894BBD41C78540EBB08A4706330CCCE70BE0BB00C4C6B8C7EFCD9AF76_1594118305291_image.png)
+##### Directionality of text fields
 
-We will provide hooks to allow translation apps to customise this modal:
+We will use the pages language to set the direction of any text fields, including `CharField`, `TextField` and Draftail-powered `RichTextField` (other editors would need to implement this themselves).
 
-* Display a text value with a link in the “translation status” column (if this hook is not used, that column will be hidden)
-* Add extra action buttons next to each translation
-* Add global actions at the bottom of the modal (For example: “Translate this page into another language”)
+Note that directionality will not be affected by the user's Wagtail interface language. If someone edits an Arabic page with Wagtail interface in English, the direction will be right-to-left.
 
 #### Moving pages
 
-We will prevent editors from moving pages to a parent that has a different locale to itself.
-
-Open question: Should we just change the locale of the page instead?
+If a user attempts to move a page into another locale tree, we will attem
 
 #### Copying pages
 
@@ -434,20 +465,22 @@ I’d like to also introduce a new translation setting here: “Default content 
 
 ### Sites and Page routing
 
-The routing code would need to be updated to allow for sites to have multiple root pages. The root page would be selected based on the active Django language (which is set by Django's [`LocaleMiddleware`](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware) and [`i18n_patterns`](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#django.conf.urls.i18n.i18n_patterns) from either the browser’s language or a URL prefix).
+When a request comes in, Wagtail firstly looks for `Site` record that matches the domain name and port that the user had typed into their browser. On the site record, there is a `root_page` attribute that is set to the site's homepage and this is where routing starts.
 
-There are two possible approaches we could use for this:
+We will alter this behaviour so that it checks if the site's root_page matches the active language (which is set by Django's [`LocaleMiddleware`](https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.locale.LocaleMiddleware) and [`i18n_patterns`](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#django.conf.urls.i18n.i18n_patterns) from either the browser’s language or a URL prefix). If it doesn't, we will look for a translation of the root page in that user's locale. If we can't find one, we will fall back to a similar locale (Following Django's `get_supported_language_variant` function. For example `es-MX` may fall back to `es-ES`). If there is not a similar locale, it'll just use the root page that was set on the site.
 
-1. Sites have one root page as they do now, if the user’s language is different to the language on that page, Wagtail will look for a translation of the root page and route to that instead
-2. We could change the site model to support multiple root pages. This would allow the user to specify which root page they would like to use for each language in Django’s `LANGUAGES` setting
+To support this, we will need to modify two other places:
 
-We also need to modify [`Site.get_root_paths`](https://github.com/wagtail/wagtail/blob/8c306910dd86e09cea11196715da47c6a54c722b/wagtail/core/models.py#L169-L185) to return paths to each language tree, this allows page URL reversal to work.
+* We show a globe icon next to pages that are linked to from a `site_root`. We will update this to also include translations of site roots.
+* We will modify [`Site.get_root_paths`](https://github.com/wagtail/wagtail/blob/8c306910dd86e09cea11196715da47c6a54c722b/wagtail/core/models.py#L169-L185) to return paths to each language tree, this allows page URL reversal to work.
 
-**Will slugs be translatable?**
+#### Will slugs be translatable?
 
-Yes, this will be supported by both of the approaches above
+Yes!
 
 ### The API
+
+#### `locale` meta field
 
 When `WAGTAIL_I18N_ENABLED` is `True`, pages will all gain a new `meta` field containing the locale code:
 
@@ -470,7 +503,15 @@ When `WAGTAIL_I18N_ENABLED` is `True`, pages will all gain a new `meta` field co
 }
 ```
 
-We will also implement a new “locale” filter, that takes a locale code and filters the results to only include pages in that locale. For example `/api/v2/pages/?locale=en` would only return English pages.
+#### `locale` filter
+
+We will implement a new “locale” filter, that takes a locale code and filters the results to only include pages in that locale. For example `/api/v2/pages/?locale=en` would only return English pages.
+
+#### `translation_of` filter
+
+We will implement a new “translation_of” filter, that takes a page id and filters the results to only include pages that are translations of that page. For example `/api/v2/pages/?translation_of=2`.
+
+#### `translations` field
 
 Finally, we will implement a new “translations” field in the admin API (and optionally available for the public API as well), which would be similar to the existing “children” and “ancestors” fields but return all translations of that page. For example:
 
@@ -523,8 +564,16 @@ The sitemaps module that generates XML sitemaps will be updated to take translat
 
 There will be one entry for each unique `translation_key` value. The URL of that entry would be the URL of the page in the default locale (as defined by the `LANGUAGE_CODE` setting). URLs to other languages will be added using `<xhtml:link rel="alternate" hreflang={language code here} />` tags as specified in: [https://support.google.com/webmasters/answer/189077?hl=en](https://support.google.com/webmasters/answer/189077?hl=en)
 
-Note: if there isn’t a translation in the default locale, the page with the lowest ID would be considered the default instead.
+Note: if there isn’t a translation in the default locale, the translation with the earliest `first_published_at` date would be used instead.
+
+### `Page.max_count`
+
+`Page.max_count` limits the number of instances a page type can have in the tree. This will be updated to become per-locale instead of the whole tree.
+
+It's mainly used for pages that can only have a single instance, such as the homepage. Making this global will prevent them from being translated.
 
 ### Wagtail transfer
+
+(This section is non-normative)
 
 Wagtail transfer will need to take the locale into account when moving pages from one instance to another. As mentioned earlier, pages with a locale cannot be created under a page with a different locale.
