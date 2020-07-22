@@ -259,7 +259,7 @@ For example, you may have the following in your Django [`LANGUAGES`](https://doc
 
 ```python
 LANGUAGES = [
-    ('en-GB', _("English (United Kingdom)")),
+    ('en', _("English (United Kingdom)")),
     ('en-US', _("English (United States)")),
     ('es', _("Spanish (Spain)")),
     ('es-MX', _("Spanish (Mexico)")),
@@ -292,9 +292,9 @@ LANGUAGES = WAGTAIL_CONTENT_LANGUAGES = [
 
 ### The `Locale` model
 
-The `Locale` model defines the set of locales that can be used on a site. The locales are kept in sync with the `WAGTAIL_CONTENT_LANGUAGES` setting on startup. If `WAGTAIL_CONTENT_LANGUAGES` is not defined, a single `Locale` instance will be created for the default `LANGUAGE_CODE` (the `locale` field isn't nullable, so we need a single `Locale` instance to use as a value for this field for sites that don't require internationalisation).
+The `Locale` model defines the set of locales that can be used on a site. Initially, Wagtail will create one `Locale` that corresponds to the `LANGUAGE_CODE` on the site. All sites will have at least one locale, including those that don't use the internationalisation features.
 
-When `WAGTAIL_I18N_ENABLED` is `False` all newpages will inherit their parents locale. This is to satisfy the database constraints but also makes it easy for someone to switch on internationalisation later.
+When `WAGTAIL_I18N_ENABLED` is `False` all new pages will inherit their parents locale. This is to satisfy the database constraints but also makes it easy for someone to switch on internationalisation later.
 
 #### Changing `LANGUAGE_CODE`
 
@@ -304,10 +304,17 @@ For sites that don't have `WAGTAIL_I18N_ENABLED`, it's important that we make su
 
 All locales (except for the initial one created in a migration) will be set up by an administrator. If the `LANGUAGE_CODE` on a site is changed, it's up to an administrator or developer to update the `Locale` record to match it.
 
+#### Changing `WAGTAIL_CONTENT_LANGUAGES`
+
+It's possible for languages to be added or removed from `WAGTAIL_CONTENT_LANGUAGES` over time. If this happens, it's up to the developer to update the `Locale` model accordingly so that it reflects the latest `WAGTAIL_CONTENT_LANGUAGES`.
+
+We shouldn't add new locales automatically as there may be cases where changing the `language_code` of an existing `Locale` would make more sense.
+
+If a language code is removed from `WAGTAIL_CONTENT_LANGUAGES`, the corresponding `Locale` will be filtered out from `Locale.objects`. This will stop the locale from appearing anywhere in the Wagtail UI and also stop traffic from being routed to it. This `Locale` will show up with a warning in the Locales UI.
+
 #### Fields
 
 * `language_code` (string, unique) - This is a language code taken from the list in `WAGTAIL_CONTENT_LANGUAGES`. Locales are defined by their language. The language code must be a [BCP 47 language tag](https://tools.ietf.org/html/bcp47) (the same format used in Django).
-* `is_active` (boolean) - Rather than deleting locales when they are removed form `WAGTAIL_CONTENT_LANGUAGES`, this boolean is set to `False` preventing new content from being translated into this `Locale`. It’s up to the developer to clean up their database.
 
 #### Methods
 
@@ -330,12 +337,13 @@ Note that these fields will exist regardless of whether `WAGTAIL_I18N_ENABLED` h
 
 #### Methods
 
-* `get_translations(inclusive=False)` - Returns a `QuerySet` of translations  for this object. By default it excludes the object itself. To include the current object, set `inclusive` to `True`
+* `get_translations(inclusive=False)` - Returns a `QuerySet` of translations for this object. By default it excludes the object itself. To include the current object, set `inclusive` to `True`
 * `get_translation(locale)` - Returns a translated object if one exists in the specified locale, otherwise raises `model.DoesNotExist`
 * `get_translation_or_none(locale)` - Returns a translated object if one exists in the specified locale, otherwise returns `None`
 * `has_translation(locale)` - Returns a boolean if a translation for this object exists in the specified locale.
 * `copy_for_translation(locale)` - Generates a copy of the object with the same content and `translation_key` but a different `locale`
 * `@classmethod get_translation_model()` - Returns the model which `TranslatableMixin` is defined. This is useful to help some logic handle models that use multi-table inheritance.
+* `@property local` - This gets the translated object for the active language. If no translation exists, this returns `self`. This can be called from templates similarly to `.specific`
 
 #### Clusterable models
 
@@ -362,10 +370,12 @@ Apart from `locale` and `translation_key` that come from `TranslatableMixin` no 
 #### Overridden methods
 
 * `copy_for_translation(locale, copy_parents=False)`  - Overridden to be based on `Page.copy()` but also implement a `copy_parents` flag. When set to `True` this will copy any parents that are not translated yet in order for the structure to match the source tree. If the parent doesn’t exist and `copy_parents` is `False`, this method would raise a `ParentNotTranslated` exception. This method always creates copies in draft.
+* `@property local` - Overridden to check if the translation is live. We will provide a separate property that will return drafts `@property local_draft`
 
 #### Other logic
 
 * When pages are created, they always take their parent’s `locale`, unless their parent's locale is `None`. If the parent's `locale` is `None`, the child can have any locale it likes, including `None`.
+* When rich text fields are rendered, any internal links will be automatically localised. For example, if a French page has an internal link to an English page, but that English page has a live translation into French. The URL will be changed to point at the French translation instead.
 
 ### Setting up translations on existing models
 
