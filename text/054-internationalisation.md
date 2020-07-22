@@ -343,7 +343,7 @@ Note that these fields will exist regardless of whether `WAGTAIL_I18N_ENABLED` h
 * `has_translation(locale)` - Returns a boolean if a translation for this object exists in the specified locale.
 * `copy_for_translation(locale)` - Generates a copy of the object with the same content and `translation_key` but a different `locale`
 * `@classmethod get_translation_model()` - Returns the model which `TranslatableMixin` is defined. This is useful to help some logic handle models that use multi-table inheritance.
-* `@property local` - This gets the translated object for the active language. If no translation exists, this returns `self`. This can be called from templates similarly to `.specific`
+* `@property localized` - This gets the translated object for the active language. If no translation exists, this returns `self`. This can be called from templates similarly to `.specific`
 
 #### Clusterable models
 
@@ -370,7 +370,7 @@ Apart from `locale` and `translation_key` that come from `TranslatableMixin` no 
 #### Overridden methods
 
 * `copy_for_translation(locale, copy_parents=False)`  - Overridden to be based on `Page.copy()` but also implement a `copy_parents` flag. When set to `True` this will copy any parents that are not translated yet in order for the structure to match the source tree. If the parent doesn’t exist and `copy_parents` is `False`, this method would raise a `ParentNotTranslated` exception. This method always creates copies in draft.
-* `@property local` - Overridden to check if the translation is live. We will provide a separate property that will return drafts `@property local_draft`
+* `@property localized` - Overridden to check if the translation is live. We will provide a separate property that will return drafts `@property localized_draft`
 
 #### Other logic
 
