@@ -42,7 +42,7 @@ The main points:
 - Memory usage during the interaction phase for the first two scenarios was very similar between Draftail and plain widgets. In the third scenario, memory usage increased by 20%, up to 8.4MB.
 - DOM load time was also similar for the first two scenarios (within 350ms), but increased in the third scenario by 20%. This is something we could look at optimising the initialisation of when bringing this change into core, and may also be helped by other proposed streamfield improvements.
 
-Ultimately, while the load time could be improved, the interaction was still fluid even in the 40 block scenario, so we feel the consistent admin utility layer for text fields is worth the slight performance cost.
+Ultimately, while the load time could be improved, the interaction was still fluid even in the 40 block scenario, so we feel the consistent admin utility layer for text fields is worth the slight performance cost. We can also provide a setting to disable the new widget entirely.
 
 
 ## Extracting Comments from Plain Text Fields:
