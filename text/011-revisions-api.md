@@ -1,4 +1,4 @@
-# RFC 11: Revisions Admin API
+# RFC 11: Revisions Admin API (superseded by [RFC 15](015-revisions-api-revised.md))
 
 * RFC: 11
 * Author: Karl Hobley
