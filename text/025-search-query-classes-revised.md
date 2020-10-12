@@ -7,7 +7,7 @@
 
 ## Abstract
 
-In RFC 10 we introduced the idea of "Search Query Classes", a way to allow
+In [RFC 10](010-search-query-classes.md) we introduced the idea of "Search Query Classes", a way to allow
 Wagtail to support more complex querying methods.
 
 This RFC replaces that previous RFC.
