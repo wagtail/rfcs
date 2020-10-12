@@ -9,7 +9,9 @@ bit of a design process and produce a consensus among the Wagtail core team.
 The "RFC" (request for comments) process is intended to provide a consistent
 and controlled path for new features to enter the CMS.
 
-[Active RFC List](https://github.com/wagtail/rfcs/pulls)
+Current RFCs:
+- [Active](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+label%3AActive+)
+- [Proposed](https://github.com/wagtail/rfcs/pulls?q=is%3Aopen+is%3Apr+label%3AProposed)
 
 ## When you should follow this process
 
