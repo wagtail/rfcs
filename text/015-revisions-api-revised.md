@@ -7,7 +7,7 @@
 
 ## Abstract
 
-This RFC 15 is an updated version of the `RFC 11 <#11>` by Karl Hobley.
+This RFC 15 is an updated version of the [RFC 11](011-revisions-api.md) by Karl Hobley.
 It was created to allow more time for discussing the new Admin API and
 has some parts copied from the original RFC 11.
 
@@ -23,7 +23,7 @@ This RFC proposes an extension to the Admin API to allow page revisions to be
 retrieved and created.
 
 Some of the changes are inspired by the
-`Google Drive API <https://developers.google.com/drive/v3/reference/revisions>`_.
+[Google Drive API](https://developers.google.com/drive/v3/reference/revisions).
 
 ## Specification
 

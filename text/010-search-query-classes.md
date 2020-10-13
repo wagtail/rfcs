@@ -1,4 +1,4 @@
-# RFC 10: Search query classes
+# RFC 10: Search query classes (superseded by [RFC 25](025-search-query-classes-revised.md))
 
 * RFC: 10
 * Author: Karl Hobley
