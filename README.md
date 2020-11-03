@@ -22,14 +22,14 @@ evolving based on community norms, but may include the following.
    - A new feature that creates new API surface area.
    - The removal of features that already shipped in a previous release.
    - Changes to the Wagtail admin interface that alter the end-user experience.
+   - Major decisions about the development of Wagtail,
+     including code standards and decision-making processes.
 
 Some changes do not require an RFC:
 
    - Internal rephrasing, reorganizing or refactoring
    - Additions that strictly improve objective, numerical quality
 criteria (speedup, better browser support)
-   - Additions only likely to be _noticed by_ other implementors-of-Wagtail,
-invisible to users-of-Wagtail.
 
 If you submit a pull request to implement a new feature without going through
 the RFC process, it may be closed with a polite request to submit an RFC first.
@@ -60,7 +60,7 @@ from the larger community, and the author should be prepared to revise it in
 response.
 * (optional) Now that you have submitted a pull request, you can now assign the
 RFC number in the filename and title. This must always match the PR number to
-make the PR easy to find after the RFC has been merged. It's OK to skip this as
+make the PR easier to find after the RFC has been merged. It's OK to skip this as
 it can be done while the RFC is being merged.
 * Build consensus and integrate feedback. RFCs that have broad support are much
 more likely to make progress than those that don't receive any comments.
@@ -102,7 +102,7 @@ to the document.
 
 ## Implementing an RFC
 
-The author of an RFC is not obligated to implement it. Of course, the RFC
+The author of an RFC is not obligated to implement it. The RFC
 author (like any other developer) is welcome to post an implementation for
 review after the RFC has been accepted.
 
