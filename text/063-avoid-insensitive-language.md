@@ -25,10 +25,16 @@ We will run [alex](https://alexjs.com/), make changes based on what it finds, an
 Adding it may require adding some comments telling it to ignore lines of certain files, or configuration telling it to ignore specific rules or file types.
 If running it automatically seems like it will cause a lot of problems, we will make running alex, and addressing issues it raises, part of the release process.
 
-## Open Questions
+## Questions
 
-* Is `main` the best option for the new branch name?
+### Open questions
+
 * Is this the appropriate timing for the branch name change?
 * Is alex the best tool for linting language?
 * What will alex check other than text files?
 Are there types of files it will miss when run automatically?
+
+### Resolved questions
+
+* Is `main` the best option for the new branch name?
+  * Yes, this is what GitHub has adopted as the default.
