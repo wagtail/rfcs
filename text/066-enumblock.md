@@ -1,6 +1,6 @@
-# RFC X: EnumBlock
+# RFC 66: EnumBlock
 
-* RFC: 
+* RFC: 66
 * Authors: Karl Hobley
 * Created: 2020-12-30
 * Last Modified: 2020-12-30
