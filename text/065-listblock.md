@@ -1,6 +1,6 @@
-# RFC X: UUIDs for ListBlock items
+# RFC 65: UUIDs for ListBlock items
 
-* RFC: X
+* RFC: 65
 * Author: Karl Hobley and Jacob Topp-Mugglestone
 * Created: 2020-12-11
 * Last Modified: 2020-12-30
