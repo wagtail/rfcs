@@ -3,13 +3,11 @@
 * RFC: X
 * Author: Karl Hobley and Jacob Topp-Mugglestone
 * Created: 2020-12-11
-* Last Modified: 2020-12-11
+* Last Modified: 2020-12-30
 
 ## Abstract
 
-This RFC proposes to add UUID identifiers for ``ListBlock`` items.
-This allows individual ``ListBlock`` items to be tracked across revisions
-which is not easy to do without unique identifies because ``ListBlock`` items can be added, removed and reordered.
+This RFC proposes to add UUID identifier for ``ListBlock`` items to allow them to be tracked across different revisions.
 
 ## Motivation
 
@@ -45,10 +43,41 @@ If each ``ListBlock`` item was given a UUID, we could use this UUID in the conte
 
 ## Proposed solution
 
-- Change the internal representation to closely match stream block
-- When looped over, it needs to expose the value of the block directly, rather than the wrapper like stream block
-- It should have an ID, block type (That’s always “item”) and value fields
-- Note that it needs to be distinct from existing list blocks with struct block that contains these same fields
-- Use bound block to expose a stream value so we can get the ID
-- Nice side effect of matching the representation is it makes it easy to migrate to a stream block later if you find that you need more than one type (use adding video to carousel example)
-- Make the block able to read values in old or new formats, and convert if in old format, to make migration easy
+We will change the internal format of ``ListBlock`` to closely match the format of ``StreamBlock``.
+Each ``ListBlock`` item will be represented by a JSON object with the ``id``, ``type`` and ``value`` keys.
+
+The ``id`` key contains the item's UUID, the ``type`` key is always set to ``'item'`` (this is overridable) and the ``value`` key contains the value of the block. For example:
+
+
+```json
+[
+    {
+        "id": "<UUID>",
+        "type": "item",
+        "value": "The value"
+    }
+]
+```
+
+Unlike ``StreamBlock``, iterating ``ListBlock`` values yields values of the internal block and not a wrapper type like ``StreamValue``.
+For example, iterating over the value of a ``ListBlock(CharBlock())`` will yield values with the type ``str``. In order to access the IDs, you must iterate over the ``.data`` attribute of the list block which yields ``ListValue`` objects.
+
+### Compatibility with ``StreamBlock``
+
+Adding the "type" here makes it easy to convert a ``ListBlock`` into a ``StreamBlock`` later.
+The developer only needs to replace their ``ListBlock`` definition with a ``StreamBlock`` that implements a type for ``item`` with the same internal type that was used in the ``ListBlock``.
+
+### Upgrading existing data
+
+The new format will only apply to new ``ListBlocks`` and past data will not be migrated so both formats will exist in the database at the same time.
+
+We will detect that the ``ListBlock`` is using the new format if the following is true:
+
+ - The object has ``id``, ``type``, and ``value`` fields.
+ - The ``type`` field is set to ``'item'`` 
+
+If either of these are false, the value would be assumed to be in the old format.
+
+The API for reading ``ListBlock`` value's from the database will be exactly the same for both formats, the only difference being is that the IDs of ``ListBlock`` items saved in the old format will be ``None``.
+
+When the Streamfield is next saved, the format will be upgraded and IDs assigned.
