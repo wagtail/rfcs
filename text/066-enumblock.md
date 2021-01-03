@@ -94,4 +94,4 @@ One exception to this is when an ``EnumBlock`` is used in a ``ListBlock``. In th
 
 This assumes that [RFC 65](https://github.com/wagtail/rfcs/pull/65) is implemented first.
 
-This means that ``ListBlock(EnumBlock(X))`` always has the exact same database representation as ``StreamBlock(X)`` which will simplify switching between the two. I think this would also make it easier to implement StreamField migrations later, as this would mean we only have three simple structural types to deal with.
+This means that ``ListBlock(EnumBlock(X))`` always has the exact same database representation as ``StreamBlock(X)`` which will simplify switching between the two. I think this would also make it easier to implement StreamField migrations later, as this would mean we only have three simple structural types to deal with (``StructBlock``, ``ListBlock``, and ``EnumBlock``. ``StreamBlock(X)`` can be interpreted as ``ListBlock(EnumBlock(X))`` for the purpose of data migrations).
