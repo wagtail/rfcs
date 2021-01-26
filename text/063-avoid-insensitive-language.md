@@ -20,19 +20,22 @@ When we put out the next release after this RFC is accepted,
 we will change to using `main` for all Wagtail repos,
 and note this in the release notes.
 
-### Linting for insensitive language
+### Checking for insensitive language
 
-We will run [alex](https://alexjs.com/), make changes based on what it finds, and consider whether we want to add it to our checks.
-Adding it may require adding some comments telling it to ignore lines of certain files, or configuration telling it to ignore specific rules or file types.
-If running it automatically seems like it will cause a lot of problems, we will make running alex, and addressing issues it raises, part of the release process.
+We will do a review of the language used in our codebase, and make changes to insensitive language that we find.
+Going forward, we will check for insensitive language as part of the release process.
+To avoid adding future instances of insensitive language,
+we may add a linter for insensitive language to our checks.
+
+### Adding documentation
+
+We will add official contributors’ documentation on how to write with inclusion in mind, and why it matters.
 
 ## Questions
 
 ### Open questions
 
-* Is alex the best tool for linting language?
-* What will alex check other than text files?
-Are there types of files it will miss when run automatically?
+(None)
 
 ### Resolved questions
 
@@ -40,3 +43,5 @@ Are there types of files it will miss when run automatically?
   * Yes, this is what GitHub has adopted as the default.
 * When will GitHub add automatic retargeting of PRs?
   * This was done in mid-January 2021.
+* Should we use a linter such as [alex](https://alexjs.com/)?
+  * We will leave this as an implementation detail.
