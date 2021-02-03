@@ -3,7 +3,7 @@
 * RFC: 63
 * Author: Naomi Morduch Toubman
 * Created: 2020-11-02
-* Last Modified: 2020-11-02
+* Last Modified: 2021-02-03
 
 ## Abstract
 
@@ -16,9 +16,7 @@ Even if we disagree about whether a given language choice is acceptable, the ben
 
 As per [github/renaming/README](https://github.com/github/renaming), GitHub has removed the last remaining hurdles to changing the default branch name,
 including retargeting open pull requests to the new branch.
-When we put out the next release after this RFC is accepted,
-we will change to using `main` for all Wagtail repos,
-and note this in the release notes.
+We will change to using `main` for all Wagtail repos.
 
 ### Checking for insensitive language
 
