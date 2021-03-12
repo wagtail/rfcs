@@ -60,7 +60,7 @@ featured = Page.objects.select_related('category', 'owner').filter(is_featured=T
 ```
 
 Because `is_featured` and `category` do not exist on the concrete `Page` model. The solution would
-be to query each model indiviually, and then combine the querysets - a cumbersome and slow operation
+be to query each model individually, and then combine the querysets - a cumbersome and slow operation
 that is difficult to scacle.
 
 We may also want to show a list of the most recently published pages of multiple types and their category.
