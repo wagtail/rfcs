@@ -1,6 +1,6 @@
-# RFC 66: Instance-level Collection Management
+# RFC 67: Instance-level Collection Management
 
-* RFC: 66
+* RFC: 67
 * Author: Cynthia Kiser
 * Created: 2021-03-16
 * Last Modified: 2021-03-16
