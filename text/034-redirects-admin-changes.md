@@ -1,8 +1,6 @@
 # RFC 34: Automatic redirects
 
-A commonly requested feature for Wagtail is automatically creating redirects to pages on certain events such as moving, changing slug, and deleting a page.
-
-This RFC contains a proposal to add this feature into Wagtail.
+This RFC contains a proposal to implement automatic creation of redirects and a couple of improvements to managing redirects in the admin interface.
 
 ## Motivation
 
@@ -12,30 +10,59 @@ This is a highly undesirable outcome as links to those pages would be broken, an
 
 In order to prevent this from happening, editors must manually create redirects for pages that they move or change the slug of on their site, and repeat this for any child pages. This could be a tedious task and may be forgotten.
 
-This is a task that can be quite easily handled by Wagtail. We just need to add a user interface to allow a user to specify if they want redirects to be created on moving pages or changing slugs and Wagtail can do the rest of the work.
+This is a task that can be done automatically by Wagtail.
+
+## Prior art
+
+The [``wagtail-automatic-redirects``](https://github.com/themotleyfool/wagtail-automatic-redirects/) package, created by The Motley Fool, currently provides the "[Automatic creation of redirects when pages URL changes](#automatic-creation-of-redirects-when-pages-url-changes)" feature in an installable package.
 
 ## Specification
 
-We will implement automatic creation of redirects in the following places. Note that users must have permission to add redirects in order for any of these interfaces to appear.
+### ``WAGTAIL_AUTOMATIC_REDIRECTS_ENABLED`` setting
 
-### On page move
+The automatic redirects feature would be enabled with a Django setting:
 
-We will add a new checkbox to the page move UI which asks the user if they would like to create a redirect from the old location to the new one.
+```python
+WAGTAIL_AUTOMATIC_REDIRECTS_ENABLED = True
+```
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_C6D086527C63F45E9EA73587C2533A89CBE7313C89FA1DC0882B73424CAB09BB_1552329395110_Screenshot_2019-03-11+Wagtail+-+Move+Blog1.png)
+This setting will be ``False`` by default so that existing sites can opt-in to it.
+This setting would be added to the project template and release notes to encourage as many developers as possible to use it.
 
-If this is checked, a redirect to the page will be created from the previous URL of the page. Redirects are also created for all descendants of the page.
+### Automatic creation of redirects when pages URL changes
 
-### On page slug change
+When the feature is enabled, Wagtail will automatically create a redirect when a page's URL changes.
 
-When a page’s slug is changed, a checkbox will appear underneath the slug field asking the user if they would like to create a redirect from the old slug.
+This can happen when:
 
-If this is checked, a redirect to the page will be created from the previous URL of the page. Redirects are also created for all descendants.
+ - The page is moved
+ - Its slug is changed
+ - Either of those two events occur on an ancestor page
 
-Note that if the page is saved in draft, the redirects are still created but they won't take effect until the slug change is published since redirects only work if there is not already a page at the URL.
+The redirect will be created regardless of the user's permissions to add or manage redirects.
 
-### When unpublishing or deleting a page
+#### Should editors be allowed to choose when they create redirects?
 
-When unpublishing or deleting a page or page tree, the user will be given the option to add redirects to a page. This will also update any existing redirects pointing at the page being deleted.
+We couldn't think of a case why you wouldn't want to create a redirect when a page's URL changes.
+Redirects will only take effect when there is no page currently live at the requested URL so having extra redirects will not break anything.
 
-Note that if the user is deleting a page tree, the user will only be able to choose a single destination page for all the redirects that get created.
+### Automatic creation of redirects on page deletion
+
+When the feature is enabled, a new page chooser field (optional) would be displayed on the "delete page confirm" view.
+This allows users to pick a destination page to redirect any users visiting the old URLs to.
+
+If they are deleting a tree, a redirect will be created for every page in the tree, but they will all point to the same destination.
+
+### Redirects listing filters
+
+The redirects listing would now include three new filters on the right hand side:
+
+ - "Redirect type" (Choice) - Filters the redirects listing by redirect type (All / Internal / External)
+ - "Page" (Page chooser) - When a page is chosen, the redirects will be filtered to include only those that point at the chosen page
+ - "Hide automatically created redirects" (Checkbox) - When checked, any redirects that were automatically created (and not subsequently edited later) would be hidden
+
+### Redirects panel on promote tab
+
+On the promote tab on all pages, we will display the number of redirects that link to the page. This number would be a link to the redirects listing filtered to the current page.
+
+This is only displayed to users who have permission to see the redirects listing.
