@@ -1,6 +1,6 @@
-# RFC x: Model audit logging
+# RFC 69: Model audit logging
 
-* RFC: x
+* RFC: 69
 * Author: Matthew Westcott
 * Created: 2021-06-23
 * Last Modified: 2021-06-23
