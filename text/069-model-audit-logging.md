@@ -13,6 +13,8 @@ Wagtail 2.10 introduced logging and reporting for changes made to page models. W
 * It must be possible to generate reports that span multiple model types, e.g. "which actions did user X perform today"
 * The amount of 'boilerplate' code needed to add logging to Wagtail admin views should be minimised (since there are many such views: snippets, ModelAdmin, images, documents and so on).
 
+This feature is not intended to provide an absolute guarantee that any database state change will be traceable to a logged action - for example, if a change is made through custom code or a third-party library, it will not be recorded unless the code in question has incorporated support for logging.
+
 A proof-of-concept implementation of the feature described here can be found at: https://github.com/gasman/wagtail/tree/feature/model-audit-log
 
 ## Specification
@@ -80,14 +82,23 @@ Reports such as the 'site history' report will need to take data from multiple l
 This can be seen in action on [`LogEntriesView`](https://github.com/gasman/wagtail/blob/3f27f38be51eab5c421c05bdfb5ede77bb9e2ecc/wagtail/admin/views/reports/audit_logging.py#L75-L91).
 
 
-## Open Questions
+## Resolved questions
 
 ### Model-level logging
 
-In the design outlined above, view-level code must explicitly call `log` in order for actions to be logged, and it is still possible for un-logged changes to occur (e.g. through a third-party app that has not yet been updated to include `log` calls). However, with the introduction of logging contexts, it would be possible to perform meaningful logging (including capturing the current user) at the model level, e.g. through model `save` methods or signals. Is this desirable, and if so:
+> In the design outlined above, view-level code must explicitly call `log` in order for actions to be logged, and it is still possible for un-logged changes to occur (e.g. through a third-party app that has not yet been updated to include `log` calls). However, with the introduction of logging contexts, it would be possible to perform meaningful logging (including capturing the current user) at the model level, e.g. through model `save` methods or signals. Is this desirable, and if so:
+>
+> * Which models do we enable this on? "All models" seems a bad idea, as this would include e.g. inline child models. Maybe this is functionality that models "opt into", and is enabled by default for models being registered through snippets or ModelAdmin?
+> * If logging exists at both view and model level, how do we avoid duplicate log entries referring to the same thing? For example, if the Wagtail admin provides a "publish newsletter" interface, and the publication process involves a call to `newsletter.save()`, then we're likely to end up logging a 'newsletter.publish' action from the view code, and a 'newsletter.save' action from the model level. Do we have some kind of hierarchy where the more specific action type (newsletter.publish) supersedes the less specific one?
 
-* Which models do we enable this on? "All models" seems a bad idea, as this would include e.g. inline child models. Maybe this is functionality that models "opt into", and is enabled by default for models being registered through snippets or ModelAdmin?
-* If logging exists at both view and model level, how do we avoid duplicate log entries referring to the same thing? For example, if the Wagtail admin provides a "publish newsletter" interface, and the publication process involves a call to `newsletter.save()`, then we're likely to end up logging a 'newsletter.publish' action from the view code, and a 'newsletter.save' action from the model level. Do we have some kind of hierarchy where the more specific action type (newsletter.publish) supersedes the less specific one?
+No, we should not globally capture log actions at the model level.
+
+In MVC architecture terms, there is no strict rule about whether the methods exposed by the model level correspond to meaningful loggable actions. Typically that's something that evolves as a model gets more complex: simple models (of the sort that would typically be managed through snippets or ModelAdmin) will often just rely on Django's generic `save()` method and leave it up to the view code to implement any cleverer logic, but as that view code gets more complex it will be refactored into model methods such as the page model's 'publish' and 'copy' methods. Meanwhile, Wagtail's workflow model is inherently based around user actions.
+
+Given this diversity around how model code is approached in the real world, it doesn't make sense for Wagtail's logging framework to make blanket assumptions about whether a `save` signal being fired indicates a meaningful loggable action. Instead, that should be a case-by-case decision for each model.
+
+This does mean that the current development falls short of being an 'audit log' in the strictest sense - it's possible for custom / third-party code to make database state changes that 'fall through the net' and aren't recorded at either the view or model level. We'll consider this out of scope for the current development - there's no proven need for this, and the ease of adding logging support to custom code (essentially just a single line of code per action) should mitigate this. If true low-level audit logging is really needed, this should probably be set up at the database level instead.
+
 
 ### Discovery of models / actions for report filters
 
@@ -96,3 +107,6 @@ In the "site history" report, it would be useful to provide a dropdown to filter
 * Do we require models to be explicitly registered as 'loggable' to be shown in that list? Or do we do a "preflight" query against the log tables to find out which object types have actions logged against them, and just show those?
 * Do we need to take permissions into account - e.g. only allowing users to view logs for a model if they have an explicit add/edit permission for it? Does this justify a distinct 'can view logs' permission level?
 * Currently, when actions are registered with `register_action`, they are not associated with a specific object type - for example, there's nothing to specify that the 'wagtail.publish' action type only applies to pages and not snippets. This means that the 'filter by action' dropdown for a report that's only reporting on snippets is likely to include a bunch of useless actions. Can / should we prevent that, by linking actions to specific object types?
+
+
+## Open Questions
