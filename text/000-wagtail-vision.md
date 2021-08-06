@@ -1,6 +1,6 @@
-# RFC 1: Purpose and format
+# RFC 70: Wagtail Vision
 
-* RFC: 1
+* RFC: 70
 * Author: Phil Dexter, Tom Dyson, Karl Hobley, Olly Willians
 * Created: 2021-08-05
 * Last Modified: 2021-08-05
