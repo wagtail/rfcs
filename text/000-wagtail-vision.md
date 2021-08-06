@@ -11,14 +11,21 @@ This RFC presents a vision for Wagtail for the next two years. It should help al
 
 ## Specification
 
-The vision can be seen [here](https://www.figma.com/proto/cFR46MQmuv6RoO47pgdBcz/Wagtail-Vision?page-id=0%3A1&node-id=109%3A9 "Wagtail Vision").
+The vision can be seen in the following 5 files.
 
-For accessibility reasons, here are the five key pillars of the vision.
+![Editors, get your best work done](./Editors.png)
+![Sophistication, without compromising simplicity](./Sophistication.png)
+![Multi-channel experiences](./multi-channel.png)
+![Wagtail as a Platform](./WaaP.png)
+![First thirty minutes of Wagtail](./Thirty-minutes.png)
+
+
+For accessibility reasons, here are the five key pillars of the vision set out in text.
 
 ### Editors, get your best work done
 Instantly feel at home to unleash your creativity and create your best content. Let Wagtail help you optimise the content for success and keep you up to date on content performance.
 
-### Sophisitication, without compromising simplicity
+### Sophistication, without compromising simplicity
 Wagtail reveals the power of its features as you need them, making it easy for simple sites and a powerhouse for the most complex.
 
 ### Multi-channel experiences
