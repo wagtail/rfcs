@@ -188,7 +188,7 @@ The existing [`get_rendition_or_not_found` shortcut](https://github.com/wagtail/
 ## Opinionated implementation choices
 
 - The `srcset` attributes will use width descriptors, with no option to use pixel density descriptors. They aren’t expected to be as valuable, and if needed could be added bespoke by site implementers by customising the new image HTML template.
-- The `picture` element won’t use `media` attriutes for art direction. This will only be possible when customising the new tag’s template.
+- The `picture` element won’t use `media` attributes for art direction. This will only be possible when customising the new tag’s template.
 - For both tags, the fallback image `src` will come from the first rendition generated in `srcset`.
 - The image’s `width` and `height` will be set based on the dimensions of the first rendition generated in `srcset`, with CSS needed to apply any overrides per-breakpoint.
 
