@@ -5,7 +5,7 @@
 - Created: 2021-08-27
 - Last Modified: 2021-08-27
 
-> 🚧 A prototype implementation of this proposal is available for review and testing as a standalone package: [wagtail_picture_proposal#3](https://github.com/torchbox/wagtail_picture_proposal/pull/3).
+> 🚧 A prototype implementation of this proposal is available for review and testing as a standalone package: [wagtail_picture_proposal#3](https://github.com/torchbox/wagtail_picture_proposal/pull/3). Discussions: [#lean-images on the Wagtail Slack](https://github.com/wagtail/wagtail/wiki/Slack).
 
 ## Abstract
 
@@ -294,9 +294,17 @@ Rebuilding the Wagtail service page on [torchbox.com (PR #1)](https://github.com
 
 ## References
 
+- Wagtail: [Create a tag for the picture element + support for responsive image sets #285](https://github.com/wagtail/wagtail/issues/285)
+- Wagtail: [Allow images to be generated without width and height attributes #5289](https://github.com/wagtail/wagtail/issues/5289)
+- Willow: [[WIP] Image optimisation operations #69](https://github.com/wagtail/Willow/pull/69)
+- wp_image tag from [@ababic](https://github.com/ababic): <https://gist.github.com/thibaudcolas/3c6b9c354e7d636f08133f93b65e7978>
 - <https://gist.github.com/coredumperror/41f9f8fe511ac4e88547487d6d43c69b>
 - <https://github.com/ephes/wagtail_srcset>
 - <https://github.com/ptrck/wagtail-lazyimages>
 - <https://pypi.org/project/easy-thumbnails/>
 - <https://nextjs.org/docs/api-reference/next/image>
 - <https://www.gatsbyjs.com/plugins/gatsby-plugin-image>
+
+## Credits
+
+The bulk of the code in the prototype comes from [wagtail/wagtail](https://github.com/wagtail/wagtail). Additional modifications by Thibaud Colas, with support from Chris Lawton. WebP picture tag prototype by Andy Babic. Thank you to Jane Hughes and Lara Thompson for early feedback on the proposed APIs.
