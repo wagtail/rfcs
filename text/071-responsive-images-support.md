@@ -113,6 +113,8 @@ Here is the default template we are expecting at this stage:
 >
 ```
 
+One appeal in supporting this is to make it possible for implementers to implement image lazy-loading site-wide, as a default. In native HTML, this would mean adding `loading="lazy"` within this template, and only overriding it with `loading="auto"` or `loading="eager"` for images that shouldn’t be lazy-loaded.
+
 ## Other implementation changes
 
 ### Renditions generation performance
