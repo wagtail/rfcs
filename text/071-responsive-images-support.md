@@ -241,7 +241,7 @@ This feels promising but we chose to not explore it further for now. One potenti
 
 Further to the above, dynamically generating renditions would also make it possible to implement the [`Save-Data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Save-Data) HTTP header, thereby allowing Wagtail sites to compress images to different levels depending on user preference.
 
-### Pluggable image rendition generation backbends
+### Pluggable image rendition generation backends
 
 Similarly to the above, it seems promising to have a way to altogether delegate image renditions generation to an external image resizing API – for example Cloudinary, Cloudflare Image Resizing, or custom implementation running on edge servers.
 
