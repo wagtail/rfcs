@@ -1,6 +1,6 @@
-# RFC 1: Background workers
+# RFC 72: Background workers
 
-* RFC: 1
+* RFC: 72
 * Author: Jake Howard, with help from the Performance sub-team
 * Created: 2021-09-17
 * Last Modified: 2021-09-17
