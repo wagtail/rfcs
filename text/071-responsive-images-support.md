@@ -41,22 +41,24 @@ This generates four variants of the same image. The resulting code is very verbo
 
 ## Proposed approach
 
-We propose adding support for generating multiple renditions at once to the main `{% image %}` tag, and to a new `{% picture %}` tag, in a backwards-compatible way.
+We propose adding support for generating multiple renditions at once as two new tags to avoid any compatibility issues: `{% srcset_image %}`, and `{% picture %}`.
 
-- In the case of `{% image %}`, we would generate an image with the [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-srcset) attribute with width descriptors.
+- In the case of `{% srcset_image %}`, we would generate an image with the [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-srcset) attribute with width descriptors.
 - `{% picture %}` will generate a [`picture`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) element, with a `source` child per supported image format, and a `img` fallback.
+
+We additionally propose [complementary changes](#complementary-changes), fully backwards-compatible, which we will also apply to the existing `{% image %}` tag.
 
 ### Proposed API
 
 The most important API is the way to specify which renditions to generate – our preferred option at this stage is to extend the current syntax for filter specifiers to support [brace expansion](https://www.gnu.org/software/bash/manual/html_node/Brace-Expansion.html):
 
 ```jinja2
-{% image page.test_image width-{200,400,600} sizes="100vw" %}
+{% srcset_image page.test_image width-{200,400,600} sizes="100vw" %}
 ```
 
 This would generate a single `<img>` tag with an `srcset` attribute with URLs of three renditions: `width-200`, `width-400`, `width-600`. We chose to leverage existing syntax to facilitate understanding of how the specifier works. The `sizes` attribute is passed as-is, and will need to be set so the browser loads the correct image.
 
-To keep the implementation simple, we recommend only supporting a single brace expansion per `image` tag. For example, `fill-{300x400,400x600,900x1200}` would be valid, while `fill-{300,400,900}x{400,600,1200}` would be invalid.
+To keep the implementation simple, we recommend only supporting a single brace expansion per `srcset_image` tag. For example, `fill-{300x400,400x600,900x1200}` would be valid, while `fill-{300,400,900}x{400,600,1200}` would be invalid.
 
 ### Examples
 
@@ -79,12 +81,12 @@ torchbox.com:
 
 ## Complementary changes
 
-Along with the API to generate multiple renditions at once with brace expansions, we propose making a few additional changes to image rendering to make it more flexible.
+Along with the API to generate multiple renditions at once with brace expansions, we propose making a few additional changes to image rendering to make it more flexible. Those changes would be implemented for the new tags, and also to the existing `{% image %}`.
 
 ### Variables for filter specifiers
 
 ```jinja2
-{% image page.test_image three_widths %}
+{% srcset_image page.test_image three_widths %}
 ```
 
 with `three_widths` defined as a filter specification string in the template context:
@@ -123,6 +125,8 @@ As part of implementing those changes, we will make sure the new implementation 
 
 - Querying and inserting all renditions at once, as opposed to one by one sequentially
 - Generating rendition images and saving to file storage, as now
+  - Retrieving source images from IO or network (cloud storage backends)
+  - Saving generated images to IO or network (cloud storage backends)
 - Making sure all renditions are cached, as now
 
 Sample bulk querying code for reference:
@@ -154,10 +158,10 @@ created_renditions = list(Rendition.objects.bulk_create(bulk_objs))
 
 ### Store output as variable
 
-In the case of storing the output of `{% image %}` or `{% picture %}` as a variable, we can simply provide the same data that would normally be provided to the tag template’s context – a list of renditions for `image`, a more complex data structure for `picture`. Here is an example with `{% image %}`:
+In the case of storing the output of `{% srcset_image %}` or `{% picture %}` as a variable, we can simply provide the same data that would normally be provided to the tag template’s context – a list of renditions for `srcset_image`, a more complex data structure for `picture`. Here is an example with `{% srcset_image %}`:
 
 ```twig
-{% image page.test_image width-{200,400,600} as srcset %}
+{% srcset_image page.test_image width-{200,400,600} as srcset %}
 
 <style>
   #test-bg-image {
@@ -181,11 +185,17 @@ In the case of storing the output of `{% image %}` or `{% picture %}` as a varia
 </div>
 ```
 
-This is a representative example of how variables output is used currently, however this type of pattern shouldn’t be encouraged as it prevents images from being lazy-loaded with the native `loading="lazy"` attribute, and doesn’t offer a simple way to add alternative text for screen reader users, and when the image fails to load.
+This is a representative example of how variables output is used currently, however this type of pattern shouldn’t be encouraged as it prevents images from being lazy-loaded with the native `loading="lazy"` attribute, and doesn’t offer a simple way to add alternative text for screen reader users and when the image fails to load.
 
 ### Programmatic retrieval of renditions
 
 The existing [`get_rendition_or_not_found` shortcut](https://github.com/wagtail/wagtail/blob/main/wagtail/images/shortcuts.py#L4) would be kept as-is, with a new `get_renditions_or_not_found` added to retrieve multiple renditions at once.
+
+### Shared Willow image instance for generation
+
+Since renditions are generated sequentially for a given item, this allows us to reuse the Willow image instance between renditions. This will greatly reduce the IO and memory cost of generating renditions (linear with the number of source images, rather than output renditions).
+
+This optimisation feels simple enough to apply at the same time as other proposed changes.
 
 ## Opinionated implementation choices
 
@@ -244,6 +254,12 @@ Further to the above, dynamically generating renditions would also make it possi
 ### Pluggable image rendition generation backends
 
 Similarly to the above, it seems promising to have a way to altogether delegate image renditions generation to an external image resizing API – for example Cloudinary, Cloudflare Image Resizing, or custom implementation running on edge servers.
+
+### Background rendition generation
+
+An alternative to optimise the performance of renditions generations would be to offload this work to a background task.
+
+We chose not to pursue this at this stage since this is an existing cost with the current workarounds, and since the rendition generation cost is only an issue for the first request for a given image rendition.
 
 ### Image placeholders
 
