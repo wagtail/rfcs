@@ -34,44 +34,89 @@ This feature has some basic requirements for it to be considered "complete":
 
 ## Implementation
 
-The proposed implementation is powered by [Huey](https://huey.readthedocs.io), a Python task scheduler which is both composable enough for our needs, and appears stable enough to be comfortable relying on it. Huey provides the building blocks for task storage, execution and submission.
+The proposed implementation will be in the form of an application wide "Job backend". This backend will be what connects Wagtail to the task runners. The job backend will provide an interface for either 3rd party libraries, or application developers to specify how jobs should be created and pushed into the background
 
-By default, Huey has no integrations with Django, allowing it to work in isolation, reducing any potential impact on people's existing sites. Huey does ship with an [optional Django integration](https://huey.readthedocs.io/en/latest/contrib.html#django), but it makes several assumptions about how Huey is used, and would conflict with users already using Huey or with any extended customization we may need.
+The default backend will not push jobs into the background, instead running them in-band. This means the change is backwards compatible with current wagtail.
+
+Wagtail will also ship with an ORM-powered backend for users to transition too easy should they want the powers of a background worker without a large infrastructure migration or commitment. Whilst this backend will be designed to be performant enough, and considered fine for production use, it won't be designed to fully scale to all needs, and so tools such as Redis still have a place.
 
 Whilst this proposal also covers scheduled tasks for Wagtail, enabling those should be opted in separately to task scheduling.
 
-### Why Huey?
-
-The decision to use Huey was not taken lightly. A number of different queuing and worker libraries were reviewed, including but not limited to [Celery](https://docs.celeryproject.org), [`django-db-queue`](https://github.com/dabapps/django-db-queue), [`django-lightweight-queue`](https://github.com/thread/django-lightweight-queue/), [RQ](https://python-rq.org/), and [APScheduler](https://apscheduler.readthedocs.io/).
-
-Probably the largest package in this space, Celery, would feature-wise do everything we'd need it to and more, however has one key drawback: Complexity. This background worker needed to both be sufficiently distinct from anything else the user might be doing around background workers, and also simple enough to get up and running. Celery is neither of those things.
-
-There are a few critical features which Huey does well which weren't all available in the other offerings:
-
-Wagtail's background workers needed to be sufficiently separate from any other background workers used on the project. DBQ and DLQ both deeply integrate with Django, and whilst it's possible to have a dedicated queue just for wagtail, it may cause issues and concerns for consumers. Huey doesn't know or care about Django, and so even if a user were already using Huey, it could still be used within Wagtail without conflicts.
-
-Wagtail's background worker also needed to assume as little as possible about the environment it was being run in, especially around what to use as a job store. This meant any which didn't support multiple backends were immediately discarded.
-
-Wagtail is used by a number of large and high-profile companies, meaning using smaller libraries was less desirable from a maintenance and supply-chain security perspective.
-
-APScheduler and Huey made the short list, but at time of writing support for out-of-process workers in APScheduler is still work-in-progress and unreleased. Huey not only ticked all the boxes in terms of features, but was also sufficiently simple to work with and integrate, and popular enough to feel confident adding it as a dependency for Wagtail.
-
 ## Proposed API
 
-Similarly to Django's caching framework, a global "background" object can be imported, which is used to add tasks. This will be a "Huey" instance, potentially subclassed with some Wagtail sugar. This global will be pre-configured based on the application's settings such as backend, immediate mode, and connection details.
+### Backends
+
+A backend will be a class which extends a wagtail-defined base class.
+
+```python
+from wagtail.contrib.tasks import BaseJobBackend
+
+class MyBackend(BaseJobBackend):
+    def __init__(self, options):
+        """
+        Any connections which need to be setup can be done here
+        """
+        super().__init__(options)
+
+    def enqueue(self, func, args, kwargs) -> None:
+        """
+        Queue up a job function to be executed
+        """
+        ...
+
+    def cron(self, func, pattern, args, kwargs) -> None:
+        """
+        Add a job to be executed on a given interval
+        """
+        ...
+
+    def defer(self, func, when, args, kwargs) -> None:
+        """
+        Add a job to be completed at a specific time
+        """
+        ...
+```
+
+If a backend doesn't support a particular scheduling mode, it simply does not define the method.
+
+### Running tasks
+
+Similarly to Django's caching framework, a global "background" object can be imported, which is used to add tasks.
 
 ```python
 from wagtail.contrib.tasks import background
 
-@background.task()
-def do_a_task():
+def do_a_task(*args, **kwargs):
     pass
 
-# And now, run the task
-do_a_task()
+# Submit the task to be run
+background.enqueue(do_a_task, args=[], kwargs={})
 ```
 
-Using this object, tasks are submitted using the existing Huey constructs and patterns.
+In the initial implementation, `enqueue` will not return anything. A response object which tracks in-flight tasks may be possible in a future iteration.
+
+`args` and `kwargs` are intentionally their own dedicated arguments to make the API simpler and backwards-compatible should other attributes be added in future.
+
+#### Deferring tasks
+
+Tasks may also be "deferred" to run at a specific time:
+
+```python
+background.defer(do_a_task, args=[], kwargs={}, when=datetime.datetime.now() + datetime.timedelta(minutes=5))
+```
+
+When scheduling a task, it may not be exactly that time a task is executed, however it should be accurate to within a few seconds.
+
+#### Cron tasks
+
+Along with deferring tasks, task can be configured to run on a given interval:
+
+```python
+background.cron(do_a_task, args=[], kwargs={}, schedule="* 5 * * *")
+background.cron(do_a_task, args=[], kwargs={}, schedule={"hour": 5})  # A more human-readable syntax
+```
+
+#### Background Hooks
 
 For Wagtail [hooks](https://docs.wagtail.io/en/stable/reference/hooks.html), there will be an additional property passed when registering the hook, which will transparently convert the hook to a task, and ensure it's submitted as a task when the hook should be called. Only certain hooks will support background tasks. Others, such as those for registering URLs or menu items must be run synchronously, and so will ignore the background argument. This will only be applicable for certain hooks, and will do nothing when passed to these hooks.
 
@@ -83,20 +128,29 @@ def my_hook_function(arg1, arg2...)
     pass
 ```
 
+It will still be possible to manually run `background.enqueue` etc inside a hook method, this is merely a convenience wrapper.
+
 Whilst it's possible to define tasks anywhere in an application, the convention will be to put them alongside hooks in the `wagtail_hooks.py` file, to ensure they're imported at the right times.
 
 ### Settings
 
+Values shown below are the default.
+
 ```python
-WAGTAIL_TASKS = {
-    BACKEND: str  # Module path to the backend to use for tasks (default empty)
-    BACKEND_OPTIONS: dict  # Any additional options the backend may take (eg connection parameters) (default empty)
+WAGTAIL_JOBS = {
+    "BACKEND": "wagtail.contrib.tasks.backends.ImmediateBackend",
+    "SCHEDULE": False,  # Should wagtail's scheduled management commands be added as cron jobs?
+    "OPTIONS": {}  # To pass to the backend's constructor
 }
 ```
 
-Most of the settings are passed through to Huey as [its configuration](https://huey.readthedocs.io/en/latest/api.html) with little to no modification.
+Note that only a single backend may be defined for an application. Should multiple task runners be required, this should be implemented in a custom backend.
 
-Because Huey doesn't handle "Immediate" tasks as a distinct backend, a blank `BACKEND` is synonymous with immediate mode.
+### Checks
+
+To ensure the configuration is valid, a check will be added to validate:
+
+- If `SCHEDULE` is set, does the backend support scheduling?
 
 ## Current workarounds
 
@@ -106,11 +160,10 @@ For scheduled tasks, Wagtail currently relies on Django's management commands, w
 
 ## Implementation plan
 
-1. Contribute cron-style consumer to Huey
-2. Contribute a Django ORM based storage backend for Huey
-3. Create the basic plumbing and configuration required to get a worker running as a part of the Wagtail codebase, based off the existing Huey constructs
-4. Enable creating wagtail hooks as tasks
-5. Documentation
+1. Create the basic plumbing and base classes required
+2. Implement `ImmediateBackend`
+3. Enable creating wagtail hooks as tasks
+4. Implement an ORM backend
 6. Begin migrating background-compatible bits of Wagtail to tasks
 7. Documentation
 8. Initial release?
@@ -119,9 +172,9 @@ For scheduled tasks, Wagtail currently relies on Django's management commands, w
 ## Open Questions
 
 - How will / should this interact with the ongoing "Bulk Actions" work?
-- Should the executors be a unified management command with an additional flag, or 2 distinct commands?
-- Should we not use Huey and write something ourselves?
 - Is this _contrib_?
-- Should Huey be an optional dependency (thus requiring us to implement "immediate mode" ourselves) or a required dependency.
 - The background runner should probably have a name of some sort (and be consistent around terminology eg tasks)
-- Should Django ORM support be a day-1 feature? (Wider support base, but delays release)
+- Should Wagtail contain some additional backends for commonly used task runners?
+  - Or, should these be separate packages under the Wagtail organisation?
+- What should the argument for scheduling a task be? Should Wagtail parse it into a format more consumable for the backend?
+- Should the ORM backend use a custom task runner, or a 3rd-party package?
