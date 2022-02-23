@@ -111,7 +111,7 @@ The following modules that are currently in [`wagtail/core/`](https://github.com
 - [`compat.py`](https://github.com/wagtail/wagtail/blob/f2f4503f4ffb1130e770a3dd4d98ef6e47864de3/wagtail/core/compat.py)
 - [`treebeard.py`](https://github.com/wagtail/wagtail/blob/8f8f2e12b731334bbe1e39508a12246a3503f532/wagtail/core/treebeard.py)
 - [`url_routing.py`](https://github.com/wagtail/wagtail/blob/8e25960972a1663b14faca1f7ac6a1693a581b18/wagtail/core/telepath.py)
-- [`whitelist.py`](https://github.com/wagtail/wagtail/blob/ba6f94def17b8bbc66002cbc7af60ed422658ff1/wagtail/core/whitelist.py)
+- [`whitelist.py`](https://github.com/wagtail/wagtail/blob/ba6f94def17b8bbc66002cbc7af60ed422658ff1/wagtail/core/whitelist.py) -> should be renamed to `allowlist` or `safelist` and then `Whitelister` module renamed to `Gatekeeper` or `Safelister`
 
 [`log_actions.py`](https://github.com/wagtail/wagtail/blob/9b28fdba87515bd679806cd1c51ffb04918c15c7/wagtail/core/log_actions.py) will be renamed to `logging.py` as this module contains more than just log actions, but also for consistency with it’s models file (`wagtail/models/logging.py`)
 
