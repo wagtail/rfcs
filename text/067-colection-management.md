@@ -49,7 +49,7 @@ permissions.
 ### Admin UI changes
 
 Collection permissions will move out of the "Object Permissions" section of the
-group edit form and be inserted as it's own section name "Collection Management
+group edit form and be inserted as it's own section named "Collection Management
 Permissions" in the bottom part of the page near the Page, Document, and Image
 permission fields. The UI will look like the documents and images lines but
 offer add, change, and delete checkboxes.
