@@ -1,0 +1,134 @@
+# RFC : Support for SVG images
+
+- RFC:
+- Author: Karl Hobley
+- Created: 2022-05-13
+- Last Modified: 2022-05-13
+
+## Abstract
+
+This RFC proposes adding official support for SVG files into Wagtail's built-in ``wagtail.images`` module.
+
+SVGs are challenging to support as they are a vector graphics format but all of Wagtail's existing image formats are raster graphics formats.
+
+## Motivation
+
+SVGs are commonly used for graphics on websites in the same kind of places where raster images are used. A user may want to use an SVG file when there are lots of elements that render well in vector graphics (diagrams, text, etc).
+
+Existing implementations require SVG is to be treated differently to regular images, so they are managed separately to other images and separate choosers, and APIs need to be developed. However, to an end user, SVG is just another image format
+so this distinction may be confusing.
+
+In addition, developers need to cater for SVG files differently in their frontend code. With official SVG support in Wagtail, we could make working with both vector and raster images very similar, without reducing the final quality of the SVG images.
+
+## Functional Overview
+
+### Same interface for both SVGs and raster images
+
+The user and developer interfaces for working with SVGs should be as similar as possible to raster images. This will allow SVGs to be dropped in wherever raster images can currently be used.
+
+SVGs will be treated as just another image format. So it will use the same image model, API, admin management interface, and chooser. They can be rendered on page with the existing ``{% image %}`` tag.
+
+### Rasterising SVG files
+
+By default, when an SVG image is passed in to Wagtail’s ``{% image %}`` tag., it will be rasterised to PNG format.
+
+The Wagtail admin will display all SVG images as rasterised PNGs to maintain good performance on a site that complex SVG files. These rasterised versions will be cached in the Rendition model in the same way existing raster images are..
+
+This means that in order to allow SVGs to be uploaded, a rasterisation library must be installed on the server.
+
+To maintain the highest possible quality, the rasterisation should occur after the image is transformed and before any filters are applied.
+
+### Using SVG files in a template
+
+To allow SVG files to be used directly in a template, we will introduce a new argument to the ``{% image %}`` tag to make it always set the ``src`` attribute to the original image and not generate a rendition. Any filters that are supplied to this tag must only resize the image, not crop or filter it. The result of the resizing will be added as width and height attributes on the ``<img>`` tag itself rather than resizing the image on the server.
+
+If a user would like to filter raster images, but leave SVGs as they are, they can inspect the image first in the template using the Image.is_svg attribute. For example:
+
+```html+Django
+{% if image.is_svg %}
+    {# For example, a developer might use the crop class to crop the SVG with CSS #}
+    {% image min-100 class=”crop” source=True %}
+{% else %}
+    {% image fill-100x100 %}
+{% endif %}
+```
+
+### SVGs on headless sites
+
+Since we are reusing the exising Image model, the existing images APIs should be reusable for SVG images.
+
+The main difference is that developers might want to use the source image instead of a rendition for SVG images,
+but the existing ``ImageRenditionField`` would still be available to them if they always want rasters instead.
+
+## Detailed design
+
+### Enabling support for SVG files
+
+To enable support for SVG files in Wagtail a developer must do the following:
+
+ - Install an SVG image rasterisation library that we support
+ - Set ``WAGTAILIMAGES_ALLOW_SVG`` to ``True`` (this setting defaults to ``False``)
+
+A system check will be developed that will raise an error if ``WAGTAILIMAGES_ALLOW_SVG`` is ``True`` but an SVG image rasterisation library is either not installed or out of date.
+
+If ``WAGTAILIMAGES_ALLOW_SVG`` is not set to ``True``, SVG formats will not be accepted when an image is uploaded.
+
+I believe we should have an explicit setting to enable SVGs, rather than just sniffing for the library because:
+
+ - We can raise a helpful error of the SVG library wasn't installed correctly
+ - There might be another reason for installing an SVG library and the developer might not want it to be used by Wagtail
+
+### Changes to the image model
+
+#### Width and height of SVG files
+
+We for raster images, we use Pillow to find the width and height of the image.
+
+Instead, for SVGs we will parse the XML and extract the ``width`` and ``height`` attributes from the root ``<svg>`` element in the SVG file (this could be implemented in the ``SVGImage`` class described below).
+
+#### ``Image.is_svg`` property
+
+To make it easy to tell from a template whether an image is an SVG file, we will add this property that just checks if the file extension is ``svg``.
+
+### ``{% image ... source=True %}`` attribute
+
+The image tag will be updated to take a ``source=True`` parameter. This will make sure the ``src`` attribute is always set to the original image's filename.
+
+The primary purpose of this is to allow the SVG file to be used directly in a template, but it could in theory be used for raster images too.
+
+The tag in this form will still accept a filter spec, but will be restricted to filters that only adjust the width and height of the image (so ``min``, ``max``, ``width``, ``height``). An error will be raised if any other filter is used.
+
+The width and height that the filter will return will be put in the ``width`` and ``height`` HTML attributes on the ``<img>`` tag itself and the image file will not be resized.
+
+### SVG image rasterisation
+
+The SVG rasterisation should be performend by the Willow library. This would allow us to easily support multiple SVG rasterisation libraries as plugins, and this would also give us a ``WillowImage`` instance that we could immediately pass on to subsequent filters.
+
+#### Willow ``SVGImage``
+
+Willow will provide a new ``SVGImage`` class for SVG images. This would be implemented in a new module called ``willow.svg``.
+
+Unlike other image classes, this class will record any transform operations that are performend on it rather than perform those operations right away.
+When the image is rasterised, these recorded transformations will be used to work out the size/crop/rotation of the final image and the SVG will be rasterised directly into that.
+
+#### Willow ``svglib`` plugin and ``rasterise_to_png`` operation
+
+A new plugin will be added to support rasterising SVGs using the [svglib](https://pypi.org/project/svglib/) Python package.
+
+This plugin will contain one operation called ``rasterise_to_png`` which will take an instance of ``SVGImage``, rasterise it following any transforms that have been used, and return an instance of [``PNGImageFile``](https://github.com/wagtail/Willow/blob/ed6c532534a1d81fe5ad421ccae53634cc9ca121/willow/image.py#L163-L164).
+
+Note: Willow adds any relevant operations as methods to the image class, so it can be called from Wagtail like so: ``png_image = svg_image.rasterise_to_png()``.
+
+Using Willow plugins for this will allow other rasterisation libraries to be supported later on by implementing the same ``rasterise_to_png`` operation. One other library we could also support is [Cairo](https://www.cairographics.org/), which should give a more accurate rendering for SVGs but does require Cairo to be installed on the system.
+
+#### When to rasterise images in Wagtail
+
+Wagtail should call ``rasterise_to_png`` after any transformation operations are performed (such as ``fill``, ``min``, ``width``, etc) and before any filter operations are performed.
+
+So, on [this line](https://github.com/wagtail/wagtail/blob/33552136559f1d6b33950858e8bd89364087240c/wagtail/images/models.py#L620), we will add the following:
+
+```python
+if image.is_svg:
+    willow = willow.rasterise_to_png()
+    original_format = "png"
+```
