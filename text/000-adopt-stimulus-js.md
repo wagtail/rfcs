@@ -23,9 +23,9 @@
 - [Answered questions](#answered-questions)
   - [Why use a Django & HTML first approach](#why-use-a-django--html-first-approach)
   - [Why not more React](#why-not-more-react)
-  - [Why Not use Vue, Svelte, Angular, or Solid etc](#why-not-use-vue-svelte-angular-or-solid-etc)
-  - [Why Not Alpine.js](#why-not-alpinejs)
-  - [Why not HTMX, Turbolinks](#why-not-htmx-turbolinks)
+  - [Why not use Vue, Svelte, Angular, or Solid etc](#why-not-use-vue-svelte-angular-or-solid-etc)
+  - [Why not Alpine.js](#why-not-alpinejs)
+  - [Why not HTMX or Turbolinks](#why-not-htmx-or-turbolinks)
   - [Why Stimulus and not something else](#why-stimulus-and-not-something-else)
 - [Additional Information](#additional-information)
   - [Links](#links)
@@ -49,19 +49,19 @@ Stimulus is an evolution on what we are already doing in almost all JS interacti
 ### Primary Goals
 
 - **Django/Python first** - Where possible, Django (using Python and then HTML templates) first and JavaScript second. It should be easy to to basic things (use existing widgets, modify initial data, change some basic behaviour) by using existing Django or Wagtail approaches (e.g. `attrs` on widgets or a similar approach on Wagtail Template components). More complex changes should be able to be done in templates alone. Finally building new JS behaviour or re-writing core logic should be able to be done in JavaScript where HTML data attributes are not suitable.
-- **Not replacing React** - There is no need to replace React, it serves an incredibly critical purpose for very complex, self-contained and heavy state driven UI elements, the framework must be able to be used with React and React must be able to be used by it.
+- **Not replacing React** - There is no need to replace React, it serves a critical purpose for complex, self-contained and heavy state driven UI elements. The framework must be able to be used with React and React must be able to be used by it.
 - **Vanilla JS** - The framework should use and promote browser APIs, not getting in the way of native functions such as event handling and element selectors but add convenience where suitable that can easily be bypassed. Note: Vanilla JS is an overloaded term - refer to this site as a guide http://vanilla-js.com/ .
 - **Accessibility** - it should be easy to use existing accessibility approaches or add them to components.
 - **Secure** - The solution must support our move towards zero globals and zero inline scripts (CSP compliance) to build the UI elements and ensure they get instantiated wherever they appear (inline panel, modals, StreamField). See also [RFC 33](https://github.com/wagtail/rfcs/pull/33) and links below relating to CSP compliance.
-- **Extensible** - Let Wagtail developers enhance/extend/reuse these elements without needing to have a JavaScript build tool, along with use this framework for their own custom UI elements.
+- **Extensible** - Let Wagtail developers enhance/extend/reuse these elements without needing to have a JavaScript build tool, along with using this framework for their own custom UI elements.
 - **Composable** - Within or outside of Wagtail it must be possible to compose behaviour using a mix of Wagtail provided and custom JS behaviours. Unlike any similar library Stimulus allows [multiple controllers](https://stimulus.hotwired.dev/reference/controllers#multiple-controllers) to be added to the same element.
-- **Powerful for Frontend devs** - Ensure the core team and code contributors get to leverage the power of a build tool system, including TypeScript, unit testing and leveraging the pattern library (Storybook).
+- **Powerful for Frontend devs** - Ensure the core team and code contributors get to leverage the power of a build tool system, including TypeScript, unit testing and our pattern library (Storybook).
 - **Namespaced** - Wagtail implementations should be namespaced or somehow isolated from other potential duplicate usage of the same libraries.
-- **i18n/l10n** - It should be easy to provide translated / localised content to the elements without additional thought.
+- **i18n/l10n** - It should be easy to provide translated / localised content to the elements.
 
 ### Secondary Goals
 
-- **External reuse** - Is there a pathway toward the components that are built to be used in isolation of styles and in isolation of even Wagtail itself (e.g. as a importable module).
+- **External reuse** - Is there a pathway toward the components that are built to be used in isolation of styles and in isolation of even Wagtail itself (e.g. as a importable module)?
 - **ES6 Modules Compatible** - There should be an easy migration path to adoption of ES6 modules this will be out of scope for this RFC but it is good to call out.
 
 ### History & Initial Research
@@ -441,13 +441,13 @@ This is a migration in progress, any large refactors or new code should adopt th
 - It is important to have options when building UI in Wagtail, but not too many options, at the moment any new JS only really has the option of go all React or just build whatever you want in JS. This leads to a disconnect between implementations and confusion for new developers.
 - Not all developers want to or should have to learn React to contribute to Wagtail, this may be controversial but while React is 'just JavaScript' it is also a bigger learning curve. When building small and simple things (relative to the comments architecture or the dynamic API driven page explorer sub-menu) it should be possible for server side devs to contribute without having to learn too much.
 
-### Why Not use Vue, Svelte, Angular, or Solid etc
+### Why not use Vue, Svelte, Angular, or Solid etc
 
 All of these frameworks/libraries have larger communities than Stimulus, however they opt the development into a strong direction of using the framework in all code.
 
 Using these frameworks will make it hard to continue to use Django templates, support simple widgets that exist in the Wagtail ecosystem and also mean we need to really decide if React is going to live alongside these others.
 
-### Why Not Alpine.js
+### Why not Alpine.js
 
 **[Alpine.js](https://alpinejs.dev/)** is quite popular in the Django space, however it is not CSP compatible and promotes even more JS syntax in the DOM which moves us further away from our security goals and vanilla JS usage goals.
 
@@ -478,11 +478,11 @@ Stimulus and Alpine solve similar problems, here is a comparison on how to solve
 
 Multiple alpine directives are not included (`x-show`, `x-bind`, `x-text`, `x-html`, `x-model`, `x-modelable`, `x-for`, `x-teleport`) as they more relate to either updating classes, mapping the values to behaviour or more complex rendering of HTML - Stimulus moves all this to the JS controller.
 
-### Why not HTMX, Turbolinks
+### Why not HTMX or Turbolinks
 
-These libraries provide a way to patch in server side provided HTML to parts of the DOM, useful but does not serve the purpose of the lightweight frontend framework. They are a compliment to Stimulus instead of a replacement and they require a different approach to how server side partials are provided to the frontend.
+These libraries provide a way to patch in server-side HTML to parts of the DOM. This is useful but does not serve the purpose of the lightweight frontend framework. They are a complement to Stimulus instead of a replacement and they require a different approach to how server side partials are provided to the frontend.
 
-Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in the future, however this RFC is not about server side driven HTML partials and assumes that we will keep the current approach for this (e.g. search results listing) but just move the existing JS from jQuery to a Stimulus controller using vanilla JS (e.g. `fetch` instead of `$.ajax`).
+Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in the future, however this RFC is not about server-side driven HTML partials and assumes that we will keep the current approach for this (e.g. search results listing) but just move the existing JS from jQuery to a Stimulus controller using vanilla JS (e.g. `fetch` instead of `$.ajax`).
 
 - [htmx has `hyperscript`](https://htmx.org/docs/#hyperscript) (similar to Alpine.js / Stimulus in purpose) and explicitly points out that this solves a different set of problems to HTMX.
 - [hotwire has `turbo`](https://turbo.hotwired.dev/) which is similar to HTMX in the goals but intentionally isolated from the code and purpose of Stimulus.
