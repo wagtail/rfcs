@@ -12,6 +12,7 @@
 - [Specification](#specification)
   - [Initial implementation overview](#initial-implementation-overview)
   - [Implementation roadmap](#implementation-roadmap)
+  - [Example adoption](#example-adoption)
   - [Proposed documentation](#proposed-documentation)
 - [Open questions](#open-questions)
   - [Storybook compatibility](#storybook-compatibility)
@@ -108,6 +109,125 @@ This also lead to various rounds of feedback about what approaches could work wi
 8. [ ] **Other common components** - Collapse, Dropdowns, LockUnlockAction, dirty form check, etc
 9. [ ] **static_src** - Review all non-modal workflow static_src items (modeladmin/prepopulate, images focus, sitesettings siteswitcher, image-url-generator)
 10. [ ] **Larger items** - one of modal workflow, inline panel, bulk actions, depending on the state of the project
+
+### Example adoption
+
+#### Long-running button
+
+##### Current HTML
+
+```html
+<button
+  type="submit"
+  class="button button-longrunning"
+  data-clicked-text="{% trans 'Signing in…' %}"
+>
+  {% icon name="spinner" %}<em>{% trans 'Sign in' %}</em>
+</button>
+```
+
+##### Future HTML
+
+While this is more verbose, it is much clearer what is going on when looking at the HTML and much more flexible, the element that contains the label can be any element that is targeted instead of the current code which hard-codes `em` as the element.
+
+The `active-class` could be optional.
+
+```html
+<button
+  type="submit"
+  class="button button-longrunning"
+  data-controller="w-longrunning"
+  data-w-longrunning-active-class="button-longrunning-active"
+  data-w-longrunning-clicked-value="{% trans 'Signing in…' %}"
+>
+  {% icon name="spinner" %}
+  <em data-w-longrunning-target="label">{% trans 'Sign in' %}</em>
+</button>
+```
+
+#### Dirty form check
+
+##### Current HTML
+
+The current approach is to call a global function `enableDirtyFormCheck` which gets added to the global in `core.js`. This global must be called where the check should be enabled using an inline script and uses a mix of Django template logic and translations in the script.
+
+```html
+<form id="page-edit-form" action="/path/to/url" method="POST" novalidate>
+  <!-- ... more form content -->
+</form>
+
+<script>
+  // ... locale configs
+
+  $(function(){
+      /* Make user confirm before leaving the editor if there are unsaved changes */
+      $('#page-edit-form .tab-content section.active input').first().trigger('focus');
+      {% trans "This page has unsaved changes." as confirmation_message %}
+      enableDirtyFormCheck(
+          '#page-edit-form',
+          {
+              confirmationMessage: '{{ confirmation_message|escapejs }}',
+
+              {% if has_unsaved_changes %}
+                  alwaysDirty: true,
+              {% endif %}
+              commentApp: window.comments.commentApp,
+              callback: window.updateFooterSaveWarning
+          }
+      );
+    // comments initialisation
+  });
+</script>
+```
+
+##### Future HTML
+
+We no longer need to pass in an id as the controller code will have access to `this.element` which will be the form with controller attached.
+
+All other content can be be provided as data values and globals, if still needed, can be read in the controller.
+
+The code `$('#page-edit-form .tab-content section.active input').first().trigger('focus');` is likely currently broken but this could be solved a few ways; a data value on the tabs component to focus on the first field once connected or an action on the form. For the sake of this example I have added an action on the form.
+
+This is an example where we can prepare two controllers (one that just does the dirty form checking and one that auto-focuses on some element when needed). For the auto-focus it will trigger when another controller dispatches its event (tabs init), note that these events are simply browser DOM events and can be listened to in JS or via the `data-action` syntax in HTML.
+
+While this again is a bit more verbose, the ability to search through the code and find anything that relates to any specific controller via its controller identifier (e.g. `w-form-check`) will be incredibly helpful for refactoring and understanding issues.
+
+Finally, it would be good to point out that the `callback: window.updateFooterSaveWarning` would not be needed, instead this too would be a dispatched event that the controller on `<li class="footer__container footer__container--hidden" data-unsaved-warning>` would listen to. These changes though can happen progressively.
+
+```html
+{% trans "This page has unsaved changes." as confirmation_message %}
+<form
+  id="page-edit-form"
+  action="/path/to/url"
+  method="POST"
+  novalidate
+  data-controller="w-form-check w-auto-focus"
+  data-w-form-check-message-value="{{ confirmation_message|escapejs }}"
+  data-w-form-check-always-dirty-value='{{ has_unsaved_changes|yesno:"true,false" }}'
+  data-action="w-tabs:init->w-auto-focus#focus"
+  data-w-auto-focus-selector-param=".tab-content section.active input"
+>
+  <!-- ... more form content -->
+</form>
+
+<script>
+  // ... locale configs
+
+  $(function () {
+    // remove anything relating to the dirty from check in script
+    // comments initialisation
+  });
+</script>
+```
+
+```html
+<!-- to complete the example, here is what the unsaved warning message could be revised to, either listening to explicit events triggered from comments/forms OR listen to a generic event -->
+<li
+  class="footer__container footer__container--hidden"
+  data-controller="w-unsaved-warning"
+  data-action="w-form-check:dirty@document->w-unsaved-warning#activate wagtail:generic-unsaved-something@document->w-unsaved-warning#activate"
+></li>
+```
 
 ### Proposed documentation
 
