@@ -2,8 +2,10 @@
 
 - RFC: 078
 - Author: LB (Ben) Johnston
-- Created: 2022-06-05
-- Last Modified: 2022-06-05
+- Created: 2022-06-08
+- Last Modified: 2022-06-09
+
+---
 
 - [Abstract](#abstract)
   - [Primary goals](#primary-goals)
