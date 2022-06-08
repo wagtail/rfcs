@@ -1,6 +1,6 @@
-# RFC 07?: Adopt Stimulus (lightweight JS framework)
+# RFC 78: Adopt Stimulus (lightweight JS framework)
 
-- RFC: 07?
+- RFC: 078
 - Author: LB (Ben) Johnston
 - Created: 2022-06-05
 - Last Modified: 2022-06-05
