@@ -20,6 +20,7 @@
   - [Storybook compatibility](#storybook-compatibility)
   - [API for a controller definition as an object](#api-for-a-controller-definition-as-an-object)
   - [Dispatched event names](#dispatched-event-names)
+  - [Preferred way to provide preventable/resumable events](#preferred-way-to-provide-preventableresumable-events)
   - [Prefix on controllers](#prefix-on-controllers)
   - [TypeScript verbosity](#typescript-verbosity)
   - [Handling animations / transitions](#handling-animations--transitions)
@@ -516,6 +517,106 @@ This is a migration in progress, any large refactors or new code should adopt th
 - Stimulus has a convenience method on Controllers `this.dispatch` which will automatically prefix the controller's identifier to the event. So that `this.dispatch('next', { detail: {someDetail: true}})` on the controller with identifier `w-tabs` will dispatch an event with the name `w-tabs:next`.
 - Wagtail has started adopting the convention that events should be prefixed with the name `wagtail:`
 - We can either adopt the wagtail convention and override `dispatch` on the `AbstractController` so that using it would produce an event `wagtail:w-tabs:next` or we allow for two prefixes; `wagtail:` when not specifically related to a controller or `w-*:` when it is.
+
+### Preferred way to provide preventable/resumable events
+
+- A common case that will need to be handled is where a Custom Event is dispatched and provides the ability to have the event behaviour stopped with `event.preventDefault()`.
+- This is a powerful (vanilla JS / native DOM) way to allow event listeners to modify default behaviour.
+- Building on this, a `resume` function can be provided in the event's `detail` object that allows the original behaviour to be called later or even called with some kinds of overrides.
+- This is a better alternative to mutation of objects (as we do now for the image/documents upload title change).
+- We should provide a preferred way to do this and ideally set up some conventions and even a method on the `AbstractController`
+
+#### Potential approach
+
+This approach adds a `dispatchResume` method on the core `AbstractController` which allows for a `resume` function to be provided that is only run if `event.preventDefault` is NOT called on the event. It returns a promise which can leverage additional behaviour after the event is dispatched.
+
+```javascript
+import { Controller } from '@hotwired/stimulus';
+import type { ControllerConstructor } from '@hotwired/stimulus';
+
+export interface AbstractControllerConstructor extends ControllerConstructor {
+  isIncludedInCore?: boolean;
+}
+
+type DispatchEventName = Parameters<typeof Controller.prototype.dispatch>[0];
+type DispatchEventOptions = Exclude<
+  Parameters<typeof Controller.prototype.dispatch>[1],
+  undefined
+>;
+
+type DetailWithResume = {
+  resume: (options: Record<string, any>) => void;
+};
+
+interface DispatchEventOptionsWithResume extends DispatchEventOptions {
+  detail: Exclude<DispatchEventOptions['detail'], undefined> & DetailWithResume;
+}
+
+/**
+ * Wraps the supplied function so that it can only be called once, even when the result function
+ * is called multiple times. Inspired by lodash once/before.
+ * https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L10042
+ */
+function once(func) {
+  let result;
+  let fn = func;
+
+  return function onceInnerFn(...args) {
+    if (!fn) return result;
+    result = fn.apply(this, args);
+    fn = null;
+    return result;
+  };
+}
+
+/**
+ * Core abstract controller to keep any specific logic that is desired and
+ * to house generic types as needed.
+ */
+export abstract class AbstractController extends Controller {
+  static isIncludedInCore = false;
+
+  /**
+   * Dispatch an event which can be cancelled and return a promise that resolves once dispatched.
+   * The event will Supply provide a `resume` function in its detail.
+   * Providing a way for the event's default to be prevented and re-activated later.
+   *
+   * Intentionally allows the resume never to be called, but if called multiple times the
+   * original `resume` function will only ever one once.
+   *
+   * @param eventName
+   * @param options - additional options to pass to the `dispatch` call
+   * @param options.resume - callback provided to detail or called if the event is not prevented, will only ever trigger once
+   * @returns
+   */
+  dispatchResume(
+    eventName: DispatchEventName,
+    {
+      detail: { resume: resumeOriginal, ...detail },
+      ...options
+    }: DispatchEventOptionsWithResume,
+  ) {
+    return new Promise<CustomEvent>((resolve, reject) => {
+      if (typeof resumeOriginal !== 'function') {
+        reject(new Error('detail.resume must be a function'));
+        return;
+      }
+
+      const resume = once(resumeOriginal);
+
+      const event = this.dispatch(eventName, {
+        ...options,
+        detail: { ...detail, resume },
+        cancelable: true,
+      });
+
+      if (!event.defaultPrevented) resume({});
+
+      resolve(event);
+    });
+  }
+}
+```
 
 ### Prefix on controllers
 
