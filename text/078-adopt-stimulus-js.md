@@ -22,7 +22,7 @@
   - [Dispatched event names](#dispatched-event-names)
   - [Prefix on controllers](#prefix-on-controllers)
   - [TypeScript verbosity](#typescript-verbosity)
-  - [Handling animations](#handling-animations)
+  - [Handling animations / transitions](#handling-animations--transitions)
 - [Resolved questions](#resolved-questions)
   - [Why use a Django & HTML first approach](#why-use-a-django--html-first-approach)
   - [Why not more React](#why-not-more-react)
@@ -533,11 +533,120 @@ This is a migration in progress, any large refactors or new code should adopt th
 - https://www.sourlemon.co.za/blog/rails-typescript-and-stimulus/
 - The next Stimulus release should solve the most common case using generics, see https://github.com/hotwired/stimulus/pull/540/files & https://github.com/hotwired/stimulus/pull/529
 
-### Handling animations
+### Handling animations / transitions
 
 - jQuery has a simple API to do basic animations, these animations are used haphazardly (inconsistent animation names and timings) but they are convenient.
 - We will not have an ergonomic replacement for these with Stimulus and will likely need to add an animation like API to controllers or set up a util to do this in a consistent way.
 - We could solve for most common cases via some additional tailwind utility classes.
+- Stimulus will intentionally not be adding this in the forseeable future - [https://github.com/hotwired/stimulus/issues/542](https://github.com/hotwired/stimulus/issues/542).
+- Inspiration
+  - [Stimlus use library's `use-transition`](https://github.com/stimulus-use/stimulus-use/blob/main/docs/use-transition.md)
+  - [Stimlus Transition standalone util](https://github.com/robbevp/stimulus-transition)
+  - [jQuery effects](https://api.jquery.com/category/effects/)
+  - [Article - Tailwind Enter/Leave Transition Effects with Stimulus.js](https://dev.to/mmccall10/tailwind-enter-leave-transition-effects-with-stimulus-js-5hl7)
+  - [Alpine.js transitions](https://alpinejs.dev/directives/transition)
+  - [animate.css JavaScript usage](https://animate.style/#javascript) - not recommending we use animate.css but their `Promise` approach is really simple and useful
+
+#### Potential approach
+
+This approach is inspired by the animate.css approach linked above, the core `AbstractController` would have a `dispatchAnimate` (could be `dispatchTransition` or just `animate`/`transition`) which returns a promise.
+
+```javascript
+import { Controller } from '@hotwired/stimulus';
+import type { ControllerConstructor } from '@hotwired/stimulus';
+
+export interface AbstractControllerConstructor extends ControllerConstructor {
+  isIncludedInCore?: boolean;
+}
+
+type DispatchEventOptions = Exclude<
+  Parameters<typeof Controller.prototype.dispatch>[1],
+  undefined
+>;
+
+/**
+ * Core abstract controller to keep any specific logic that is desired and
+ * to house generic types as needed.
+ */
+export abstract class AbstractController extends Controller {
+  static isIncludedInCore = false;
+
+  /**
+   * Dispatches an animation (update classes) with pre-defined events begin/end
+   *
+   * Inspired by https://animate.style/#javascript
+   *
+   * @param classes - string or array of string for the animation classes to be added
+   * @param options
+   */
+  dispatchAnimate(
+    classes: string | string[],
+    {
+      detail: detailOriginal = {},
+      target = this.element,
+      ...options
+    }: DispatchEventOptions = {},
+  ) {
+    return new Promise<{
+      animateClasses: string[];
+      detail: Record<string, any>;
+      events: (CustomEvent | null)[];
+      target: Element | HTMLElement;
+    }>((resolve, reject) => {
+      const animateClasses =
+        typeof classes === 'string' ? classes.split(' ') : classes;
+
+      const detail = { ...detailOriginal, animateClasses };
+
+      if (!animateClasses.length) {
+        reject(new Error('animation classes must be supplied'));
+
+        return;
+      }
+
+      const eventOptions = { ...options, target, detail };
+
+      const beforeAnimateEvent = this.dispatch('before-animate', eventOptions);
+
+      target.classList.add(...animateClasses);
+      target.addEventListener(
+        'animationend',
+        // when the animation ends, we clean the classes and resolve the Promise
+        () => {
+          target.classList.remove(...animateClasses);
+
+          const afterAnimateEvent = this.dispatch(
+            'after-animate',
+            eventOptions,
+          );
+
+          const events = [beforeAnimateEvent, null, null, afterAnimateEvent];
+
+          resolve({ animateClasses, detail, events, target });
+        },
+        { once: true },
+      );
+    });
+  }
+}
+```
+
+**Example usage**
+
+```javascript
+export class SearchController extends AbstractController {
+  insertResults(results) {
+    this.resultsContainer.innerHTML = results;
+    this.dispatchAnimate(
+      /* e.g. data-w-search-animate-in-class="w-animate-fade-in" */
+      this.animateInClasses,
+      { target: this.resultsContainer }
+    ).finally(() => {
+      window.history.replaceState(null, "", newQuery ? `?q=${newQuery}` : "");
+    });
+  }
+}
+```
 
 ## Resolved questions
 
