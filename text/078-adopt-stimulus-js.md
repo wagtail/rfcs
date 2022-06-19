@@ -535,7 +535,7 @@ This is a migration in progress, any large refactors or new code should adopt th
 
 ### Handling animations
 
-- jQuery has a simple API to do basic animations, these animations are use haphazardly but they are convenient.
+- jQuery has a simple API to do basic animations, these animations are used haphazardly (inconsistent animation names and timings) but they are convenient.
 - We will not have an ergonomic replacement for these with Stimulus and will likely need to add an animation like API to controllers or set up a util to do this in a consistent way.
 - We could solve for most common cases via some additional tailwind utility classes.
 
