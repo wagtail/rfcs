@@ -88,6 +88,19 @@ This also lead to various rounds of feedback about what approaches could work wi
 - [page editor discussion resulting in suggestions for frameworks](https://github.com/wagtail/wagtail/discussions/7739#discussioncomment-1926410)
 - [feedback from Matt](https://github.com/wagtail/wagtail/discussions/7689#discussioncomment-2775453)
 
+#### Additional benefits
+
+Much of the benefits of Stimulus are documented in the research and goals explained above, here is a summary of some additional benefits.
+
+- Existing controllers can easily be overridden or bypassed really easily, giving a global way to re-write any existing controller usage. Simply register a controller with the same name (e.g. `w-tabs`), timing may be a potential issue here but it becomes something that is possible now instead of basically impossible without extensive customisations.
+- `data-action` provides a very flexible way to add behaviour differences by simply modifying the HTML, for example if you wanted to ensure that something runs on click and on blur, that is as simple as `data-action='blur->w-something#checkThing click->w-something#checkThing'`. This co-location of behaviour (as HTMX calls it) makes for a very powerful way to do more things in HTML only.
+- Additional JavaScript modules ore code can be loaded dynamically on the controller's `initialize` method, giving a way to load a controller in call code usage but avoid some JavaScript unless it is only needed (note: this may not be a pattern we want to adopt as it makes testing harder but it is possible).
+- jQuery events can be mapped to actual DOM events, this way we can have existing jQuery widgets used (with Stimulus as a wrapper) and push out DOM events until we replace with a non-jQuery alternative. We could use an [additional library](https://github.com/leastbad/jquery-events-to-dom-events) to do this but initially it would be best to avoid this if possible.
+
+When the 3-party resources are imported, we can run the code to do some init work.
+
+So inline scripts can be removed in elegant way
+
 ## Specification
 
 ### Initial implementation overview
