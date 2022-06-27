@@ -889,6 +889,8 @@ See these additional issues for inline script usage and CSP issues
 - **Groundwork** - Django applications with JS components built with Stimulus - https://github.com/commonknowledge/groundwork
 - **Orchid** - Lavarel framework with some good docs on how to use Stimulus inside their application - https://orchid.software/en/docs/javascript/#stimulus + good article on their justification of Simulus https://blog.orchid.software/lasting-stack/
 - **Stimulus Components** - Library of components built with Stimulus https://github.com/stimulus-components/stimulus-components
+- **Framework adoption of Stimulus** - While this is Ruby it is a good example of how to document and communicate adoption of Stimulus in a framework (AVO) https://docs.avohq.io/2.0/stimulus-integration.html#custom-stimulus-controllers
+- **eBook: The Definitive Guide to Hotwire and Django** - From Michael Yin of Accordbox and covers Stimulus along with Turbo (part of Hotwire) usage in Django https://www.reddit.com/r/django/comments/v6vtxa/ebook_the_definitive_guide_to_hotwire_and_django/ & https://leanpub.com/hotwire-django
 
 ### Future possibilities
 
