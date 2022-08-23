@@ -44,7 +44,7 @@ This RFC proposes that Wagtail adopt [Stimulus](https://stimulus.hotwired.dev/) 
 
 The aim of adopting a lightweight framework is to provide a consistent, predictable and extensible way to build interactive JavaScript UI elements.
 
-Wagtail needs a solid alternative to jQuery widgets, inline script tag usage, window globals and initialising JavaScript to DOM elements when added dynamically. While enhancing the ability for Wagtail to move towards a platform that can be further extended and built upon by other developers.
+Wagtail needs a solid alternative to jQuery widgets, inline script tag usage, window globals and initialising JavaScript to DOM elements (even when added dynamically). While enhancing the ability for Wagtail to move towards a platform that can be further extended and built upon by other developers.
 
 Stimulus is an evolution of what we are already doing in almost all JS interactivity written in the last few years. Setting up data attributes to attach JS interactivity. However, this is a more consistent approach without needing to 'init' things everywhere. The library also provides a simple way to do small scale reactivity (e.g. local state-driven changes) via changes to data attributes.
 
@@ -52,14 +52,14 @@ Stimulus is an evolution of what we are already doing in almost all JS interacti
 
 ### Primary goals
 
-- **Django/Python first** - Where possible, Django (using Python and then HTML templates) first and JavaScript second. It should be easy to do basic things (use existing widgets, modify initial data, change some basic behaviour) by using existing Django or Wagtail approaches (e.g. `attrs` on widgets or a similar approach on Wagtail Template components). More complex changes should be able to be done in templates alone. Finally building new JS behaviour or re-writing core logic should be able to be done in JavaScript where HTML data attributes are not suitable.
+- **Django/Python first** - Where possible, Django (using Python and then HTML templates) first and JavaScript second. It should be easy to do basic things (use existing widgets, modify initial data, change some basic behaviour) by using existing Django or Wagtail approaches. An example of this is being able to set `attrs` on Django field widgets or a similar approach on Wagtail Template components. Even some more complex changes should be able to be done in templates alone. Finally building new JS behaviour or re-writing core logic should be able to be done in JavaScript where HTML data attributes are not suitable.
 - **Not replacing React** - There is no need to replace React, it serves a critical purpose for complex, self-contained and heavy state-driven UI elements. The framework must be able to be used with React and React must be able to be used by it.
 - **Vanilla JS** - The framework should use and promote browser APIs, not getting in the way of native functions such as event handling and element selectors but add convenience where suitable that can easily be bypassed. Note: Vanilla JS is an overloaded term - refer to this site as a guide http://vanilla-js.com/ .
-- **Accessibility** - it should be easy to use existing accessibility approaches or add them to components.
+- **Accessibility** - It should be easy to use existing accessibility approaches or add them to components. Any framework adopted should promote the right semantic DOM elements being used and not make it hard to add accessible features.
 - **Secure** - The solution must support our move towards zero globals and zero inline scripts (CSP compliance) to build the UI elements and ensure they get instantiated wherever they appear (inline panel, modals, StreamField). See also [RFC 33](https://github.com/wagtail/rfcs/pull/33) and links below relating to CSP compliance.
 - **Extensible** - Let Wagtail developers enhance/extend/reuse these elements without needing to have a JavaScript build tool, along with using this framework for their own custom UI elements.
 - **Composable** - Within or outside of Wagtail it must be possible to compose behaviour using a mix of Wagtail provided and custom JS behaviours. Unlike any similar library, Stimulus allows [multiple controllers](https://stimulus.hotwired.dev/reference/controllers#multiple-controllers) to be added to the same element.
-- **Powerful for Frontend devs** - Ensure the core team and code contributors get to leverage the power of a build tool system, including TypeScript, unit testing and our pattern library (Storybook).
+- **Powerful for frontend devs** - Ensure the core team and code contributors get to leverage the power of a build tool system, including TypeScript, unit testing and our pattern library (Storybook).
 - **Namespaced** - Wagtail implementations should be namespaced or somehow isolated from other potential duplicate usages of the same libraries.
 - **i18n/l10n** - It should be easy to provide translated/localised content to the elements.
 
@@ -79,7 +79,7 @@ React is an incredible library but better serves situations where the full contr
 
 jQuery has served a great purpose, providing easy DOM traversal and manipulation, however, it is becoming a bottleneck for new features and modern DOM APIs are sufficient and jQuery does not solve the problem of making it easy to write consistent code (component state). Additional to this we end up having to do a lot of initialising of elements whenever added to the DOM by other means (other JS or maybe async HTML).
 
-This lead us (the UI team) to do initial research at the start of 2022 into what frameworks exist (based on suggestions from the Wagtail community). See [Lightweight JavaScript Framework research](https://github.com/lb-/bakerydemo/blob/ui-experiments/lightweight-frontend-framework-investigation-2022.md).
+This lead the [UI sub-team](https://github.com/wagtail/wagtail/wiki/UI-team) to do initial research at the start of 2022 into what frameworks exist (based on suggestions from the Wagtail community). See [Lightweight JavaScript Framework research](https://github.com/lb-/bakerydemo/blob/ui-experiments/lightweight-frontend-framework-investigation-2022.md).
 
 This also lead to various rounds of feedback about what approaches could work with a leaning towards Stimulus. See the following links:
 
@@ -92,14 +92,12 @@ This also lead to various rounds of feedback about what approaches could work wi
 
 Much of the benefits of Stimulus are documented in the research and goals explained above, here is a summary of some additional benefits.
 
-- Existing controllers can easily be overridden or bypassed really easily, giving a global way to re-write any existing controller usage. Simply register a controller with the same name (e.g. `w-tabs`), timing may be a potential issue here but it becomes something that is possible now instead of basically impossible without extensive customisations.
+- Existing controllers can easily be overridden or bypassed easily, giving a global way to re-write any existing controller usage. Simply register a controller with the same name (e.g. `w-tabs`), timing may be a potential issue here but it becomes something that is possible now instead of basically impossible without extensive customisations.
 - `data-action` provides a very flexible way to add behaviour differences by simply modifying the HTML, for example if you wanted to ensure that something runs on click and on blur, that is as simple as `data-action='blur->w-something#checkThing click->w-something#checkThing'`. This co-location of behaviour (as HTMX calls it) makes for a very powerful way to do more things in HTML only.
 - Additional JavaScript modules ore code can be loaded dynamically on the controller's `initialize` method, giving a way to load a controller in call code usage but avoid some JavaScript unless it is only needed (note: this may not be a pattern we want to adopt as it makes testing harder but it is possible).
+- [Stimulus](https://github.com/hotwired/stimulus) is a reasonably popular frontend library on GitHub with 11.5k stars and has a budding community online. It is not the most popular of the frontend libraries assessed but it is not a new entrance into the ecosystem either.
 - jQuery events can be mapped to actual DOM events, this way we can have existing jQuery widgets used (with Stimulus as a wrapper) and push out DOM events until we replace with a non-jQuery alternative. We could use an [additional library](https://github.com/leastbad/jquery-events-to-dom-events) to do this but initially it would be best to avoid this if possible.
-
-When the 3-party resources are imported, we can run the code to do some init work.
-
-So inline scripts can be removed in elegant way
+- When the third party resources are imported, we can run the code to do some initialisation work so that inline scripts can be removed in elegant way.
 
 ## Specification
 
@@ -120,9 +118,25 @@ So inline scripts can be removed in elegant way
 
 1. [ ] Get initial base into the core, as per the above initial implementation
 2. [ ] Make it possible to provide `attrs` to the `FieldPanel/Panel` and in general Template Components
-3. [ ] **Adopt for new code** - Migrate Tabs, Breadcrumbs, new Modal + Modal trigger
+3. [ ] Good initial candidate is `collection_chooser_collection_id` & equivalent (select change and submit) + wagtail/images/templates/wagtailimages/images/index.html & wagtail/admin/templates/wagtailadmin/shared/collection_chooser.html
 4. [ ] **Replace core inline Scripts** - Anything that can be removed from `<script />` tags - e.g. `data-sprite`/`loadIconSprite` at the global level (`wagtail/admin/templates/wagtailadmin/skeleton.html` & `wagtail/admin/templates/wagtailadmin/admin_base.html`)
-5. [ ] **Replace headerSearch** - Adopt for header search component (most common script tag)
+   - [ ] 8 x headerSearch - adopt for header search component (most common script tag)
+   - [ ] 7 x tagit
+   - [ ] 7 x .tooltip (not tippy, already covered by issue https://github.com/wagtail/wagtail/issues/8565 )
+   - [ ] 2 x initCommentsInterface (create/edit page)
+   - [ ] 2 x enableDirtyFormCheck (create/edit page)
+   - [ ] 2 x data-enable-action (attribute, requires csrf token)
+   - [ ] 2 x createQueryChooser
+   - [ ] 2 x autosize
+   - [ ] 2 x LockUnlockAction (needs csrf token)
+   - [ ] 1 x runprogress (wagtail styleguide)
+   - [ ] 1 x initTagField
+   - [ ] 1 x initDateTimeChooser
+   - [ ] 1 x initDateChooser
+   - [ ] 1 x draftail.initEditor
+   - [ ] 1 x datetimepicker
+   - [ ] 1 x ActivateWorkflowActionsForDashboard (needs csrf token)
+5. [ ] **Adopt for new code** - Migrate Tabs, Breadcrumbs, new Modal + Modal trigger
 6. [ ] **Adopt for tooltips** - `data-wagtail-tooltip` usage (next most common script tag), may be done as part of page editor work
 7. [ ] **Common fields** - Text area auto-resize, Tag field, etc
 8. [ ] **Other common components** - Collapse, Dropdowns, LockUnlockAction, dirty form check, etc
@@ -487,10 +501,12 @@ This is a migration in progress, any large refactors or new code should adopt th
 
 #### Stimulus best practices
 
-- Smaller controllers that do a small amount of 'work' that is collected together, instead of lots of large controllers.
+- Smaller, more general, controllers that do a small amount of 'work' that is collected together, instead of lots of large or specific controllers.
 - Think about the HTML, use Django templates, consider template overrides and blocks to provide a nice way for more custom behaviour to be added later.
 - Use data-attributes where possible, as per the documented approach, to add event listeners and target elements. It is ok to add event listeners in the controller but opt for the `data-action` approach first.
 - Use `this.dispatch` when dispatching `CustomEvent`s to the DOM and whenever possible provide a cancellable behaviour. Events are the preferred way to communicate between controllers and as a bonus provide a nice external API, if the behaviour can be resumed use a `resume` function provided to the event's detail.
+- Wrap external libraries in controllers (for example, modals, tooltips), so that if the underlying library changes, the HTML data attributes do not need to change. This gives us the freedom to adopt a better/supported library in the future without too much backwards compatibility issues. This goes for events handling also.
+- Use
 - Lean towards dispatching events for key behaviour in the UI interaction as this provides a great way for custom code to hook into this without an explicit API, but be sure to document these.
 - Multiple controllers can be attached to one DOM element for composing behaviour, where practical split out behaviour to separate controllers.
 - Avoid mixing jQuery with Stimulus Controllers as jQuery events are not the same as browser DOM events and can cause confusion, either find a non-jQuery solution or just attach the jQuery widget and set up your own non-jQuery event listeners.
@@ -498,6 +514,8 @@ This is a migration in progress, any large refactors or new code should adopt th
 - Telepath will still be used as a data pickle/un-pickle convention if required for more complex data setup.
 - Avoid writing too much HTML (more than `textContent` or basic elements without classes) in the Stimulus controller, instead leverage the `template` element to move large amounts of HTML back into the Django templates. This also helps for translations which can be done in Django and co-located with the other HTML.
 - Avoid using the JavaScript translation functions in Stimulus controllers, this is technically doable but will make it harder for usage of this controller to change this without extending the component, prefer instead to provide translated values in the relevant data values or in `template` / hidden elements within the component as targets.
+- Use JSDOC to document methods, including the [`@fires`](https://jsdoc.app/tags-fires.html) for events that are dispatched and [`@listens`](https://jsdoc.app/tags-listens.html) for events that are listened to.
+- Good article to glean off https://thoughtbot.com/blog/taking-the-most-out-of-stimulus
 
 #### Documentation in folder
 
@@ -646,6 +664,7 @@ export abstract class AbstractController extends Controller {
 - [targets and typescript · Issue #121 · hotwired/stimulus](https://github.com/hotwired/stimulus/issues/121) & https://github.com/hotwired/stimulus/issues/221
 - https://www.sourlemon.co.za/blog/rails-typescript-and-stimulus/
 - The next Stimulus release should solve the most common case using generics, see https://github.com/hotwired/stimulus/pull/540/files & https://github.com/hotwired/stimulus/pull/529
+- Update: The [Stimulus 3.1.0 release](https://github.com/hotwired/stimulus/releases/tag/v3.1.0) has improved this situation somewhat.
 
 ### Handling animations / transitions
 
@@ -771,6 +790,8 @@ export class SearchController extends AbstractController {
 - The Wagtail community have been asked to advise whether they want to use Node tooling and the answer is mostly no [Poll about node tooling](https://github.com/wagtail/wagtail/discussions/7739#discussioncomment-2244359). A similar feedback was received on Slack.
 - See also this discussion to [allow modifications using only Python/Django](https://github.com/wagtail/wagtail/discussions/8128).
 - While community feedback needs to be taken in consideration of the overall project goals it is good to get a sense that many Django/Python devs prefer to work day to day in just Django/Python (which kind of makes sense).
+- Of 42 total respondents on Slack and Github 24 or 57% indicated that they already use node tooling in their workflows, while only 18 or 42% do not currently use node tooling. While a slight majority of respondents currently use Node tooling at some point in their workflows nearly half do not.
+- However, we did not do a survey asking whether developers are willing to use Node tooling.
 
 ### Why not more React
 
@@ -783,13 +804,16 @@ export class SearchController extends AbstractController {
 
 #### Why React is not a catch all solution
 
-- React elements need to be initialised for any DOM to be added to the browser, the HTML it produces does not exist until React builds it.
-- Harder to 'replace' an implementation with an extended one, while some React components may be class based components that could be extended there is no central and consistent way to provide this 'API'.
-- Not possible to use HTML provided by the server in an easy way that also sets up any dynamic JS behaviour on nested HTML. If you wanted to leverage any of the existing Django ecosystem like templating, custom form widgets, template includes for somewhere 'inside' the React component it is just not possible.
+> Note: React is a powerful solution for a Single Page App approach, these comments relate to React providing the backbone for lightweight 'sprinkles' of JS in the context of Wagtails **existing code**. Small things like a spinner button through to medium sized things like tabs.
+
+- React elements need to be initialised for any DOM to be added to the browser, the HTML it produces does not exist until React builds it. Many existing Django widgets rely on all DOM being available once `DOMContentLoaded` fires. The more things that move to React, the more that this paradigm changes and other approaches are needed.
+- Harder to 'replace' an implementation with an extended one, while some React components may be class based components that could be extended there is no central and consistent way to provide this 'API'. While a class based React component approach could be used, it goes against the ecosystem's recommended approach to React, even then we would need to build a new layer of abstractions and APIs to allow 'hooks' for these to be overridden at every level. This is possible, but would require a bespoke solution and lots of discipline for those writing React to go against conventions.
+- Not simple to use HTML provided by the server in an easy way that also sets up any dynamic JS behaviour on nested HTML. If you wanted to leverage any of the existing Django ecosystem like templating, custom form widgets, template includes for somewhere 'inside' the React component it is just not possible.
 - A specific API must be exposed to customise how the inside is rendered, and if you want this data from the server we need to reach for something like Telepath to do it.
   - An example would be the new sidebar required a core code change in React code to support aria attributes & data attributes on menu items there was literally no way to do this by customisation alone (except maybe setting up a mutation observer that fights with the React renderer). HTML template driven approaches are used widely in Wagtail and these kinds of use cases mostly do not need to be explicitly supported in other areas.
+  - Imagine you wanted to change how dialogs render their content in Wagtail (adding the ability for a re-worked modal footer), today all you need to do is override a template and extend the existing one. If that Dialog's HTML was all inside React, you cannot use overrides or other Django-ish to change the inner HTML easily. Yes, this can be exposed via more props, but it has to be built and maintained. With Django's approach - many smaller use cases work out of the box and are able to be changed by developers who just need to know HTML.
 - React takes over the whole tree it controls, so everything down the tree must also be React which means reimplementing everything in React and non-React. While it is possible to add a DOM element and attach something to it (like a jQuery initialisation) it is not ideal.
-- It is not practical to output Django server rendered HTML inside a React element, Telepath provides a nice abstraction for data though.
+- It is not simple to output Django server rendered HTML inside a React element, Telepath provides a nice abstraction for data though. While it is possible, Karl has even put together something that starts this approach via [wagtail-shell](https://github.com/kaedroho/wagtail-shell), it is an extremely different architecture and does not fit into the 'lightweight' approach.
 - It is important to have options when building UI in Wagtail, but not too many options, at the moment any new JS only really has the option of go all React or just build whatever you want in JS. This leads to a disconnect between implementations and confusion for new developers.
 - Not all developers want to or should have to learn React to contribute to Wagtail, this may be controversial but while React is 'just JavaScript' it is also a bigger learning curve. When building small and simple things (relative to the comments architecture or the dynamic API driven page explorer sub-menu) it should be possible for server-side devs to contribute without having to learn too much.
 
@@ -861,15 +885,19 @@ Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in t
 
 ### Links
 
-- [POC Wagtail Stimulus Controllers](https://github.com/lb-/stimulus-starter/tree/main/src/controllers) - includes Bulk Actions, InlinePanel, Cloak Controller, Autoresize TextArea, Sortable and more.
-- [Stimulus 2.0 - HN comments](https://news.ycombinator.com/item?id=25305467) - the good, bad and ugly feedback
+- [POC Wagtail Stimulus Controllers](https://github.com/lb-/stimulus-starter/tree/main/src/controllers) - Includes Bulk Actions, InlinePanel, Cloak Controller, Autoresize TextArea, Sortable and more.
+- [Stimulus 2.0 - HN comments](https://news.ycombinator.com/item?id=25305467) - The good, bad and ugly feedback
 - [Official Stimulus discussion board](https://discuss.hotwired.dev/)
 - [Blog - Intro to Stimulus](https://www.smashingmagazine.com/2020/07/introduction-stimulusjs/)
 - [Awesome Stimulus JS](https://github.com/skatkov/awesome-stimulusjs)
-- [Better Stimulus](https://www.betterstimulus.com/) - a set of resources (similar to awesome list) + best practices/recommendations.
+- [Better Stimulus](https://www.betterstimulus.com/) - A set of resources (similar to awesome list) + best practices/recommendations.
 - [Podcast - Changelog - Stimulus JS](https://changelog.com/podcast/286)
 - [jQuery events to DOM events](https://github.com/leastbad/jquery-events-to-dom-events) - For Stimulus or not, this library looks great and simple, allowing bidirectional event passing between jQuery and non-jQuery events
-- [Mutation first development](https://leastbad.com/mutation-first-development) - good article on why handling initialisation manually (of components, e.g. jquery or even React dom render) is problematic.
+- [Mutation first development](https://leastbad.com/mutation-first-development) - Good article on why handling initialisation manually (of components, e.g. jquery or even React dom render) is problematic.
+- [Lightweight Javascript Framework Review (For Django Developers)](https://www.accordbox.com/blog/lightweight-javascript-framework-review-for-django-developers/) - From Michael Yin (AccordBox), explains the general ecosystem and where Stimulus fits in.
+- [Making the most out of Stimulus](https://thoughtbot.com/blog/taking-the-most-out-of-stimulus) - Some guidelines to get the most out of Stimulus.js in applications.
+- [HN thread on Stimulus vs React](https://news.ycombinator.com/item?id=25306374) - Posted to have a reference of others saying that these are fundamentally different approaches and they are not really competing with each other but provide different ways to solve different problems.
+- [Getting started with stimulus.js](https://www.sobyte.net/post/2022-08/stimulus-js/) - Nice ramp into Stimulus.
 
 ### CSP / Inline scripts
 
@@ -906,7 +934,10 @@ Not in scope of the RFC but could be an option in the future.
 
 It would be good to list the reasons we may not want to go in this direction to either ensure they are discussed or understood as risks.
 
+- Developers have to learn another library to contribute instead of maybe just React and ad-hoc JS.
 - We tie ourselves to an external JS library, like any library it could be deprecated, abandoned or its API change significantly in the future. This library is a core part of Rails 7 so hopefully, that gives us some confidence it will be kept stable.
 - Wagtail wants to head towards a SPA (Single Page App) direction in the admin and in this roadmap, everything in the admin will be React and hence Stimulus or similar will not be needed.
 - There is no desire to make the JS widgets that Wagtail comes with extensible by custom code, nor extensible with arbitrary HTML. If this is the case we may want to adopt web-components which isolate the HTML inside.
-- We build something bespoke that provides a similar set of solutions to Stimulus but maybe it is React driven instead. This would be a huge undertaking but, in theory, it would be possible to bootstrap a DOM element based on data attributes, 'eat' the inner HTML (or a template element) and convert it to a React DOM tree while also setting up any initial data, event listeners and sub-elements.
+- We build something bespoke that provides a similar set of solutions to Stimulus but maybe it is React driven instead. This would be a huge undertaking but, in theory, it would be possible to bootstrap a DOM element based on data attributes, 'eat' the inner HTML (or a template element) and convert it to a React DOM tree while also setting up any initial data, event listeners and sub-elements. https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-dom-manipulation-plugins would be a good place to start and also the above mentioned https://github.com/kaedroho/wagtail-shell
+- Should be better consideration of web components, but they haven't really been proven for building on the web at scale yet. Angular, React, Svelte, Vue, etc all exist largely due to some limitations of working with native web components or needing some level of abstract state management outside of the DOM in even the most simple applications.
+  - As an aside - a web component approach may be suitable for the stand-alone Wagtail userbar.
