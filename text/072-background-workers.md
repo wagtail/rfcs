@@ -49,22 +49,25 @@ Whilst this proposal also covers scheduled tasks for Wagtail, enabling those sho
 A backend will be a class which extends a wagtail-defined base class.
 
 ```python
+from datetime import datetime
+from typing import Callable, Dict, List
+
 from wagtail.contrib.tasks import BaseJobBackend
 
 class MyBackend(BaseJobBackend):
-    def __init__(self, options):
+    def __init__(self, options: Dict):
         """
         Any connections which need to be setup can be done here
         """
         super().__init__(options)
 
-    def enqueue(self, func, args, kwargs) -> None:
+    def enqueue(self, func: Callable, args: List, kwargs: Dict) -> None:
         """
         Queue up a job function to be executed
         """
         ...
 
-    def defer(self, func, when, args, kwargs) -> None:
+    def defer(self, func: Callable, when: datetime, args: List, kwargs: Dict) -> None:
         """
         Add a job to be completed at a specific time
         """
