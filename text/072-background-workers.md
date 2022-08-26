@@ -3,7 +3,7 @@
 * RFC: 72
 * Author: Jake Howard, with help from the Performance sub-team
 * Created: 2021-09-17
-* Last Modified: 2021-10-18
+* Last Modified: 2022-08-26
 
 ## Abstract
 
@@ -64,12 +64,6 @@ class MyBackend(BaseJobBackend):
         """
         ...
 
-    def cron(self, func, pattern, args, kwargs) -> None:
-        """
-        Add a job to be executed on a given interval
-        """
-        ...
-
     def defer(self, func, when, args, kwargs) -> None:
         """
         Add a job to be completed at a specific time
@@ -107,15 +101,6 @@ background.defer(do_a_task, args=[], kwargs={}, when=datetime.datetime.now() + d
 
 When scheduling a task, it may not be exactly that time a task is executed, however it should be accurate to within a few seconds.
 
-#### Cron tasks
-
-Along with deferring tasks, task can be configured to run on a given interval:
-
-```python
-background.cron(do_a_task, args=[], kwargs={}, schedule="* 5 * * *")
-background.cron(do_a_task, args=[], kwargs={}, schedule={"hour": 5})  # A more human-readable syntax
-```
-
 #### Background Hooks
 
 For Wagtail [hooks](https://docs.wagtail.io/en/stable/reference/hooks.html), there will be an additional property passed when registering the hook, which will transparently convert the hook to a task, and ensure it's submitted as a task when the hook should be called. Only certain hooks will support background tasks. Others, such as those for registering URLs or menu items must be run synchronously, and so will ignore the background argument. This will only be applicable for certain hooks, and will do nothing when passed to these hooks.
@@ -139,7 +124,6 @@ Values shown below are the default.
 ```python
 WAGTAIL_JOBS = {
     "BACKEND": "wagtail.contrib.tasks.backends.ImmediateBackend",
-    "SCHEDULE": False,  # Should wagtail's scheduled management commands be added as cron jobs?
     "OPTIONS": {}  # To pass to the backend's constructor
 }
 ```
@@ -155,8 +139,6 @@ To ensure the configuration is valid, a check will be added to validate:
 ## Current workarounds
 
 For Wagtail's internals, it's currently not possible to control how these are executed. For user-controlled code, it's possible to implement a task queueing system separate from Wagtail, and manually submit tasks to it as needed.
-
-For scheduled tasks, Wagtail currently relies on Django's management commands, which requires the user to use a tool such as cron or Heroku's Scheduler to execute them.
 
 ## Implementation plan
 
