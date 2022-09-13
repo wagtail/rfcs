@@ -17,14 +17,14 @@
   - [Example adoption](#example-adoption)
   - [Proposed documentation](#proposed-documentation)
 - [Open questions](#open-questions)
-  - [Storybook compatibility](#storybook-compatibility)
   - [API for a controller definition as an object](#api-for-a-controller-definition-as-an-object)
   - [Dispatched event names](#dispatched-event-names)
   - [Preferred way to provide preventable/resumable events](#preferred-way-to-provide-preventableresumable-events)
   - [Prefix on controllers](#prefix-on-controllers)
-  - [TypeScript verbosity](#typescript-verbosity)
   - [Handling animations / transitions](#handling-animations--transitions)
 - [Resolved questions](#resolved-questions)
+  - [TypeScript verbosity](#typescript-verbosity)
+  - [Storybook compatibility](#storybook-compatibility)
   - [Why use a Django & HTML first approach](#why-use-a-django--html-first-approach)
   - [Why not more React](#why-not-more-react)
   - [Why not use Vue, Svelte, Angular, or Solid etc](#why-not-use-vue-svelte-angular-or-solid-etc)
@@ -530,12 +530,6 @@ This is a migration in progress, any large refactors or new code should adopt th
 
 ## Open questions
 
-### Storybook compatibility
-
-- The implementation so far has not resolved how to get Stimulus to work with Storybook, this is due to the non-transpiling of Stimulus as Storybook does not use the core webpack entrypoints but instead compiles using its own build tool.
-- Help would be needed from other frontend devs to get this working.
-- An idea for this would be to get Storybook to simply pull in the compiled core.js (or similar) built output from Webpack.
-
 ### API for a controller definition as an object
 
 - Proposed approach is a simple object with a special key `STATIC` which contains any values that are to be the static variables. The naming of this can be changed.
@@ -657,15 +651,6 @@ export abstract class AbstractController extends Controller {
 - The critical part is the prefix for controller names, we can use something more specific like `wx-tabs` but this adds length and may cause confusion the other way (when to use `wx-` and when to use `w-`).
 - Alternatively we can add a prefix to the Stimulus data attributes so that it would be something like `data-w-controller="tabs"`, while this is a powerful ability of Stimulus it means we would have to communicate clearly that our approach is not aligned with the Stimulus docs.
 
-### TypeScript verbosity
-
-- Using with Typescript will work but it is a bit verbose, we can probably add more TypeScript magic to the `AbstractController` if this becomes an issue, any TypeScript feedback would be appreciated here.
-- https://dieterlunn.ca/stimulus-and-typescript/
-- [targets and typescript · Issue #121 · hotwired/stimulus](https://github.com/hotwired/stimulus/issues/121) & https://github.com/hotwired/stimulus/issues/221
-- https://www.sourlemon.co.za/blog/rails-typescript-and-stimulus/
-- The next Stimulus release should solve the most common case using generics, see https://github.com/hotwired/stimulus/pull/540/files & https://github.com/hotwired/stimulus/pull/529
-- Update: The [Stimulus 3.1.0 release](https://github.com/hotwired/stimulus/releases/tag/v3.1.0) has improved this situation somewhat.
-
 ### Handling animations / transitions
 
 - jQuery has a simple API to do basic animations, these animations are used haphazardly (inconsistent animation names and timings) but they are convenient.
@@ -782,6 +767,23 @@ export class SearchController extends AbstractController {
 ```
 
 ## Resolved questions
+
+### TypeScript verbosity
+
+- **Update** The [Stimulus 3.1.0 release](https://github.com/hotwired/stimulus/releases/tag/v3.1.0) has improved this situation somewhat, the declaration of statics is unlikely to be resolved in any short term.
+- Using with Typescript will work but it is a bit verbose, we can probably add more TypeScript magic to the `AbstractController` if this becomes an issue, any TypeScript feedback would be appreciated here.
+- https://dieterlunn.ca/stimulus-and-typescript/
+- [targets and typescript · Issue #121 · hotwired/stimulus](https://github.com/hotwired/stimulus/issues/121) & https://github.com/hotwired/stimulus/issues/221
+- https://www.sourlemon.co.za/blog/rails-typescript-and-stimulus/
+- The next Stimulus release should solve the most common case using generics, see https://github.com/hotwired/stimulus/pull/540/files & https://github.com/hotwired/stimulus/pull/529
+- There was an approach in development (early 2021) but that contributor is no longer involved, their approach can be seen here https://twitter.com/sstephenson/status/1370038892955635716 - we could adopt this code as a mixin if we feel this is a critical issue.
+
+### Storybook compatibility
+
+- **Update** This can be considered resolved, the root cause of this was that Storybook was using the Typescript configuration which has an ES5 compile target and using other code with the assumption that it would be an ES6 compile target. The simple solution is to use `stories.js` not `stories.tsx` for now, this has a small downside of code editing but is solid enough to no longer be a blocker.
+- The implementation so far has not resolved how to get Stimulus to work with Storybook, this is due to the non-transpiling of Stimulus as Storybook does not use the core webpack entrypoints but instead compiles using its own build tool.
+- Help would be needed from other frontend devs to get this working.
+- An idea for this would be to get Storybook to simply pull in the compiled core.js (or similar) built output from Webpack.
 
 ### Why use a Django & HTML first approach
 
