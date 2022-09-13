@@ -48,7 +48,7 @@ Wagtail needs a solid alternative to jQuery widgets, inline script tag usage, wi
 
 Stimulus is an evolution of what we are already doing in almost all JS interactivity written in the last few years. Setting up data attributes to attach JS interactivity. However, this is a more consistent approach without needing to 'init' things everywhere. The library also provides a simple way to do small scale reactivity (e.g. local state-driven changes) via changes to data attributes.
 
-> 🚧 A prototype implementation of this proposal is available for review and testing on https://github.com/lb-/wagtail-rfcs/tree/rfc/stimulus or https://github.com/lb-/wagtail/pull/5.
+> 🚧 A prototype implementation of this proposal is available for review and testing on https://github.com/wagtail/wagtail/pull/9075 with some earlier variants on https://github.com/lb-/wagtail-rfcs/tree/rfc/stimulus & https://github.com/lb-/wagtail/pull/5.
 
 ### Primary goals
 
