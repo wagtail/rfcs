@@ -903,6 +903,9 @@ Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in t
 - [Making the most out of Stimulus](https://thoughtbot.com/blog/taking-the-most-out-of-stimulus) - Some guidelines to get the most out of Stimulus.js in applications.
 - [HN thread on Stimulus vs React](https://news.ycombinator.com/item?id=25306374) - Posted to have a reference of others saying that these are fundamentally different approaches and they are not really competing with each other but provide different ways to solve different problems.
 - [Getting started with stimulus.js](https://www.sobyte.net/post/2022-08/stimulus-js/) - Nice ramp into Stimulus.
+- [Frontend Madness: SPAs, MPAs, PWAs, Decoupled, Hybrid, Monolithic, Libraries, Frameworks!](https://www.symfonystation.com/Frontend-Madness-JS-PHP-Backend) - a PHP centric view but a good overview of the many approaches to frontend, including Stimulus.
+- [Tailwind style CSS transitions with StimulusJS](https://boringrails.com/articles/tailwind-style-css-transitions-with-stimulusjs/)
+- [Adding keyboard shortcuts and hotkeys to StimulusJS](https://boringrails.com/articles/stimulus-hotkeys-keyboard-shortcuts/)
 
 ### CSP / Inline scripts
 
