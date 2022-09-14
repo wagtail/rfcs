@@ -1,21 +1,21 @@
-# RFC XXX: Public roadmap
+# RFC 079: Public roadmap
 
-* RFC: XXX
+* RFC: 079
 * Author: Phil Dexter
 * Created: 2022-07-18
 * Last Modified: 2022-07-18
 
 ## Abstract
-A few years ago Wagtail had a couple of attempts at a [public roadmap]([url](https://github.com/wagtail/wagtail/projects?query=is%3Aclosed)), using Github’s projects feature. This was stopped because at that time there was a general feeling that in most cases the roadmap was outside our control - features came in because they were unexpectedly contributed or a client needed them, or because it made sense to tackle issue x before merging PR y.
+A few years ago Wagtail had a couple of attempts at a [public roadmap](https://github.com/wagtail/wagtail/projects?query=is%3Aclosed), using Github’s projects feature. This was stopped because at that time there was a general feeling that in most cases the roadmap was outside our control - features came in because they were unexpectedly contributed or a client needed them, or because it made sense to tackle issue x before merging PR y.
 
 However, things have changed. We now have more investment in Wagtail and more infrastructure around its development, be that through the community, open source projects, or sponsorship.
 
 I’d like to propose that we start using this again as a public roadmap for all things Wagtail; **a single place where the community can go to see an accurate list of upcoming changes, as well as some of those we’d like to see happen in the future.**
 
 ## Specification
-We will host the roadmap on Github. It's where most of the current and future Wagtail evangilists already are, and it avoids the spread of sproadic tooling choices. 
+We will host the roadmap on Github. It's where most of the current and future Wagtail evangelists already are, and it avoids the spread of sporadic tooling choices.
 
-The Github project will follow the pattern that [Github themselves use]([url](https://github.com/orgs/github/projects/4247/views/1)). Cards will follow the Summary, _Intended Outcome_, _How will it work_ pattern. They will be a high level overview of the change with links to more documentation, rather than anything detailed. The public could comment on or emoji like certain items.
+The Github project will follow the pattern that [Github themselves use](https://github.com/orgs/github/projects/4247/views/1). Cards will follow the Summary, _Intended Outcome_, _How will it work_ pattern. They will be a high level overview of the change with links to more documentation, rather than anything detailed. The public could comment on or emoji like certain items.
 
 Items only go onto the roadmap once they have been considered (by the core team). These items might, or might not need an RFC for implementation details before they get on the roadmap.
 
