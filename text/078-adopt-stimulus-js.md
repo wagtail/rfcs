@@ -37,6 +37,10 @@
   - [Stimulus in the wild](#stimulus-in-the-wild)
   - [Future possibilities](#future-possibilities)
 - [Appendix 2 - Proposed documentation](#appendix-2---proposed-documentation)
+  - [A. Documentation for developers](#a-documentation-for-developers)
+  - [B. Reference documentation](#b-reference-documentation)
+  - [C. Documentation for contributors](#c-documentation-for-contributors)
+  - [D. Documentation in folder](#d-documentation-in-folder)
 - [Appendix 2 - Why not Stimulus at all](#appendix-2---why-not-stimulus-at-all)
 
 ## Abstract
@@ -940,14 +944,63 @@ Not in scope of the RFC but could be an option in the future.
 
 ## Appendix 2 - Proposed documentation
 
-#### Documentation for developers
+### A. Documentation for developers
 
-> Proposed addition to the [Customising admin templates](https://docs.wagtail.org/en/stable/advanced_topics/customisation/admin_templates.html) page which currently houses similar frontend docs for Wagtail developers. Alternatively, adding new sub-page under [Extending Wagtail](https://docs.wagtail.org/en/stable/extending/index.html) may be more suitable.
+> Proposed split of the [Customising admin templates](https://docs.wagtail.org/en/stable/advanced_topics/customisation/admin_templates.html) page to a new sibling `client_side_javascript` which currently houses similar frontend docs for Wagtail developers with React.
 
-##### Introduction
+Some of Wagtail’s admin interface is written as client-side JavaScript with [Stimulus](https://stimulus.hotwired.dev/) and [React](https://reactjs.org/).
 
-- Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a way to attach interactive behaviour to DOM elements throughout Wagtail.
-- You do not need to use this library to add behaviour to elements, vanilla (plain) JS will work fine. However, it is recommended to not use jQuery as this will be removed in a future version.
+Depending on what parts of the client-side interaction you want to leverage or customise you may need to understand these libraries. React is used for some more complex parts of Wagtail such as the sidebar, commenting system and Draftail (rich text editor), for basic JavaScript driven interaction Wagtail is migrating towards Stimulus.
+
+You do not need to know or use these libraries to add your own custom behaviour to elements and in many cases vanilla (plain) JS will work fine. You do not need to have Node js tooling running for your custom Wagtail installation for many customisations built on these libraries, in some cases it may make complex development easier though.
+
+```{note}
+It is recommended that you avoid using jQuery as this will be removed in a future version of Wagtail.
+```
+
+#### Browser DOM Events
+
+When approaching client-side customisations or adopting new components, try to keep the implementation simple first, you may not need any knowledge of Stimulus, React, ES6 Modules or a build system to achieve your goals.
+
+The simplest way to attach behaviour to the browser is via DOM Events.
+
+For example, you if you want to attach some logic to a field value change in Wagtail you can add an event listener, check if it is the correct element and change what you need.
+
+```javascript
+document.addEventListener("change", function (event) {
+  if (event.currentTarget) {
+    console.log("field has changed", event.currentTarget);
+  }
+});
+```
+
+Or you could write some simple JavaScript logic that does something when the sidebar panel is toggled.
+
+```javascript
+document.addEventListener("click", function (event) {
+  if (event.currentTarget) {
+    const isStatusSidebar =
+      event.currentTarget.dataset.sidePanelToggle === "status";
+    if (isStatusSidebar) {
+      console.log("status sidebar panel has been toggled");
+    }
+  }
+});
+```
+
+#### Custom DOM Events
+
+- Wagtail supports custom behaviour to via listening or dispatching custom DOM events, usually with the prefix `wagtail:`.
+- See [](../images/title_generation_on_upload.md)
+- See [](../documents/title_generation_on_upload.md)
+
+(custom_stimulus_controllers)=
+
+#### Stimulus
+
+Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a way to provide client-side interactivity where React is not required. Stimulus can be used to easily build custom JavaScript widgets within the admin interface.
+
+Below are a series of examples on how to use Stimulus within the Wagtail admin interface, you can also view the full [Stimulus reference](stimulus_reference) for more details.
 
 ##### Adding a word count controller (without a build system)
 
@@ -1115,9 +1168,66 @@ class BlogPage(Page):
     #...
 ```
 
-##### Events
+##### Attaching additional behaviour to existing Stimulus usage
 
-Event listeners and event dispatching is how to interact with Stimulus.
+As Wagtail adopts Stimulus for client-side behaviour, you can attach your own Stimulus controllers to these same elements to attach custom behaviour.
+
+This can be done via leveraging the same `identifier` (usually starts with `w-`) and registering your own controller with that identifier.
+
+It is important to note that this does not modify existing controllers, but allows you to hook in extra behaviour.
+
+```{note}
+For many scenarios, using DOM Events will be more than sufficient for custom behaviour.
+Only use additional controllers if you need to do more complex customisations.
+```
+
+```html
+<script type="module">
+  // note: It would be recommended to serve your own copy of the Stimulus library
+  import {
+    Application,
+    Controller,
+  } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+  window.Stimulus = Application.start();
+
+  Stimulus.register(
+    "w-clean-field",
+    class extends Controller {
+      clean(event) {
+        console.log("Update some other field when the slug changes", event);
+      }
+    }
+  );
+</script>
+```
+
+##### Completely overriding existing admin behaviour of Stimulus controllers
+
+Wagtail also allows you to register a controller against its main application instance, see the examples above or the events reference for these events.
+
+You can completely override the built in controllers via using the same `identifier` (usually starts with `w-`) and registering your own controller with that identifier.
+
+It is important to note that your custom controller will need to re-implement the existing methods or you will get console errors when these are called.
+
+There may also be some side effects of built in controllers being registered, depending on the timing of your JavaScript code event firing.
+
+While these kinds of overrides are supported as a last ditch method to fully customise behaviour, writing this knd of code will require you to understand the existing implementations and support the JavaScript on your own.
+
+```{note}
+At this time, Wagtail does not provide an official way to extend existing controllers via class inheritance. If this is something useful, please share your use cases on the TODO _ ADD DISCUSSION.
+```
+
+### B. Reference documentation
+
+> Proposed new page `docs/reference/client_side_javascript.md` under the [Reference section](https://docs.wagtail.org/en/latest/reference/index.html).
+
+Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a way to attach interactive behaviour to DOM elements throughout Wagtail.
+
+Wagtail does not, currently, make the Stimulus application instance available officially. This is so that a clean and supported API can be provided by events.
+
+#### Interacting with the Stimulus application via events
+
+Wagtail uses [event listeners and event dispatching](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) to provide the ability to interact with Stimulus.
 
 ##### Dispatched - `'wagtail:stimulus-init'`
 
@@ -1149,60 +1259,86 @@ document.dispatch(new CustomEvent("wagtail:stimulus-enable-debug"));
 - `detail.identifier` a kebab-case string to use as the identifier.
 - `detail.controller` a controller class.
 
-#### Documentation for contributors
+#### Further debugging interaction
+
+If you are finding that there are Stimulus controller issues you cannot debug with the `wagtail:stimulus-enable-debug` approach, you can use the built in [Stimulus error callback](https://stimulus.hotwired.dev/handbook/installing#error-handling).
+
+```javascript
+window.onerror = console.error;
+```
+
+The above code will simply log any errors to the console.
+
+#### About ES6 Modules vs ES5 compile targets
+
+Currently, Wagtail compiles to ES5 code, which means that the classes (Stimulus base controller and applications) are not native ES6 classes but rather ES5 classes.
+
+This is fine in most cases, except for calling `new` on classes that extend the ES5 classes while in ES6 code.
+
+Due to this problem, the base controller from Stimulus will not be provided by any shared API, instead you will need to 'bring your own' controller.
+
+This may change at some point in the future, for now you can import Stimulus via your own package or leverage the object approach for simple class generation.
+
+See [](custom_stimulus_controllers) for examples on how to register your own Controller without needing access to the Wagtail core base Controller.
+
+### C. Documentation for contributors
 
 > Proposed addition to the [UI development guidelines](https://docs.wagtail.org/en/latest/contributing/ui_guidelines.html).
-
-##### Introduction to Stimulus
 
 - Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a way to attach interactive behaviour to DOM elements throughout Wagtail.
 - This is a lightweight JavaScript framework that allows a JavaScript class to be attached to any DOM element that adheres to a specific usage of `data-` attributes on the element.
 
-##### When to use Stimulus
+#### When to use Stimulus
 
 This is a migration in progress, any large refactors or new code should adopt this approach.
 
-1. Investigate if the browser can do this for you or if CSS can solve this (e.g. changing visual styling on focus/over should be done with CSS, autofocus on elements can be done with HTML attributes, using buttons with `type='button'` instead of `event.preventDefault`, or using links to take the user to a new page instead of a button with a click to change the page).
-2. Investigate if there is an existing JavaScript approach in the code, we do not need to build multiple versions of things.
-3. Write the HTML first and then assess what parts need to change based on user interactions, if state is minimal (e.g. less than 10 discrete moving parts) then Stimulus may be suitable.
+1. Investigate if the browser can do this for you or if CSS can solve the specific goals you are working towards.
+
+- For example, changing visual styling on focus/over should be done with CSS, autofocus on elements can be done with HTML attributes
+- Using buttons with `type='button'` instead of a link or to avoid needing to use `event.preventDefault`
+- Use links to take the user to a new page instead of a button with a click to change the page
+
+2. Investigate if there is an existing JavaScript approach in the code, we do not need to build multiple versions of similar things.
+3. Write the HTML first and then assess what parts need to change based on user interactions, if state is minimal then Stimulus may be suitable.
 4. Finally, if needed React may be suitable in small cases, but remember that if we want anything to be driven by content in Django templates React may not be suitable.
 
 #### How to build a controller
 
 1. Start with the HTML, build as much of the component or UI element as you can in HTML alone, even if that means a few variants if there is state to consider. Ensure it is accessible and follows the CSS guidelines.
-2. Once you have the HTML working, add a new `HeaderSearchController.ts` file, a test file and a stories file. Try to decide on a simple name (on word if possible) and name your controller.
-3. Add a `connect` method, this is similar to the `constructor` but gets called once the DOM is ready and the JS is instantiated against your DOM element.
-4. You can access the base element with `this.element`, review the Stimulus documentation for full details.
-5. Remember to consider scenarios where the element may be disconnected (removed/moved in the DOM), use the `disconnect` method to do any clean up. If you use the `data-action` attributes you do not need to clean up these event listeners, Stimulus will do this for you.
+2. Once you have the HTML working, add a new `HeaderSearchController.ts` file, a test file and a stories file. Try to decide on a simple name (one word if possible) and name your controller.
+3. Avoid using `constructor` on Controller classes, if you need to call something before connection to the DOM you can use [`initialize`](https://stimulus.hotwired.dev/reference/lifecycle-callbacks#methods), this includes binding methods.
+4. Add a `connect` method if needed which called once the DOM is ready and the JS is instantiated against your DOM element.
+5. You can access the base element with `this.element`, review the Stimulus documentation for full details.
+6. Remember to consider scenarios where the element may be disconnected (removed/moved in the DOM), use the `disconnect` method to do any clean up. If you use the `data-action` attributes you do not need to clean up these event listeners, Stimulus will do this for you.
 
-#### Stimulus best practices
+#### Best practices
 
-- Smaller, more general, controllers that do a small amount of 'work' that is collected together, instead of lots of large or specific controllers.
+- Smaller but still generic, controllers that do a small amount of 'work' that is collected together, instead of lots of large or specific controllers.
 - Think about the HTML, use Django templates, consider template overrides and blocks to provide a nice way for more custom behaviour to be added later.
-- Use data-attributes where possible, as per the documented approach, to add event listeners and target elements. It is ok to add event listeners in the controller but opt for the `data-action` approach first.
-- Use `this.dispatch` when dispatching `CustomEvent`s to the DOM and whenever possible provide a cancellable behaviour. Events are the preferred way to communicate between controllers and as a bonus provide a nice external API, if the behaviour can be resumed use a `resume` function provided to the event's detail.
+- Use data-attributes where possible, as per the documented approach, to add event listeners and target elements. It is ok to add event listeners in the controller but opt for the `data-action` approach first, the main benefit here is that it is easier to see in the HTML how the behaviour works and provides a more general purpose functionality out of the controller.
+- Use `this.dispatch` when dispatching `CustomEvent`s to the DOM and whenever possible provide a cancellable behaviour. Events are the preferred way to communicate between controllers and as a bonus provide a nice external API, if the behaviour can be continued use a `continue` function provided to the event's detail.
 - Wrap external libraries in controllers (for example, modals, tooltips), so that if the underlying library changes, the HTML data attributes do not need to change. This gives us the freedom to adopt a better/supported library in the future without too much backwards compatibility issues. This goes for events handling also.
-- Use
 - Lean towards dispatching events for key behaviour in the UI interaction as this provides a great way for custom code to hook into this without an explicit API, but be sure to document these.
+- Controllers are JavaScript classes and will allow for class inheritance to build on top of base behaviour for variations, however, remember that static attributes do not get inherited and in most cases it will be simpler to use composition of controllers on an element instead of class inheritance.
 - Multiple controllers can be attached to one DOM element for composing behaviour, where practical split out behaviour to separate controllers.
 - Avoid mixing jQuery with Stimulus Controllers as jQuery events are not the same as browser DOM events and can cause confusion, either find a non-jQuery solution or just attach the jQuery widget and set up your own non-jQuery event listeners.
 - It is ok to use a jQuery widget and simply use Stimulus to attach the widget to the right DOM element, but it is better to see if there is an underlying JavaScript implementation to use directly or an alternative library if practical.
 - Telepath will still be used as a data pickle/un-pickle convention if required for more complex data setup.
 - Avoid writing too much HTML (more than `textContent` or basic elements without classes) in the Stimulus controller, instead leverage the `template` element to move large amounts of HTML back into the Django templates. This also helps for translations which can be done in Django and co-located with the other HTML.
 - Avoid using the JavaScript translation functions in Stimulus controllers, this is technically doable but will make it harder for usage of this controller to change this without extending the component, prefer instead to provide translated values in the relevant data values or in `template` / hidden elements within the component as targets.
-- Use JSDOC to document methods, including the [`@fires`](https://jsdoc.app/tags-fires.html) for events that are dispatched and [`@listens`](https://jsdoc.app/tags-listens.html) for events that are listened to.
-- Good article to glean off https://thoughtbot.com/blog/taking-the-most-out-of-stimulus
+- Try to provide generic ways to pass attributes to template components, template tags or similar, Django field widget `attrs` being a good reference example. This makes it easier for other code, within Wagtail or outside, to add more data attributes or append to existing ones to customise behaviour.
+- Avoid the Stimulus controller having knowledge of its own identifier, except in JSDOC examples, remember that the identifier is intentionally disconnected from the controller class so that controllers can be re-used, extended and namespaced for different projects. If you do need to reference a controller's own identifier you can access it via `this.identifier`.
+- Use JSDOC to document methods and classes, including the [`@fires`](https://jsdoc.app/tags-fires.html) for events that are dispatched and [`@listens`](https://jsdoc.app/tags-listens.html) for events that are listened to.
 
-#### Documentation in folder
+### D. Documentation in folder
 
 > Proposed content of a new `client/src/controllers/README.md` file. This is based on a proposed convention from the UI team to put a small `README.md` in each main client folder.
 
-- Each file within this folder should contain one Stimulus controller, with the filename `MyAwesomeController.ts` (UpperCamelCase.ts).
-- If the controller has a static method `isIncludedInCore = true;` then it will be automatically included in the core JS bundle and registered.
-- Controllers that are included in the core will automatically be registered with the prefix `w` (e.g. `w-tabs`).
-- Controllers are classes and will allow for class inheritance to build on top of base behaviour for variations, however, remember that static attributes do not get inherited.
+- Each file within this folder should contain one Stimulus controller, with the filename `MyAwesomeController.ts` (UpperCamelCaseController.ts).
+- Controllers that are included in the core will automatically be registered with the prefix `w` (for example, `TabsController` will be registered with the identifier `w-tabs`).
+- However, if the controller has a static method `isIncludedInCore = false;` then it will not be automatically registered but it will be included in the JS bundle.
 - All Controller classes must inherit the `AbstractController` and not directly use Stimulus' controller (this will raise a linting error), this is so that base behaviour and overrides can easily be set up.
-- See **LINKS_TO_DOCS** for more information no how to build controllers.
+- See `docs/contributing/ui_guidelines.md` for more information no how to build controllers and when to use Stimulus within Wagtail.
 
 ## Appendix 2 - Why not Stimulus at all
 
