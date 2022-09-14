@@ -9,6 +9,8 @@
 
 This RFC proposes using cut back versions of Draftail for general text entry, including as the default widget for `TextField` and `CharField`. 
 
+Should we introduce other rich text editors in the future, we would also similarly expect them to be usable for general text entry.
+
 
 ## Motivation
 
