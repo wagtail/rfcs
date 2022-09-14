@@ -1,9 +1,9 @@
-# RFC 78: Adopt Stimulus (lightweight JS framework)
+# RFC 78: Adopt Stimulus (lightweight JS framework) 🎛️
 
 - RFC: 078
 - Author: LB (Ben) Johnston
 - Created: 2022-06-08
-- Last Modified: 2022-06-09
+- Last Modified: 2022-09-14
 
 ---
 
@@ -31,6 +31,7 @@
   - [Why not Alpine.js](#why-not-alpinejs)
   - [Why not HTMX or Turbolinks](#why-not-htmx-or-turbolinks)
   - [Why Stimulus and not something else](#why-stimulus-and-not-something-else)
+  - [An emoji might be nice to represent the RFC](#an-emoji-might-be-nice-to-represent-the-rfc)
 - [Appendix 1 - Additional information](#appendix-1---additional-information)
   - [Links](#links)
   - [CSP / Inline scripts](#csp--inline-scripts)
@@ -41,7 +42,7 @@
   - [B. Reference documentation](#b-reference-documentation)
   - [C. Documentation for contributors](#c-documentation-for-contributors)
   - [D. Documentation in folder](#d-documentation-in-folder)
-- [Appendix 2 - Why not Stimulus at all](#appendix-2---why-not-stimulus-at-all)
+- [Appendix 3 - Why not Stimulus at all](#appendix-3---why-not-stimulus-at-all)
 
 ## Abstract
 
@@ -890,6 +891,10 @@ Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in t
 - This library is a core part of the Rails ecosystem (as of V7) and built by the team at Basecamp, it is unlikely to go anywhere anytime soon.
 - We can also provide the ability to trigger the [debug flag](https://stimulus.hotwired.dev/handbook/installing#debugging) to be true when Django is in local dev mode, this will aid those customising Wagtail and also those working on Wagtail core. The current implementation has this via an event listener.
 
+### An emoji might be nice to represent the RFC
+
+- Sounds good, how about the 🎛️ (controls) emoji - as Stimulus is about adding Controllers.
+
 ## Appendix 1 - Additional information
 
 ### Links
@@ -1340,7 +1345,7 @@ This is a migration in progress, any large refactors or new code should adopt th
 - All Controller classes must inherit the `AbstractController` and not directly use Stimulus' controller (this will raise a linting error), this is so that base behaviour and overrides can easily be set up.
 - See `docs/contributing/ui_guidelines.md` for more information no how to build controllers and when to use Stimulus within Wagtail.
 
-## Appendix 2 - Why not Stimulus at all
+## Appendix 3 - Why not Stimulus at all
 
 It would be good to list the reasons we may not want to go in this direction to either ensure they are discussed or understood as risks.
 
