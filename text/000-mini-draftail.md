@@ -22,6 +22,8 @@ Draftail provides a useful framework for attaching entities to text - such as co
 
 As a result, we propose making a cut down version of the Draftail editor (with no rich text features enabled) the default widget used for text entry in Wagtail, used to provide inline commenting on all text fields, as well as any text analysis features chosen. This would involve no changes to the database representation of these fields, so would be a smooth transition for users.
 
+There may be adjustments needed to the fields validation, in particular [maximum length](https://github.com/wagtail/wagtail/pull/8930).
+
 ## Advantages
 - Consistent approach to admin features for users: commenting and plugins can be used in the same way everywhere.
 - Consistent approach for adding text features for developers:  no need to write both a Draftail plugin and custom widgets to add a single feature globally
