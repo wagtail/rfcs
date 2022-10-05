@@ -3,7 +3,7 @@
 - RFC: 078
 - Author: LB (Ben) Johnston
 - Created: 2022-06-08
-- Last Modified: 2022-09-30
+- Last Modified: 2022-10-05
 
 ---
 
@@ -34,7 +34,7 @@
   - [An emoji might be nice to represent the RFC](#an-emoji-might-be-nice-to-represent-the-rfc)
 - [Appendix 1 - Additional information](#appendix-1---additional-information)
   - [Links](#links)
-  - [CSP / Inline scripts](#csp--inline-scripts)
+  - [CSP support and deprecation of inline scripts](#csp-support-and-deprecation-of-inline-scripts)
   - [Stimulus in the wild](#stimulus-in-the-wild)
   - [Future possibilities](#future-possibilities)
 - [Appendix 2 - Potential documentation](#appendix-2---potential-documentation)
@@ -652,9 +652,16 @@ Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in t
 - [Tailwind style CSS transitions with StimulusJS](https://boringrails.com/articles/tailwind-style-css-transitions-with-stimulusjs/)
 - [Adding keyboard shortcuts and hotkeys to StimulusJS](https://boringrails.com/articles/stimulus-hotkeys-keyboard-shortcuts/)
 
-### CSP / Inline scripts
+### CSP support and deprecation of inline scripts
 
-This RFC can possibly be considered as an opinionated extension of the existing [RFC 33](https://github.com/wagtail/rfcs/pull/33). Adopting Stimulus gives us a clear roadmap of how to move away from inline scripts for all existing usage. Even InlinePanel, while that is probably the more complex one, has been validated at a POC level with Stimulus while also adding features like drag & drop, undelete and copy.
+This RFC has also been prepared as a solution in place of of the closed [RFC 33](https://github.com/wagtail/rfcs/pull/33). Adopting Stimulus gives us a clear roadmap of how to move away from inline scripts for all existing usage. Even `InlinePanel`, while that is probably the more complex one, has been validated at a POC level with Stimulus while also adding features like drag & drop, undelete and copy.
+
+- It follows the letter and intent of [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP), which expects all scripting to be statically defined up-front
+- React code that dynamically inserts widgets can be added dynamically / attached to elements by Stimulus controllers if needed to avoid using inline scripts for these.
+- More flexibility over how JS includes are defined (they can now be placed in the footer along with other script imports or loaded asynchronously if needed).
+- This RFC requires a convention to be used within the Wagtail admin whenever JavaScript behaviour needs to be attached to HTML elements, while this is specific to Stimulus in how the data attributes are framed, it would be possible to replace Stimulus with a different approach in the future and keep some of the data attribute conventions.
+- Stimulus as a layer between the HTML and JavaScript allows usage of other client-side frameworks like React and libraries like Tippy.js to be easily replaced behind the scenes with other implementations in the future.
+- Longer term, it would be good to add an automated way to check for inline scripts, either at the Django template linting level or potentially a browser automation test, however this coverage is not in scope of this RFC.
 
 See these additional issues for inline script usage and CSP issues
 
