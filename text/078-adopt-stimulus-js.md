@@ -119,35 +119,6 @@ Much of the benefits of Stimulus are documented in the research and goals explai
   - Note: Developers can still use any JavaScript approach they want, including the existing React globals if they choose.
 - A functional version of all of the above can be found here - https://github.com/lb-/wagtail/tree/rfcs/stimulus-ui or https://github.com/lb-/wagtail/pull/5 (to see diffs)
 
-### Implementation roadmap
-
-1. [ ] Get initial base into the core, as per the above initial implementation
-2. [ ] Make it possible to provide `attrs` to the `FieldPanel/Panel` and in general Template Components
-3. [ ] Good initial candidate is `collection_chooser_collection_id` & equivalent (select change and submit) + wagtail/images/templates/wagtailimages/images/index.html & wagtail/admin/templates/wagtailadmin/shared/collection_chooser.html
-4. [ ] **Replace core inline Scripts** - Anything that can be removed from `<script />` tags - e.g. `data-sprite`/`loadIconSprite` at the global level (`wagtail/admin/templates/wagtailadmin/skeleton.html` & `wagtail/admin/templates/wagtailadmin/admin_base.html`)
-   - [ ] 8 x headerSearch - adopt for header search component (most common script tag)
-   - [ ] 7 x tagit
-   - [ ] 7 x .tooltip (not tippy, already covered by issue https://github.com/wagtail/wagtail/issues/8565 )
-   - [ ] 2 x initCommentsInterface (create/edit page)
-   - [ ] 2 x enableDirtyFormCheck (create/edit page)
-   - [ ] 2 x data-enable-action (attribute, requires csrf token)
-   - [ ] 2 x createQueryChooser
-   - [ ] 2 x autosize
-   - [ ] 2 x LockUnlockAction (needs csrf token)
-   - [ ] 1 x runprogress (wagtail styleguide)
-   - [ ] 1 x initTagField
-   - [ ] 1 x initDateTimeChooser
-   - [ ] 1 x initDateChooser
-   - [ ] 1 x draftail.initEditor
-   - [ ] 1 x datetimepicker
-   - [ ] 1 x ActivateWorkflowActionsForDashboard (needs csrf token)
-5. [ ] **Adopt for new code** - Migrate Tabs, Breadcrumbs, new Modal + Modal trigger
-6. [ ] **Adopt for tooltips** - `data-wagtail-tooltip` usage (next most common script tag), may be done as part of page editor work
-7. [ ] **Common fields** - Text area auto-resize, Tag field, etc
-8. [ ] **Other common components** - Collapse, Dropdowns, LockUnlockAction, dirty form check, etc
-9. [ ] **static_src** - Review all non-modal workflow static_src items (modeladmin/prepopulate, images focus, sitesettings siteswitcher, image-url-generator)
-10. [ ] **Larger items** - one of modal workflow, inline panel, bulk actions, depending on the state of the project
-
 ### Example adoption
 
 #### Long-running button
