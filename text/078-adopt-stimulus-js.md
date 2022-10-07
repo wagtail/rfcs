@@ -111,7 +111,7 @@ Much of the benefits of Stimulus are documented in the research and goals explai
 ### Initial implementation overview
 
 - Install Stimulus `npm install @hotwired/stimulus --save`
-- Due to Stimulus being an ES6 module and Wagtail's codebase transpiling to ES5, TypeScript/Webpack and Jest will need to be configured to ensure that this library within node modules is to be transpiled also.
+- TBC: Due to Stimulus being an ES6 module and Wagtail's codebase transpiling to ES5, TypeScript/Webpack and Jest will need to be configured to ensure that this library within node modules is to be transpiled also.
 - Set up a file `client/src/includes/stimulus.ts` which will contain the Stimulus application set up and register of initial controllers, it should export a named export `initStimulus` which will allow for control over when the Application is set up.
 - The dispatched events and event listeners should be set up as described in the documentation snippets below.
 - This file should have an automatic way to pull in any Controllers in the folder `client/src/controllers/` such that a controller file named `TagFieldController.ts` with a named export `{ TagFieldController }` will automatically be registered under the prefixed namespace `w-tag-field` for its identifier. The inspiration for this approach can be found here https://github.com/hotwired/stimulus-webpack-helpers
