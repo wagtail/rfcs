@@ -3,7 +3,7 @@
 - RFC: 078
 - Author: LB (Ben) Johnston
 - Created: 2022-06-08
-- Last Modified: 2022-10-05
+- Last Modified: 2022-10-11
 
 ---
 
@@ -13,17 +13,14 @@
   - [History & initial research](#history--initial-research)
 - [Specification](#specification)
   - [Initial implementation overview](#initial-implementation-overview)
-  - [Implementation roadmap](#implementation-roadmap)
   - [Example adoption](#example-adoption)
   - [Potential documentation](#potential-documentation)
 - [Open questions](#open-questions)
-  - [API for a controller definition as an object](#api-for-a-controller-definition-as-an-object)
-  - [Dispatched event names](#dispatched-event-names)
-  - [Preferred way to provide preventable/resumable events](#preferred-way-to-provide-preventableresumable-events)
-  - [Prefix on controllers](#prefix-on-controllers)
-  - [Handling animations / transitions](#handling-animations--transitions)
 - [Resolved questions](#resolved-questions)
   - [TypeScript verbosity](#typescript-verbosity)
+  - [API for a controller definition as an object](#api-for-a-controller-definition-as-an-object)
+  - [Dispatched event names](#dispatched-event-names)
+  - [Prefix for identifiers](#prefix-for-identifiers)
   - [Storybook compatibility](#storybook-compatibility)
   - [Why use a Django & HTML first approach](#why-use-a-django--html-first-approach)
   - [Why not more React](#why-not-more-react)
@@ -32,17 +29,20 @@
   - [Why not HTMX or Turbolinks](#why-not-htmx-or-turbolinks)
   - [Why Stimulus and not something else](#why-stimulus-and-not-something-else)
   - [An emoji might be nice to represent the RFC](#an-emoji-might-be-nice-to-represent-the-rfc)
-- [Appendix 1 - Additional information](#appendix-1---additional-information)
-  - [Links](#links)
-  - [CSP support and deprecation of inline scripts](#csp-support-and-deprecation-of-inline-scripts)
-  - [Stimulus in the wild](#stimulus-in-the-wild)
-  - [Future possibilities](#future-possibilities)
+  - [Other resolved questions moved to future enhancements](#other-resolved-questions-moved-to-future-enhancements)
+- [Appendix 1 - Additional links](#appendix-1---additional-links)
 - [Appendix 2 - Potential documentation](#appendix-2---potential-documentation)
   - [A. Documentation for developers](#a-documentation-for-developers)
   - [B. Reference documentation](#b-reference-documentation)
   - [C. Documentation for contributors](#c-documentation-for-contributors)
   - [D. Documentation in folder](#d-documentation-in-folder)
 - [Appendix 3 - Why not Stimulus at all](#appendix-3---why-not-stimulus-at-all)
+- [Appendix 5 - CSP support and deprecation of inline scripts](#appendix-5---csp-support-and-deprecation-of-inline-scripts)
+- [Appendix 6 - Potential implementation roadmap](#appendix-6---potential-implementation-roadmap)
+- [Appendix 7 - Future potential enhancements](#appendix-7---future-potential-enhancements)
+  - [A. Future possibilities](#a-future-possibilities)
+  - [B. Provide a way for handling animations / transitions](#b-provide-a-way-for-handling-animations--transitions)
+  - [C. Provide a preferred way to provide preventable/resumable events](#c-provide-a-preferred-way-to-provide-preventableresumable-events)
 
 ## Abstract
 
@@ -98,7 +98,7 @@ This also lead to various rounds of feedback about what approaches could work wi
 
 Much of the benefits of Stimulus are documented in the research and goals explained above, here is a summary of some additional benefits.
 
-- Existing controllers can easily be overridden or bypassed easily, giving a global way to re-write any existing controller usage. Simply register a controller with the same name (e.g. `w-tabs`), timing may be a potential issue here but it becomes something that is possible now instead of basically impossible without extensive customisations.
+- Existing controllers can easily be overridden or bypassed easily, giving a global way to re-write any existing controller usage. Simply register a controller with the same name (e.g. `w-tabs`), timing may be a potential issue here but it becomes something that is possible now instead of very difficult for most of the JavaScript widgets we use.
 - `data-action` provides a very flexible way to add behaviour differences by simply modifying the HTML, for example if you wanted to ensure that something runs on click and on blur, that is as simple as `data-action='blur->w-something#checkThing click->w-something#checkThing'`. This co-location of behaviour (as HTMX calls it) makes for a very powerful way to do more things in HTML only.
 - Additional JavaScript modules or code can be loaded dynamically on the controller's `initialize` method, giving a way to load a controller in call code usage but avoid some JavaScript unless it is only needed (note: this may not be a pattern we want to adopt as it makes testing harder but it is possible).
 - [Stimulus](https://github.com/hotwired/stimulus) is a reasonably popular frontend library on GitHub with 11.5k stars and has a budding community online. It is not the most popular of the frontend libraries assessed but it is not a new entrant into the ecosystem either.
@@ -112,6 +112,12 @@ Much of the benefits of Stimulus are documented in the research and goals explai
 
 - Install Stimulus `npm install @hotwired/stimulus --save`
 - TBC: Due to Stimulus being an ES6 module and Wagtail's codebase transpiling to ES5, TypeScript/Webpack and Jest will need to be configured to ensure that this library within node modules is to be transpiled also.
+  - The Stimulus `package.json` has the usual ES modules, UMD, TypeScript definition file split:
+    - "module": "dist/stimulus.js",
+    - "main": "dist/stimulus.umd.js",
+    - "types": "dist/types/index.d.ts",
+  - If anything we could configure TypeScript to transpile less – there’s no reason for us to not set it with a more modern target of es2020 or maybe even more recent.
+  - This needs further discussion and testing.
 - Set up a file `client/src/includes/stimulus.ts` which will contain the Stimulus application set up and register of initial controllers, it should export a named export `initStimulus` which will allow for control over when the Application is set up.
 - The dispatched events and event listeners should be set up as described in the documentation snippets below.
 - We should provide a simple way to register custom controllers, without any prior knowledge of how JavaScript classes work or needing a build tool. This way developers, who want to, can use this framework for their own custom JS interactive code.
@@ -244,241 +250,7 @@ Finally, it would be good to point out that the `callback: window.updateFooterSa
 
 ## Open questions
 
-### API for a controller definition as an object
-
-- Proposed approach is a simple object with a special key `STATIC` which contains any values that are to be the static variables. The naming of this can be changed.
-- An alternative approach is to try to be smart about the object and look at any non-function and assume it is static (however, technically functions can be static but not really used by Stimulus).
-- Another approach is to prefix with `_` or `$` to indicate that it is static but this may create more friction to using the object syntax.
-- This is something we would like to not have to change, so careful thought is needed.
-
-### Dispatched event names
-
-- Stimulus has a convenience method on Controllers `this.dispatch` which will automatically prefix the controller's identifier to the event. So that `this.dispatch('next', { detail: {someDetail: true}})` on the controller with identifier `w-tabs` will dispatch an event with the name `w-tabs:next`.
-- Wagtail has started adopting the convention that events should be prefixed with the name `wagtail:`
-- We can either adopt the wagtail convention and override `dispatch` on the `AbstractController` so that using it would produce an event `wagtail:w-tabs:next` or we allow for two prefixes; `wagtail:` when not specifically related to a controller or `w-*:` when it is.
-
-### Preferred way to provide preventable/resumable events
-
-- A common case that will need to be handled is where a Custom Event is dispatched and provides the ability to have the event behaviour stopped with `event.preventDefault()`.
-- This is a powerful (vanilla JS / native DOM) way to allow event listeners to modify default behaviour.
-- Building on this, a `resume` function can be provided in the event's `detail` object that allows the original behaviour to be called later or even called with some kinds of overrides.
-- This is a better alternative to mutation of objects (as we do now for the image/documents upload title change).
-- We should provide a preferred way to do this and ideally set up some conventions and even a method on the `AbstractController`
-
-#### Potential approach
-
-This approach adds a `dispatchResume` method on the core `AbstractController` which allows for a `resume` function to be provided that is only run if `event.preventDefault` is NOT called on the event. It returns a promise which can leverage additional behaviour after the event is dispatched.
-
-```javascript
-import { Controller } from '@hotwired/stimulus';
-import type { ControllerConstructor } from '@hotwired/stimulus';
-
-export interface AbstractControllerConstructor extends ControllerConstructor {
-  isIncludedInCore?: boolean;
-}
-
-type DispatchEventName = Parameters<typeof Controller.prototype.dispatch>[0];
-type DispatchEventOptions = Exclude<
-  Parameters<typeof Controller.prototype.dispatch>[1],
-  undefined
->;
-
-type DetailWithResume = {
-  resume: (options: Record<string, any>) => void;
-};
-
-interface DispatchEventOptionsWithResume extends DispatchEventOptions {
-  detail: Exclude<DispatchEventOptions['detail'], undefined> & DetailWithResume;
-}
-
-/**
- * Wraps the supplied function so that it can only be called once, even when the result function
- * is called multiple times. Inspired by lodash once/before.
- * https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L10042
- */
-function once(func) {
-  let result;
-  let fn = func;
-
-  return function onceInnerFn(...args) {
-    if (!fn) return result;
-    result = fn.apply(this, args);
-    fn = null;
-    return result;
-  };
-}
-
-/**
- * Core abstract controller to keep any specific logic that is desired and
- * to house generic types as needed.
- */
-export abstract class AbstractController extends Controller {
-  static isIncludedInCore = false;
-
-  /**
-   * Dispatch an event which can be cancelled and return a promise that resolves once dispatched.
-   * The event will Supply provide a `resume` function in its detail.
-   * Providing a way for the event's default to be prevented and re-activated later.
-   *
-   * Intentionally allows the resume never to be called, but if called multiple times the
-   * original `resume` function will only ever one once.
-   *
-   * @param eventName
-   * @param options - additional options to pass to the `dispatch` call
-   * @param options.resume - callback provided to detail or called if the event is not prevented, will only ever trigger once
-   * @returns
-   */
-  dispatchResume(
-    eventName: DispatchEventName,
-    {
-      detail: { resume: resumeOriginal, ...detail },
-      ...options
-    }: DispatchEventOptionsWithResume,
-  ) {
-    return new Promise<CustomEvent>((resolve, reject) => {
-      if (typeof resumeOriginal !== 'function') {
-        reject(new Error('detail.resume must be a function'));
-        return;
-      }
-
-      const resume = once(resumeOriginal);
-
-      const event = this.dispatch(eventName, {
-        ...options,
-        detail: { ...detail, resume },
-        cancelable: true,
-      });
-
-      if (!event.defaultPrevented) resume({});
-
-      resolve(event);
-    });
-  }
-}
-```
-
-### Prefix on controllers
-
-- Current implementation is `w-` which aligns with newer classes (Tailwind utility) and component classes (e.g. `w-dialog`), so have just aligned with this.
-- However, it may look confusing at first glance when you see `class="w-tabs"` and `data-controller="w-tabs"`.
-- The current documentation advises that classes are for styles and the data attributes are for JS behaviour - https://docs.wagtail.org/en/latest/contributing/ui_guidelines.html#html-guidelines
-- The critical part is the prefix for controller names, we can use something more specific like `wx-tabs` but this adds length and may cause confusion the other way (when to use `wx-` and when to use `w-`).
-- Alternatively we can add a prefix to the Stimulus data attributes so that it would be something like `data-w-controller="tabs"`, while this is a powerful ability of Stimulus it means we would have to communicate clearly that our approach is not aligned with the Stimulus docs.
-
-### Handling animations / transitions
-
-- jQuery has a simple API to do basic animations, these animations are used haphazardly (inconsistent animation names and timings) but they are convenient.
-- We will not have an ergonomic replacement for these with Stimulus and will likely need to add an animation like API to controllers or set up a util to do this in a consistent way.
-- We could solve for most common cases via some additional tailwind utility classes.
-- Stimulus will intentionally not be adding this in the forseeable future - [https://github.com/hotwired/stimulus/issues/542](https://github.com/hotwired/stimulus/issues/542).
-- Inspiration
-  - [Stimlus use library's `use-transition`](https://github.com/stimulus-use/stimulus-use/blob/main/docs/use-transition.md)
-  - [Stimlus Transition standalone util](https://github.com/robbevp/stimulus-transition)
-  - [jQuery effects](https://api.jquery.com/category/effects/)
-  - [Article - Tailwind Enter/Leave Transition Effects with Stimulus.js](https://dev.to/mmccall10/tailwind-enter-leave-transition-effects-with-stimulus-js-5hl7)
-  - [Alpine.js transitions](https://alpinejs.dev/directives/transition)
-  - [animate.css JavaScript usage](https://animate.style/#javascript) - not recommending we use animate.css but their `Promise` approach is really simple and useful
-
-#### Potential approach
-
-This approach is inspired by the animate.css approach linked above, the core `AbstractController` would have a `dispatchAnimate` (could be `dispatchTransition` or just `animate`/`transition`) which returns a promise.
-
-```javascript
-import { Controller } from '@hotwired/stimulus';
-import type { ControllerConstructor } from '@hotwired/stimulus';
-
-export interface AbstractControllerConstructor extends ControllerConstructor {
-  isIncludedInCore?: boolean;
-}
-
-type DispatchEventOptions = Exclude<
-  Parameters<typeof Controller.prototype.dispatch>[1],
-  undefined
->;
-
-/**
- * Core abstract controller to keep any specific logic that is desired and
- * to house generic types as needed.
- */
-export abstract class AbstractController extends Controller {
-  static isIncludedInCore = false;
-
-  /**
-   * Dispatches an animation (update classes) with pre-defined events begin/end
-   *
-   * Inspired by https://animate.style/#javascript
-   *
-   * @param classes - string or array of string for the animation classes to be added
-   * @param options
-   */
-  dispatchAnimate(
-    classes: string | string[],
-    {
-      detail: detailOriginal = {},
-      target = this.element,
-      ...options
-    }: DispatchEventOptions = {},
-  ) {
-    return new Promise<{
-      animateClasses: string[];
-      detail: Record<string, any>;
-      events: (CustomEvent | null)[];
-      target: Element | HTMLElement;
-    }>((resolve, reject) => {
-      const animateClasses =
-        typeof classes === 'string' ? classes.split(' ') : classes;
-
-      const detail = { ...detailOriginal, animateClasses };
-
-      if (!animateClasses.length) {
-        reject(new Error('animation classes must be supplied'));
-
-        return;
-      }
-
-      const eventOptions = { ...options, target, detail };
-
-      const beforeAnimateEvent = this.dispatch('before-animate', eventOptions);
-
-      target.classList.add(...animateClasses);
-      target.addEventListener(
-        'animationend',
-        // when the animation ends, we clean the classes and resolve the Promise
-        () => {
-          target.classList.remove(...animateClasses);
-
-          const afterAnimateEvent = this.dispatch(
-            'after-animate',
-            eventOptions,
-          );
-
-          const events = [beforeAnimateEvent, null, null, afterAnimateEvent];
-
-          resolve({ animateClasses, detail, events, target });
-        },
-        { once: true },
-      );
-    });
-  }
-}
-```
-
-**Example usage**
-
-```javascript
-export class SearchController extends AbstractController {
-  insertResults(results) {
-    this.resultsContainer.innerHTML = results;
-    this.dispatchAnimate(
-      /* e.g. data-w-search-animate-in-class="w-animate-fade-in" */
-      this.animateInClasses,
-      { target: this.resultsContainer }
-    ).finally(() => {
-      window.history.replaceState(null, "", newQuery ? `?q=${newQuery}` : "");
-    });
-  }
-}
-```
+None - see **resolved questions**.
 
 ## Resolved questions
 
@@ -491,6 +263,27 @@ export class SearchController extends AbstractController {
 - https://www.sourlemon.co.za/blog/rails-typescript-and-stimulus/
 - The next Stimulus release should solve the most common case using generics, see https://github.com/hotwired/stimulus/pull/540/files & https://github.com/hotwired/stimulus/pull/529
 - There was an approach in development (early 2021) but that contributor is no longer involved, their approach can be seen here https://twitter.com/sstephenson/status/1370038892955635716 - we could adopt this code as a mixin if we feel this is a critical issue.
+
+### API for a controller definition as an object
+
+- Proposed approach is a simple object with a special key `STATIC` which contains any values that are to be the static variables. The naming of this can be changed.
+- An alternative approach is to try to be smart about the object and look at any non-function and assume it is static (however, technically functions can be static but not really used by Stimulus).
+- Another approach is to prefix with `_` or `$` to indicate that it is static but this may create more friction to using the object syntax.
+- This is something we would like to not have to change, so careful thought is needed.
+- **Resolution** We will go with this for now but not initially document this so we have a chance to get feedback.
+
+### Dispatched event names
+
+- Stimulus has a convenience method on Controllers `this.dispatch` which will automatically prefix the controller's identifier to the event. So that `this.dispatch('next', { detail: {someDetail: true}})` on the controller with identifier `w-tabs` will dispatch an event with the name `w-tabs:next`.
+- Wagtail has started adopting the convention that events should be prefixed with the name `wagtail:`, but this is not related to the RFC and will not be addressed or adopted consistently yet.
+- **Resolution**We will adopt the Stimulus convention so that events will be named based on the Identifier.
+
+### Prefix for identifiers
+
+- Current implementation is `w-` which aligns with newer classes (Tailwind utility) and component classes (e.g. `w-dialog`), so have just aligned with this.
+- However, it may look confusing at first glance when you see `class="w-tabs"` and `data-controller="w-tabs"`.
+- The current documentation advises that classes are for styles and the data attributes are for JS behaviour - https://docs.wagtail.org/en/latest/contributing/ui_guidelines.html#html-guidelines
+- **Resolution** We will use the `w-` prefix on Controller identifiers.
 
 ### Storybook compatibility
 
@@ -600,9 +393,16 @@ Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in t
 
 - Sounds good, how about the 🎛️ (controls) emoji - as Stimulus is about adding Controllers.
 
-## Appendix 1 - Additional information
+### Other resolved questions moved to future enhancements
 
-### Links
+These items were deemed not critical to the initial RFC and have been moved to future enhancements.
+
+- [Provide a way for handling animations / transitions](#b-provide-a-way-for-handling-animations--transitions)
+- [Provide a preferred way to provide preventable/resumable events](#c-provide-a-preferred-way-to-provide-preventableresumable-events)
+
+## Appendix 1 - Additional links
+
+General Stimulus links and examples of Stimulus being used in the wild.
 
 - [POC Wagtail Stimulus Controllers](https://github.com/lb-/stimulus-starter/tree/main/src/controllers) - Includes Bulk Actions, InlinePanel, Cloak Controller, Autoresize TextArea, Sortable and more.
 - [Stimulus 2.0 - HN comments](https://news.ycombinator.com/item?id=25305467) - The good, bad and ugly feedback
@@ -616,30 +416,10 @@ Adopting Stimulus does not mean we cannot adopt `htmx` or something similar in t
 - [Lightweight Javascript Framework Review (For Django Developers)](https://www.accordbox.com/blog/lightweight-javascript-framework-review-for-django-developers/) - From Michael Yin (AccordBox), explains the general ecosystem and where Stimulus fits in.
 - [Making the most out of Stimulus](https://thoughtbot.com/blog/taking-the-most-out-of-stimulus) - Some guidelines to get the most out of Stimulus.js in applications.
 - [HN thread on Stimulus vs React](https://news.ycombinator.com/item?id=25306374) - Posted to have a reference of others saying that these are fundamentally different approaches and they are not really competing with each other but provide different ways to solve different problems.
-- [Getting started with stimulus.js](https://www.sobyte.net/post/2022-08/stimulus-js/) - Nice ramp into Stimulus.
+- [Getting started with Stimulus.js](https://www.sobyte.net/post/2022-08/stimulus-js/) - Nice ramp into Stimulus.
 - [Frontend Madness: SPAs, MPAs, PWAs, Decoupled, Hybrid, Monolithic, Libraries, Frameworks!](https://www.symfonystation.com/Frontend-Madness-JS-PHP-Backend) - a PHP centric view but a good overview of the many approaches to frontend, including Stimulus.
 - [Tailwind style CSS transitions with StimulusJS](https://boringrails.com/articles/tailwind-style-css-transitions-with-stimulusjs/)
 - [Adding keyboard shortcuts and hotkeys to StimulusJS](https://boringrails.com/articles/stimulus-hotkeys-keyboard-shortcuts/)
-
-### CSP support and deprecation of inline scripts
-
-This RFC has also been prepared as a solution in place of of the closed [RFC 33](https://github.com/wagtail/rfcs/pull/33). Adopting Stimulus gives us a clear roadmap of how to move away from inline scripts for all existing usage. Even `InlinePanel`, while that is probably the more complex one, has been validated at a POC level with Stimulus while also adding features like drag & drop, undelete and copy.
-
-- It follows the letter and intent of [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP), which expects all scripting to be statically defined up-front
-- React code that dynamically inserts widgets can be added dynamically / attached to elements by Stimulus controllers if needed to avoid using inline scripts for these.
-- More flexibility over how JS includes are defined (they can now be placed in the footer along with other script imports or loaded asynchronously if needed).
-- This RFC requires a convention to be used within the Wagtail admin whenever JavaScript behaviour needs to be attached to HTML elements, while this is specific to Stimulus in how the data attributes are framed, it would be possible to replace Stimulus with a different approach in the future and keep some of the data attribute conventions.
-- Stimulus as a layer between the HTML and JavaScript allows usage of other client-side frameworks like React and libraries like Tippy.js to be easily replaced behind the scenes with other implementations in the future.
-- Longer term, it would be good to add an automated way to check for inline scripts, either at the Django template linting level or potentially a browser automation test, however this coverage is not in scope of this RFC.
-
-See these additional issues for inline script usage and CSP issues
-
-- https://github.com/wagtail/wagtail/issues/7053
-- https://github.com/wagtail/wagtail/issues/1288
-- https://github.com/wagtail/wagtail/issues/5247
-
-### Stimulus in the wild
-
 - [Full Library of Stimulus controllers](https://sub-xaero.github.io/stimulus-library/docs) - great example of a BaseController / Typescript usage but no unit tests it seems, We may not want to use this library but it is a good reference.
 - **Stacks** - UI library used by StackOverflow - https://stackoverflow.design/product/guidelines/javascript/ & https://github.com/StackExchange/Stacks/blob/develop/lib/ts/stacks.ts (uses Stimulus v2)
 - **Kanety** - A bunch of Stimulus controllers in isolated packages - https://www.npmjs.com/~kanety
@@ -648,16 +428,6 @@ See these additional issues for inline script usage and CSP issues
 - **Stimulus Components** - Library of components built with Stimulus https://github.com/stimulus-components/stimulus-components
 - **Framework adoption of Stimulus** - While this is Ruby it is a good example of how to document and communicate adoption of Stimulus in a framework (AVO) https://docs.avohq.io/2.0/stimulus-integration.html#custom-stimulus-controllers
 - **eBook: The Definitive Guide to Hotwire and Django** - From Michael Yin of Accordbox and covers Stimulus along with Turbo (part of Hotwire) usage in Django https://www.reddit.com/r/django/comments/v6vtxa/ebook_the_definitive_guide_to_hotwire_and_django/ & https://leanpub.com/hotwire-django
-
-### Future possibilities
-
-Not in scope of the RFC but could be an option in the future.
-
-- Wagtail's Template Components and Panels should provide the ability to declare `attrs` (similar to Django widgets) to make it easier for core code to leverage Stimulus and custom code.
-- Leverage the Wagtail npm module to make controllers available outside of Wagtail.
-- Provide access to the Stimulus application instance in events so that more complex customisations can change or even extend existing registered controllers.
-- Implement something similar to [Alpine.js `x-cloak` directive](https://alpinejs.dev/directives/cloak), this is quite useful when you want to wait for the JS to trigger before showing some content.
-- Provide a way for simple cases of `StreamField` usage to not require Telepath code to be set up, a generic `Block` that would provide a way to add `data-` attributes to new node instances would probably negate the need for Telepath in many cases (e.g. the textarea block). This is because Stimulus will instantly connect to any `data-controller=...` element when added to the DOM.
 
 ## Appendix 2 - Potential documentation
 
@@ -1072,3 +842,285 @@ It would be good to list the reasons we may not want to go in this direction to 
 - We build something bespoke that provides a similar set of solutions to Stimulus but maybe it is React driven instead. This would be a huge undertaking but, in theory, it would be possible to bootstrap a DOM element based on data attributes, 'eat' the inner HTML (or a template element) and convert it to a React DOM tree while also setting up any initial data, event listeners and sub-elements. https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-dom-manipulation-plugins would be a good place to start and also the above mentioned https://github.com/kaedroho/wagtail-shell
 - Should be better consideration of web components, but they haven't really been proven for building on the web at scale yet. Angular, React, Svelte, Vue, etc all exist largely due to some limitations of working with native web components or needing some level of abstract state management outside of the DOM in even the most simple applications.
   - As an aside - a web component approach may be suitable for the stand-alone Wagtail userbar.
+
+## Appendix 5 - CSP support and deprecation of inline scripts
+
+This RFC has also been prepared as a solution in place of of the closed [RFC 33](https://github.com/wagtail/rfcs/pull/33). Adopting Stimulus gives us a clear roadmap of how to move away from inline scripts for all existing usage. Even `InlinePanel`, while that is probably the more complex one, has been validated at a POC level with Stimulus while also adding features like drag & drop, undelete and copy.
+
+- It follows the letter and intent of [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP), which expects all scripting to be statically defined up-front
+- React code that dynamically inserts widgets can be added dynamically / attached to elements by Stimulus controllers if needed to avoid using inline scripts for these.
+- More flexibility over how JS includes are defined (they can now be placed in the footer along with other script imports or loaded asynchronously if needed).
+- This RFC requires a convention to be used within the Wagtail admin whenever JavaScript behaviour needs to be attached to HTML elements, while this is specific to Stimulus in how the data attributes are framed, it would be possible to replace Stimulus with a different approach in the future and keep some of the data attribute conventions.
+- Stimulus as a layer between the HTML and JavaScript allows usage of other client-side frameworks like React and libraries like Tippy.js to be easily replaced behind the scenes with other implementations in the future.
+- Longer term, it would be good to add an automated way to check for inline scripts, either at the Django template linting level or potentially a browser automation test, however this coverage is not in scope of this RFC.
+
+See these additional issues for inline script usage and CSP issues
+
+- https://github.com/wagtail/wagtail/issues/7053
+- https://github.com/wagtail/wagtail/issues/1288
+- https://github.com/wagtail/wagtail/issues/5247
+
+## Appendix 6 - Potential implementation roadmap
+
+> **DRAFT ONLY**
+
+There is a lot on this list that may not make sense for us to rebuild with Stimulus, as we’d like to drastically change the implementation anyway (for example date/time choosers, tagit, tooltips).
+
+We also need to consider other priorities such as new features planned (`InlinePanel` duplicate blocks for example) so this plan will likely change a lot.
+
+1. [ ] Get initial base into the core, as per the above initial implementation
+2. [ ] Make it possible to provide `attrs` to the `FieldPanel/Panel` and in general Template Components. **update** this may not be a very high priority.
+3. [ ] Good initial candidate is `collection_chooser_collection_id` & equivalent (select change and submit) + wagtail/images/templates/wagtailimages/images/index.html & wagtail/admin/templates/wagtailadmin/shared/collection_chooser.html
+4. [ ] **Replace core inline Scripts** - Anything that can be removed from `<script />` tags - e.g. `data-sprite`/`loadIconSprite` at the global level (`wagtail/admin/templates/wagtailadmin/skeleton.html` & `wagtail/admin/templates/wagtailadmin/admin_base.html`)
+   - [ ] 8 x headerSearch - adopt for header search component (most common script tag)
+   - [ ] 7 x tagit
+   - [ ] 7 x .tooltip (not tippy, already covered by issue https://github.com/wagtail/wagtail/issues/8565 )
+   - [ ] 2 x initCommentsInterface (create/edit page)
+   - [ ] 2 x enableDirtyFormCheck (create/edit page)
+   - [ ] 2 x data-enable-action (attribute, requires csrf token)
+   - [ ] 2 x createQueryChooser
+   - [ ] 2 x autosize
+   - [ ] 2 x LockUnlockAction (needs csrf token)
+   - [ ] 1 x runprogress (wagtail styleguide)
+   - [ ] 1 x initTagField
+   - [ ] 1 x initDateTimeChooser
+   - [ ] 1 x initDateChooser
+   - [ ] 1 x draftail.initEditor
+   - [ ] 1 x datetimepicker
+   - [ ] 1 x ActivateWorkflowActionsForDashboard (needs csrf token)
+5. [ ] **Adopt for new code** - Migrate Tabs, Breadcrumbs, new Modal + Modal trigger
+6. [ ] **Common fields** - Text area auto-resize, Tag field, etc
+7. [ ] **Adopt for tooltips** - `data-wagtail-tooltip` usage (next most common script tag), may be done as part of page editor work
+8. [ ] **Other common components** - Collapse, Dropdowns, LockUnlockAction, dirty form check, etc
+9. [ ] **static_src** - Review all non-modal workflow static_src items (modeladmin/prepopulate, images focus, sitesettings siteswitcher, image-url-generator)
+10. [ ] **Larger items** - one of modal workflow, inline panel, bulk actions, depending on the state of the project
+
+## Appendix 7 - Future potential enhancements
+
+Not in scope of the RFC but could be an option in the future.
+
+### A. Future possibilities
+
+In no particular order.
+
+- Wagtail's Template Components and Panels could provide the ability to declare `attrs` (similar to Django widgets) to make it easier for core code to leverage Stimulus and custom code.
+- Leverage the Wagtail `npm` module to make controllers available outside of Wagtail.
+- Provide access to the Stimulus application instance in events so that more complex customisations can change or even extend existing registered controllers.
+- Implement something similar to [Alpine.js `x-cloak` directive](https://alpinejs.dev/directives/cloak), this is quite useful when you want to wait for the JS to trigger before showing some content.
+- Provide a way for simple cases of `StreamField` usage to not require Telepath code to be set up, a generic `Block` that would provide a way to add `data-` attributes to new node instances would probably negate the need for Telepath in many cases (e.g. the textarea block). This is because Stimulus will instantly connect to any `data-controller=...` element when added to the DOM.
+- Provide a base `AbstractController` that uses [TypeScript's Abstract class](https://www.typescriptlang.org/docs/handbook/2/classes.html#abstract-classes-and-members) system to provide any base Wagtail methods, core overrides to Stimulus' classes and ensure that derived classes adhere to any expected methods.
+
+### B. Provide a way for handling animations / transitions
+
+- jQuery has a simple API to do basic animations, these animations are used haphazardly (inconsistent animation names and timings) but they are convenient.
+- We will not have an ergonomic replacement for these with Stimulus and will likely need to add an animation like API to controllers or set up a util to do this in a consistent way.
+- We could solve for most common cases via some additional tailwind utility classes.
+- Stimulus will intentionally not be adding this in the forseeable future - [https://github.com/hotwired/stimulus/issues/542](https://github.com/hotwired/stimulus/issues/542).
+- Inspiration
+  - [Stimlus use library's `use-transition`](https://github.com/stimulus-use/stimulus-use/blob/main/docs/use-transition.md)
+  - [Stimlus Transition standalone util](https://github.com/robbevp/stimulus-transition)
+  - [jQuery effects](https://api.jquery.com/category/effects/)
+  - [Article - Tailwind Enter/Leave Transition Effects with Stimulus.js](https://dev.to/mmccall10/tailwind-enter-leave-transition-effects-with-stimulus-js-5hl7)
+  - [Alpine.js transitions](https://alpinejs.dev/directives/transition)
+  - [animate.css JavaScript usage](https://animate.style/#javascript) - not recommending we use animate.css but their `Promise` approach is really simple and useful
+
+#### Potential approach
+
+This approach is inspired by the animate.css approach linked above, the core `AbstractController` would have a `dispatchAnimate` (could be `dispatchTransition` or just `animate`/`transition`) which returns a promise.
+
+```javascript
+import { Controller } from '@hotwired/stimulus';
+import type { ControllerConstructor } from '@hotwired/stimulus';
+
+export interface AbstractControllerConstructor extends ControllerConstructor {
+  isIncludedInCore?: boolean;
+}
+
+type DispatchEventOptions = Exclude<
+  Parameters<typeof Controller.prototype.dispatch>[1],
+  undefined
+>;
+
+/**
+ * Core abstract controller to keep any specific logic that is desired and
+ * to house generic types as needed.
+ */
+export abstract class AbstractController extends Controller {
+  static isIncludedInCore = false;
+
+  /**
+   * Dispatches an animation (update classes) with pre-defined events begin/end
+   *
+   * Inspired by https://animate.style/#javascript
+   *
+   * @param classes - string or array of string for the animation classes to be added
+   * @param options
+   */
+  dispatchAnimate(
+    classes: string | string[],
+    {
+      detail: detailOriginal = {},
+      target = this.element,
+      ...options
+    }: DispatchEventOptions = {},
+  ) {
+    return new Promise<{
+      animateClasses: string[];
+      detail: Record<string, any>;
+      events: (CustomEvent | null)[];
+      target: Element | HTMLElement;
+    }>((resolve, reject) => {
+      const animateClasses =
+        typeof classes === 'string' ? classes.split(' ') : classes;
+
+      const detail = { ...detailOriginal, animateClasses };
+
+      if (!animateClasses.length) {
+        reject(new Error('animation classes must be supplied'));
+
+        return;
+      }
+
+      const eventOptions = { ...options, target, detail };
+
+      const beforeAnimateEvent = this.dispatch('before-animate', eventOptions);
+
+      target.classList.add(...animateClasses);
+      target.addEventListener(
+        'animationend',
+        // when the animation ends, we clean the classes and resolve the Promise
+        () => {
+          target.classList.remove(...animateClasses);
+
+          const afterAnimateEvent = this.dispatch(
+            'after-animate',
+            eventOptions,
+          );
+
+          const events = [beforeAnimateEvent, null, null, afterAnimateEvent];
+
+          resolve({ animateClasses, detail, events, target });
+        },
+        { once: true },
+      );
+    });
+  }
+}
+```
+
+**Example usage**
+
+```javascript
+export class SearchController extends AbstractController {
+  insertResults(results) {
+    this.resultsContainer.innerHTML = results;
+    this.dispatchAnimate(
+      /* e.g. data-w-search-animate-in-class="w-animate-fade-in" */
+      this.animateInClasses,
+      { target: this.resultsContainer }
+    ).finally(() => {
+      window.history.replaceState(null, "", newQuery ? `?q=${newQuery}` : "");
+    });
+  }
+}
+```
+
+### C. Provide a preferred way to provide preventable/resumable events
+
+- A common case that will need to be handled is where a Custom Event is dispatched and provides the ability to have the event behaviour stopped with `event.preventDefault()`.
+- This is a powerful (vanilla JS / native DOM) way to allow event listeners to modify default behaviour.
+- Building on this, a `resume` function can be provided in the event's `detail` object that allows the original behaviour to be called later or even called with some kinds of overrides.
+- This is a better alternative to mutation of objects (as we do now for the image/documents upload title change).
+- We should provide a preferred way to do this and ideally set up some conventions and even a method on the `AbstractController`
+
+#### Potential approach
+
+This approach adds a `dispatchResume` method on the core `AbstractController` which allows for a `resume` function to be provided that is only run if `event.preventDefault` is NOT called on the event. It returns a promise which can leverage additional behaviour after the event is dispatched.
+
+```javascript
+import { Controller } from '@hotwired/stimulus';
+import type { ControllerConstructor } from '@hotwired/stimulus';
+
+export interface AbstractControllerConstructor extends ControllerConstructor {
+  isIncludedInCore?: boolean;
+}
+
+type DispatchEventName = Parameters<typeof Controller.prototype.dispatch>[0];
+type DispatchEventOptions = Exclude<
+  Parameters<typeof Controller.prototype.dispatch>[1],
+  undefined
+>;
+
+type DetailWithResume = {
+  resume: (options: Record<string, any>) => void;
+};
+
+interface DispatchEventOptionsWithResume extends DispatchEventOptions {
+  detail: Exclude<DispatchEventOptions['detail'], undefined> & DetailWithResume;
+}
+
+/**
+ * Wraps the supplied function so that it can only be called once, even when the result function
+ * is called multiple times. Inspired by lodash once/before.
+ * https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L10042
+ */
+function once(func) {
+  let result;
+  let fn = func;
+
+  return function onceInnerFn(...args) {
+    if (!fn) return result;
+    result = fn.apply(this, args);
+    fn = null;
+    return result;
+  };
+}
+
+/**
+ * Core abstract controller to keep any specific logic that is desired and
+ * to house generic types as needed.
+ */
+export abstract class AbstractController extends Controller {
+  static isIncludedInCore = false;
+
+  /**
+   * Dispatch an event which can be cancelled and return a promise that resolves once dispatched.
+   * The event will Supply provide a `resume` function in its detail.
+   * Providing a way for the event's default to be prevented and re-activated later.
+   *
+   * Intentionally allows the resume never to be called, but if called multiple times the
+   * original `resume` function will only ever one once.
+   *
+   * @param eventName
+   * @param options - additional options to pass to the `dispatch` call
+   * @param options.resume - callback provided to detail or called if the event is not prevented, will only ever trigger once
+   * @returns
+   */
+  dispatchResume(
+    eventName: DispatchEventName,
+    {
+      detail: { resume: resumeOriginal, ...detail },
+      ...options
+    }: DispatchEventOptionsWithResume,
+  ) {
+    return new Promise<CustomEvent>((resolve, reject) => {
+      if (typeof resumeOriginal !== 'function') {
+        reject(new Error('detail.resume must be a function'));
+        return;
+      }
+
+      const resume = once(resumeOriginal);
+
+      const event = this.dispatch(eventName, {
+        ...options,
+        detail: { ...detail, resume },
+        cancelable: true,
+      });
+
+      if (!event.defaultPrevented) resume({});
+
+      resolve(event);
+    });
+  }
+}
+```
