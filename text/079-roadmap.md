@@ -45,7 +45,7 @@ The roadmap will replace the already-removed "some day" and "real soon now" mile
 
 ### What will we do with the old pages?
 
-Any we can control redirects from will point to the new roadmap. The rest we'll change the content on the point at the new roadmap.
+Any pages we can control redirects from will point to the new roadmap. The rest we'll change the content on the point at the new roadmap.
 
 ### Where should the roadmap live?
 
