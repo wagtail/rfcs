@@ -192,4 +192,4 @@ Full support for right-to-left (RTL) languages in the Wagtail admin.
 
 > Proposed tags: content lifecycle, needs sponsorship
 
-Bring snippets addons to image and document models for versioning and history of images and documents.
+Apply some of the same concepts from [Supercharged Snippets](https://github.com/wagtail/rfcs/pull/85) to image and document models, versioning and history in particular.
