@@ -40,7 +40,7 @@ Consolidating our approach to permissions so code is easier to maintain.
 - Page choose permission
 - Cache permissions to reduce queries
 
-### [Treeless page listings #33](https://github.com/wagtail/roadmap/issues/33)
+### [Universal listings #33](https://github.com/wagtail/roadmap/issues/33)
 
 > Proposed tags: ux, scale, needs sponsorship
 
