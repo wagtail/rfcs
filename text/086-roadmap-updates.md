@@ -103,7 +103,7 @@ See [Wagtail 3.x-4.x editor experience feedback #9553](https://github.com/wagtai
 
 Further adoption of Stimulus to support stricter CSP policies (stop using inline JS to initialise features).
 
-Exact improvements TBC in line with [Stimulus adoption schedule](https://docs.google.com/spreadsheets/d/1LdrXlj8OeCWy3B_moYZ-ynhfZZtFVHPahG9GFoT-XBs/edit).
+Exact improvements TBC in line with [Stimulus adoption planning]([https://docs.google.com/spreadsheets/d/1LdrXlj8OeCWy3B_moYZ-ynhfZZtFVHPahG9GFoT-XBs/edit](https://github.com/orgs/wagtail/projects/14/views/1)).
 
 ### [Google Summer of Code 2023 #31](https://github.com/wagtail/roadmap/issues/31)
 
