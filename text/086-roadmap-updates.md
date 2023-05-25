@@ -3,7 +3,7 @@
 - RFC: 086
 - Author: Thibaud Colas
 - Created: 2023-04-23
-- Last Modified: 2023-04-23
+- Last Modified: 2023-05-25
 
 ## Abstract
 
@@ -181,12 +181,6 @@ Full support for right-to-left (RTL) languages in the Wagtail admin.
 #### More information
 
 - [Supporting RTL languages](https://github.com/wagtail/wagtail/discussions/7793)
-
-### Scheduled page reviews
-
-> Proposed tags: content lifecycle, needs sponsorship
-
-- Audit and compliance reporting: who did what and when?
 
 ### Media versioning
 
