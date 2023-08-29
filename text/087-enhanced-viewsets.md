@@ -74,7 +74,7 @@ class ModelViewSet(ViewSet):
         return self.add_view_class.as_view(**self.add_view_kwargs)
 ```
 
-To avoid duplicating this logic for every view in the viewset, the base `ViewSet` class will have a metaclass that builds the definitions of `add_view_class`, `add_view_kwargs` and `add_view` (and the corresponding definitions for all other views) from a `views` attribute. The `ModelViewSet` definition will thus become:
+To avoid duplicating this logic for every view in the viewset, the base `ViewSet` class will have an `__init_subclass__()` method (or failing that, a metaclass) that builds the definitions of `add_view_class`, `add_view_kwargs` and `add_view` (and the corresponding definitions for all other views) from a `views` attribute. The `ModelViewSet` definition will thus become:
 
 ```python
 class ModelViewSet(ViewSet):
