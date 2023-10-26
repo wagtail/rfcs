@@ -9,30 +9,34 @@
 
 This RFC provides a high-level overview of proposed [public roadmap](https://github.com/wagtail/roadmap) updates for future releases. This follows process changes introduced in [RFC 84](https://github.com/wagtail/rfcs/pull/84). See also [RFC #86](086-roadmap-updates.md).
 
+## Version number for the February 2024 release
+
+After discussion within the core team, we agreed to have the February 2024 release as Wagtail 6.0 (major version). This will make it possible to remove backwards-compatibility code for older versions of Elasticsearch.
+
 ## Existing items changing schedule
 
-The following items would carry over from v5.2 to v5.3\*:
+The following items would carry over from v5.2 to v6.0:
 
 - [CSP compatibility improvements #61](https://github.com/wagtail/roadmap/issues/61)
-  - Further improvements to be made. This is largely driven by ongoing refactorings to reduce technical debt, there is no plan for this to be completed in v5.3\*. Alternatively, this could be removed from the roadmap and still happen behind the scenes.
+  - Further improvements to be made. This is largely driven by ongoing refactorings to reduce technical debt, there is no plan for this to be completed in v6.0. Alternatively, this could be removed from the roadmap and still happen behind the scenes.
 - [Telepath everything! #47](https://github.com/wagtail/roadmap/issues/47)
   - Further improvements to be made. This is a precursor to auto-save work which we still see as a good strategic investment, but has been side-lined in past releases.
 - [Enhanced dashboard #45](https://github.com/wagtail/roadmap/issues/45)
-  - We’ve made progress on new designs, and will proceed with implementation once the designs have been reviewed. The v5.3\* release would contain a "MVP" implementation of the new designs, with completion of further dashboard enhancements in v5.4\*. See [Wagtail dashboard enhancements #8325](https://github.com/wagtail/wagtail/discussions/8325) for latest progress.
+  - We’ve made progress on new designs, and will proceed with implementation once the designs have been reviewed. The v6.0 release would contain a "MVP" implementation of the new designs, with completion of further dashboard enhancements in v6.1\*. See [Wagtail dashboard enhancements #8325](https://github.com/wagtail/wagtail/discussions/8325) for latest progress.
 
-The following items from our Future milestone would move to v5.3\*:
+The following items from our Future milestone would move to v6.0:
 
 - [RTL languages support #43](https://github.com/wagtail/roadmap/issues/43)
   - We’ve made progress on new designs and the steps to complete this are now very clear.
 
-The following items would move to v5.4\*:
+The following items would move to v6.1\*:
 
 - [WCAG 2.1 AA for Wagtail admin #27](https://github.com/wagtail/roadmap/issues/27)
   - We will have enough auditing in place to proceed with a large number of improvements.
 - [Auto-locking for pages #41](https://github.com/wagtail/roadmap/issues/41)
   - We have a clear idea of the steps to complete this.
 
-## Follow-ups to past roadmap items in v5.3\*
+## Follow-ups to past roadmap items in v6.0
 
 ### Content quality checks
 
@@ -66,7 +70,7 @@ As a follow-up to [Sustainability considerations for Wagtail sites #38](https://
 
 A small extension to [Dark mode for the admin interface #52](https://github.com/wagtail/roadmap/issues/52). Includes further tweaks to the dark theme. Possibly integration of high-contrast variants of the theme.
 
-## Proposed new items for Wagtail v5.3\* (February 2024)
+## Proposed new items for Wagtail v6.0 (February 2024)
 
 ### Wagtail hosting providers
 
@@ -102,7 +106,7 @@ An Outreachy internship happening over this release cycle. See [our blog post](h
 
 An Outreachy internship happening over this release cycle. See [our blog post](https://wagtail.org/blog/our-outreachy-projects-in-2023/).
 
-## Proposed items scheduled for Wagtail v5.4\* (May 2024)
+## Proposed items scheduled for Wagtail v6.1\* (May 2024)
 
 ### Dashboard improvements
 
