@@ -17,12 +17,8 @@ After discussion within the core team, we agreed to have the February 2024 relea
 
 The following items would carry over from v5.2 to v6.0:
 
-- [CSP compatibility improvements #61](https://github.com/wagtail/roadmap/issues/61)
-  - Further improvements to be made. This is largely driven by ongoing refactorings to reduce technical debt, there is no plan for this to be completed in v6.0. Alternatively, this could be removed from the roadmap and still happen behind the scenes.
-- [Telepath everything! #47](https://github.com/wagtail/roadmap/issues/47)
+- [Telepath everything! #47](https://github.com/wagtail/roadmap/issues/47) – re-titled to "Telepath some things" (exact label TBC)
   - Further improvements to be made. This is a precursor to auto-save work which we still see as a good strategic investment, but has been side-lined in past releases.
-- [Enhanced dashboard #45](https://github.com/wagtail/roadmap/issues/45)
-  - We’ve made progress on new designs, and will proceed with implementation once the designs have been reviewed. The v6.0 release would contain a "MVP" implementation of the new designs, with completion of further dashboard enhancements in v6.1\*. See [Wagtail dashboard enhancements #8325](https://github.com/wagtail/wagtail/discussions/8325) for latest progress.
 
 The following items from our Future milestone would move to v6.0:
 
@@ -31,16 +27,17 @@ The following items from our Future milestone would move to v6.0:
 
 The following items would move to v6.1\*:
 
-- [WCAG 2.1 AA for Wagtail admin #27](https://github.com/wagtail/roadmap/issues/27)
-  - We will have enough auditing in place to proceed with a large number of improvements.
 - [Auto-locking for pages #41](https://github.com/wagtail/roadmap/issues/41)
   - We have a clear idea of the steps to complete this.
+ 
+The following items would move from v5.2 to Future:
+
+- [Readability checks #50](https://github.com/wagtail/roadmap/issues/50).
+  - We’ve made progress on new designs, and decided to take the concept well beyond readability checks. Readability checks remain a key element of this but the capabilities need to be more generic. For further details, see [Content quality checkers #11063](https://github.com/wagtail/wagtail/discussions/11063).
+- [Enhanced dashboard #45](https://github.com/wagtail/roadmap/issues/45)
+  - We’ve made progress on new designs, and will proceed with implementation once the designs have been reviewed, with no set schedule until then. See [Wagtail dashboard enhancements #8325](https://github.com/wagtail/wagtail/discussions/8325) for latest progress.
 
 ## Follow-ups to past roadmap items in v6.0
-
-### Content quality checks
-
-Follow-up to [Readability checks #50](https://github.com/wagtail/roadmap/issues/50). We’ve made progress on new designs, and decided to take the concept well beyond readability checks. Readability checks remain a key element of this but the capabilities need to be more generic. For further details, see [Content quality checkers #11063](https://github.com/wagtail/wagtail/discussions/11063).
 
 ### Universal listings improvements
 
@@ -72,15 +69,6 @@ A small extension to [Dark mode for the admin interface #52](https://github.com/
 
 ## Proposed new items for Wagtail v6.0 (February 2024)
 
-### Wagtail hosting providers
-
-Implementation of the [Wagtail hosting providers](https://github.com/wagtail/wagtail/wiki/Wagtail-Hosting-Providers) content in our documentation and on the Wagtail website. This will consist of the wiki page detailing our process, and the website page listing providers.
-
-#### Intended outcome
-
-- Agreed criteria for hosting providers to be listed.
-- First batch of providers added to the relevant listings.
-
 ### Accessibility checker in page editor
 
 Implementation of [Integrate accessibility checker within the page editor / inline preview #10136](https://github.com/wagtail/wagtail/issues/10136).
@@ -106,15 +94,11 @@ An Outreachy internship happening over this release cycle. See [our blog post](h
 
 An Outreachy internship happening over this release cycle. See [our blog post](https://wagtail.org/blog/our-outreachy-projects-in-2023/).
 
-## Proposed items scheduled for Wagtail v6.1\* (May 2024)
+## Proposed new items scheduled for Wagtail v6.1\* (May 2024)
 
-### Dashboard improvements
+### Admin accessibility improvements
 
-Follow-up to [Enhanced dashboard #45](https://github.com/wagtail/roadmap/issues/45).
-
-### Multi-tenancy improvements
-
-A range of improvements for multi-site and multi-tenant Wagtail projects. Exact improvements to be confirmed.
+Remedial work as part of a long-term goal: [WCAG 2.1 AA for Wagtail admin #27](https://github.com/wagtail/roadmap/issues/27).
 
 ### Sustainability improvements
 
@@ -126,4 +110,9 @@ Reflecting the effort of Wagtail Space NL and Wagtail Space US organizers, with 
 
 ## New items for "Future" releases
 
-No additions. See [wagtail.org/roadmap/#future](https://wagtail.org/roadmap/#future) for a full list of items parked under "Future".
+> See [wagtail.org/roadmap/#future](https://wagtail.org/roadmap/#future) for a full list of items parked under "Future".
+
+### Multi-tenancy improvements
+
+A range of improvements for multi-site and multi-tenant Wagtail projects. Exact improvements to be confirmed.
+
