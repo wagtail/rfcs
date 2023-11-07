@@ -99,7 +99,7 @@ An Outreachy internship happening over this release cycle. See [our blog post](h
 
 ### Admin accessibility improvements
 
-Remedial work as part of a long-term goal: [WCAG 2.1 AA for Wagtail admin #27](https://github.com/wagtail/roadmap/issues/27).
+Remediation work as part of a long-term goal: [WCAG 2.1 AA for Wagtail admin #27](https://github.com/wagtail/roadmap/issues/27).
 
 ### Sustainability improvements
 
