@@ -144,7 +144,7 @@ See:
 
 ##### A.1.1.1 Web-Based Accessible (WCAG)
 
-**Fail**. Wagtail [currently targets WCAG 2.1 AA conformance](https://wagtail.org/accessibility/) for the administrative interface of the CMS. Though a lot of progress has been made, there are still [known conformance issues](https://github.com/orgs/wagtail/projects/9/views/1).
+**Fail**. Evaluated as: **Level AA**. Wagtail [currently targets WCAG 2.1 AA conformance](https://wagtail.org/accessibility/) for the administrative interface of the CMS. Though a lot of progress has been made, there are still [known conformance issues](https://github.com/orgs/wagtail/projects/9/views/1).
 
 As a representation of the state of Wagtail’s WCAG 2.1 AA conformance, here is a summary of WCAG 2.1 AA and best practice issues across releases, for the page editor UI (tested with [Welcome to the Wagtail bakery!](https://static-wagtail-v5-1.netlify.app/admin/pages/60/edit/)):
 
@@ -213,7 +213,7 @@ Full list of 24 currently-documented accessibility issues in GitHub:
 
 ##### A.2.1.1 Text Alternatives for Rendered Non-Text Content
 
-**Fail**. Wagtail renders non-text content in the following scenarios:
+**Fail**. Wagtail renders non-text content in nine scenarios, five of which are related to editing views and would require changes:
 
 - Fail: Image upload fields in the image edit/create form. The image’s title displays as a field next to the visuals. The title acts as alt text by default in Wagtail. This is missing a programmatic association between the title text and image.
   - Example: [Wagtail 5.1 - Editing image Boston Cream Pie](https://static-wagtail-v5-1.netlify.app/admin/images/43/)
@@ -275,7 +275,7 @@ Reference: [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51
 
 ##### A.2.1.2 Alternatives for Rendered Time-Based Media
 
-**Fail**. Wagtail’s only time-based media is animated GIFs. Their text alternatives work identically to other images in Wagtail, with the same charactersitics listed in SC A.2.1.1.
+**Fail**. Wagtail’s only time-based media is animated GIFs. Their text alternatives work identically to other images in Wagtail, with the same characteristics listed in SC A.2.1.1.
 
 #### A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined
 
@@ -751,11 +751,11 @@ This record does not cover functionality provided by the underlying platform (fo
 
 ##### B.1.1.1 Content Auto-Generation After Authoring Sessions (WCAG)
 
-**Pass**. Wagtail doesn’t automatically generate content after authoring sessions. Processes that operate after authoring sessions and could alter the content are [scheduled publishing](https://docs.wagtail.org/en/stable/reference/pages/theory.html#id2) and [search index](https://docs.wagtail.org/en/stable/topics/search/indexing.html#wagtailsearch-indexing-update) updates, but in both cases any automatically-generated content would already be present during the session.
+**Pass**. Evaluated as: **Level AAA**. Wagtail doesn’t automatically generate content after authoring sessions. Processes that operate after authoring sessions and could alter the content are [scheduled publishing](https://docs.wagtail.org/en/stable/reference/pages/theory.html#id2) and [search index](https://docs.wagtail.org/en/stable/topics/search/indexing.html#wagtailsearch-indexing-update) updates, but in both cases any automatically-generated content would already be present during the session.
 
 ##### B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)
 
-**Fail**. Wagtail automatically generates content in a few scenarios. In the following scenarios, markup is accessible without further work:
+**Fail**. Evaluated as: **Level AA**. Wagtail automatically generates content in a few scenarios. In the following scenarios, markup is accessible without further work:
 
 - Pass: Links markup for links to pages, documents, external URLs, email addresses, phone numbers, and internal anchors within rich text fields.
 - Pass: Embeds for external resources within rich text fields.
@@ -780,13 +780,13 @@ Proposed actions:
 
 ##### B.1.2.1 Restructuring and Recoding Transformations (WCAG)
 
-**Not applicable**. The only transformation present in Wagtail is processing of clipboard paste information in rich text fields to sanitize the content, which preserves accessibility semantics for preserved content, but isn’t considered a content transformation per ATAG.
+**Not applicable**. Evaluated as: **Level AA**. The only transformation present in Wagtail is processing of clipboard paste information in rich text fields to sanitize the content, which preserves accessibility semantics for preserved content, but isn’t considered a content transformation per ATAG.
 
 If it was considered a content transformation – rich paste processing preserves all formatting supported in rich text fields. Heading levels, bullet lists, and image alt text are preserved in particular.
 
 ##### B.1.2.2 Copy-Paste Inside Authoring Tool (WCAG)
 
-**Pass**. Wagtail supports copy-paste of rich text content, which is fully preserved when copy-pasting between fields configured to support the same formatting. Fields configured differently will accordingly have their formatting stripped as needed.
+**Pass**. Evaluated as: **Level AA**.  Wagtail supports copy-paste of rich text content, which is fully preserved when copy-pasting between fields configured to support the same formatting. Fields configured differently will accordingly have their formatting stripped as needed.
 
 ##### B.1.2.3 Optimizations Preserve Accessibility
 
@@ -802,27 +802,29 @@ If it was considered a content transformation – rich paste processing preserve
 
 ##### B.2.1.1 Accessible Content Possible (WCAG)
 
-**Fail**. Wagtail places extensive restrictions on the production of web content, which all nonetheless allow for the production of accessible content, with the exception of:
+**Fail**. Evaluated as: **Level AA**. Wagtail places extensive restrictions on the production of web content, which all nonetheless allow for the production of accessible content, with the exception of:
 
 - Missing support for marking images as decorative / setting alt text in context for image chooser fields. See _B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)_. This could be worked around by only creating images within rich text fields, which is possible but unlikely. Example: [Wagtail 5.1 - Editing Blog page Bread and Ciruses](https://static-wagtail-v5-1.netlify.app/admin-dark/pages/68/edit/).
 - Missing support for table/row headers with TypedTableBlock. This could be worked around by only creating tables with TableBlock, which is possible but unlikely. Example: [Wagtail 5.1 - Editing Recipe page Hot Cross Bun](https://static-wagtail-v5-1.netlify.app/admin-dark/pages/81/edit/).
+- Missing support for setting `lang` attributes within rich text.
 
 Proposed actions:
 
 - Complete alt text improvements as part of [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51)
 - Fix [TypedTableBlock issue #8507](https://github.com/wagtail/wagtail/issues/8507)
+- Implement [Feature request: Support for declaring language on elements in rich text. #4694](https://github.com/wagtail/wagtail/issues/4694)
 
 #### B.2.2. Guide authors to produce accessible content
 
 ##### B.2.2.1 Accessible Option Prominence (WCAG)
 
-**Pass**. Where text styling options are available, they are presented alongside semantic formatting options such as headings. This is for example the case in rich text formatting options.
+**Pass**. Evaluated as: **Level AA**. Where text styling options are available, they are presented alongside semantic formatting options such as headings. This is for example the case in rich text formatting options.
 
 For StreamField block formats, the order is up to each site implementer to decide on. There are no built-in formats that are automatically included.
 
 ##### B.2.2.2 Setting Accessibility Properties (WCAG)
 
-**Not applicable**. Wagtail doesn’t support setting web content attribute values. This has been discussed extensively for links, as well as an option to set `aria-label`, but hasn’t been implemented yet.
+**Not applicable**. Evaluated as: **Level AAA**. Wagtail doesn’t support setting web content attribute values. This has been discussed extensively for links, as well as an option to set `aria-label`, but hasn’t been implemented yet.
 
 See:
 
@@ -833,7 +835,7 @@ See:
 
 ##### B.2.3.1 Alternative Content is Editable (WCAG)
 
-**Fail**. Though Wagtail provides support for editing alt text everywhere images can be added, it doesn’t provide support for marking images as decorative (set to empty alt text), or changing alt text in context. See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51).
+**Fail**. Evaluated as: **Level AA**. Though Wagtail provides support for editing alt text everywhere images can be added, it doesn’t provide support for marking images as decorative (set to empty alt text), or changing alt text in context. See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51).
 
 ##### B.2.3.2 Automating Repair of Text Alternatives
 
@@ -849,7 +851,7 @@ Suggested action: incorporate this requirement into [RFC 51: Contextual alt text
 
 ##### B.2.4.1 Accessible Template Options (WCAG)
 
-**Fail**. With rich text formatting and StreamField blocks, Wagtail provides templates for basic text content as well as complex formatting like tables. Wagtail also provides templates for form fields within its forms module. Specific templates have accessibility issues.
+**Fail**. Evaluated as: **Level AA**.  With rich text formatting and StreamField blocks, Wagtail provides templates for basic text content as well as complex formatting like tables. Wagtail also provides templates for form fields within its forms module. Specific templates have accessibility issues.
 
 ###### Rich text formats
 
@@ -957,7 +959,7 @@ Proposed actions:
 
 ##### B.3.1.1 Checking Assistance (WCAG)
 
-**Fail**. There are a number of formatting / content entry options in the CMS that can lead to accessibility issues. The built-in accessibility checker provides automated tests for a number of possible issues, but not all. Available checks are:
+**Fail**. Evaluated as: **Level AAA**. There are a number of formatting / content entry options in the CMS that can lead to accessibility issues. The built-in accessibility checker provides automated tests for a number of possible issues, but not all. Available checks are:
 
 - `button-name`: `<button>` elements must always have a text label.
 - `empty-heading`: This rule checks for headings with no text content. Empty headings are confusing to screen readers users and should be avoided.
@@ -1010,9 +1012,9 @@ Possible improvements:
 
 ##### B.3.1.5 Programmatic Association of Results
 
-**Fail**. For compatibility with a wide range of web content, currently the association isn’t programmatic.
+**Fail**. Currently the association isn’t programmatic, due to expected compatibility issues.
 
-Possible resolution: Correct identification of Wagtail content so errors are only reported on CMS-managed content
+Possible resolution: Correct identification of Wagtail content so errors are only reported on CMS-managed content.
 
 #### B.3.2. Assist authors in repairing accessibility problems
 
@@ -1036,11 +1038,11 @@ Proposed improvements:
 
 ##### B.4.1.2 Option to Reactivate Features
 
-**Pass**. See _B.4.1.1 Features Active by Default_
+**Pass**. See _B.4.1.1 Features Active by Default_.
 
 ##### B.4.1.3 Feature Deactivation Warning
 
-**Pass**. See _B.4.1.1 Features Active by Default_
+**Pass**. See _B.4.1.1 Features Active by Default_.
 
 ##### B.4.1.4 Feature Prominence
 
@@ -1054,7 +1056,7 @@ Proposed improvements:
 
 ##### B.4.2.1 Model Practice (WCAG)
 
-**Fail**. Wagtail’s documentation for content authors does not demonstrate accessible authoring practices. The documentation for developers does: [Accessibility considerations](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html).
+**Fail**. Evaluated as: **Level AA**. Wagtail’s documentation for content authors does not demonstrate accessible authoring practices. The documentation for developers does: [Accessibility considerations](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html).
 
 Proposed actions:
 
