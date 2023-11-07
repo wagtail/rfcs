@@ -27,106 +27,113 @@ Validating the audit’s results will help make sure the findings can then be ta
 
 ## Audit findings overview
 
+At the success criteria level as per the [W3C ATAG report tool](https://www.w3.org/WAI/atag/report-tool/), pass/fail:
+
 - Total: 22 **Pass**, 28 **Fail**, 12 **Not applicable**.
 - Part A: 12 **Pass**, 15 **Fail**, 4 **Not applicable**.
 - Part B: 10 **Pass**, 13 **Fail**, 8 **Not applicable**.
 
+At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org/WAI/tools-list/authoring/), with partial support:
+
+- Part A: 2 **Pass**, 9 **Partially**, 1 **Fail**, 1 **Not applicable**.
+- Part B: 3 **Pass**, 6 **Partially**, 1 **Fail**, 1 **Not applicable**
+
 ### [A. Make the authoring tool user interface accessible](#a-make-the-authoring-tool-user-interface-accessible)
 
 - [A.1. Authoring tool user interfaces follow applicable accessibility guidelines](#a1-authoring-tool-user-interfaces-follow-applicable-accessibility-guidelines)
-  - [A.1.1. (For the authoring tool user interface) Ensure that web-based functionality is accessible](#a11-for-the-authoring-tool-user-interface-ensure-that-web-based-functionality-is-accessible)
+  - **Partially**: [A.1.1. (For the authoring tool user interface) Ensure that web-based functionality is accessible](#a11-for-the-authoring-tool-user-interface-ensure-that-web-based-functionality-is-accessible)
     - **Fail**: [A.1.1.1 Web-Based Accessible (WCAG)](#a111-web-based-accessible-wcag)
-  - [A.1.2. (For the authoring tool user interface) Ensure that non-web-based functionality is accessible](#a12-for-the-authoring-tool-user-interface-ensure-that-non-web-based-functionality-is-accessible)
+  - **Not applicable**: [A.1.2. (For the authoring tool user interface) Ensure that non-web-based functionality is accessible](#a12-for-the-authoring-tool-user-interface-ensure-that-non-web-based-functionality-is-accessible)
     - **Not applicable**: [A.1.2.1 Accessibility Guidelines](#a121-accessibility-guidelines)
     - **Not applicable**: [A.1.2.2 Platform Accessibility Services](#a122-platform-accessibility-services)
 - [A.2. Editing-views are perceivable](#a2-editing-views-are-perceivable)
-  - [A.2.1. (For the authoring tool user interface) Make alternative content available to authors](#a21-for-the-authoring-tool-user-interface-make-alternative-content-available-to-authors)
+  - **Partially**: [A.2.1. (For the authoring tool user interface) Make alternative content available to authors](#a21-for-the-authoring-tool-user-interface-make-alternative-content-available-to-authors)
     - **Fail**: [A.2.1.1 Text Alternatives for Rendered Non-Text Content](#a211-text-alternatives-for-rendered-non-text-content)
     - **Fail**: [A.2.1.2 Alternatives for Rendered Time-Based Media](#a212-alternatives-for-rendered-time-based-media)
-  - [A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined](#a22-for-the-authoring-tool-user-interface-ensure-that-editing-view-presentation-can-be-programmatically-determined)
+  - **Partially**: [A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined](#a22-for-the-authoring-tool-user-interface-ensure-that-editing-view-presentation-can-be-programmatically-determined)
     - **Fail**: [A.2.2.1 Editing-View Status Indicators](#a221-editing-view-status-indicators)
     - **Not applicable**: [A.2.2.2 Access to Rendered Text Properties](#a222-access-to-rendered-text-properties)
 - [A.3. Editing-views are operable](#a3-editing-views-are-operable)
-  - [A.3.1. (For the authoring tool user interface) Provide keyboard access to authoring features](#a31-for-the-authoring-tool-user-interface-provide-keyboard-access-to-authoring-features)
+  - **Partially**: [A.3.1. (For the authoring tool user interface) Provide keyboard access to authoring features](#a31-for-the-authoring-tool-user-interface-provide-keyboard-access-to-authoring-features)
     - **Fail**: [A.3.1.1 Keyboard Access (Minimum)](#a311-keyboard-access-minimum)
     - **Pass**: [A.3.1.2 No Keyboard Traps](#a312-no-keyboard-traps)
     - **Pass**: [A.3.1.3 Efficient Keyboard Access](#a313-efficient-keyboard-access)
     - **Fail**: [A.3.1.4 Keyboard Access (Enhanced)](#a314-keyboard-access-enhanced)
     - **Fail**: [A.3.1.5 Customize Keyboard Access](#a315-customize-keyboard-access)
     - **Fail**: [A.3.1.6 Present Keyboard Commands](#a316-present-keyboard-commands)
-  - [A.3.2. (For the authoring tool user interface) Provide authors with enough time](#a32-for-the-authoring-tool-user-interface-provide-authors-with-enough-time)
+  - **Partially**: [A.3.2. (For the authoring tool user interface) Provide authors with enough time](#a32-for-the-authoring-tool-user-interface-provide-authors-with-enough-time)
     - **Fail**: [A.3.2.1 Auto-Save (Minimum)](#a321-auto-save-minimum)
     - **Pass**: [A.3.2.2 Timing Adjustable](#a322-timing-adjustable)
     - **Pass**: [A.3.2.3 Static Input Components](#a323-static-input-components)
     - **Fail**: [A.3.2.4 Content Edits Saved (Extended)](#a324-content-edits-saved-extended)
-  - [A.3.3. (For the authoring tool user interface) Help authors avoid flashing that could cause seizures](#a33-for-the-authoring-tool-user-interface-help-authors-avoid-flashing-that-could-cause-seizures)
+  - **Fail**: [A.3.3. (For the authoring tool user interface) Help authors avoid flashing that could cause seizures](#a33-for-the-authoring-tool-user-interface-help-authors-avoid-flashing-that-could-cause-seizures)
     - **Fail**: [A.3.3.1 Static View Option](#a331-static-view-option)
-  - [A.3.4. (For the authoring tool user interface) Enhance navigation and editing via content structure](#a34-for-the-authoring-tool-user-interface-enhance-navigation-and-editing-via-content-structure)
+  - **Partially**: [A.3.4. (For the authoring tool user interface) Enhance navigation and editing via content structure](#a34-for-the-authoring-tool-user-interface-enhance-navigation-and-editing-via-content-structure)
     - **Not applicable**: [A.3.4.1 Navigate By Structure](#a341-navigate-by-structure)
     - **Pass**: [A.3.4.2 Navigate by Programmatic Relationships](#a342-navigate-by-programmatic-relationships)
-  - [A.3.5. (For the authoring tool user interface) Provide text search of the content](#a35-for-the-authoring-tool-user-interface-provide-text-search-of-the-content)
+  - **Partially**: [A.3.5. (For the authoring tool user interface) Provide text search of the content](#a35-for-the-authoring-tool-user-interface-provide-text-search-of-the-content)
     - **Fail**: [A.3.5.1 Text Search](#a351-text-search)
-  - [A.3.6. (For the authoring tool user interface) Manage preference settings](#a36-for-the-authoring-tool-user-interface-manage-preference-settings)
+  - **Pass**: [A.3.6. (For the authoring tool user interface) Manage preference settings](#a36-for-the-authoring-tool-user-interface-manage-preference-settings)
     - **Pass**: [A.3.6.1 Independence of Display](#a361-independence-of-display)
     - **Pass**: [A.3.6.2 Save Settings](#a362-save-settings)
     - **Pass**: [A.3.6.3 Apply Platform Settings](#a363-apply-platform-settings)
-  - [A.3.7. (For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents](#a37-for-the-authoring-tool-user-interface-ensure-that-previews-are-at-least-as-accessible-as-in-market-user-agents)
+  - **Pass**: [A.3.7. (For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents](#a37-for-the-authoring-tool-user-interface-ensure-that-previews-are-at-least-as-accessible-as-in-market-user-agents)
     - **Pass**: [A.3.7.1 Preview (Minimum)](#a371-preview-minimum)
     - **Pass**: [A.3.7.2 Preview (Enhanced)](#a372-preview-enhanced)
 - [A.4. Editing-views are understandable](#a4-editing-views-are-understandable)
-  - [A.4.1. (For the authoring tool user interface) Help authors avoid and correct mistakes](#a41-for-the-authoring-tool-user-interface-help-authors-avoid-and-correct-mistakes)
+  - **Partially**: [A.4.1. (For the authoring tool user interface) Help authors avoid and correct mistakes](#a41-for-the-authoring-tool-user-interface-help-authors-avoid-and-correct-mistakes)
     - **Fail**: [A.4.1.1 Content Changes Reversible (Minimum)](#a411-content-changes-reversible-minimum)
     - **Pass**: [A.4.1.2 Settings Change Confirmation](#a412-settings-change-confirmation)
     - **Pass**: [A.4.1.3 Content Changes Reversible (Enhanced)](#a413-content-changes-reversible-enhanced)
-  - [A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features](#a42-for-the-authoring-tool-user-interface-document-the-user-interface-including-all-accessibility-features)
+  - **Partially**: [A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features](#a42-for-the-authoring-tool-user-interface-document-the-user-interface-including-all-accessibility-features)
     - **Fail**: [A.4.2.1 Describe Accessibility Features](#a421-describe-accessibility-features)
     - **Fail**: [A.4.2.2 Document All Features](#a422-document-all-features)
 
 ### [B. Support the production of accessible content](#b-support-the-production-of-accessible-content)
 
 - [B.1. Fully automatic processes produce accessible content](#b1-fully-automatic-processes-produce-accessible-content)
-  - [B.1.1. Ensure that automatically-specified content is accessible](#b11-ensure-that-automatically-specified-content-is-accessible)
+  - **Partially**: [B.1.1. Ensure that automatically-specified content is accessible](#b11-ensure-that-automatically-specified-content-is-accessible)
     - **Pass**: [B.1.1.1 Content Auto-Generation After Authoring Sessions (WCAG)](#b111-content-auto-generation-after-authoring-sessions-wcag)
     - **Fail**: [B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)](#b112-content-auto-generation-during-authoring-sessions-wcag)
-  - [B.1.2. Ensure that accessibility information is preserved](#b12-ensure-that-accessibility-information-is-preserved)
+  - **Pass**: [B.1.2. Ensure that accessibility information is preserved](#b12-ensure-that-accessibility-information-is-preserved)
     - **Not applicable**: [B.1.2.1 Restructuring and Recoding Transformations (WCAG)](#b121-restructuring-and-recoding-transformations-wcag)
     - **Pass**: [B.1.2.2 Copy-Paste Inside Authoring Tool (WCAG)](#b122-copy-paste-inside-authoring-tool-wcag)
     - **Not applicable**: [B.1.2.3 Optimizations Preserve Accessibility](#b123-optimizations-preserve-accessibility)
-  - [B.1.2.4 Text Alternatives for Non-Text Content are Preserved](#b124-text-alternatives-for-non-text-content-are-preserved)
+    - **Not applicable**: [B.1.2.4 Text Alternatives for Non-Text Content are Preserved](#b124-text-alternatives-for-non-text-content-are-preserved)
 - [B.2. Authors are supported in producing accessible content](#b2-authors-are-supported-in-producing-accessible-content)
-  - [B.2.1. Ensure that accessible content production is possible](#b21-ensure-that-accessible-content-production-is-possible)
+  - **Partially**: [B.2.1. Ensure that accessible content production is possible](#b21-ensure-that-accessible-content-production-is-possible)
     - **Fail**: [B.2.1.1 Accessible Content Possible (WCAG)](#b211-accessible-content-possible-wcag)
-  - [B.2.2. Guide authors to produce accessible content](#b22-guide-authors-to-produce-accessible-content)
+  - **Pass**: [B.2.2. Guide authors to produce accessible content](#b22-guide-authors-to-produce-accessible-content)
     - **Pass**: [B.2.2.1 Accessible Option Prominence (WCAG)](#b221-accessible-option-prominence-wcag)
     - **Not applicable**: [B.2.2.2 Setting Accessibility Properties (WCAG)](#b222-setting-accessibility-properties-wcag)
-  - [B.2.3. Assist authors with managing alternative content for non-text content](#b23-assist-authors-with-managing-alternative-content-for-non-text-content)
+  - **Partially**: [B.2.3. Assist authors with managing alternative content for non-text content](#b23-assist-authors-with-managing-alternative-content-for-non-text-content)
     - **Fail**: [B.2.3.1 Alternative Content is Editable (WCAG)](#b231-alternative-content-is-editable-wcag)
     - **Pass**: [B.2.3.2 Automating Repair of Text Alternatives](#b232-automating-repair-of-text-alternatives)
     - **Fail**: [B.2.3.3 Save for Reuse](#b233-save-for-reuse)
-  - [B.2.4. Assist authors with accessible templates](#b24-assist-authors-with-accessible-templates)
+  - **Partially**: [B.2.4. Assist authors with accessible templates](#b24-assist-authors-with-accessible-templates)
     - **Fail**: [B.2.4.1 Accessible Template Options (WCAG)](#b241-accessible-template-options-wcag)
     - **Pass**: [B.2.4.2 Identify Template Accessibility](#b242-identify-template-accessibility)
     - **Not applicable**: [B.2.4.3 Author-Created Templates](#b243-author-created-templates)
     - **Fail**: [B.2.4.4 Accessible Template Options (Enhanced)](#b244-accessible-template-options-enhanced)
-  - [B.2.5. Assist authors with accessible pre-authored content](#b25-assist-authors-with-accessible-pre-authored-content)
+  - **Not applicable**: [B.2.5. Assist authors with accessible pre-authored content](#b25-assist-authors-with-accessible-pre-authored-content)
     - **Not applicable**: [B.2.5.1 Accessible Pre-Authored Content Options](#b251-accessible-pre-authored-content-options)
     - **Not applicable**: [B.2.5.2 Identify Pre-Authored Content Accessibility](#b252-identify-pre-authored-content-accessibility)
 - [B.3. Authors are supported in improving the accessibility of existing content](#b3-authors-are-supported-in-improving-the-accessibility-of-existing-content)
-  - [B.3.1. Assist authors in checking for accessibility problems](#b31-assist-authors-in-checking-for-accessibility-problems)
+  - **Partially**: [B.3.1. Assist authors in checking for accessibility problems](#b31-assist-authors-in-checking-for-accessibility-problems)
     - **Fail**: [B.3.1.1 Checking Assistance (WCAG)](#b311-checking-assistance-wcag)
     - **Not applicable**: [B.3.1.2 Help Authors Decide](#b312-help-authors-decide)
     - **Not applicable**: [B.3.1.3 Help Authors Locate](#b313-help-authors-locate)
     - **Pass**: [B.3.1.4 Status Report](#b314-status-report)
     - **Fail**: [B.3.1.5 Programmatic Association of Results](#b315-programmatic-association-of-results)
-  - [B.3.2. Assist authors in repairing accessibility problems](#b32-assist-authors-in-repairing-accessibility-problems)
+  - **Fail**: [B.3.2. Assist authors in repairing accessibility problems](#b32-assist-authors-in-repairing-accessibility-problems)
     - **Fail**: [B.3.2.1 Repair Assistance (WCAG)](#b321-repair-assistance-wcag)
 - [B.4. Authoring tools promote and integrate their accessibility features](#b4-authoring-tools-promote-and-integrate-their-accessibility-features)
-  - [B.4.1. Ensure the availability of features that support the production of accessible content](#b41-ensure-the-availability-of-features-that-support-the-production-of-accessible-content)
+  - **Pass**: [B.4.1. Ensure the availability of features that support the production of accessible content](#b41-ensure-the-availability-of-features-that-support-the-production-of-accessible-content)
     - **Pass**: [B.4.1.1 Features Active by Default](#b411-features-active-by-default)
     - **Pass**: [B.4.1.2 Option to Reactivate Features](#b412-option-to-reactivate-features)
     - **Pass**: [B.4.1.3 Feature Deactivation Warning](#b413-feature-deactivation-warning)
     - **Pass**: [B.4.1.4 Feature Prominence](#b414-feature-prominence)
-  - [B.4.2. Ensure that documentation promotes the production of accessible content](#b42-ensure-that-documentation-promotes-the-production-of-accessible-content)
+  - **Partially**: [B.4.2. Ensure that documentation promotes the production of accessible content](#b42-ensure-that-documentation-promotes-the-production-of-accessible-content)
     - **Fail**: [B.4.2.1 Model Practice (WCAG)](#b421-model-practice-wcag)
     - **Fail**: [B.4.2.2 Feature Instructions](#b422-feature-instructions)
     - **Fail**: [B.4.2.3 Tutorial](#b423-tutorial)
@@ -209,7 +216,7 @@ Full list of 24 currently-documented accessibility issues in GitHub:
 
 ##### A.2.1.1 Text Alternatives for Rendered Non-Text Content
 
-**Fail**. Wagtail renders non-text content in nine scenarios, five of which are related to editing views and would require changes:
+**Fail**. For icons within the CMS, all have appropriate alt text. For CMS-managed images, Wagtail renders non-text content in nine scenarios, five of which are related to editing views and would require changes:
 
 - Fail: Image upload fields in the image edit/create form. The image’s title displays as a field next to the visuals. The title acts as alt text by default in Wagtail. This is missing a programmatic association between the title text and image.
   - Example: [Wagtail 5.1 - Editing image Boston Cream Pie](https://static-wagtail-v5-1.netlify.app/admin/images/43/)
@@ -764,7 +771,7 @@ In the following scenarios, markup isn’t accessible out of the box:
 - Fail: Image markup for images in other content. By default, Wagtail does not make it possible to change the image’s alt text in context, and doesn’t make it possible to mark images as decorative. See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51). Example: [Wagtail 5.1 - Editing Blog page Bread and Ciruses](https://static-wagtail-v5-1.netlify.app/admin-dark/pages/68/edit/).
 - Fail: Table markup from TypedTableBlock. This is lacking the ability to set row or column headers. See [TypedTableBlock issue #8507](https://github.com/wagtail/wagtail/issues/8507). Example: [Wagtail 5.1 - Editing Recipe page Hot Cross Bun](https://static-wagtail-v5-1.netlify.app/admin-dark/pages/81/edit/).
 
-Wagtail provides automatic checking for specific accessibility problems but this checking is only performed when authors use thae full-screen live preview, and there is no prompt / suggestion to perform this check (or any other). See [Accessibility checker in page editor #10136](https://github.com/wagtail/wagtail/issues/10136).
+Wagtail provides automatic checking for specific accessibility problems but this checking is only performed when authors use the full-screen live preview, and there is no prompt / suggestion to perform this check (or any other). See [Accessibility checker in page editor #10136](https://github.com/wagtail/wagtail/issues/10136).
 
 Proposed actions:
 
@@ -788,7 +795,7 @@ If it was considered a content transformation – rich paste processing preserve
 
 **Not applicable**. Wagtail doesn’t perform any optimizations that would affect accessibility.
 
-#### B.1.2.4 Text Alternatives for Non-Text Content are Preserved
+##### B.1.2.4 Text Alternatives for Non-Text Content are Preserved
 
 **Not applicable**. See _B.1.2.1 Restructuring and Recoding Transformations (WCAG)_.
 
@@ -802,7 +809,7 @@ If it was considered a content transformation – rich paste processing preserve
 
 - Missing support for marking images as decorative / setting alt text in context for image chooser fields. See _B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)_. This could be worked around by only creating images within rich text fields, which is possible but unlikely. Example: [Wagtail 5.1 - Editing Blog page Bread and Ciruses](https://static-wagtail-v5-1.netlify.app/admin-dark/pages/68/edit/).
 - Missing support for table/row headers with TypedTableBlock. This could be worked around by only creating tables with TableBlock, which is possible but unlikely. Example: [Wagtail 5.1 - Editing Recipe page Hot Cross Bun](https://static-wagtail-v5-1.netlify.app/admin-dark/pages/81/edit/).
-- Missing support for setting `lang` attributes within rich text.
+- Missing support for setting `lang` attributes within rich text. This could be worked around by using other types of content modeling for multilingual content, which is possible but unlikely.
 
 Proposed actions:
 
@@ -847,7 +854,7 @@ Suggested action: incorporate this requirement into [RFC 51: Contextual alt text
 
 ##### B.2.4.1 Accessible Template Options (WCAG)
 
-**Fail**. Evaluated as: **Level AA**.  With rich text formatting and StreamField blocks, Wagtail provides templates for basic text content as well as complex formatting like tables. Wagtail also provides templates for form fields within its forms module. Specific templates have accessibility issues.
+**Fail**. Evaluated as: **Level AA**. With rich text formatting and StreamField blocks, Wagtail provides templates for basic text content as well as complex formatting like tables. Wagtail also provides templates for form fields within its forms module. Specific templates have accessibility issues.
 
 ###### Rich text formats
 
@@ -1062,7 +1069,7 @@ Proposed actions:
 
 ##### B.4.2.2 Feature Instructions
 
-**Fail**. Wagtail’s accessibility checker and alt text setting aren’t documented in the guide for content authors. The documentation for developers does cover this.
+**Fail**. Wagtail’s accessibility checker and alt text setting aren’t documented in the guide for content authors. The [documentation for developers](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html) does cover this.
 
 Proposed actions:
 
