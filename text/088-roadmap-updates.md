@@ -52,7 +52,8 @@ Follow-up to [Admin accessibility audit #46](https://github.com/wagtail/roadmap/
 See:
 
 - [Wagtail 5.1 UI overview](https://docs.google.com/spreadsheets/d/1FMSA_BI3ZvkeAvuaIL2QtqRTgMNwz_vhfKBeyx2Onnk/edit)
-- [ATAG 2.0 audit (draft)](https://gist.github.com/thibaudcolas/c48b0b4cf8e7966cd09d22677ab63173)
+- [ATAG 2.0 audit](https://wagtail.org/accessibility/atag-audit/)
+- [WCAG 2.2 AAA* audit of the Wagtail admin](https://github.com/wagtail/wagtail/discussions/11180)
 
 ### Sustainability roadmap
 
