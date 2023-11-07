@@ -20,14 +20,10 @@ This audit report is created as an RFC for multiple reasons:
 
 Validating the audit’s results will help make sure the findings can then be taken on as part of upcoming roadmap items:
 
-See:
-
-- Roadmap item [#27: WCAG 2.1 AA for Wagtail admin](https://github.com/wagtail/roadmap/issues/27)
-- Proposed roadmap items in [RFC 88](https://github.com/wagtail/rfcs/pull/88):
-  - WCAG 2.2 AAA manual audit
-  - Accessibility checker in page editor
-  - Accessibility features documentation
-  - Admin accessibility improvements
+- [WCAG 2.2 manual audit #63](https://github.com/wagtail/roadmap/issues/63)
+- [Accessibility checker in page editor #66](https://github.com/wagtail/roadmap/issues/66)
+- [Accessibility features documentation #69](https://github.com/wagtail/roadmap/issues/69)
+- [Admin accessibility improvements #71](https://github.com/wagtail/roadmap/issues/71)
 
 ## Audit findings overview
 
@@ -161,7 +157,7 @@ As a representation of the state of Wagtail’s WCAG 2.1 AA conformance, here is
 
 Suggested next steps:
 
-- Admin-wide WCAG 2.2 AA audit
+- [WCAG 2.2 manual audit #63](https://github.com/wagtail/roadmap/issues/63)
 - Interviews with users of assistive technologies
 
 References:
@@ -1060,7 +1056,7 @@ Proposed improvements:
 
 Proposed actions:
 
-- Document accessibility considerations directly in user guide
+- [Accessibility features documentation #69](https://github.com/wagtail/roadmap/issues/69)
 - Add accessibility criteria to contributor documentation for documentation writing
 - Review developer documentation for accessibility improvements in examples
 
@@ -1071,8 +1067,8 @@ Proposed actions:
 Proposed actions:
 
 - Documentation review to ensure all accessibility features are documented.
-  > - Document all accessibility features in developer documentation.
-  > - Document all accessibility features in user documentation.
+  - Document all accessibility features in developer documentation.
+  - [Accessibility features documentation #69](https://github.com/wagtail/roadmap/issues/69)
 
 ##### B.4.2.3 Tutorial
 
@@ -1089,4 +1085,5 @@ Proposed actions:
 
 Proposed actions:
 
-- Add an index of accessibility features to the user guide. [Outreachy: Accessibiltiy features documentation](https://wagtail.org/blog/our-outreachy-projects-in-2023/)
+- Add an index of accessibility features to the user guide.
+- [Outreachy: Accessibiltiy features documentation](https://wagtail.org/blog/our-outreachy-projects-in-2023/)
