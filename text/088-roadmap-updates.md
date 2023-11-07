@@ -17,7 +17,7 @@ After discussion within the core team, we agreed to have the February 2024 relea
 
 The following items would carry over from v5.2 to v6.0:
 
-- [Telepath everything! #47](https://github.com/wagtail/roadmap/issues/47) – re-titled to "Telepath some things" (exact label TBC)
+- [Telepath everything! #47](https://github.com/wagtail/roadmap/issues/47) – re-titled to "Telepath for auto-save"
   - Further improvements to be made. This is a precursor to auto-save work which we still see as a good strategic investment, but has been side-lined in past releases.
 
 The following items from our Future milestone would move to v6.0:
