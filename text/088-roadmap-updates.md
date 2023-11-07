@@ -45,7 +45,7 @@ Follow-up to [Universal listings #33](https://github.com/wagtail/roadmap/issues/
 
 See [Universal listings (search and filtering) #10446](https://github.com/wagtail/wagtail/discussions/10446#discussioncomment-7302866) in GitHub Discussions for the latest update on progress, and [static-wagtail-v5-2](https://static-wagtail-v5-2.netlify.app/admin/pages/60/) for a static demo.
 
-### WCAG 2.2 AAA manual audit
+### WCAG 2.2 manual audit
 
 Follow-up to [Admin accessibility audit #46](https://github.com/wagtail/roadmap/issues/46). In the last release, we focused on auditing all aspects of ATAG aside from Guideline _A.1.1: Ensure that web-based functionality is accessible_, which is a matter of WCAG conformance. We did automated testing of the Wagtail admin, and now have manual tests to go through.
 
