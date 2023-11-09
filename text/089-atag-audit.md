@@ -35,7 +35,7 @@ At the success criteria level as per the [W3C ATAG report tool](https://www.w3.o
 
 At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org/WAI/tools-list/authoring/), with partial support:
 
-- Total: 5 **Pass*, 15 **Partially**, 2 **Fail**, 2 **Not applicable**.
+- Total: 5 **Pass**, 15 **Partially**, 2 **Fail**, 2 **Not applicable**.
 - Part A: 2 **Pass**, 9 **Partially**, 1 **Fail**, 1 **Not applicable**.
 - Part B: 3 **Pass**, 6 **Partially**, 1 **Fail**, 1 **Not applicable**.
 
