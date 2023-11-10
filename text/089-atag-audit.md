@@ -1,13 +1,13 @@
-# RFC 089: ATAG audit & accessibility roadmap
+# [RFC 089](https://github.com/wagtail/rfcs/pull/89): ATAG audit & accessibility roadmap
 
-- RFC: 089
+- [RFC: 089](https://github.com/wagtail/rfcs/pull/89)
 - Author: Thibaud Colas
 - Created: 2023-10-31
 - Last Modified: 2023-10-31
 
 ## Abstract
 
-This RFC is an audit report of Wagtail 5.1 for conformance with the [Authoring Tool Accessibility Guidelines (ATAG) 2.0 standard](https://www.w3.org/TR/ATAG20/). This standard outlines requirements for content management systems like Wagtail, along two main areas:
+This RFC is an audit report of Wagtail 5.1.1 for conformance with the [Authoring Tool Accessibility Guidelines (ATAG) 2.0 standard](https://www.w3.org/TR/ATAG20/). This standard outlines requirements for content management systems like Wagtail, along two main areas:
 
 1. [Making the authoring tool user interface accessible](https://www.w3.org/TR/ATAG20/#part_a)
 2. [Supporting the production of accessible content](https://www.w3.org/TR/ATAG20/#part_b)
