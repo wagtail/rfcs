@@ -210,3 +210,15 @@ They’re great ways to drive ambitious climate action nonetheless.
 The [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/) are a set of guidelines to help organizations reduce the environmental impact of their websites.
 They are currently authored by a _Community Group_ at W3C, and as such don’t have the authoritativeness of web standards.
 They’re still in draft, and not (yet) widely adopted.
+
+### What do we mean by "sustainability"?
+
+People mean different things when they talk about sustainability.
+This is a good statement [from Wikipedia](https://en.wikipedia.org/wiki/Sustainability):
+
+Sustainability is a social goal for people to co-exist on Earth over a long time.
+Specific definitions of this term are disputed and have varied with literature, context, and time.
+Experts often describe sustainability as having three dimensions (or pillars): environmental, economic, and social, and many publications emphasize the environmental dimension.
+In everyday use, sustainability often focuses on countering major environmental problems, including climate change, loss of biodiversity, loss of ecosystem services, land degradation, and air and water pollution.
+
+For Wagtail, the majority of current sustainability efforts are about environmental issues and climate change in particular, but guidelines like WSG have a much broader scope.
