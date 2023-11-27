@@ -1,6 +1,6 @@
-# RFC 090: Sustainability roadmap
+# RFC [90](https://github.com/wagtail/rfcs/pull/90): Sustainability roadmap
 
-- RFC: 090
+- RFC: [090](https://github.com/wagtail/rfcs/pull/90)
 - Author: Thibaud Colas
 - Created: 2023-11-27
 - Last Modified: 2023-11-27
@@ -22,7 +22,7 @@ With Wagtail being open source self-hosted software, the impact of this effort w
 
 ## Supporting activities
 
-Here are possible activities which we could take on to adjust this roadmap / support the delivery of the improvements outlined above.
+Here are possible activities which we could take on to support the creation and delivery of this roadmap.
 
 - Creation of a sustainability team for Wagtail
 - Upskill of Wagtail contributors via [Green Software for Practitioners course](https://training.linuxfoundation.org/training/green-software-for-practitioners-lfc131/)
@@ -30,10 +30,12 @@ Here are possible activities which we could take on to adjust this roadmap / sup
 - Review of [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/) relevance for authoring tools: [Authoring Tool Guidance sustyweb#22](https://github.com/w3c/sustyweb/issues/22)
 - Audit Wagtail websites with [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/)
 - Review Wagtail on [Green Software Maturity Matrix](https://docs.google.com/document/d/1wa2lliXQeH6HE1JHqwjTFuVndRUXzxGlbYXRtTQxF5o/edit)
+- Review of carbon footprint reductions attempted in past releases and already on the roadmap, tying them to the improvements listed below.
+- Quantitative analysis of possible carbon footprint reductions to identify most promising improvements.
 
 ## Key measures
 
-With a lot of room for climate change efforts to be data-driven, we propose the following key metrics to assess the impact of possible efforts across the three areas outlined above.
+With a lot of room for climate change efforts to be data-driven, we propose the following key metrics to assess the impact of possible efforts across the three themes outlined above.
 
 ### Carbon footprint of Wagtail
 
@@ -91,7 +93,7 @@ Prior work:
 
 **Ideal outcome**: Buy-in from Wagtail users and wider industry on the importance of sustainability, and the role of Wagtail in this.
 
-Here are specific improvements within this area:
+Here are specific improvements within this theme:
 
 - Refine Wagtail’s current sustainability statement, and make it more visible
 - Organise sustainability-themed Wagtail events
@@ -108,14 +110,7 @@ Here are specific improvements within this area:
 
 **Ideal outcome**: a lower carbon footprint for Wagtail websites and Wagtail as a whole.
 
-Here are specific improvements as a _first draft_. This is missing:
-
-- Highlights on which improvements are the most promising.
-- A notion of status – some of those improvements have already happened.
-- More improvements from more recent auditing of accessibility guidelines.
-- A sense of how granular this should get vs. agreement on high-level principles.
-
-Explanation of the columns:
+Here are specific improvements within this theme. Explanation of the columns:
 
 - **Scope clarity**: how well-defined is the improvement? Is it clear what the improvement is, and how it would be implemented?
 - **Impact**: how much of an impact would this improvement have on the carbon footprint of Wagtail websites?
