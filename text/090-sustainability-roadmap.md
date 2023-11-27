@@ -15,10 +15,21 @@ Creating this roadmap as an RFC will allow for community feedback, help contribu
 To help with planning, we track possible improvements across three themes:
 
 1. Measure the carbon footprint of Wagtail
-2. Reduce the carbon footprint of Wagtail
-3. Spread the word
+2. Spread the word
+3. Reduce the carbon footprint of Wagtail
 
 With Wagtail being open source self-hosted software, the impact of this effort will be entirely dependent on the adoption of the improvements by Wagtail site implementers.
+
+## Supporting activities
+
+Here are possible activities which we could take on to adjust this roadmap / support the delivery of the improvements outlined above.
+
+- Creation of a sustainability team for Wagtail
+- Upskill of Wagtail contributors via [Green Software for Practitioners course](https://training.linuxfoundation.org/training/green-software-for-practitioners-lfc131/)
+- Review of [Green Software Patterns](https://patterns.greensoftware.foundation/) relevance for Wagtail & Wagtail websites
+- Review of [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/) relevance for authoring tools: [Authoring Tool Guidance sustyweb#22](https://github.com/w3c/sustyweb/issues/22)
+- Audit Wagtail websites with [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/)
+- Review Wagtail on [Green Software Maturity Matrix](https://docs.google.com/document/d/1wa2lliXQeH6HE1JHqwjTFuVndRUXzxGlbYXRtTQxF5o/edit)
 
 ## Key measures
 
@@ -76,6 +87,23 @@ Prior work:
 - [Greener coding - Making a 'gold' reference configuration with the Wagtail demo site](https://github.com/wagtail/wagtail/discussions/8843)
 - [Django Developers Survey 2022](https://lp.jetbrains.com/django-developer-survey-2022/)
 
+### Spread the word
+
+**Ideal outcome**: Buy-in from Wagtail users and wider industry on the importance of sustainability, and the role of Wagtail in this.
+
+Here are specific improvements within this area:
+
+- Refine Wagtail’s current sustainability statement, and make it more visible
+- Organise sustainability-themed Wagtail events
+  - Sustainability sprint
+  - What’s New in Wagtail – sustainability edition
+  - Sustainability-themed Wagtail Space
+- Create a sustainability team for Wagtail
+- Publish case studies on tackling sustainability-related requirements on Wagtail projects
+- Write a yearly sustainability report for Wagtail
+- Improve the documentation’s "Sustainability considerations" page
+- Rate possible [Wagtail hosting providers](https://github.com/wagtail/wagtail/wiki/Wagtail-Hosting-Providers) on sustainability considerations
+
 ### Reduce the carbon footprint of Wagtail
 
 **Ideal outcome**: a lower carbon footprint for Wagtail websites and Wagtail as a whole.
@@ -107,7 +135,6 @@ Explanation of the columns:
 | Redirects awareness, reporting, optimisation to reduce usage where possible | Low           | Low    | 1%    | Low        | Server-side energy usage |
 | Canonical page awareness, reporting, optimisation to reduce duplications    | Low           | Low    | 1%    | Low        | Server-side energy usage |
 | Documentation of front-end performance issues in Wagtail                    | High          | High   | 10%   | Low        | CWV scores               |
-|                                                                             |               |        |       |            |                          |
 
 #### Cloud infrastructure
 
@@ -123,7 +150,6 @@ Explanation of the columns:
 | Documentation on preview / staging sites’ best practices   | Low           | Low    | 1%    | High       | Server-side energy usage |
 | Carbon-aware CMS server                                    | Low           | Medium | 10%   | High       | Server-side energy usage |
 | Carbon-aware background jobs                               | Low           | Medium | 10%   | High       | Server-side energy usage |
-|                                                            |               |        |       |            |                          |
 
 #### Media
 
@@ -138,7 +164,6 @@ Explanation of the columns:
 | Lazy-loading of images                  | Medium        | High   | 50%   | Low        | Image weight                   |
 | Optional site images (low-carbon site)  | Medium        | High   | 1%    | Low        | Image weight                   |
 | YouTube lite embeds                     | High          | High   | 10%   | Low        | YouTube embed weight reduction |
-|                                         |               |        |       |            |                                |
 
 #### CMS features
 
@@ -149,7 +174,6 @@ Explanation of the columns:
 | Reporting of performance scores in the CMS | Medium        | High   | 100%  | Medium     | CWV scores               |
 | Duplicate files                            | Low           | Low    | 5%    | Medium     | Server-side energy usage |
 | Starter templates                          | Medium        | High   | 1%    | Low        | Server-side energy usage |
-|                                            |               |        |       |            |                          |
 
 #### Data processing
 
@@ -177,34 +201,6 @@ Prior work outside Wagtail:
 - [Contemplating codecs comparison - Cloudinary](https://cloudinary.com/blog/contemplating-codec-comparisons)
 - [Organic Basics - Low impact website](https://github.com/Organic-Basics/ob-low-impact-website)
 - [Granian – A Rust HTTP server for Python applications](https://github.com/emmett-framework/granian)
-
-### Spread the word
-
-**Ideal outcome**: Buy-in from Wagtail users and wider industry on the importance of sustainability, and the role of Wagtail in this.
-
-Here are specific improvements within this area:
-
-- Refine Wagtail’s current sustainability statement, and make it more visible
-- Organise sustainability-themed Wagtail events
-  - Sustainability sprint
-  - What’s New in Wagtail – sustainability edition
-  - Sustainability-themed Wagtail Space
-- Create a sustainability team for Wagtail
-- Publish case studies on tackling sustainability-related requirements on Wagtail projects
-- Write a yearly sustainability report for Wagtail
-- Improve the documentation’s "Sustainability considerations" page
-- Rate possible [Wagtail hosting providers](https://github.com/wagtail/wagtail/wiki/Wagtail-Hosting-Providers) on sustainability considerations
-
-## Supporting activities
-
-Here are possible activities which we could take on to adjust this roadmap / support the delivery of the improvements outlined above.
-
-- Creation of a sustainability team for Wagtail
-- Upskill of Wagtail contributors via [Green Software for Practitioners course](https://training.linuxfoundation.org/training/green-software-for-practitioners-lfc131/)
-- Review of [Green Software Patterns](https://patterns.greensoftware.foundation/) relevance for Wagtail & Wagtail websites
-- Review of [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/) relevance for authoring tools: [Authoring Tool Guidance sustyweb#22](https://github.com/w3c/sustyweb/issues/22)
-- Audit Wagtail websites with [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/)
-- Review Wagtail on [Green Software Maturity Matrix](https://docs.google.com/document/d/1wa2lliXQeH6HE1JHqwjTFuVndRUXzxGlbYXRtTQxF5o/edit)
 
 ## Open questions
 
