@@ -14,9 +14,9 @@ Creating this roadmap as an RFC will allow for community feedback, help contribu
 
 To help with planning, we track possible improvements across three themes:
 
-1. Measure the carbon footprint of Wagtail
-2. Spread the word
-3. Reduce the carbon footprint of Wagtail
+1. [**🔍 Measure the carbon footprint of Wagtail**](#measure-the-carbon-footprint-of-wagtail)
+2. [**📣 Spread the word**](#spread-the-word)
+3. [**📉 Reduce the carbon footprint of Wagtail**](#reduce-the-carbon-footprint-of-wagtail)
 
 With Wagtail being open source self-hosted software, the impact of this effort will be entirely dependent on the adoption of the improvements by Wagtail site implementers.
 
@@ -65,11 +65,11 @@ Websites with specific climate commitments would count whether the targets are p
 
 ## Possible improvements
 
-### Measure the carbon footprint of Wagtail
+### 🔍 Measure the carbon footprint of Wagtail
 
 **Ideal outcome**: A community-wide understanding of how Wagtail websites and community efforts contribute to climate change. Methodologies we can confidently use to assess the impact of future work.
 
-Here are specific improvements within this area:
+Here are possible improvements within this area:
 
 - Create a methodology to measure the carbon footprint of Wagtail websites
 - Measure the carbon footprint of building Wagtail:
@@ -81,7 +81,11 @@ Here are specific improvements within this area:
 - Create a methodology to measure the footprint of specific features
 - Define more granular carbon footprint KPIs that could be referenced on a regular basis
 
-Prior work:
+#### Top 3 improvements
+
+Here are the top three improvements we would recommend prioritizing:
+
+#### Prior work
 
 - [Results of the 2023 Wagtail Deployment Survey](https://wagtail.org/blog/2023-wagtail-deployment-survey/)
 - [Wagtail docs: Sustainability considerations](https://docs.wagtail.org/en/stable/advanced_topics/sustainability_considerations.html)
@@ -89,11 +93,11 @@ Prior work:
 - [Greener coding - Making a 'gold' reference configuration with the Wagtail demo site](https://github.com/wagtail/wagtail/discussions/8843)
 - [Django Developers Survey 2022](https://lp.jetbrains.com/django-developer-survey-2022/)
 
-### Spread the word
+### 📣 Spread the word
 
 **Ideal outcome**: Buy-in from Wagtail users and wider industry on the importance of sustainability, and the role of Wagtail in this.
 
-Here are specific improvements within this theme:
+Here are possible improvements within this theme:
 
 - Refine Wagtail’s current sustainability statement, and make it more visible
 - Organise sustainability-themed Wagtail events
@@ -106,11 +110,26 @@ Here are specific improvements within this theme:
 - Improve the documentation’s "Sustainability considerations" page
 - Rate possible [Wagtail hosting providers](https://github.com/wagtail/wagtail/wiki/Wagtail-Hosting-Providers) on sustainability considerations
 
-### Reduce the carbon footprint of Wagtail
+#### Top 3 improvements
+
+Here are the top three improvements we would recommend prioritizing:
+
+1. Create a sustainability team for Wagtail
+2. Refine Wagtail’s current sustainability statement, and make it more visible
+3. Publish case studies on tackling sustainability-related requirements on Wagtail projects
+
+#### Prior work
+
+- [Wagtail sustainability statement](https://wagtail.org/sustainability/)
+- [Estimating Wagtail websites’ emissions](https://wagtail.org/blog/estimating-wagtail-websites-emissions/)
+- [Evaluating the carbon footprint of Django and Wagtail sites | Django London](https://docs.google.com/presentation/d/1nt70OGv7yq-W0FOnaPeQAW42i6D1lMl3Fi_hEAADWgc/edit)
+- [DjangoCon Europe 2021 – How to be a Djangonaut in a climate emergency](https://www.thegreenwebfoundation.org/talks/djangocon-eu-2021/)
+
+### 📉 Reduce the carbon footprint of Wagtail
 
 **Ideal outcome**: a lower carbon footprint for Wagtail websites and Wagtail as a whole.
 
-Here are specific improvements within this theme. Explanation of the columns:
+Here are possible improvements within this theme. Explanation of the columns:
 
 - **Scope clarity**: how well-defined is the improvement? Is it clear what the improvement is, and how it would be implemented?
 - **Impact**: how much of an impact would this improvement have on the carbon footprint of Wagtail websites?
@@ -151,24 +170,24 @@ Here are specific improvements within this theme. Explanation of the columns:
 | Improvement                             | Scope clarity | Impact | Reach | Complexity | Measures                       |
 | --------------------------------------- | ------------- | ------ | ----- | ---------- | ------------------------------ |
 | Responsive images                       | High          | High   | 50%   | Medium     | Image weight                   |
-| Optimised Wagtial renditions            | High          | High   | 50%   | Medium     | Image weight                   |
+| Optimised Wagtail renditions            | High          | High   | 50%   | Medium     | Image weight                   |
 | AVIF images                             | High          | High   | 50%   | Medium     | Image weight                   |
 | WebP images                             | High          | High   | 50%   | Medium     | Image weight                   |
 | Lossless image optimisation (PNG)       | High          | High   | 50%   | Medium     | Image weight                   |
 | Lossy image optimisation (PNG, MozJPEG) | High          | High   | 50%   | Medium     | Image weight                   |
 | Lazy-loading of images                  | Medium        | High   | 50%   | Low        | Image weight                   |
 | Optional site images (low-carbon site)  | Medium        | High   | 1%    | Low        | Image weight                   |
-| YouTube lite embeds                     | High          | High   | 10%   | Low        | YouTube embed weight reduction |
+| Light YouTube embeds                    | High          | High   | 10%   | Low        | YouTube embed weight reduction |
 
 #### CMS features
 
-| Improvement                                | Scope clarity | Impact | Reach | Complexity | Measures                 |
-| ------------------------------------------ | ------------- | ------ | ----- | ---------- | ------------------------ |
-| Dark mode                                  | High          | High   | 50%   | Low        | Screen energy usage      |
-| Performance budgets in the CMS             | Medium        | High   | 100%  | Medium     | CWV scores               |
-| Reporting of performance scores in the CMS | Medium        | High   | 100%  | Medium     | CWV scores               |
-| Duplicate files                            | Low           | Low    | 5%    | Medium     | Server-side energy usage |
-| Starter templates                          | Medium        | High   | 1%    | Low        | Server-side energy usage |
+| Improvement                                 | Scope clarity | Impact | Reach | Complexity | Measures                 |
+| ------------------------------------------- | ------------- | ------ | ----- | ---------- | ------------------------ |
+| Dark mode                                   | High          | High   | 50%   | Low        | Screen energy usage      |
+| Performance budgets in the CMS              | Medium        | High   | 100%  | Medium     | CWV scores               |
+| Reporting of performance scores in the CMS  | Medium        | High   | 100%  | Medium     | CWV scores               |
+| Duplicate files                             | Low           | Low    | 5%    | Medium     | Server-side energy usage |
+| Starter templates focused on sustainability | Medium        | High   | 1%    | Low        | Server-side energy usage |
 
 #### Data processing
 
@@ -181,6 +200,19 @@ Here are specific improvements within this theme. Explanation of the columns:
 | Wagtail-aware Django debug toolbar            | High          | High   | 5%    | Low        | Server-side energy usage     |
 | SQL performance optimisations                 | High          | High   | 50%   | Medium     | Server-side energy usage     |
 | Rewrite performance-sensitive code in Rust    | Medium        | Medium | 100%  | Medium     | Server-side energy usage     |
+
+#### Top six improvements
+
+Here are the top six improvements we would recommend prioritizing:
+
+1. Scale-to-zero CMS database
+2. Scale-to-zero CMS server
+3. Light YouTube embeds
+4. Reporting of performance scores in the CMS
+5. Starter templates focused on sustainability
+6. Support for static sites with 90+% of CMS features
+
+#### Prior work
 
 Prior work in Wagtail:
 
