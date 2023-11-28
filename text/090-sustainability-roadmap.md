@@ -69,7 +69,17 @@ Websites with specific climate commitments would count whether the targets are p
 
 **Ideal outcome**: A community-wide understanding of how Wagtail websites and community efforts contribute to climate change. Methodologies we can confidently use to assess the impact of future work.
 
-Here are possible improvements within this area:
+#### Top 3 improvements
+
+Here are the top three improvements we would recommend prioritizing:
+
+1. Create a methodology to measure the carbon footprint of Wagtail websites
+2. Measure the carbon footprint of building Wagtail: Wagtail events
+3. Establish a methodology to collect data about how many Wagtail websites there are and their characteristics
+
+#### All improvements
+
+Here all are possible improvements within this area:
 
 - Create a methodology to measure the carbon footprint of Wagtail websites
 - Measure the carbon footprint of building Wagtail:
@@ -80,10 +90,6 @@ Here are possible improvements within this area:
 - Document a methodology to extrapolate the carbon footprint of all Wagtail websites from publicly-available data
 - Create a methodology to measure the footprint of specific features
 - Define more granular carbon footprint KPIs that could be referenced on a regular basis
-
-#### Top 3 improvements
-
-Here are the top three improvements we would recommend prioritizing:
 
 #### Prior work
 
@@ -97,7 +103,17 @@ Here are the top three improvements we would recommend prioritizing:
 
 **Ideal outcome**: Buy-in from Wagtail users and wider industry on the importance of sustainability, and the role of Wagtail in this.
 
-Here are possible improvements within this theme:
+#### Top 3 improvements
+
+Here are the top three improvements we would recommend prioritizing:
+
+1. Create a sustainability team for Wagtail
+2. Refine Wagtail’s current sustainability statement, and make it more visible
+3. Publish case studies on tackling sustainability-related requirements on Wagtail projects
+
+#### All improvements
+
+Here are all possible improvements within this theme:
 
 - Refine Wagtail’s current sustainability statement, and make it more visible
 - Organise sustainability-themed Wagtail events
@@ -108,15 +124,9 @@ Here are possible improvements within this theme:
 - Publish case studies on tackling sustainability-related requirements on Wagtail projects
 - Write a yearly sustainability report for Wagtail
 - Improve the documentation’s "Sustainability considerations" page
+- Create a sustainability improvements pitch deck to look for funding
+- Attend sustainability events to represent Wagtail and find project sponsors
 - Rate possible [Wagtail hosting providers](https://github.com/wagtail/wagtail/wiki/Wagtail-Hosting-Providers) on sustainability considerations
-
-#### Top 3 improvements
-
-Here are the top three improvements we would recommend prioritizing:
-
-1. Create a sustainability team for Wagtail
-2. Refine Wagtail’s current sustainability statement, and make it more visible
-3. Publish case studies on tackling sustainability-related requirements on Wagtail projects
 
 #### Prior work
 
@@ -129,7 +139,20 @@ Here are the top three improvements we would recommend prioritizing:
 
 **Ideal outcome**: a lower carbon footprint for Wagtail websites and Wagtail as a whole.
 
-Here are possible improvements within this theme. Explanation of the columns:
+#### Top six improvements
+
+Here are our top six improvements we would recommend prioritizing:
+
+1. Scale-to-zero CMS database
+2. Scale-to-zero CMS server
+3. Light YouTube embeds
+4. Reporting of performance scores in the CMS
+5. Starter templates focused on sustainability
+6. Support for static sites with 90+% of CMS features
+
+#### All improvements
+
+Here are all possible improvements within this theme. Explanation of the columns:
 
 - **Scope clarity**: how well-defined is the improvement? Is it clear what the improvement is, and how it would be implemented?
 - **Impact**: how much of an impact would this improvement have on the carbon footprint of Wagtail websites?
@@ -200,17 +223,6 @@ Here are possible improvements within this theme. Explanation of the columns:
 | Wagtail-aware Django debug toolbar            | High          | High   | 5%    | Low        | Server-side energy usage     |
 | SQL performance optimisations                 | High          | High   | 50%   | Medium     | Server-side energy usage     |
 | Rewrite performance-sensitive code in Rust    | Medium        | Medium | 100%  | Medium     | Server-side energy usage     |
-
-#### Top six improvements
-
-Here are the top six improvements we would recommend prioritizing:
-
-1. Scale-to-zero CMS database
-2. Scale-to-zero CMS server
-3. Light YouTube embeds
-4. Reporting of performance scores in the CMS
-5. Starter templates focused on sustainability
-6. Support for static sites with 90+% of CMS features
 
 #### Prior work
 
