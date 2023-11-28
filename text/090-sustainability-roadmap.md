@@ -14,9 +14,9 @@ Creating this roadmap as an RFC will allow for community feedback, help contribu
 
 To help with planning, we track possible improvements across three themes:
 
-1. [**🔍 Measure the carbon footprint of Wagtail**](#measure-the-carbon-footprint-of-wagtail)
-2. [**📣 Spread the word**](#spread-the-word)
-3. [**📉 Reduce the carbon footprint of Wagtail**](#reduce-the-carbon-footprint-of-wagtail)
+1. [**🔍 Measure the carbon footprint of Wagtail**](#-measure-the-carbon-footprint-of-wagtail)
+2. [**📣 Spread the word**](#-spread-the-word)
+3. [**📉 Reduce the carbon footprint of Wagtail**](#-reduce-the-carbon-footprint-of-wagtail)
 
 With Wagtail being open source self-hosted software, the impact of this effort will be entirely dependent on the adoption of the improvements by Wagtail site implementers.
 
