@@ -53,7 +53,7 @@ In particular, it should include all Scope 1, Scope 2, and Scope 3 emissions.
 As a median, average, or other measure of the statistical distribution of scores of Wagtail websites.
 
 The score would be a yet-to-be implemented measurement of how well a website conforms with the [Web Sustainability Guidelines (WSG)](https://w3c.github.io/sustyweb/).
-At its most basic, it could be a count of how many WSG success criteria are "passed". 3. **Number of Wagtail websites with a Net Zero target**.
+At its most basic, it could be a count of how many WSG success criteria are "passed". 
 
 The WSG aren’t well established yet, so this would require a lot of R&D work, and collaboration with the community group behind the guidelines.
 
