@@ -132,7 +132,7 @@ Here are all possible improvements within this theme:
 
 - [Wagtail sustainability statement](https://wagtail.org/sustainability/)
 - [Estimating Wagtail websites’ emissions](https://wagtail.org/blog/estimating-wagtail-websites-emissions/)
-- [Evaluating the carbon footprint of Django and Wagtail sites | Django London](https://docs.google.com/presentation/d/1nt70OGv7yq-W0FOnaPeQAW42i6D1lMl3Fi_hEAADWgc/edit)
+- [Evaluating the carbon footprint of Django and Wagtail sites | Django London](https://thib.me/evaluating-carbon-footprint-django-wagtail)
 - [DjangoCon Europe 2021 – How to be a Djangonaut in a climate emergency](https://www.thegreenwebfoundation.org/talks/djangocon-eu-2021/)
 
 ### 📉 Reduce the carbon footprint of Wagtail
