@@ -33,6 +33,12 @@ At the success criteria level as per the [W3C ATAG report tool](https://www.w3.o
 - Part A: 12 **Pass**, 15 **Fail**, 4 **Not applicable**.
 - Part B: 10 **Pass**, 13 **Fail**, 8 **Not applicable**.
 
+At the success criteria level, by [level of conformance](https://www.w3.org/TR/ATAG20/#intro_understand_levels_conformance):
+
+- Level A: 12 **Pass**, 7 **Fail**, 8 **Not applicable**.
+- Level AA: 7 **Pass**, 5 **Fail**, 3 **Not applicable**.
+- Level AAA: 3 **Pass**, 8 **Fail**, 0 **Not applicable**.
+
 At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org/WAI/tools-list/authoring/), with partial support:
 
 - Total: 5 **Pass**, 15 **Partially**, 2 **Fail**, 2 **Not applicable**.
@@ -43,110 +49,114 @@ At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org
 
 - [A.1. Authoring tool user interfaces follow applicable accessibility guidelines](#a1-authoring-tool-user-interfaces-follow-applicable-accessibility-guidelines)
   - **Partially**: [A.1.1. (For the authoring tool user interface) Ensure that web-based functionality is accessible](#a11-for-the-authoring-tool-user-interface-ensure-that-web-based-functionality-is-accessible)
-    - **Fail**: [A.1.1.1 Web-Based Accessible (WCAG)](#a111-web-based-accessible-wcag)
+    - **Fail**: [A.1.1.1 Web-Based Accessible (WCAG)](#a111-web-based-accessible-wcag) (Level A / AA / AAA)
   - **Not applicable**: [A.1.2. (For the authoring tool user interface) Ensure that non-web-based functionality is accessible](#a12-for-the-authoring-tool-user-interface-ensure-that-non-web-based-functionality-is-accessible)
-    - **Not applicable**: [A.1.2.1 Accessibility Guidelines](#a121-accessibility-guidelines)
-    - **Not applicable**: [A.1.2.2 Platform Accessibility Services](#a122-platform-accessibility-services)
+    - **Not applicable**: [A.1.2.1 Accessibility Guidelines](#a121-accessibility-guidelines) (Level A)
+    - **Not applicable**: [A.1.2.2 Platform Accessibility Services](#a122-platform-accessibility-services) (Level A)
 - [A.2. Editing-views are perceivable](#a2-editing-views-are-perceivable)
   - **Partially**: [A.2.1. (For the authoring tool user interface) Make alternative content available to authors](#a21-for-the-authoring-tool-user-interface-make-alternative-content-available-to-authors)
-    - **Fail**: [A.2.1.1 Text Alternatives for Rendered Non-Text Content](#a211-text-alternatives-for-rendered-non-text-content)
-    - **Fail**: [A.2.1.2 Alternatives for Rendered Time-Based Media](#a212-alternatives-for-rendered-time-based-media)
+    - **Fail**: [A.2.1.1 Text Alternatives for Rendered Non-Text Content](#a211-text-alternatives-for-rendered-non-text-content) (Level A)
+    - **Fail**: [A.2.1.2 Alternatives for Rendered Time-Based Media](#a212-alternatives-for-rendered-time-based-media) (Level A)
   - **Partially**: [A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined](#a22-for-the-authoring-tool-user-interface-ensure-that-editing-view-presentation-can-be-programmatically-determined)
-    - **Fail**: [A.2.2.1 Editing-View Status Indicators](#a221-editing-view-status-indicators)
-    - **Not applicable**: [A.2.2.2 Access to Rendered Text Properties](#a222-access-to-rendered-text-properties)
+    - **Fail**: [A.2.2.1 Editing-View Status Indicators](#a221-editing-view-status-indicators) (Level A)
+    - **Not applicable**: [A.2.2.2 Access to Rendered Text Properties](#a222-access-to-rendered-text-properties) (Level AA)
 - [A.3. Editing-views are operable](#a3-editing-views-are-operable)
   - **Partially**: [A.3.1. (For the authoring tool user interface) Provide keyboard access to authoring features](#a31-for-the-authoring-tool-user-interface-provide-keyboard-access-to-authoring-features)
-    - **Fail**: [A.3.1.1 Keyboard Access (Minimum)](#a311-keyboard-access-minimum)
-    - **Pass**: [A.3.1.2 No Keyboard Traps](#a312-no-keyboard-traps)
-    - **Pass**: [A.3.1.3 Efficient Keyboard Access](#a313-efficient-keyboard-access)
-    - **Fail**: [A.3.1.4 Keyboard Access (Enhanced)](#a314-keyboard-access-enhanced)
-    - **Fail**: [A.3.1.5 Customize Keyboard Access](#a315-customize-keyboard-access)
-    - **Fail**: [A.3.1.6 Present Keyboard Commands](#a316-present-keyboard-commands)
+    - **Fail**: [A.3.1.1 Keyboard Access (Minimum)](#a311-keyboard-access-minimum) (Level A)
+    - **Pass**: [A.3.1.2 No Keyboard Traps](#a312-no-keyboard-traps) (Level A)
+    - **Pass**: [A.3.1.3 Efficient Keyboard Access](#a313-efficient-keyboard-access) (Level AA)
+    - **Fail**: [A.3.1.4 Keyboard Access (Enhanced)](#a314-keyboard-access-enhanced) (Level AAA)
+    - **Fail**: [A.3.1.5 Customize Keyboard Access](#a315-customize-keyboard-access) (Level AAA)
+    - **Fail**: [A.3.1.6 Present Keyboard Commands](#a316-present-keyboard-commands) (Level AAA)
   - **Partially**: [A.3.2. (For the authoring tool user interface) Provide authors with enough time](#a32-for-the-authoring-tool-user-interface-provide-authors-with-enough-time)
-    - **Fail**: [A.3.2.1 Auto-Save (Minimum)](#a321-auto-save-minimum)
-    - **Pass**: [A.3.2.2 Timing Adjustable](#a322-timing-adjustable)
-    - **Pass**: [A.3.2.3 Static Input Components](#a323-static-input-components)
-    - **Fail**: [A.3.2.4 Content Edits Saved (Extended)](#a324-content-edits-saved-extended)
+    - **Fail**: [A.3.2.1 Auto-Save (Minimum)](#a321-auto-save-minimum) (Level A)
+    - **Pass**: [A.3.2.2 Timing Adjustable](#a322-timing-adjustable) (Level A)
+    - **Pass**: [A.3.2.3 Static Input Components](#a323-static-input-components) (Level A)
+    - **Fail**: [A.3.2.4 Content Edits Saved (Extended)](#a324-content-edits-saved-extended) (Level AAA)
   - **Fail**: [A.3.3. (For the authoring tool user interface) Help authors avoid flashing that could cause seizures](#a33-for-the-authoring-tool-user-interface-help-authors-avoid-flashing-that-could-cause-seizures)
-    - **Fail**: [A.3.3.1 Static View Option](#a331-static-view-option)
+    - **Fail**: [A.3.3.1 Static View Option](#a331-static-view-option) (Level A)
   - **Partially**: [A.3.4. (For the authoring tool user interface) Enhance navigation and editing via content structure](#a34-for-the-authoring-tool-user-interface-enhance-navigation-and-editing-via-content-structure)
-    - **Not applicable**: [A.3.4.1 Navigate By Structure](#a341-navigate-by-structure)
-    - **Pass**: [A.3.4.2 Navigate by Programmatic Relationships](#a342-navigate-by-programmatic-relationships)
+    - **Not applicable**: [A.3.4.1 Navigate By Structure](#a341-navigate-by-structure) (Level AA)
+    - **Pass**: [A.3.4.2 Navigate by Programmatic Relationships](#a342-navigate-by-programmatic-relationships) (Level AAA)
   - **Partially**: [A.3.5. (For the authoring tool user interface) Provide text search of the content](#a35-for-the-authoring-tool-user-interface-provide-text-search-of-the-content)
-    - **Fail**: [A.3.5.1 Text Search](#a351-text-search)
+    - **Fail**: [A.3.5.1 Text Search](#a351-text-search) (Level AA)
   - **Pass**: [A.3.6. (For the authoring tool user interface) Manage preference settings](#a36-for-the-authoring-tool-user-interface-manage-preference-settings)
-    - **Pass**: [A.3.6.1 Independence of Display](#a361-independence-of-display)
-    - **Pass**: [A.3.6.2 Save Settings](#a362-save-settings)
-    - **Pass**: [A.3.6.3 Apply Platform Settings](#a363-apply-platform-settings)
+    - **Pass**: [A.3.6.1 Independence of Display](#a361-independence-of-display) (Level A)
+    - **Pass**: [A.3.6.2 Save Settings](#a362-save-settings) (Level AA)
+    - **Pass**: [A.3.6.3 Apply Platform Settings](#a363-apply-platform-settings) (Level AA)
   - **Pass**: [A.3.7. (For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents](#a37-for-the-authoring-tool-user-interface-ensure-that-previews-are-at-least-as-accessible-as-in-market-user-agents)
-    - **Pass**: [A.3.7.1 Preview (Minimum)](#a371-preview-minimum)
-    - **Pass**: [A.3.7.2 Preview (Enhanced)](#a372-preview-enhanced)
+    - **Pass**: [A.3.7.1 Preview (Minimum)](#a371-preview-minimum) (Level A)
+    - **Pass**: [A.3.7.2 Preview (Enhanced)](#a372-preview-enhanced) (Level AAA)
 - [A.4. Editing-views are understandable](#a4-editing-views-are-understandable)
   - **Partially**: [A.4.1. (For the authoring tool user interface) Help authors avoid and correct mistakes](#a41-for-the-authoring-tool-user-interface-help-authors-avoid-and-correct-mistakes)
-    - **Fail**: [A.4.1.1 Content Changes Reversible (Minimum)](#a411-content-changes-reversible-minimum)
-    - **Pass**: [A.4.1.2 Settings Change Confirmation](#a412-settings-change-confirmation)
-    - **Pass**: [A.4.1.3 Content Changes Reversible (Enhanced)](#a413-content-changes-reversible-enhanced)
+    - **Fail**: [A.4.1.1 Content Changes Reversible (Minimum)](#a411-content-changes-reversible-minimum) (Level A)
+    - **Pass**: [A.4.1.2 Settings Change Confirmation](#a412-settings-change-confirmation) (Level A)
+    - **Pass**: [A.4.1.3 Content Changes Reversible (Enhanced)](#a413-content-changes-reversible-enhanced) (Level AAA)
   - **Partially**: [A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features](#a42-for-the-authoring-tool-user-interface-document-the-user-interface-including-all-accessibility-features)
-    - **Fail**: [A.4.2.1 Describe Accessibility Features](#a421-describe-accessibility-features)
-    - **Fail**: [A.4.2.2 Document All Features](#a422-document-all-features)
+    - **Fail**: [A.4.2.1 Describe Accessibility Features](#a421-describe-accessibility-features) (Level A)
+    - **Fail**: [A.4.2.2 Document All Features](#a422-document-all-features) (Level AA)
 
 ### [B. Support the production of accessible content](#b-support-the-production-of-accessible-content)
 
 - [B.1. Fully automatic processes produce accessible content](#b1-fully-automatic-processes-produce-accessible-content)
   - **Partially**: [B.1.1. Ensure that automatically-specified content is accessible](#b11-ensure-that-automatically-specified-content-is-accessible)
-    - **Pass**: [B.1.1.1 Content Auto-Generation After Authoring Sessions (WCAG)](#b111-content-auto-generation-after-authoring-sessions-wcag)
-    - **Fail**: [B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)](#b112-content-auto-generation-during-authoring-sessions-wcag)
+    - **Pass**: [B.1.1.1 Content Auto-Generation After Authoring Sessions (WCAG)](#b111-content-auto-generation-after-authoring-sessions-wcag) (Level A / AA / AAA)
+    - **Fail**: [B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)](#b112-content-auto-generation-during-authoring-sessions-wcag) (Level A / AA / AAA)
   - **Pass**: [B.1.2. Ensure that accessibility information is preserved](#b12-ensure-that-accessibility-information-is-preserved)
-    - **Not applicable**: [B.1.2.1 Restructuring and Recoding Transformations (WCAG)](#b121-restructuring-and-recoding-transformations-wcag)
-    - **Pass**: [B.1.2.2 Copy-Paste Inside Authoring Tool (WCAG)](#b122-copy-paste-inside-authoring-tool-wcag)
-    - **Not applicable**: [B.1.2.3 Optimizations Preserve Accessibility](#b123-optimizations-preserve-accessibility)
-    - **Not applicable**: [B.1.2.4 Text Alternatives for Non-Text Content are Preserved](#b124-text-alternatives-for-non-text-content-are-preserved)
+    - **Not applicable**: [B.1.2.1 Restructuring and Recoding Transformations (WCAG)](#b121-restructuring-and-recoding-transformations-wcag) (Level A / AA / AAA)
+    - **Pass**: [B.1.2.2 Copy-Paste Inside Authoring Tool (WCAG)](#b122-copy-paste-inside-authoring-tool-wcag) (Level A / AA / AAA)
+    - **Not applicable**: [B.1.2.3 Optimizations Preserve Accessibility](#b123-optimizations-preserve-accessibility) (Level A)
+    - **Not applicable**: [B.1.2.4 Text Alternatives for Non-Text Content are Preserved](#b124-text-alternatives-for-non-text-content-are-preserved) (Level A)
 - [B.2. Authors are supported in producing accessible content](#b2-authors-are-supported-in-producing-accessible-content)
   - **Partially**: [B.2.1. Ensure that accessible content production is possible](#b21-ensure-that-accessible-content-production-is-possible)
-    - **Fail**: [B.2.1.1 Accessible Content Possible (WCAG)](#b211-accessible-content-possible-wcag)
+    - **Fail**: [B.2.1.1 Accessible Content Possible (WCAG)](#b211-accessible-content-possible-wcag) (Level A / AA / AAA)
   - **Pass**: [B.2.2. Guide authors to produce accessible content](#b22-guide-authors-to-produce-accessible-content)
-    - **Pass**: [B.2.2.1 Accessible Option Prominence (WCAG)](#b221-accessible-option-prominence-wcag)
-    - **Not applicable**: [B.2.2.2 Setting Accessibility Properties (WCAG)](#b222-setting-accessibility-properties-wcag)
+    - **Pass**: [B.2.2.1 Accessible Option Prominence (WCAG)](#b221-accessible-option-prominence-wcag) (Level A / AA / AAA)
+    - **Not applicable**: [B.2.2.2 Setting Accessibility Properties (WCAG)](#b222-setting-accessibility-properties-wcag) (Level A / AA / AAA)
   - **Partially**: [B.2.3. Assist authors with managing alternative content for non-text content](#b23-assist-authors-with-managing-alternative-content-for-non-text-content)
-    - **Fail**: [B.2.3.1 Alternative Content is Editable (WCAG)](#b231-alternative-content-is-editable-wcag)
-    - **Pass**: [B.2.3.2 Automating Repair of Text Alternatives](#b232-automating-repair-of-text-alternatives)
-    - **Fail**: [B.2.3.3 Save for Reuse](#b233-save-for-reuse)
+    - **Fail**: [B.2.3.1 Alternative Content is Editable (WCAG)](#b231-alternative-content-is-editable-wcag) (Level A / AA / AAA)
+    - **Pass**: [B.2.3.2 Automating Repair of Text Alternatives](#b232-automating-repair-of-text-alternatives) (Level A)
+    - **Fail**: [B.2.3.3 Save for Reuse](#b233-save-for-reuse) (Level AAA)
   - **Partially**: [B.2.4. Assist authors with accessible templates](#b24-assist-authors-with-accessible-templates)
-    - **Fail**: [B.2.4.1 Accessible Template Options (WCAG)](#b241-accessible-template-options-wcag)
-    - **Pass**: [B.2.4.2 Identify Template Accessibility](#b242-identify-template-accessibility)
-    - **Not applicable**: [B.2.4.3 Author-Created Templates](#b243-author-created-templates)
-    - **Fail**: [B.2.4.4 Accessible Template Options (Enhanced)](#b244-accessible-template-options-enhanced)
+    - **Fail**: [B.2.4.1 Accessible Template Options (WCAG)](#b241-accessible-template-options-wcag) (Level A / AA / AAA)
+    - **Pass**: [B.2.4.2 Identify Template Accessibility](#b242-identify-template-accessibility) (Level AA)
+    - **Not applicable**: [B.2.4.3 Author-Created Templates](#b243-author-created-templates) (Level AA)
+    - **Fail**: [B.2.4.4 Accessible Template Options (Enhanced)](#b244-accessible-template-options-enhanced) (Level AAA)
   - **Not applicable**: [B.2.5. Assist authors with accessible pre-authored content](#b25-assist-authors-with-accessible-pre-authored-content)
-    - **Not applicable**: [B.2.5.1 Accessible Pre-Authored Content Options](#b251-accessible-pre-authored-content-options)
-    - **Not applicable**: [B.2.5.2 Identify Pre-Authored Content Accessibility](#b252-identify-pre-authored-content-accessibility)
+    - **Not applicable**: [B.2.5.1 Accessible Pre-Authored Content Options](#b251-accessible-pre-authored-content-options) (Level AA)
+    - **Not applicable**: [B.2.5.2 Identify Pre-Authored Content Accessibility](#b252-identify-pre-authored-content-accessibility) (Level AA)
 - [B.3. Authors are supported in improving the accessibility of existing content](#b3-authors-are-supported-in-improving-the-accessibility-of-existing-content)
   - **Partially**: [B.3.1. Assist authors in checking for accessibility problems](#b31-assist-authors-in-checking-for-accessibility-problems)
-    - **Fail**: [B.3.1.1 Checking Assistance (WCAG)](#b311-checking-assistance-wcag)
-    - **Not applicable**: [B.3.1.2 Help Authors Decide](#b312-help-authors-decide)
-    - **Not applicable**: [B.3.1.3 Help Authors Locate](#b313-help-authors-locate)
-    - **Pass**: [B.3.1.4 Status Report](#b314-status-report)
-    - **Fail**: [B.3.1.5 Programmatic Association of Results](#b315-programmatic-association-of-results)
+    - **Fail**: [B.3.1.1 Checking Assistance (WCAG)](#b311-checking-assistance-wcag) (Level A / AA / AAA)
+    - **Not applicable**: [B.3.1.2 Help Authors Decide](#b312-help-authors-decide) (Level A)
+    - **Not applicable**: [B.3.1.3 Help Authors Locate](#b313-help-authors-locate) (Level A)
+    - **Pass**: [B.3.1.4 Status Report](#b314-status-report) (Level AA)
+    - **Fail**: [B.3.1.5 Programmatic Association of Results](#b315-programmatic-association-of-results) (Level AA)
   - **Fail**: [B.3.2. Assist authors in repairing accessibility problems](#b32-assist-authors-in-repairing-accessibility-problems)
-    - **Fail**: [B.3.2.1 Repair Assistance (WCAG)](#b321-repair-assistance-wcag)
+    - **Fail**: [B.3.2.1 Repair Assistance (WCAG)](#b321-repair-assistance-wcag) (Level A / AA / AAA)
 - [B.4. Authoring tools promote and integrate their accessibility features](#b4-authoring-tools-promote-and-integrate-their-accessibility-features)
   - **Pass**: [B.4.1. Ensure the availability of features that support the production of accessible content](#b41-ensure-the-availability-of-features-that-support-the-production-of-accessible-content)
-    - **Pass**: [B.4.1.1 Features Active by Default](#b411-features-active-by-default)
-    - **Pass**: [B.4.1.2 Option to Reactivate Features](#b412-option-to-reactivate-features)
-    - **Pass**: [B.4.1.3 Feature Deactivation Warning](#b413-feature-deactivation-warning)
-    - **Pass**: [B.4.1.4 Feature Prominence](#b414-feature-prominence)
+    - **Pass**: [B.4.1.1 Features Active by Default](#b411-features-active-by-default) (Level A)
+    - **Pass**: [B.4.1.2 Option to Reactivate Features](#b412-option-to-reactivate-features) (Level A)
+    - **Pass**: [B.4.1.3 Feature Deactivation Warning](#b413-feature-deactivation-warning) (Level AA)
+    - **Pass**: [B.4.1.4 Feature Prominence](#b414-feature-prominence) (Level AA)
   - **Partially**: [B.4.2. Ensure that documentation promotes the production of accessible content](#b42-ensure-that-documentation-promotes-the-production-of-accessible-content)
-    - **Fail**: [B.4.2.1 Model Practice (WCAG)](#b421-model-practice-wcag)
-    - **Fail**: [B.4.2.2 Feature Instructions](#b422-feature-instructions)
-    - **Fail**: [B.4.2.3 Tutorial](#b423-tutorial)
-    - **Fail**: [B.4.2.4 Instruction Index](#b424-instruction-index)
+    - **Fail**: [B.4.2.1 Model Practice (WCAG)](#b421-model-practice-wcag) (Level A / AA / AAA)
+    - **Fail**: [B.4.2.2 Feature Instructions](#b422-feature-instructions) (Level A)
+    - **Fail**: [B.4.2.3 Tutorial](#b423-tutorial) (Level AAA)
+    - **Fail**: [B.4.2.4 Instruction Index](#b424-instruction-index) (Level AAA)
 
-## A. Make the authoring tool user interface accessible
+## [A. Make the authoring tool user interface accessible](https://www.w3.org/TR/ATAG20/#part_a)
 
-### A.1. Authoring tool user interfaces follow applicable accessibility guidelines
+### [A.1. Authoring tool user interfaces follow applicable accessibility guidelines](https://www.w3.org/TR/ATAG20/#principle_a1)
 
-#### A.1.1. (For the authoring tool user interface) Ensure that web-based functionality is accessible
+#### [A.1.1. (For the authoring tool user interface) Ensure that web-based functionality is accessible](https://www.w3.org/TR/ATAG20/#gl_a11)
+
+See [Implementing A.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a11).
 
 ##### A.1.1.1 Web-Based Accessible (WCAG)
+
+> (Level A / AA / AAA). See [Implementing A.1.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a111).
 
 **Fail**. Evaluated as: **Level AA**. Wagtail [currently targets WCAG 2.1 AA conformance](https://wagtail.org/accessibility/) for the administrative interface of the CMS. Though a lot of progress has been made, there are still [known conformance issues](https://github.com/orgs/wagtail/projects/9/views/1).
 
@@ -201,21 +211,31 @@ Full list of 24 currently-documented accessibility issues in GitHub:
 - [Datetimepicker UI component is not accessible to screen-reader and keyboard users #5325](https://github.com/wagtail/wagtail/issues/5325)
 - [Making Wagtail Accessible for users with disabilities #4199](https://github.com/wagtail/wagtail/issues/4199)
 
-#### A.1.2. (For the authoring tool user interface) Ensure that non-web-based functionality is accessible
+#### [A.1.2. (For the authoring tool user interface) Ensure that non-web-based functionality is accessible](https://www.w3.org/TR/ATAG20/#gl_a12)
+
+See [Implementing A.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a12).
 
 ##### A.1.2.1 Accessibility Guidelines
+
+> (Level A). See [Implementing A.1.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a121).
 
 **Not applicable**. Wagtail is a web-based CMS.
 
 ##### A.1.2.2 Platform Accessibility Services
 
+> (Level A). See [Implementing A.1.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a122).
+
 **Not applicable**. Wagtail is a web-based CMS.
 
-### A.2. Editing-views are perceivable
+### [A.2. Editing-views are perceivable](https://www.w3.org/TR/ATAG20/#principle_a2)
 
-#### A.2.1. (For the authoring tool user interface) Make alternative content available to authors
+#### [A.2.1. (For the authoring tool user interface) Make alternative content available to authors](https://www.w3.org/TR/ATAG20/#gl_a21)
+
+See [Implementing A.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a21).
 
 ##### A.2.1.1 Text Alternatives for Rendered Non-Text Content
+
+> (Level A). See [Implementing A.2.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a211).
 
 **Fail**. For icons within the CMS, all have appropriate alt text. For CMS-managed images, Wagtail renders non-text content in nine scenarios, five of which are related to editing views and would require changes:
 
@@ -279,11 +299,17 @@ Reference: [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51
 
 ##### A.2.1.2 Alternatives for Rendered Time-Based Media
 
+> (Level A). See [Implementing A.2.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a212).
+
 **Fail**. Wagtail’s only time-based media is animated GIFs. Their text alternatives work identically to other images in Wagtail, with the same characteristics listed in SC A.2.1.1.
 
-#### A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined
+#### [A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined](https://www.w3.org/TR/
+
+See [Implementing A.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a22).
 
 ##### A.2.2.1 Editing-View Status Indicators
+
+> (Level A). See [Implementing A.2.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a221).
 
 **Fail**. Wagtail uses the following status indicators in editing views:
 
@@ -308,13 +334,19 @@ Outside editing views (possibly not part of ATAG requirements), Wagtail renders 
 
 ##### A.2.2.2 Access to Rendered Text Properties
 
+> (Level AA). See [Implementing A.2.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a222).
+
 **Not applicable**. Wagtail doesn’t allow editing of any text properties associated with the content.
 
-### A.3. Editing-views are operable
+### [A.3. Editing-views are operable](https://www.w3.org/TR/ATAG20/#principle_a3)
 
-#### A.3.1. (For the authoring tool user interface) Provide keyboard access to authoring features
+#### [A.3.1. (For the authoring tool user interface) Provide keyboard access to authoring features](https://www.w3.org/TR/ATAG20/#gl_a31)
+
+See [Implementing A.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a31).
 
 ##### A.3.1.1 Keyboard Access (Minimum)
+
+> (Level A). See [Implementing A.3.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a311).
 
 **Fail**. Though the majority of the authoring tool’s functionality is keyboard accessible, there are specific areas that aren’t:
 
@@ -362,9 +394,13 @@ Outside editing views (possibly not part of ATAG requirements), Wagtail renders 
 
 ##### A.3.1.2 No Keyboard Traps
 
+> (Level A). See [Implementing A.3.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a312).
+
 **Pass**. There are no known keyboard traps in the administrative interface.
 
 ##### A.3.1.3 Efficient Keyboard Access
+
+> (Level AA). See [Implementing A.3.1.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a313).
 
 **Pass**. The administrative interface provides the following mechanisms to improve keyboard navigation:
 
@@ -376,9 +412,13 @@ Outside editing views (possibly not part of ATAG requirements), Wagtail renders 
 
 ##### A.3.1.4 Keyboard Access (Enhanced)
 
+> (Level AAA). See [Implementing A.3.1.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a314).
+
 **Fail**. See _A.3.1.1 Keyboard Access_. We would expect addressing all aspects listed in _A.3.1.1_ to also address this criterion.
 
 ##### A.3.1.5 Customize Keyboard Access
+
+> (Level AAA). See [Implementing A.3.1.5](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a315).
 
 **Fail**. None of Wagtail’s keyboard commands can be customized.
 
@@ -388,6 +428,8 @@ Proposed actions:
 - Implement a "key map" for Wagtail’s keyboard commands and-or command palette, with a way to upload a new key map as JSON.
 
 ##### A.3.1.6 Present Keyboard Commands
+
+> (Level AAA). See [Implementing A.3.1.6](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a316).
 
 **Fail**. Across specific areas:
 
@@ -403,27 +445,41 @@ Proposed actions:
 - Implement [Keyboard shortcut documentation for editor in the Wagtail UI #3949](https://github.com/wagtail/wagtail/issues/3949)
 - Consider a "Command palette" concept for Wagtail
 
-#### A.3.2. (For the authoring tool user interface) Provide authors with enough time
+#### [A.3.2. (For the authoring tool user interface) Provide authors with enough time](https://www.w3.org/TR/ATAG20/#gl_a32)
+
+See [Implementing A.3.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a32).
 
 ##### A.3.2.1 Auto-Save (Minimum)
+
+> (Level A). See [Implementing A.3.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a321).
 
 **Fail**. Wagtail doesn’t provide auto-save functionality. For Wagtail sites, the default session time limit is 2 weeks. See [Autosave #24](https://github.com/wagtail/roadmap/issues/24) on the Wagtail roadmap.
 
 ##### A.3.2.2 Timing Adjustable
 
+> (Level A). See [Implementing A.3.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a322).
+
 **Pass**. For Wagtail sites, the default session time limit is 2 weeks.
 
 ##### A.3.2.3 Static Input Components
+
+> (Level A). See [Implementing A.3.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a323).
 
 **Pass**. There are no moving input components in the CMS.
 
 ##### A.3.2.4 Content Edits Saved (Extended)
 
+> (Level AAA). See [Implementing A.3.2.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a324).
+
 **Fail**. Wagtail doesn’t provide auto-save functionality. See _A.3.2.1 Auto-Save (Minimum)_. We expect the same approach to be followed for both SCs.
 
-#### A.3.3. (For the authoring tool user interface) Help authors avoid flashing that could cause seizures
+#### [A.3.3. (For the authoring tool user interface) Help authors avoid flashing that could cause seizures](https://www.w3.org/TR/ATAG20/#gl_a33)
+
+See [Implementing A.3.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a33).
 
 ##### A.3.3.1 Static View Option
+
+> (Level A). See [Implementing A.3.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a331).
 
 **Fail**. Animated GIFs auto-play when rendered, with no option to pause them.
 
@@ -433,19 +489,29 @@ Proposed actions:
 - Design a new interface for how CMS users interact with animated GIFs
 - Implement the new interface according to ATAG, WCAG standards, and accessibility best practices.
 
-#### A.3.4. (For the authoring tool user interface) Enhance navigation and editing via content structure
+#### [A.3.4. (For the authoring tool user interface) Enhance navigation and editing via content structure](https://www.w3.org/TR/ATAG20/#gl_a34)
+
+See [Implementing A.3.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a34).
 
 ##### A.3.4.1 Navigate By Structure
+
+> (Level AA). See [Implementing A.3.4.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a341).
 
 **Not applicable**. Markup elements aren’t exposed in the CMS.
 
 ##### A.3.4.2 Navigate by Programmatic Relationships
 
+> (Level AAA). See [Implementing A.3.4.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a342).
+
 **Pass**. The only editable programmatic relationships are headings and element nesting in rich text fields, which can be navigated via the keyboard.
 
-#### A.3.5. (For the authoring tool user interface) Provide text search of the content
+#### [A.3.5. (For the authoring tool user interface) Provide text search of the content](https://www.w3.org/TR/ATAG20/#gl_a35)
+
+See [Implementing A.3.5](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a35).
 
 ##### A.3.5.1 Text Search
+
+> (Level AA). See [Implementing A.3.5.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a351).
 
 **Fail**. Wagtail supports browsers’ built-in text search which meets all criteria, but only allows searching within the currently-active tab of the editing view. For example, for pages, content under the "Promote" tab will only be searchable when this tab is active.
 
@@ -456,13 +522,19 @@ Proposed actions:
 - Investigate a possible bespoke CMS search implementation with matches across all CMS views.
 - Fix [Activating a tab based on the URL hash should also set focus to the corresponding tabpanel #8483](https://github.com/wagtail/wagtail/issues/8483)
 
-#### A.3.6. (For the authoring tool user interface) Manage preference settings
+#### [A.3.6. (For the authoring tool user interface) Manage preference settings](https://www.w3.org/TR/ATAG20/#gl_a36)
+
+See [Implementing A.3.6](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a36).
 
 ##### A.3.6.1 Independence of Display
+
+> (Level A). See [Implementing A.3.6.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a361).
 
 **Pass**. All of Wagtail’s UI settings can be adjusted without modifying the content.
 
 ##### A.3.6.2 Save Settings
+
+> (Level AA). See [Implementing A.3.6.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a362).
 
 **Pass**. Specific settings are saved differently. The following settings are persistent for a given user profile, across all sessions of said user:
 
@@ -480,23 +552,35 @@ The following settings are persistent for a given browser, across all sessions w
 
 ##### A.3.6.3 Apply Platform Settings
 
+> (Level AA). See [Implementing A.3.6.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a363).
+
 **Pass**. Wagtail’s language, time zone, and theme settings default to respecting platform settings until set to a specific value by the user.
 
-#### A.3.7. (For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents
+#### [A.3.7. (For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents](https://www.w3.org/TR/
+
+See [Implementing A.3.7](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a37).
 
 ##### A.3.7.1 Preview (Minimum)
+
+> (Level A). See [Implementing A.3.7.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a371).
 
 **Pass**. Wagtail’s live preview for pages and snippets and its draft renders within the user’s browser.
 
 ##### A.3.7.2 Preview (Enhanced)
 
+> (Level AAA). See [Implementing A.3.7.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a372).
+
 **Pass**. Wagtail’s live preview for pages and snippets can only display within the user’s browser, but all saved draft content can be previewed in any browser/device the user is logged in.
 
-### A.4. Editing-views are understandable
+### [A.4. Editing-views are understandable](https://www.w3.org/TR/ATAG20/#principle_a4)
 
-#### A.4.1. (For the authoring tool user interface) Help authors avoid and correct mistakes
+#### [A.4.1. (For the authoring tool user interface) Help authors avoid and correct mistakes](https://www.w3.org/TR/ATAG20/#gl_a41)
+
+See [Implementing A.4.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a41).
 
 ##### A.4.1.1 Content Changes Reversible (Minimum)
+
+> (Level A). See [Implementing A.4.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a411).
 
 **Fail**. Though a large number of authoring actions are reversible, not all are. The following actions are reversible:
 
@@ -520,6 +604,8 @@ The following actions are not reversible and do not require confirmation to proc
 
 ##### A.4.1.2 Settings Change Confirmation
 
+> (Level A). See [Implementing A.4.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a412).
+
 **Pass**. All of Wagtail’s UI settings saved at the browser level can be reversed by the user directly within the UI. All of the settings saved at the user profile level can be set to an "unset" default value.
 
 Recommendation for Wagtail:
@@ -529,11 +615,17 @@ Recommendation for Wagtail:
 
 ##### A.4.1.3 Content Changes Reversible (Enhanced)
 
+> (Level AAA). See [Implementing A.4.1.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a413).
+
 **Pass**. Reversible plain text and rich text content changes can be reversed sequentially while the user remains on the page. Content supporting revisions can be restored at any point in the content’s history.
 
-#### A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features
+#### [A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features](https://www.w3.org/TR/ATAG20/
+
+See [Implementing A.4.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a42).
 
 ##### A.4.2.1 Describe Accessibility Features
+
+> (Level A). See [Implementing A.4.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a421).
 
 **Fail**. The following functionality would be used to meet Part A and needs to be described either in the documentation or in the user interface:
 
@@ -576,6 +668,8 @@ The following functionality is provided by the underlying platform:
 - Embeds titles as alt text for embedded content
 
 ##### A.4.2.2 Document All Features
+
+> (Level AA). See [Implementing A.4.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a422).
 
 **Fail**. Here is a high-level record of whether given functionality is documented. As a summary:
 
@@ -747,17 +841,23 @@ This record does not cover functionality provided by the underlying platform (fo
 | Password reset                                    | No          |
 | Password reset done                               | No          |
 
-## B. Support the production of accessible content
+## [B. Support the production of accessible content](https://www.w3.org/TR/ATAG20/#part_b)
 
-### B.1. Fully automatic processes produce accessible content
+### [B.1. Fully automatic processes produce accessible content](https://www.w3.org/TR/ATAG20/#principle_b1)
 
-#### B.1.1. Ensure that automatically-specified content is accessible
+#### [B.1.1. Ensure that automatically-specified content is accessible](https://www.w3.org/TR/ATAG20/#gl_b11)
+
+See [Implementing B.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b11).
 
 ##### B.1.1.1 Content Auto-Generation After Authoring Sessions (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.1.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b111).
 
 **Pass**. Evaluated as: **Level AAA**. Wagtail doesn’t automatically generate content after authoring sessions. Processes that operate after authoring sessions and could alter the content are [scheduled publishing](https://docs.wagtail.org/en/stable/reference/pages/theory.html#id2) and [search index](https://docs.wagtail.org/en/stable/topics/search/indexing.html#wagtailsearch-indexing-update) updates, but in both cases any automatically-generated content would already be present during the session.
 
 ##### B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.1.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b112).
 
 **Fail**. Evaluated as: **Level AA**. Wagtail automatically generates content in a few scenarios. In the following scenarios, markup is accessible without further work:
 
@@ -780,9 +880,13 @@ Proposed actions:
 - Implement [Accessibility checker in page editor #10136](https://github.com/wagtail/wagtail/issues/10136)
 - Fix [TypedTableBlock issue #8507](https://github.com/wagtail/wagtail/issues/8507)
 
-#### B.1.2. Ensure that accessibility information is preserved
+#### [B.1.2. Ensure that accessibility information is preserved](https://www.w3.org/TR/ATAG20/#gl_b12)
+
+See [Implementing B.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b12).
 
 ##### B.1.2.1 Restructuring and Recoding Transformations (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.1.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b121).
 
 **Not applicable**. Evaluated as: **Level AA**. The only transformation present in Wagtail is processing of clipboard paste information in rich text fields to sanitize the content, which preserves accessibility semantics for preserved content, but isn’t considered a content transformation per ATAG.
 
@@ -790,21 +894,31 @@ If it was considered a content transformation – rich paste processing preserve
 
 ##### B.1.2.2 Copy-Paste Inside Authoring Tool (WCAG)
 
-**Pass**. Evaluated as: **Level AA**.  Wagtail supports copy-paste of rich text content, which is fully preserved when copy-pasting between fields configured to support the same formatting. Fields configured differently will accordingly have their formatting stripped as needed.
+> (Level A / AA / AAA). See [Implementing B.1.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b122).
+
+**Pass**. Evaluated as: **Level AA**. Wagtail supports copy-paste of rich text content, which is fully preserved when copy-pasting between fields configured to support the same formatting. Fields configured differently will accordingly have their formatting stripped as needed.
 
 ##### B.1.2.3 Optimizations Preserve Accessibility
+
+> (Level A). See [Implementing B.1.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b123).
 
 **Not applicable**. Wagtail doesn’t perform any optimizations that would affect accessibility.
 
 ##### B.1.2.4 Text Alternatives for Non-Text Content are Preserved
 
+> (Level A). See [Implementing B.1.2.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b124).
+
 **Not applicable**. See _B.1.2.1 Restructuring and Recoding Transformations (WCAG)_.
 
-### B.2. Authors are supported in producing accessible content
+### [B.2. Authors are supported in producing accessible content](https://www.w3.org/TR/ATAG20/#principle_b2)
 
-#### B.2.1. Ensure that accessible content production is possible
+#### [B.2.1. Ensure that accessible content production is possible](https://www.w3.org/TR/ATAG20/#gl_b21)
+
+See [Implementing B.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b21).
 
 ##### B.2.1.1 Accessible Content Possible (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.2.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b211).
 
 **Fail**. Evaluated as: **Level AA**. Wagtail places extensive restrictions on the production of web content, which all nonetheless allow for the production of accessible content, with the exception of:
 
@@ -818,15 +932,21 @@ Proposed actions:
 - Fix [TypedTableBlock issue #8507](https://github.com/wagtail/wagtail/issues/8507)
 - Implement [Feature request: Support for declaring language on elements in rich text. #4694](https://github.com/wagtail/wagtail/issues/4694)
 
-#### B.2.2. Guide authors to produce accessible content
+#### [B.2.2. Guide authors to produce accessible content](https://www.w3.org/TR/ATAG20/#gl_b22)
+
+See [Implementing B.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b22).
 
 ##### B.2.2.1 Accessible Option Prominence (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.2.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b221).
 
 **Pass**. Evaluated as: **Level AA**. Where text styling options are available, they are presented alongside semantic formatting options such as headings. This is for example the case in rich text formatting options.
 
 For StreamField block formats, the order is up to each site implementer to decide on. There are no built-in formats that are automatically included.
 
 ##### B.2.2.2 Setting Accessibility Properties (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.2.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b222).
 
 **Not applicable**. Evaluated as: **Level AAA**. Wagtail doesn’t support setting web content attribute values. This has been discussed extensively for links, as well as an option to set `aria-label`, but hasn’t been implemented yet.
 
@@ -835,25 +955,37 @@ See:
 - [Feature request: Support for declaring language on elements in rich text. #4694](https://github.com/wagtail/wagtail/issues/4694)
 - [Feature: ability to set links as "nofollow" rel via the WYSIWG editor's link chooser #4474](https://github.com/wagtail/wagtail/issues/4474)
 
-#### B.2.3. Assist authors with managing alternative content for non-text content
+#### [B.2.3. Assist authors with managing alternative content for non-text content](https://www.w3.org/TR/ATAG20/#gl_b23)
+
+See [Implementing B.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b23).
 
 ##### B.2.3.1 Alternative Content is Editable (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.2.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b231).
 
 **Fail**. Evaluated as: **Level AA**. Though Wagtail provides support for editing alt text everywhere images can be added, it doesn’t provide support for marking images as decorative (set to empty alt text), or changing alt text in context. See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51).
 
 ##### B.2.3.2 Automating Repair of Text Alternatives
 
+> (Level A). See [Implementing B.2.3.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b232).
+
 **Pass**. Wagtail doesn’t attempt to repair text alternatives. It does use the image’s file name as the default value for the image’s title field when creating a new image, which is used for alt text, but this is part of the upload/editing process (In-Session Repairs) and not an automated process. Said file name is filtered by default to remove the file extension.
 
 ##### B.2.3.3 Save for Reuse
+
+> (Level AAA). See [Implementing B.2.3.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b233).
 
 **Fail**. By default, Wagtail saves each image’s text alternative and reuses it everywhere the image is reused ("Save and Suggest"). It is possible to replace this text alternative with a new one, but it isn’t possible to delete it.
 
 Suggested action: incorporate this requirement into [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51).
 
-#### B.2.4. Assist authors with accessible templates
+#### [B.2.4. Assist authors with accessible templates](https://www.w3.org/TR/ATAG20/#gl_b24)
+
+See [Implementing B.2.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b24).
 
 ##### B.2.4.1 Accessible Template Options (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.2.4.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b241).
 
 **Fail**. Evaluated as: **Level AA**. With rich text formatting and StreamField blocks, Wagtail provides templates for basic text content as well as complex formatting like tables. Wagtail also provides templates for form fields within its forms module. Specific templates have accessibility issues.
 
@@ -937,31 +1069,47 @@ Proposed actions:
 
 ##### B.2.4.2 Identify Template Accessibility
 
+> (Level AA). See [Implementing B.2.4.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b242).
+
 **Pass**. Wagtail’s template selection mechanism is the block chooser (or field chooser for form builder fields). In both cases, there would be no options defined unless configured by site implementers, which can customize block icons or labels / names to indicate accessible block types.
 
 ##### B.2.4.3 Author-Created Templates
+
+> (Level AA). See [Implementing B.2.4.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b243).
 
 **Not applicable**. Wagtail doesn’t allow authors to create custom block templates.
 
 ##### B.2.4.4 Accessible Template Options (Enhanced)
 
+> (Level AAA). See [Implementing B.2.4.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b244).
+
 **Fail**. Some of Wagtail’s template options aren’t accessible. See _B.2.4.1 Accessible Template Options_.
 
-#### B.2.5. Assist authors with accessible pre-authored content
+#### [B.2.5. Assist authors with accessible pre-authored content](https://www.w3.org/TR/ATAG20/#gl_b25)
+
+See [Implementing B.2.5](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b25).
 
 ##### B.2.5.1 Accessible Pre-Authored Content Options
+
+> (Level AA). See [Implementing B.2.5.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b251).
 
 **Not applicable**. Wagtail doesn’t provide pre-authored content.
 
 ##### B.2.5.2 Identify Pre-Authored Content Accessibility
 
+> (Level AA). See [Implementing B.2.5.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b252).
+
 **Not applicable**. Wagtail doesn’t provide pre-authored content.
 
-### B.3. Authors are supported in improving the accessibility of existing content
+### [B.3. Authors are supported in improving the accessibility of existing content](https://www.w3.org/TR/ATAG20/#principle_b3)
 
-#### B.3.1. Assist authors in checking for accessibility problems
+#### [B.3.1. Assist authors in checking for accessibility problems](https://www.w3.org/TR/ATAG20/#gl_b31)
+
+See [Implementing B.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b31).
 
 ##### B.3.1.1 Checking Assistance (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.3.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b311).
 
 **Fail**. Evaluated as: **Level AAA**. There are a number of formatting / content entry options in the CMS that can lead to accessibility issues. The built-in accessibility checker provides automated tests for a number of possible issues, but not all. Available checks are:
 
@@ -995,9 +1143,13 @@ Proposed actions:
 
 ##### B.3.1.2 Help Authors Decide
 
+> (Level A). See [Implementing B.3.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b312).
+
 **Not applicable**. Currently all of Wagtail’s automated checks are pass/fail with no author input required. Discussion on further checks: [Content quality checkers #11063](https://github.com/wagtail/wagtail/discussions/11063)
 
 ##### B.3.1.3 Help Authors Locate
+
+> (Level A). See [Implementing B.3.1.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b313).
 
 **Not applicable**. Currently all of Wagtail’s automated checks are pass/fail with no author input required. Those checks do indicate which elements they are flagging. Proposed improvements:
 
@@ -1006,6 +1158,8 @@ Proposed actions:
 - Correct identification of Wagtail content so errors are only reported on CMS-managed content
 
 ##### B.3.1.4 Status Report
+
+> (Level AA). See [Implementing B.3.1.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b314).
 
 **Pass**. Wagtail’s accessibility checker reports on the number of detected issues, and upon interaction lists all rules that detected problems and where on the page.
 
@@ -1016,15 +1170,21 @@ Possible improvements:
 
 ##### B.3.1.5 Programmatic Association of Results
 
+> (Level AA). See [Implementing B.3.1.5](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b315).
+
 **Fail**. Currently the association isn’t programmatic, due to expected compatibility issues.
 
 Possible resolution: Correct identification of Wagtail content so errors are only reported on CMS-managed content.
 
-#### B.3.2. Assist authors in repairing accessibility problems
+#### [B.3.2. Assist authors in repairing accessibility problems](https://www.w3.org/TR/ATAG20/#gl_b32)
+
+See [Implementing B.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b32).
 
 ##### B.3.2.1 Repair Assistance (WCAG)
 
-**Fail**. Currently Wagtail’s 8 rules report the presence of a problem but do not suggest specific solutions.
+> (Level A / AA / AAA). See [Implementing B.3.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b321).
+
+**Fail**. Evaluated as: **Level A**. Currently Wagtail’s 8 rules report the presence of a problem but do not suggest specific solutions.
 
 Proposed improvements:
 
@@ -1032,23 +1192,33 @@ Proposed improvements:
 - [Accessibility checker in page editor #10136](https://github.com/wagtail/wagtail/issues/10136)
 - Correct identification of Wagtail content so errors are only reported on CMS-managed content
 
-### B.4. Authoring tools promote and integrate their accessibility features
+### [B.4. Authoring tools promote and integrate their accessibility features](https://www.w3.org/TR/ATAG20/#principle_b4)
 
-#### B.4.1. Ensure the availability of features that support the production of accessible content
+#### [B.4.1. Ensure the availability of features that support the production of accessible content](https://www.w3.org/TR/ATAG20/#gl_b41)
+
+See [Implementing B.4.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b41).
 
 ##### B.4.1.1 Features Active by Default
+
+> (Level A). See [Implementing B.4.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b411).
 
 **Pass**. Wagtail’s accessibility checker is on by default and cannot be turned off unless site implementers make CMS customizations in code.
 
 ##### B.4.1.2 Option to Reactivate Features
 
+> (Level A). See [Implementing B.4.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b412).
+
 **Pass**. See _B.4.1.1 Features Active by Default_.
 
 ##### B.4.1.3 Feature Deactivation Warning
 
+> (Level AA). See [Implementing B.4.1.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b413).
+
 **Pass**. See _B.4.1.1 Features Active by Default_.
 
 ##### B.4.1.4 Feature Prominence
+
+> (Level AA). See [Implementing B.4.1.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b414).
 
 **Pass**. Wagtail currently has no features relating to invalid markup, syntax errors, spelling errors, grammar errors. Possible future changes:
 
@@ -1056,9 +1226,13 @@ Proposed improvements:
 - Implement a manual check process for WCAG SCs in question. [Content quality checkers #11063](https://github.com/wagtail/wagtail/discussions/11063)
 - Roadmap: [Readability checks #50](https://github.com/wagtail/roadmap/issues/50)
 
-#### B.4.2. Ensure that documentation promotes the production of accessible content
+#### [B.4.2. Ensure that documentation promotes the production of accessible content](https://www.w3.org/TR/ATAG20/#gl_b42)
+
+See [Implementing B.4.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_b42).
 
 ##### B.4.2.1 Model Practice (WCAG)
+
+> (Level A / AA / AAA). See [Implementing B.4.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b421).
 
 **Fail**. Evaluated as: **Level AA**. Wagtail’s documentation for content authors does not demonstrate accessible authoring practices. The documentation for developers does: [Accessibility considerations](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html).
 
@@ -1070,6 +1244,8 @@ Proposed actions:
 
 ##### B.4.2.2 Feature Instructions
 
+> (Level A). See [Implementing B.4.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b422).
+
 **Fail**. Wagtail’s accessibility checker and alt text setting aren’t documented in the guide for content authors. The [documentation for developers](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html) does cover this.
 
 Proposed actions:
@@ -1080,6 +1256,8 @@ Proposed actions:
 
 ##### B.4.2.3 Tutorial
 
+> (Level AAA). See [Implementing B.4.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b423).
+
 **Fail**. Wagtail’s accessibility features doesn’t have a tutorial.
 
 Proposed actions:
@@ -1088,6 +1266,8 @@ Proposed actions:
 - Create a video tutorial in addition to the user guide website.
 
 ##### B.4.2.4 Instruction Index
+
+> (Level AAA). See [Implementing B.4.2.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b424).
 
 **Fail**. Wagtail’s documentation for content author does not have such an index. The documentation for developers does.
 
