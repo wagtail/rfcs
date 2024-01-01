@@ -3,7 +3,7 @@
 - [RFC: 089](https://github.com/wagtail/rfcs/pull/89)
 - Author: Thibaud Colas
 - Created: 2023-10-31
-- Last Modified: 2023-10-31
+- Last Modified: 2023-12-22
 
 ## Abstract
 
@@ -1274,4 +1274,4 @@ Proposed actions:
 Proposed actions:
 
 - Add an index of accessibility features to the user guide.
-- [Outreachy: Accessibiltiy features documentation](https://wagtail.org/blog/our-outreachy-projects-in-2023/)
+- [Outreachy: Accessibility features documentation](https://wagtail.org/blog/our-outreachy-projects-in-2023/)
