@@ -303,7 +303,7 @@ Reference: [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51
 
 **Fail**. Wagtail’s only time-based media is animated GIFs. Their text alternatives work identically to other images in Wagtail, with the same characteristics listed in SC A.2.1.1.
 
-#### [A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined](https://www.w3.org/TR/
+#### [A.2.2. (For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined](https://www.w3.org/TR/ATAG20/#gl_a22)
 
 See [Implementing A.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a22).
 
@@ -556,7 +556,7 @@ The following settings are persistent for a given browser, across all sessions w
 
 **Pass**. Wagtail’s language, time zone, and theme settings default to respecting platform settings until set to a specific value by the user.
 
-#### [A.3.7. (For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents](https://www.w3.org/TR/
+#### [A.3.7. (For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents](https://www.w3.org/TR/ATAG20/#gl_a37)
 
 See [Implementing A.3.7](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a37).
 
