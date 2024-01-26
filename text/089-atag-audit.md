@@ -619,7 +619,7 @@ Recommendation for Wagtail:
 
 **Pass**. Reversible plain text and rich text content changes can be reversed sequentially while the user remains on the page. Content supporting revisions can be restored at any point in the content’s history.
 
-#### [A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features](https://www.w3.org/TR/ATAG20/
+#### [A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features](https://www.w3.org/TR/ATAG20/#gl_a42)
 
 See [Implementing A.4.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#gl_a42).
 
