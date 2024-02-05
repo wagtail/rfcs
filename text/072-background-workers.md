@@ -106,7 +106,7 @@ When scheduling a task, it may not be exactly that time a task is executed, howe
 
 #### Background Hooks
 
-For Wagtail [hooks](https://docs.wagtail.io/en/stable/reference/hooks.html), there will be an additional property passed when registering the hook, which will transparently convert the hook to a task, and ensure it's submitted as a task when the hook should be called. Only certain hooks will support background tasks. Others, such as those for registering URLs or menu items must be run synchronously, and so will ignore the background argument. This will only be applicable for certain hooks, and will do nothing when passed to these hooks.
+For Wagtail [hooks](https://docs.wagtail.io/en/stable/reference/hooks.html), there will be an additional property passed when registering the hook, which will transparently convert the hook to a task, and ensure it's submitted as a task when the hook should be called. Only certain hooks will support background tasks. Others, such as those for registering URLs or menu items must be run synchronously, and so will raise an error. This will only be applicable for certain hooks, and will do nothing when passed to these hooks.
 
 ```python
 from wagtail.core import hooks
