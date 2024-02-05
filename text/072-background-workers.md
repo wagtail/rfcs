@@ -3,7 +3,7 @@
 * RFC: 72
 * Author: Jake Howard, with help from the Performance sub-team
 * Created: 2021-09-17
-* Last Modified: 2022-08-26
+* Last Modified: 2024-02-05
 
 ## Abstract
 
@@ -72,6 +72,18 @@ class MyBackend(BaseJobBackend):
         Add a job to be completed at a specific time
         """
         ...
+
+    async def aenqueue(self, func: Callable, args: List, kwargs: Dict) -> None:
+        """
+        Queue up a job function (or coroutine) to be executed
+        """
+        ...
+
+    async def adefer(self, func: Callable, when: datetime, args: List, kwargs: Dict) -> None:
+        """
+        Add a job function (or coroutine) to be completed at a specific time
+        """
+        ...
 ```
 
 If a backend doesn't support a particular scheduling mode, it simply does not define the method.
@@ -120,6 +132,14 @@ It will still be possible to manually run `background.enqueue` etc inside a hook
 
 Whilst it's possible to define tasks anywhere in an application, the convention will be to put them alongside hooks in the `wagtail_hooks.py` file, to ensure they're imported at the right times.
 
+#### Async tasks
+
+Where the underlying implementation supports it, backends may also provide an `async`-compatible interface for scheduling tasks, using `a`-prefixed methods:
+
+```python
+await background.aenqueue(do_a_task, args=[], kwargs={})
+```
+
 ### Settings
 
 Values shown below are the default.
@@ -146,7 +166,7 @@ For Wagtail's internals, it's currently not possible to control how these are ex
 ## Implementation plan
 
 1. Create the basic plumbing and base classes required
-2. Implement `ImmediateBackend`
+2. Implement (`async`-compatible) `ImmediateBackend`
 3. Enable creating wagtail hooks as tasks
 4. Implement an ORM backend
 6. Begin migrating background-compatible bits of Wagtail to tasks
