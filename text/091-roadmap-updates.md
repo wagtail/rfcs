@@ -73,9 +73,9 @@ Existing item – scheduled for Wagtail 6.0, moving to Wagtail 6.1\* as-is.
 
 Existing item – moving from Future to Wagtail 6.1\* as-is. See [RFC 72: Background workers](https://github.com/wagtail/rfcs/pull/72)
 
-### “Snug mode” admin interface
+### Information-dense admin interface
 
-Refinements to the CMS admin interface to improve information density. See [prototypes on social media](https://twitter.com/WagtailCMS/status/1731969035661643930).
+Refinements to the CMS admin interface to improve information density. See [Information density: spacious/snug mode #11265](https://github.com/wagtail/wagtail/issues/11265).
 
 #### Intended outcome
 
