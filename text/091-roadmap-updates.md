@@ -88,8 +88,6 @@ Refinements to the CMS admin interface to improve information density. See [prot
 
 Existing item – currently scheduled for Wagtail 6.1\*, will be moved to Wagtail 6.2\* so there is more time to earmark more specific improvements.
 
----
-
 Based on a roadmap of improvements to Wagtail as defined in the previous release cycle. As a follow-up to [Sustainability considerations for Wagtail sites #38](https://github.com/wagtail/roadmap/issues/38) and [Google Summer of Code 2023 #59](https://github.com/wagtail/roadmap/issues/59), implementation of possible improvements to Wagtail.
 
 ### High-contrast admin themes
