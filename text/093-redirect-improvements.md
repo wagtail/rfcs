@@ -1,6 +1,6 @@
-# RFC 0: Redirect Improvements
+# RFC 93: Redirect Improvements
 
-* RFC: 0
+* RFC: 93
 * Author: Jake Howard
 * Created: 2024-02-22
 * Last Modified: 2024-02-22
