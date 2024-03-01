@@ -3,7 +3,7 @@
 * RFC: 93
 * Author: Jake Howard
 * Created: 2024-02-22
-* Last Modified: 2024-02-22
+* Last Modified: 2024-03-01
 
 ## Meta Abstract
 
@@ -55,7 +55,7 @@ However, this also means redirects happen much later than may be expected. To ma
 
 An `is_eager` column will be added to a `Redirect`, which flags whether the redirect should run before the rest of the Wagtail page process, or afterwards (as they would currently). `is_eager` will default to `False`, to ensure it's not a breaking change, or impact other site behaviours.
 
-To properly support `is_eager`, the `RedirectMiddleware` will also need bringing up the `MIDDLEWARES` list, below incredibly high middleware such as `SecurityMiddleware`, `GzipMiddleware` and `WhitenoiseMiddleware`, but still as high as possible. For redirects to apply before Django's `APPEND_SLASH` functionality, and thus keep the redirect chains short, the `RedirectMiddleware` must come before `CommonMiddleware`.
+To properly support `is_eager`, the `RedirectMiddleware` will also need bringing up the `MIDDLEWARES` list, below incredibly high middleware such as `SecurityMiddleware`, `GzipMiddleware` and `WhitenoiseMiddleware`, but still as high as possible. Unfortunately, this will impact performance, as a database query will need to be made for redirects on every request.
 
 A Django check will be added to warn users when `RedirectMiddleware` is placed below `CommonMiddleware`.
 
