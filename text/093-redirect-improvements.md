@@ -3,7 +3,7 @@
 * RFC: 93
 * Author: Jake Howard
 * Created: 2024-02-22
-* Last Modified: 2024-03-01
+* Last Modified: 2024-03-06
 
 ## Meta Abstract
 
@@ -15,7 +15,7 @@ Notably, the current implementation has the following _issues_:
 - Redirects can be created which point to themselves, which results in them not working or shadowing other functionality
 - Redirects which are intended to go to Wagtail pages are left as raw URLs. If the page is moved in Wagtail, this results in another link in the redirect chain.
 
-This RFC proposes 3 notable changes to how redirects work, with the intention of removing potential footguns, improving SEO performance, and improving usability.
+This RFC proposes 2 notable changes to how redirects work, with the intention of removing potential footguns, improving SEO performance, and improving usability.
 
 ## Reject circular redirects
 
@@ -42,24 +42,6 @@ This is also [an open issue](https://github.com/wagtail/wagtail/issues/11659), r
 ### Open questions
 
 1. Should we also confirm whether the `old_path` matches an existing view?
-
-## Allow redirects to take precedence over other aspects of Wagtail
-
-### Abstract
-
-Wagtail redirects are currently executed as late in the request-response cycle as possible. This ensures they only run if nothing else would otherwise create a valid response (eg Wagtail page, Django view etc). This is implemented by recommending keeping the middleware as late in `MIDDLEWARES` as possible, only running after the rest of Django's view system has executed.
-
-However, this also means redirects happen much later than may be expected. To many, a "redirect" should take priority over other implementations in the system, rather than afterwards.
-
-### Specification
-
-An `is_eager` column will be added to a `Redirect`, which flags whether the redirect should run before the rest of the Wagtail page process, or afterwards (as they would currently). `is_eager` will default to `False`, to ensure it's not a breaking change, or impact other site behaviours.
-
-To properly support `is_eager`, the `RedirectMiddleware` will also need bringing up the `MIDDLEWARES` list, below incredibly high middleware such as `SecurityMiddleware`, `GzipMiddleware` and `WhitenoiseMiddleware`, but still as high as possible. Unfortunately, this will impact performance, as a database query will need to be made for redirects on every request.
-
-A Django check will be added to warn users when `RedirectMiddleware` is placed below `CommonMiddleware`.
-
-The redirects list in the Admin will also allow filtering by "eager" redirects, to more easily find a redirect.
 
 ## Convert URL redirects to page redirects
 
