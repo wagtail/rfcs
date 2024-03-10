@@ -90,9 +90,75 @@ This approach is reasonable, however the author feels that the underlying concep
 
 ## Specification
 
+### `UnionBlock` implementation
+
+`UnionBlock` is a new block type that allows editors to select a block type from a set of types defined by the developer, and then insert a single value for that chosen type.
+
+For each instance of `UnionBlock`, Editors should be presented with a `ChoiceField`, with one option for each sub-block that is a member of the union. When they make a selection, the UI should be updated so that the native form widget for the selected block type is presented. Only a single form field for the block's value should ever be presented. A default value must always be provided, as an empty choice requires editors to make an interaction to reveal a form field for the value, when they have already made an interaction indicating that they wish to enter a value when they selected the `UnionBlock` (or the block containing it) in a `StreamBlock`.
+
+#### Creation of subclasses
+
+`UnionBlock` must support definition by subclassing. As with `StreamBlock` and `StructBlock`, a developer must be able to create a custom block type inheriting from `UnionBlock`, where the sub-blocks defined as class level attributes are the options available to editors.
+
+`UnionBlock` must also support "anonymous" subclasses, like `StreamBlock` and `StructBlock`. For example, the following two definitions should be equivalent:
+
+``` python
+class MyUnion(UnionBlock):
+    text = TextBlock()
+	char = CharBlock()
+
+my_union = UnionBlock([("text", TextBlock()), ("char", CharBlock())])
+```
+
+Any existing block type should be a valid member of a `UnionBlock`.
+
+#### Implementation of the type selector
+
+The base `UnionBlock` class must insert a `ChoiceField` into the UI, the choices of which have values that are the names of the declared sub-blocks, with the labels being the labels of those sub-blocks.
+
+#### Parameters and meta-options
+
+`UnionBlock.__init__` must support a `local_blocks` keyword argument, in the first position, as with `StreamBlock` and `StructBlock`. If provided, this parameter must be a list of 2-tuples, where the first element is the name of the block option, and the second element is the block instance to use if that option is selected.
+
+In addition to `local_blocks` (and the existing base block options), `UnionBlock` must support the following options, either as keyword arguments to its constructor, or attributes defined on its nested `Meta` class:
+
+- `default_type` (`Optional[str]`, default value: `None`) - the name of the block to be presented as the default option to editors. If no parameter is passed, the first option should be automatically selected as the default. If the value is not in the set of names declared for that block, an error must be raised.
+- `type_selector_label` (`Optional[str]`, default value: `"Type"`) - the label to be associated with the field presented to editors for selecting the type for a given block instance.
+- `type_selector_widget` (`Optional[django.forms.Widget]`, default value: `None`) - the widget to use for the type selector field. If no widget is provided, Wagtail should default to Django's `RadioSelect` widget (as opposed to the `Select` widget, which is less usable/accessible).
+- `value_label` (`Optional[str]`, default value: `"Value"`) - the label to associate with the value field presented to editors. This is provided for visual consistency and to reduce redundancy in the UI. As the sub-block labels will be used for the choices in the type selector field, they need not be repeated with the value field, and we prefer for less dynamic content in the UI.
+- `value_class` (`Optional[UnionValue]`, default value: `None`) - the value class to use to represent the value of a `UnionBlock` instance in Python. If no value is provided, a base `UnionValue` class must be used.
+
+#### Help text
+
+The help text declared for the `UnionBlock` must be presented at the top level of the block's UI.
+
+The help text declared on any sub-block must be presented alongside the form field for that sub-block, whenever it is present in the UI.
+
+#### Validation
+
+The implementation must validate that the selected type is a member of the declared sub-blocks.
+
+The implementation must validate the provided value, using the selected block type's validation methods.
+
+If a `UnionBlock` is marked as required, a valid value must be provided.
+
+#### Value classes
+
+Similar to how `StructValue` is required for `StructBlock`, an extendable `UnionValue` class should be provided. This will allow developers to provide additional properties and methods, which will be required for the use of `UnionBlock` in the presentation layer.
+
+The base `UnionValue` class must provide the following attributes:
+
+- `block_type` - the name of the block type that was selected for the given instance.
+- `value` - the value for the given instance, in the native format of the selected sub-block type (e.g. if the sub-block is a `CharBlock` this will be a `str`, if it is a `ListBlock` it will be a `ListValue`, if it is a `StructBlock` it will be a `StructValue`, etc.).
+
+#### Serialisation
+
+#### Deserialisation
+
+#### Impact on external libraries
+
 ## Open Questions
 
----
 [^1]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L70
 [^2]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L133
 [^3]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L77
