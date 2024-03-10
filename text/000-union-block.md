@@ -28,7 +28,7 @@ Unions are incredibly useful - they represent _choice_. Choice is currently repr
 
 ### Example: Using `StreamBlock` to represent a single choice
 
-### Impact on UX
+#### Impact on UX
 
 A common request from users of Wagtail CMS instances is the functionality to include a link in some fragment of structured content (e.g. as part of a call to action), where that link might point to:
 
@@ -60,7 +60,7 @@ The UI generated for inserting a link requires editors to first select the "+" b
 
 In this example all fields required to make a valid submission are immediately present in the UI, which clearly communicates the requirements of the system to users and prevents a class of validation errors from occurring.
 
-### Impact on code quality
+#### Impact on code quality
 
 Data inserted in stream fields is typically destined to be rendered as HTML and served as part of a web page. To facilitate this, blocks which implement a choice of types for a single value may be required to go through a process of narrowing to facilitate each possible sub-block's particular rendering requirements. In the case of our `LinkChooserBlock` example, we will need to invoke Wagtail's page URL resolution machinery if the page option is selected. A typical solution is to implement a custom `StructValue` class for the `LinkBlock`.
 
@@ -80,6 +80,20 @@ Developers must deal with the fact the `link` field on `LinkBlock` is a sequence
 - is a poor mapping of the solution domain onto the problem domain; and
 - requires error handling for the case that the sequence might be empty, regardless of the current validation constraints (the author suspects that developers that have worked with Wagtail regularly will empathise with the need for this).
 
+### Example: Using `StructBlock` to represent a single choice
+
+Another approach that developers might take to provide a block that allows a single choice from a set of sub-blocks is to implement a `StructBlock` with a field for each sub-block, with custom JavaScript for the interface and custom validation. This is the approach taken by the [wagtail-link-block](https://github.com/developersociety/wagtail-link-block) package.
+
+`wagtail-link-block` provides a `StructBlock` subclass with a field for each handled link type[^1]. Each sub-block is marked as optional, and a custom `clean` method enforces that a single value is provided[^2]. A `ChoiceBlock` is included to allow users to select their desired link type[^3]. Custom JavaScript is provided that hides the form fields for all except the one that corresponds to the chosen link type[^4].
+
+This approach is reasonable, however the author feels that the underlying concept (a single value chosen from a union of types) has enough utility that it should be provided by Wagtail. The existence of the `wagtail-link-block` package illustrates that the use case is often required. A solution provided as part of Wagtail's core set of blocks would be more extendable, and present a consistent user experience. `wagtail-link-block` appears to be a well built package, but a criticism of it is that it is not simple to extend. A developer may wish to exclude the use of `mailto` links, for example, which would require interaction beyond the API presented by `wagtail-link-block`. If Wagtail provided a `UnionBlock`, developers would be empowered to implement their own union block types with arbitrary combinations of blocks.
+
 ## Specification
 
 ## Open Questions
+
+---
+[^1]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L70
+[^2]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L133
+[^3]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L77
+[^4]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/static/link_block/link_block.js#L8
