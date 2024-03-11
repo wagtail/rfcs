@@ -97,7 +97,7 @@ The following example shows how a `LinkBlock`, equivalent to the other examples 
 ``` python
 class LinkBlock(UnionBlock):
     page = PageChooserBlock(template="blocks/link_as_page.html")
-	url = URLBlock(template="blocks/link_as_url.html")
+    url = URLBlock(template="blocks/link_as_url.html")
 ```
 
 This approach to the `LinkBlock` problem requires developers to write less code - significantly less when taking into account the custom JavaScript required when taking the approach illustrated by `wagtail-link-block`.
@@ -119,7 +119,7 @@ For each instance of `UnionBlock`, Editors should be presented with a `ChoiceFie
 ``` python
 class MyUnion(UnionBlock):
     text = TextBlock()
-	char = CharBlock()
+    char = CharBlock()
 
 my_union = UnionBlock([("text", TextBlock()), ("char", CharBlock())])
 ```
