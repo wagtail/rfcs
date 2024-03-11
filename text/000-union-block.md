@@ -124,7 +124,7 @@ class MyUnion(UnionBlock):
 my_union = UnionBlock([("text", TextBlock()), ("char", CharBlock())])
 ```
 
-Any existing block type should be a valid member of a `UnionBlock`.
+Any existing Wagtail block type should be valid for inclusion as a member of a `UnionBlock`.
 
 ### Implementation of the type selector
 
