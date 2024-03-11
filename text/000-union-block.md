@@ -80,6 +80,8 @@ Developers must deal with the fact the `link` field on `LinkBlock` is a sequence
 - is a poor mapping of the solution domain onto the problem domain; and
 - requires error handling for the case that the sequence might be empty, regardless of the current validation constraints (the author suspects that developers that have worked with Wagtail regularly will empathise with the need for this).
 
+Note: there may be more elegant/Pythonic/Wagtailish approaches than the one illustrated above, but it was taken from a real project, and the author believes it is representative of the kinds of solutions widely in use.
+
 ### Example: Using `StructBlock` to represent a single choice
 
 Another approach that developers might take to provide a block that allows a single choice from a set of sub-blocks is to implement a `StructBlock` with a field for each sub-block, with custom JavaScript for the interface and custom validation. This is the approach taken by the [wagtail-link-block](https://github.com/developersociety/wagtail-link-block) package.
@@ -88,15 +90,27 @@ Another approach that developers might take to provide a block that allows a sin
 
 This approach is reasonable, however the author feels that the underlying concept (a single value chosen from a union of types) has enough utility that it should be provided by Wagtail. The existence of the `wagtail-link-block` package illustrates that the use case is often required. A solution provided as part of Wagtail's core set of blocks would be more extendable, and present a consistent user experience. `wagtail-link-block` appears to be a well built package, but a criticism of it is that it is not simple to extend. A developer may wish to exclude the use of `mailto` links, for example, which would require interaction beyond the API presented by `wagtail-link-block`. If Wagtail provided a `UnionBlock`, developers would be empowered to implement their own union block types with arbitrary combinations of blocks.
 
-## Specification
+### Example: Using `UnionBlock` to implement a link block
 
-### `UnionBlock` implementation
+The following example shows how a `LinkBlock`, equivalent to the other examples in this section, would be implemented using `UnionBlock`.
+
+``` python
+class LinkBlock(UnionBlock):
+    page = PageChooserBlock(template="blocks/link_as_page.html")
+	url = URLBlock(template="blocks/link_as_url.html")
+```
+
+This approach to the `LinkBlock` problem requires developers to write less code - significantly less when taking into account the custom JavaScript required when taking the approach illustrated by `wagtail-link-block`.
+
+In summary, the author believes that the UX and code quality improvements illustrated here present a compelling case for the inclusion of a `UnionBlock` in Wagtail.
+
+## Specification
 
 `UnionBlock` is a new block type that allows editors to select a block type from a set of types defined by the developer, and then insert a single value for that chosen type.
 
 For each instance of `UnionBlock`, Editors should be presented with a `ChoiceField`, with one option for each sub-block that is a member of the union. When they make a selection, the UI should be updated so that the native form widget for the selected block type is presented. Only a single form field for the block's value should ever be presented. A default value must always be provided, as an empty choice requires editors to make an interaction to reveal a form field for the value, when they have already made an interaction indicating that they wish to enter a value when they selected the `UnionBlock` (or the block containing it) in a `StreamBlock`.
 
-#### Creation of subclasses
+### Creation of subclasses
 
 `UnionBlock` must support definition by subclassing. As with `StreamBlock` and `StructBlock`, a developer must be able to create a custom block type inheriting from `UnionBlock`, where the sub-blocks defined as class level attributes are the options available to editors.
 
@@ -112,11 +126,11 @@ my_union = UnionBlock([("text", TextBlock()), ("char", CharBlock())])
 
 Any existing block type should be a valid member of a `UnionBlock`.
 
-#### Implementation of the type selector
+### Implementation of the type selector
 
 The base `UnionBlock` class must insert a `ChoiceField` into the UI, the choices of which have values that are the names of the declared sub-blocks, with the labels being the labels of those sub-blocks.
 
-#### Parameters and meta-options
+### Parameters and meta-options
 
 `UnionBlock.__init__` must support a `local_blocks` keyword argument, in the first position, as with `StreamBlock` and `StructBlock`. If provided, this parameter must be a list of 2-tuples, where the first element is the name of the block option, and the second element is the block instance to use if that option is selected.
 
@@ -128,13 +142,13 @@ In addition to `local_blocks` (and the existing base block options), `UnionBlock
 - `value_label` (`Optional[str]`, default value: `"Value"`) - the label to associate with the value field presented to editors. This is provided for visual consistency and to reduce redundancy in the UI. As the sub-block labels will be used for the choices in the type selector field, they need not be repeated with the value field, and we prefer for less dynamic content in the UI.
 - `value_class` (`Optional[UnionValue]`, default value: `None`) - the value class to use to represent the value of a `UnionBlock` instance in Python. If no value is provided, a base `UnionValue` class must be used.
 
-#### Help text
+### Help text
 
 The help text declared for the `UnionBlock` must be presented at the top level of the block's UI.
 
 The help text declared on any sub-block must be presented alongside the form field for that sub-block, whenever it is present in the UI.
 
-#### Validation
+### Validation
 
 The implementation must validate that the selected type is a member of the declared sub-blocks.
 
@@ -142,22 +156,68 @@ The implementation must validate the provided value, using the selected block ty
 
 If a `UnionBlock` is marked as required, a valid value must be provided.
 
-#### Value classes
+### Value classes
 
-Similar to how `StructValue` is required for `StructBlock`, an extendable `UnionValue` class should be provided. This will allow developers to provide additional properties and methods, which will be required for the use of `UnionBlock` in the presentation layer.
+Similar to how `StructValue` is required for `StructBlock`, an extendable `UnionValue` class must be provided. This will allow developers to provide additional properties and methods, which may be required for the use of `UnionBlock` in the presentation layer.
 
 The base `UnionValue` class must provide the following attributes:
 
-- `block_type` - the name of the block type that was selected for the given instance.
+- `block` - a reference to the relevant `UnionBlock` class;
+- `block_type` - the name of the sub-block type that was selected for the given instance; and
 - `value` - the value for the given instance, in the native format of the selected sub-block type (e.g. if the sub-block is a `CharBlock` this will be a `str`, if it is a `ListBlock` it will be a `ListValue`, if it is a `StructBlock` it will be a `StructValue`, etc.).
 
-#### Serialisation
+### Behaviour in templates
 
-#### Deserialisation
+If Wagtail's `include_block` template tag is called with a `UnionValue` instance as its argument, it should defer to the `render_as_block` method of the associated `UnionBlock`.
 
-#### Impact on external libraries
+If a `template` parameter/meta-option was supplied for the `UnionBlock` instance, `render_as_block` should render that template, with context supplied by the `get_context` method.
 
-## Open Questions
+If no `template` parameter/meta-option was supplied for the `UnionBlock` instance, `render_as_block` should defer to the `render_as_block` method of the selected sub-block for that data instance.
+
+This cascading approach will allow developers to either:
+
+1. implement a single template that is used to render all union members; or
+2. implement individual templates for each sub-block.
+
+### Serialisation
+
+The serialised value of a `UnionBlock` should be a JSON object, with the following required keys:
+
+- `type` - the name of the `UnionBlock`;
+- `value` - the serialised value of the selected sub-block; and
+- `__union_type__` - a special key which serves two purposes:
+    1. identifying which sub-block was chosen (its value should be a `str`, the name of the chosen sub-block); and
+    2. disambiguating the `UnionBlock` from other block types.
+
+### Deserialisation
+
+When deserialising the JSON representation of a `UnionBlock`, a `UnionValue` instance should be created.
+
+To deserialise the value of the chosen sub-block, Wagtail must:
+
+1. consult the `__union_type__` field of the serialised object;
+2. retrieve the corresponding block definition from the `UnionBlock`'s `child_blocks`; and
+3. defer deserialisation of the `value` field to the sub-block.
+
+If the sub-block indicated by `__union_type__` is not found on the `UnionBlock`'s definition (e.g. if the given sub-block is removed from the union after data has been committed to the database), a `UnionValue` with an empty `value` attribute should be created.
+
+### Impact on external libraries
+
+As `UnionBlock` is a new feature, it is not expected to impact existing external libraries. However, the following libraries may benefit from updates to support `UnionBlock`.
+
+### `wagtail-factories`
+
+A `UnionBlockFactory` should be created to aid the creation of test data in projects.
+
+### `wagtail-streamfield-migration-toolkit`
+
+A `StreamBlockToUnionBlockOperation` operation would be a useful tool for projects where `StreamBlock` has been used as a surrogate `UnionBlock`.
+
+### `wagtail-grapple`
+
+`wagtail-grapple` will likely need changes to handle `UnionBlock` in its GraphQL representation of stream fields.
+
+
 
 [^1]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L70
 [^2]: https://github.com/developersociety/wagtail-link-block/blob/219ad4cb543e2ed6da900d7c5c7a4be59ef58d27/wagtail_link_block/blocks.py#L133
