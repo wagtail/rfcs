@@ -211,7 +211,7 @@ A `UnionBlockFactory` should be created to aid the creation of test data in proj
 
 #### `wagtail-streamfield-migration-toolkit`
 
-A `StreamBlockToUnionBlockOperation` operation would be a useful tool for projects where `StreamBlock` has been used as a surrogate `UnionBlock`.
+A new `StreamBlockToUnionBlockOperation` operation would be a useful tool for projects where `StreamBlock` has been used as a surrogate `UnionBlock`. As part of the motivation for implementing `UnionBlock` is the historical (ab)use of single-value stream blocks, implementing this and documenting the migration pathway should be considered a necessary part of a complete solution.
 
 #### `wagtail-grapple`
 
