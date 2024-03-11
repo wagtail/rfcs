@@ -205,15 +205,15 @@ If the sub-block indicated by `__union_type__` is not found on the `UnionBlock`'
 
 As `UnionBlock` is a new feature, it is not expected to impact existing external libraries. However, the following libraries may benefit from updates to support `UnionBlock`.
 
-### `wagtail-factories`
+#### `wagtail-factories`
 
 A `UnionBlockFactory` should be created to aid the creation of test data in projects.
 
-### `wagtail-streamfield-migration-toolkit`
+#### `wagtail-streamfield-migration-toolkit`
 
 A `StreamBlockToUnionBlockOperation` operation would be a useful tool for projects where `StreamBlock` has been used as a surrogate `UnionBlock`.
 
-### `wagtail-grapple`
+#### `wagtail-grapple`
 
 `wagtail-grapple` will likely need changes to handle `UnionBlock` in its GraphQL representation of stream fields.
 
