@@ -95,9 +95,13 @@ This approach is reasonable, however the author feels that the underlying concep
 The following example shows how a `LinkBlock`, equivalent to the other examples in this section, would be implemented using `UnionBlock`.
 
 ``` python
-class LinkBlock(UnionBlock):
+class LinkChooserBlock(UnionBlock):
     page = PageChooserBlock(template="blocks/link_as_page.html")
     url = URLBlock(template="blocks/link_as_url.html")
+
+class LinkBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    link = LinkChooserBlock()
 ```
 
 This approach to the `LinkBlock` problem requires developers to write less code - significantly less when taking into account the custom JavaScript required when taking the approach illustrated by `wagtail-link-block`.
