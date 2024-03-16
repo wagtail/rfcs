@@ -1,4 +1,4 @@
-# RFC : Union Block
+# RFC 94: Union Block
 
 * RFC:
 * Author: Joshua Munn <public@elysee-munn.family>
@@ -52,11 +52,11 @@ class LinkBlock(blocks.StructBlock):
     link = LinkChooserBlock()
 ```
 
-![Link block implemented stream block style](./assets/000/stream-style-link.png)
+![Link block implemented stream block style](./assets/094/stream-style-link.png)
 
 The UI generated for inserting a link requires editors to first select the "+" button to insert a block, and then choose the block type. In the typical case that the link value is _required_ this creates dissonance between what is required by data validation and what is communicated to users by visual language - requiring users to insert a block when that block is required is a sub-par experience. Compare this to a link block implemented as a `UnionBlock`:
 
-![Link block implemented union block style](./assets/000/union-style-link.png)
+![Link block implemented union block style](./assets/094/union-style-link.png)
 
 In this example all fields required to make a valid submission are immediately present in the UI, which clearly communicates the requirements of the system to users and prevents a class of validation errors from occurring.
 
