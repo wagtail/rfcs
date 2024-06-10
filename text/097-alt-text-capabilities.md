@@ -19,6 +19,7 @@ Achieving these objectives, will by extension, provide a way for contextual alt 
 
 
 ## Specification
+> **Note**: Although the goals are similar, this document is a replacement for RFC [51](https://github.com/wagtail/rfcs/pull/51), as there have been changes to Wagtail since RFC 51 was written that no longer make its Proof of Concept's approach the most optimal. This document also includes some new improvements not covered in RFC 51.
 
 There are three major changes needed:
 1. Creation of an `ImageBlock` to support contextual alt-text.
