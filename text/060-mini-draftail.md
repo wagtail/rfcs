@@ -1,6 +1,6 @@
-# RFC : Draftail Usage for General Text Entry
+# RFC 60: Draftail Usage for General Text Entry
 
-* RFC: 
+* RFC: 60
 * Author: Jacob Topp-Mugglestone
 * Created: 2020-09-17
 * Last Modified: 2020-09-17
