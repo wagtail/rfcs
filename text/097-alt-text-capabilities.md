@@ -62,23 +62,6 @@ For things that we will ideally be doing, this RFC will address them in a flowch
 
 ### Existing Flow
 
-#### Top-down
-
-```mermaid
-flowchart TD
-    Start[🖼️ Image in the CMS] --> B{Vanilla image model\n alt text\n implementation?}
-    B -- Yes --> G
-    B -- No, custom alt text at model level --> C{Does the custom alt text use\n AbstractImage.default_alt_text\n  or AbstractRendition.alt?}
-    C -- Yes --> D[Same as vanilla\n  implementation, except\n  bespoke alt text\n  could be mandatory]
-    C -- No --> E([🟠 Uncharted territory,\n implementation-dependent])
-    D --> G{How does the image render?}
-    G -- In the CMS --> Y(["🔵 alt='{title}'"])
-    G -- "Direct image reference\n  in template tag\n (ImageChooserBlock, foreign key)" --> YY(["🟠 alt='{title}'"])
-    G -- Custom StreamField block --> K(["🔵 alt='{custom}'"])
-    G -- In rich text --> R(["🟠 Contextual alt text\n  field pre-filled with title\n (opt-out of reusing title)"])
-    R --> S(["🟠 alt='{contextual}'\n or alt='{title}' or alt=''\n based on user decision"])
-```
-
 #### Left-right
 
 ```mermaid
@@ -98,32 +81,6 @@ flowchart LR
 
 ### Proposed alt flow
 
-#### Top-down
-
-```mermaid
-flowchart TD
-    Start[🖼️ Image in the CMS] --> B{Vanilla image model\n alt text\n implementation?}
-    B -- Yes --> G
-    B -- No, custom alt text at model level --> C{Does the custom alt text use\n AbstractImage.default_alt_text\n  or AbstractRendition.alt?}
-    C -- Yes --> D[Same as vanilla\n  implementation, except\n  bespoke alt text\n  could be mandatory]
-    C -- No --> E([🟠 Uncharted territory,\n implementation-dependent])
-    D --> G{How does the image render?}
-    G -- In the CMS --> J{Does the image have a\n description set?}
-    J -- Yes --> W(["🟢 alt='{description}'"])
-    J -- No --> Y(["🔵 alt='{title}'"])
-    G -- "Direct image reference\n  in template tag\n (ImageChooserBlock, foreign key)" --> N{Does the image have a\n description set?}
-    N -- Yes --> WW(["🟢 alt='{description}'"])
-    N -- No --> YY(["🟠 alt='{title}'"])
-    G -- Custom StreamField block --> K(["🔵 alt='{custom}'"])
-    G -- New ImageBlock --> P{How does the user interact\n  with the image chooser UI?}
-    G -- In rich text --> O{Temporary implementation\n  or ideal?}
-    O -- Ideal, future --> P
-    O -- Temporary, for now --> R(["🟢 Contextual alt text\n  field pre-filled with description\n  if set (opt-out of reusing description)"])
-    R --> S(["🟢 alt='{contextual}'\n  or alt='' based on user decision"])
-    P -- "They have just uploaded the image\n , pre-fill the alt text field\n  with the description\n  (opt out of reusing the description)" --> U(["🟢 alt='{contextual}'\n or alt='' based on user decision"])
-    P -- "Pre-existing image,\n  empty alt text field;\n  opt-in for the user to reuse\n  the description if set" --> V(["🟢 alt='{contextual}'\n or alt='' based on user decision"])
-```
-
 #### Left-right
 
 ```mermaid
@@ -149,3 +106,9 @@ flowchart LR
     P -- "They have just uploaded the image\n , pre-fill the alt text field\n  with the description\n  (opt out of reusing the description)" --> U(["🟢 alt='{contextual}'\n or alt='' based on user decision"])
     P -- "Pre-existing image,\n  empty alt text field;\n  opt-in for the user to reuse\n  the description if set" --> V(["🟢 alt='{contextual}'\n or alt='' based on user decision"])
 ```
+
+## Credits
+
+This RFC is part of a [Google Summer of Code Internship](https://github.com/wagtail/gsoc/blob/main/project-ideas.md#alt-text-capabilities) supported by mentors Storm Heg and Saptak Sengupta, and the Wagtail Accessibility Team.
+
+The Flowcharts and their now `mermaid` syntax equivalents were greatly worked upon by Thibaud Colas.
