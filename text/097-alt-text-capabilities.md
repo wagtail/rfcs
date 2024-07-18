@@ -31,21 +31,31 @@ There are three major changes needed:
 
 ### 1. Creating `ImageBlock`
 At this time of writing, Wagtail provides an `ImageChooserBlock`, and although we want to enforce standards and advocate for best practices, we do not want to make breaking changes or affect backward compatibility. This is the reason we will be creating a new block for images. 
-We want a new block that can leverage existing logic and provide a means to add alt text, as well as a way to indicate whether certain images are purely decorative instead, while not needing us to change the existing `ImageChooserBlock` implementation. This will be the first major change. The name `ImageBlock` has been selected (although still up for deliberation) because for other StreamField blocks, the prefixes convey what their types are: such as `RichTextBlock` for rich text, `CharBlock` for characters, `EmailBlock` for emails, and so on. 
+We want a new block that can leverage existing logic and provide a means to add alt text, as well as a way to indicate whether certain images are purely decorative instead, while not needing us to change the existing `ImageChooserBlock` implementation. This will be the first major change.  
+
+The name `ImageBlock` has been selected (although still up for deliberation) because for other StreamField blocks, the prefixes convey what their types are: such as `RichTextBlock` for rich text, `CharBlock` for characters, `EmailBlock` for emails, and so on. 
 
 This `ImageBlock` class will subclass the `StructBlock` class, and it will have three properties:
 1. An `image` property, which is an `ImageChooserBlock`.
 2. An `alt_text` property, which is a `CharBlock.
 3. A `decorative` property, which is a `BooleanBlock` (which renders as a checkbox)
 
-These properties only define the visual layout in the Admin interface, but do not handle custom logic. To cater to this, this RFC proposes introducing and registering ImageBlock-specific Javascript logic (a new static file) for the Admin interface, to allow the `alt_text` field to be enabled/disabled by toggling the `decorative` checkbox. If disabled, the field will be cleared and its value will be an empty string. Additionally, this RFC proposes that the native Python value of this new block (as returned from `to_python`) be an Image instead of a Dict-like `StructValue`. This will make alt text detection automatic when the `{% image %}` template tag is used. The `ImageBlock’s` behaviour will be identical to the behaviour already in place for the `ImageChooserBlock`. To achieve this, this RFC proposes overriding some parent methods, particularly the ones that typically return Dict values, as will be shown in the snippet in the paragraph below. Optionally, a decision can be made on whether or not alt texts of images should be searchable.
+These properties only define the visual layout in the Admin interface, but do not handle custom logic. To cater to this, this RFC proposes introducing and registering ImageBlock-specific Javascript logic (a new static file) for the Admin interface, to allow the `alt_text` field to be enabled/disabled by toggling the `decorative` checkbox. If disabled, the field will be cleared and its value will be an empty string. Additionally, this RFC proposes that the native Python value of this new block (as returned from `to_python`) be an Image instead of a Dict-like `StructValue`. This will make alt text detection automatic when the `{% image %}` template tag is used.  
+
+The `ImageBlock’s` behaviour will be identical to the behaviour already in place for the `ImageChooserBlock`. To achieve this, this RFC proposes overriding some parent methods, particularly the ones that typically return Dict values, as will be shown in the snippet in the paragraph below. Optionally, a decision can be made on whether or not alt texts of images should be searchable.
 
 Do take a look at some snippets of the sample code implementation [here](https://github.com/wagtail/wagtail/pull/11791/files) (including a sample template).
 
 
 ### 2.  Adding a `description` field to `AbstractImage`
 
-The next major action is to improve image accessibility **within** the Admin interface for administrative users/editors. For this, we will add a `description` field to the AbstractImage class for a high-level overview of the image. It will be used as the alt text inside the image listing view and inside image picker dialogs. With this in place, the behaviour of the gallery in the admin interface would be such that stored images are described, and these descriptions can be prompted as suggestions editors can prefill the `alt_text` field with when they use the `ImageBlock`. The `description` will also provide a better fallback in the absence of `alt_text` (such as when Images are used within `ImageChooserBlock`, `ImageBlock`, etc) than the `title` field. These new features would be important to screen-reader users using the Wagtail admin, and it would be a step in mentally preparing editors to be thorough with alt text at the point of image usage. However, with backward compatibility in mind, this new field will be optional and default to a blank string for existing images. There will be a warning message that shows at the image upload/edit form that indicates that although the the field is optional, Wagtail recommends editors fill it. 
+The next major action is to improve image accessibility **within** the Admin interface for administrative users/editors. For this, we will add a `description` field to the AbstractImage class for a high-level overview of the image. It will be used as the alt text inside the image listing view and inside image picker dialogs.  
+
+With this in place, the behaviour of the gallery in the admin interface would be such that stored images are described, and these descriptions can be prompted as suggestions editors can prefill the `alt_text` field with when they use the `ImageBlock` and *images in rich text*. The `description` will also provide a better fallback in the absence of `alt_text` (such as when Images are used within `ImageChooserBlock`, `ImageBlock`, etc) than the `title` field.  
+
+These new features would be important to screen-reader users using the Wagtail admin, and it would be a step in mentally preparing editors to be thorough with alt text at the point of image usage. However, with backward compatibility in mind, this new field will be optional and default to a blank string for existing images.  
+
+There will be a warning message that shows at the image upload/edit form that indicates that although the the field is optional, Wagtail recommends editors fill it. 
 
 ### 3. Documentation efforts
 We will include a note in the upgrade considerations on how developers can migrate. In practice, some developers have added their own alt text field to their custom image model. These migration instructions will help this group of developers migrate from their own alt text field to the new image description field.
@@ -53,16 +63,14 @@ We will include a note in the upgrade considerations on how developers can migra
 
 ## Caveats
 
-Here are some of the things we will ideally not be doing:
+Here are some of the things we will not be doing:
 1. We will not be doing away with the title field for the AbstractImage model. This is because titles will still be used to identify specific images, especially among a list or point of reference.
 
-For things that we will ideally be doing, this RFC will address them in a flowchart of the proposed flow below.
+For things that we will be doing, this RFC will address them in a flowchart of the proposed flow below.
 
 ## Flowcharts of Existing Flow vs Proposed Flow
 
 ### Existing Flow
-
-#### Left-right
 
 ```mermaid
 flowchart LR
@@ -80,8 +88,6 @@ flowchart LR
 ```
 
 ### Proposed alt flow
-
-#### Left-right
 
 ```mermaid
 flowchart LR
