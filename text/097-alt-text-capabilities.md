@@ -7,7 +7,8 @@
 
 ## Abstract
 
-In its current state, Wagtail’s alt text functionality presents a significant accessibility challenge. Its approach to alt text relies heavily on the implementation of developers who use Wagtail, with the only default mechanism being that when alt text is not provided, the title of the image is used as the alt text. The problem with this is that image titles are also defaulted to what the file is saved as, and site editors are not mandated to change the titles from this default. Research by Wagtail’s accessibility team has shown that many sites have not attempted to customize the alt text mechanism, instead, relying on the default to the title field. Much too often, this leads to a very poor experience for screen-reader users.
+In its current state, Wagtail’s alt text functionality presents a significant accessibility challenge. Its approach to alt text relies heavily on the implementation of developers who use Wagtail, with the only default mechanism being that when alt text is not provided, the title of the image is used as the alt text.
+The problem with this is that image titles are also defaulted to what the file is saved as, and site editors are not mandated to change the titles from this default. [Research by Wagtail’s accessibility team](https://docs.google.com/spreadsheets/d/1MgHVWYuKjdLkqiCOJzli7wQKjmjpeHjLL1naJYHeeDw/edit#gid=0) has shown that many sites have not attempted to customize the alt text mechanism, instead, relying on the default to the title field. Much too often, this leads to a very poor experience for screen-reader users.
 
 Additionally, the developers who create their own ways of enforcing alt text do so in a way that does not allow alt text to be tailored to the context in which the image is used. This is likely due to a general lack of awareness of the value that contextual alt text provides to users. Therefore with images in Wagtail, we have a lot of sites not adhering to Web Accessibility Standards, despite the developers behind them thinking otherwise.
 
@@ -29,15 +30,17 @@ There are three major changes needed:
 2. Addition of a `description` field to the `AbstractImage` model.
 3. Documentation efforts for both processes (1) and (2).
 
+Additionally, the RFC also proposes a more minor change to contextual alt text for rich text: making the reuse of the image title / description as alt-text "opt-in" rather than opt-out.
+
 ### 1. Creating `ImageBlock`
 At this time of writing, Wagtail provides an `ImageChooserBlock`, and although we want to enforce standards and advocate for best practices, we do not want to make breaking changes or affect backward compatibility. This is the reason we will be creating a new block for images. 
 We want a new block that can leverage existing logic and provide a means to add alt text, as well as a way to indicate whether certain images are purely decorative instead, while not needing us to change the existing `ImageChooserBlock` implementation. This will be the first major change.  
 
-The name `ImageBlock` has been selected (although still up for deliberation) because for other StreamField blocks, the prefixes convey what their types are: such as `RichTextBlock` for rich text, `CharBlock` for characters, `EmailBlock` for emails, and so on. 
+The block will be named `ImageBlock` to match other built-in block types such as `RichTextBlock` for rich text, `CharBlock` for characters, `EmailBlock` for emails, and so on. 
 
 This `ImageBlock` class will subclass the `StructBlock` class, and it will have three properties:
 1. An `image` property, which is an `ImageChooserBlock`.
-2. An `alt_text` property, which is a `CharBlock.
+2. An `alt_text` property, which is a `CharBlock`.
 3. A `decorative` property, which is a `BooleanBlock` (which renders as a checkbox)
 
 These properties only define the visual layout in the Admin interface, but do not handle custom logic. To cater to this, this RFC proposes introducing and registering ImageBlock-specific Javascript logic (a new static file) for the Admin interface, to allow the `alt_text` field to be enabled/disabled by toggling the `decorative` checkbox. If disabled, the field will be cleared and its value will be an empty string. Additionally, this RFC proposes that the native Python value of this new block (as returned from `to_python`) be an Image instead of a Dict-like `StructValue`. This will make alt text detection automatic when the `{% image %}` template tag is used.  
@@ -55,7 +58,7 @@ With this in place, the behaviour of the gallery in the admin interface would be
 
 These new features would be important to screen-reader users using the Wagtail admin, and it would be a step in mentally preparing editors to be thorough with alt text at the point of image usage. However, with backward compatibility in mind, this new field will be optional and default to a blank string for existing images.  
 
-There will be a warning message that shows at the image upload/edit form that indicates that although the the field is optional, Wagtail recommends editors fill it. 
+There will be a warning message that shows at the image upload/edit form that indicates that although the the field is optional, Wagtail recommends editors fill it out.
 
 ### 3. Documentation efforts
 We will include a note in the upgrade considerations on how developers can migrate. In practice, some developers have added their own alt text field to their custom image model. These migration instructions will help this group of developers migrate from their own alt text field to the new image description field.
