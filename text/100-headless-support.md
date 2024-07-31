@@ -24,7 +24,7 @@ Here are two rules to determine which current and future Wagtail features must b
 
 ## Feature-by-feature review
 
-Based on feature definitions from [Are we headless yet?](https://areweheadlessyet.wagtail.org/).
+Started from feature definitions of [Are we headless yet?](https://areweheadlessyet.wagtail.org/), expanded as appropriate
 
 | Feature                                                                                   | Goal in Wagtail core | Current status     |
 | ----------------------------------------------------------------------------------------- | -------------------- | ------------------ |
@@ -41,6 +41,7 @@ Based on feature definitions from [Are we headless yet?](https://areweheadlessye
 | [StreamField](https://areweheadlessyet.wagtail.org/streamfield)                           | Full support         | TBC                |
 | Userbar                                                                                   | Full support         | No support         |
 | Content checks                                                                            | Full support         | No support         |
+| Redirects                                                                                 | Full support         | No support         |
 
 ## Gaps to address
 
@@ -56,6 +57,7 @@ This should instead be part of Wagtail core, either as-is implementation or equi
 ### Rich Text
 
 - Add a built-in way to render rich text fields in the API.
+- More reliable [link handling](https://github.com/wagtail/wagtail/pull/9984)
 
 ### Password-protected Pages
 
