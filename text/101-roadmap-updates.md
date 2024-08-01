@@ -3,7 +3,7 @@
 - RFC: 101
 - Author: Thibaud Colas
 - Created: 2024-07-31
-- Last Modified: 2024-07-31
+- Last Modified: 2024-08-01
 
 ## Abstract
 
@@ -26,10 +26,9 @@ All items 🎉
 - [Content metrics](https://github.com/wagtail/roadmap/issues/82)
 - [Alt text validation](https://github.com/wagtail/roadmap/issues/83)
 
-The following Wagtail 6.2 roadmap items will be marked as Done and there will be a follow-up item in v6.2\*:
+The following Wagtail 6.2 roadmap items will be marked as Done and there will be a follow-up item in v6.3\*:
 
-- Concurrent editing notifications: minor UI tweaks
-- Google Summer of Code 2024: continuing the work currently ongoing with the interns until early September.
+- None
 
 The following Wagtail 6.2 roadmap items will be moved to v6.3\*:
 
@@ -41,34 +40,58 @@ The following Wagtail 6.2 roadmap items will be moved to v6.4\*:
 
 ## Proposed roadmap items for Wagtail 6.3\* (November 2024)
 
-### Admin UI performance improvements
-
-TODO
-
 ### [Auto-save support refactorings with Telepath #47](https://github.com/wagtail/roadmap/issues/47)
 
-Existing item – scheduled for Wagtail 6.1, moving to Wagtail 6.3\* as-is.
+Existing item, as-is.
 
-### [Admin interface accessibility improvements #71](https://github.com/wagtail/roadmap/issues/71)
+### [Enhanced contrast admin themes](https://github.com/wagtail/roadmap/issues/76)
 
-Existing item – scheduled for Wagtail 6.1, moving to Wagtail 6.3\* as-is.
+Existing item (previously "High-contrast admin themes") – scheduled for Wagtail 6.2\*, moving to Wagtail 6.3\*, with the following changes:
 
-### [Sustainability improvements #72](https://github.com/wagtail/roadmap/issues/72)
+- Renamed to "Enhanced contrast"
+- Going beyond colors – see ["Prefers contrast" admin theming #12176](https://github.com/wagtail/wagtail/issues/12176)
 
-Existing item – currently scheduled for Wagtail 6.2\*, will be moved to Wagtail 6.3\* so there is more time to earmark more specific improvements.
+### Dashboard enhancements
 
-### [High-contrast admin themes](https://github.com/wagtail/roadmap/issues/76)
+See [Wagtail dashboard enhancements #8325](https://github.com/wagtail/wagtail/discussions/8325#discussioncomment-10114586).
 
-Existing item – scheduled for Wagtail 6.2\*, moving to Wagtail 6.3\* as-is.
+### Admin UI performance benchmark
+
+Necessary preparation for [Admin UI performance improvements](https://github.com/wagtail/roadmap/issues/80).
+
+### Universal Design
+
+Rollout of further design changes relating to [Universal listings (search and filtering) #10446](https://github.com/wagtail/wagtail/discussions/10446#discussioncomment-9774389), with a particular focus on reducing technical debt across existing views where there could be more code reuse.
+
+### Content checks enhancements
+
+Follow-up to Wagtail 6.2 design enhancements:
+
+- [Implement checker error highlights within the preview panel #12187](https://github.com/wagtail/wagtail/issues/12187)
+- [Update accessibility checker documentation examples to enable more relevant rules #12188](https://github.com/wagtail/wagtail/issues/12188)
 
 ## Proposed roadmap items for Wagtail v6.4\* (February 2025)
 
-TODO
+### StreamField blocks drag'n'drop
+
+See [Add drag-and-drop support to StreamField #1033](https://github.com/wagtail/wagtail/issues/1033).
+
+### StreamField blocks previews
+
+See [StreamField block type descriptions and image previews in block chooser #11997](https://github.com/wagtail/wagtail/issues/11997).
+
+### [Admin UI performance improvements](https://github.com/wagtail/roadmap/issues/80)
+
+Existing item – scheduled for Wagtail 6.3\*, moving to Wagtail 6.4\* so there is more time to earmark more specific improvements.
+
+### [Admin interface accessibility improvements #71](https://github.com/wagtail/roadmap/issues/71)
+
+Existing item – scheduled for Wagtail 6.3\*, moving to Wagtail 6.4\* so there is more time to earmark more specific improvements.
+
+### [Sustainability improvements #72](https://github.com/wagtail/roadmap/issues/72)
+
+Existing item – currently scheduled for Wagtail 6.3\*, will be moved to Wagtail 6.4\* so there is more time to earmark more specific improvements.
 
 ## Proposed roadmap items for "Future" releases
 
-TODO
-
----
-
-We have also discussed a separate "Async image processing" idea for the "Future" roadmap, but it doesn’t have enough details to be added at this time.
+No changes.
