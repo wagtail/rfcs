@@ -70,6 +70,24 @@ Follow-up to Wagtail 6.2 design enhancements:
 - [Implement checker error highlights within the preview panel #12187](https://github.com/wagtail/wagtail/issues/12187)
 - [Update accessibility checker documentation examples to enable more relevant rules #12188](https://github.com/wagtail/wagtail/issues/12188)
 
+### Triage week
+
+Over a week at the end of October, we will go through our pull request and issues backlogs and triage. This will take the form of an online event across multiple days, and other activities to be determined tied with [Hacktoberfest](https://hacktoberfest.com/).
+
+For pull requests, this means reviewing every open PR and:
+
+- Assess its current state, post a comment on that state
+- Merge the ones that can be merged.
+- Close the ones that should be transferred into a new issue (or an update posted on its existing related issue).
+
+PRs that are not closed or merged will be targeted for resolution in future release cycles.
+
+For issues, we will similarly triage all:
+
+- [Unconfirmed bug reports](https://github.com/wagtail/wagtail/issues?page=1&q=sort%3Aupdated-desc+is%3Aissue+is%3Aopen+label%3Astatus%3AUnconfirmed) (current: 86)
+- [“Needs design decision” issues](https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22status%3ANeeds+Design+Decision%22) (current: 42)
+- Possibly other issues based on criteria to be determined.
+
 ## Proposed roadmap items for Wagtail v6.4\* (February 2025)
 
 ### StreamField blocks drag'n'drop
