@@ -25,11 +25,11 @@ The following Wagtail 6.3 roadmap items will be marked as Done:
 - [Dashboard enhancements](https://github.com/wagtail/roadmap/issues/86)
 - [Universal Design](https://github.com/wagtail/roadmap/issues/88)
 
-The following Wagtail 6.3 roadmap items will be marked as Done and there will be a follow-up item in v6.3\*:
+The following Wagtail 6.3 roadmap items will be marked as Done and there will be a follow-up item in v6.4\*:
 
 - [Admin UI performance benchmark](https://github.com/wagtail/roadmap/issues/87)
 
-The following Wagtail 6.3 roadmap items will be marked as Done and there will be follow-up work outside of the formap roadmap in v6.3\*:
+The following Wagtail 6.3 roadmap items will be marked as Done and there will be follow-up work outside of the formal roadmap in v6.4\*:
 
 - [Maintainer week](https://github.com/wagtail/roadmap/issues/89)
 - [Content checks enhancements](https://github.com/wagtail/roadmap/issues/90)
