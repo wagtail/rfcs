@@ -142,7 +142,7 @@ It should be simpler to retrieve renditions of images via the API, and there are
 
 ### Page URL Routing
 
-The `get_url_parts` method needs better "how-to" documentation representative of its usage for headless websites. There are other known pain points in querying the data for the correct page for a given route:
+The [`get_url_parts`](https://docs.wagtail.org/en/stable/reference/pages/model_reference.html#wagtail.models.Page.get_url_parts) method needs better "how-to" documentation representative of its usage for headless websites. There are other known pain points in querying the data for the correct page for a given route:
 
 - [Keep queries other than html_path in /api/v2/pages/find/ #6577](https://github.com/wagtail/wagtail/issues/6577)
 - [Finding pages by HTML Path - redirect missing port #7595](https://github.com/wagtail/wagtail/issues/7595)
@@ -196,6 +196,12 @@ Only available as a Django Templates template tag or Jinja2 function. Requires:
 - Loading of Wagtail static assets (CSS & JS)
 - Loading of Wagtail UI components (HTML / Django Templates)
 - (Authentication and authorization)
+
+Likely implementation:
+
+- Web Component (`<wagtail-userbar content-type="blog.BlogPage" pk="80"></wagtail-userbar>`)
+- Data fetching from Wagtail backend via dedicated API endpoint.
+- UI fetching from script tag or from Wagtail backend (via API endpoint?)
 
 ### Content checks
 
