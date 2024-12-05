@@ -252,3 +252,7 @@ Those are relevant patterns for Wagtail to consider but out of scope for this RF
 ### Would we want to consider a more open schema driven response structure ever?
 
 Maybe! As in – [JSON:API](https://jsonapi.org/) or JSON-LD.
+
+### Should we have a headless demo site?
+
+Maybe. There have been a few attempts in the past, more recently [bakerydemo-nextjs](https://github.com/thibaudcolas/bakerydemo-nextjs).
