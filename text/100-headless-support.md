@@ -3,71 +3,199 @@
 - RFC: 100
 - Author: Thibaud Colas
 - Created: 2024-07-31
-- Last Modified: 2024-07-31
+- Last Modified: 2024-12-05
 
 ## Abstract
 
 Wagtail’s support for headless websites should move closer to feature-parity with Django monoliths, without reliance on third-party packages for compatibility with core functionality.
 For features that aren’t supported because of technical constraints, design decisions, or inertia, there should be documented workarounds or alternatives.
 
-## Why
+This RFC aims to define our goal for support of those features, not the mechanism by which any one feature should be supported.
 
-- Because a lot of existing and future sites would benefit from more cohesive headless support.
-- Because it’s harder to maintain this kind of support across external packages.
+## Why we need this
 
-## Features to support
+Having a clear vision of which features are or aren’t supported will help site implementers, contributors, maintainers, stakeholders make better decisions.
 
-Here are two rules to determine which current and future Wagtail features must be supported for headless websites:
+- A lot of existing and future sites would benefit from more cohesive headless support.
+- It’s harder to maintain headless support workarounds across external packages.
+- It’s important for Wagtail to express a clear vision of supported site architectures.
 
-1. If a feature is "on by default" in Wagtail core, we must aim to support it with no external package or other custom Django implementation.
-2. If a feature is on by default and unsupported, it must be possible to turn it off and we must document a workaround or alternative.
+## Support goals
 
-## Feature-by-feature review
+To determine whether a Wagtail features should be supported for headless websites, we follow these rules.
 
-Based on feature definitions from [Are we headless yet?](https://areweheadlessyet.wagtail.org/).
+- If a feature is “on by default” in Wagtail, we must aim to support it with no need for additional packages, and minimal to no custom implementation.
+- If a feature is included by default but opt-in via configuration, we should aim to support it, or its lack of support for headless setups should be clearly documented.
+- For Wagtail features that require more than basic configuration to leverage, their support of headless websites and the state of their documentation is on a case-by-case basis.
 
-| Feature                                                                                   | Goal in Wagtail core | Current status     |
-| ----------------------------------------------------------------------------------------- | -------------------- | ------------------ |
-| [REST API](https://areweheadlessyet.wagtail.org/rest-api)                                 | Full support         | Full support       |
-| [GraphQL](https://areweheadlessyet.wagtail.org/graphql)                                   | No support           | External package   |
-| [Page Preview](https://areweheadlessyet.wagtail.org/page-preview)                         | Full support         | External package   |
-| [Images](https://areweheadlessyet.wagtail.org/images)                                     | Full support         | Partial support    |
-| [Page URL Routing](https://areweheadlessyet.wagtail.org/page-url-routing)                 | Full support         | Full support       |
-| [Rich Text](https://areweheadlessyet.wagtail.org/rich-text)                               | Full support         | Known shortcomings |
-| [Multi-site support](https://areweheadlessyet.wagtail.org/multi-site-support)             | Full support         | Known shortcomings |
-| [Form submissions](https://areweheadlessyet.wagtail.org/form-submissions)                 | No support           | No support         |
-| [Password-protected Pages](https://areweheadlessyet.wagtail.org/password-protected-pages) | Full support         | No support         |
-| [Internationalisation](https://areweheadlessyet.wagtail.org/internationalisation)         | Full support         | TBC                |
-| [StreamField](https://areweheadlessyet.wagtail.org/streamfield)                           | Full support         | TBC                |
-| Userbar                                                                                   | Full support         | No support         |
-| Content checks                                                                            | Full support         | No support         |
+Here they are as a flowchart:
 
-## Gaps to address
+```mermaid
+flowchart TD
+    A[Feature “on by default”?] -->|Yes| B[Aim to support]
+    A -->|No| C[Feature requires turning on?]
+    C -->|Yes| D[Aim to support, or document the lack of support]
+    C -->|No| E[Feature requires more than just configuration?]
+    E -->|Yes| F[Case-by-case decisions]
+    E -->|No| G[No support]
+```
+
+### Definition of “On by default”
+
+Features are considered to be “on by default” if they are included and turned on in:
+
+- Wagtail core’s Django apps that are musts for Wagtail to function (`wagtail`, `wagtail.admin`, etc).
+- The [default project template](https://docs.wagtail.org/en/stable/reference/project_template.html).
+- The [Integrating Wagtail into a Django project tutorial](https://docs.wagtail.org/en/stable/getting_started/integrating_into_django.html).
+- The [full getting started tutorial](https://docs.wagtail.org/en/stable/tutorial/index.html).
+
+### Support
+
+Feature parity is the ideal to strive for but isn’t a realistic goal in most cases. Instead, we aim for “full” or “partial” support targets with the understanding that ways to leverage the features and level of configuration required will differ.
+
+For example, integrating the [Wagtail user bar](https://docs.wagtail.org/en/stable/topics/writing_templates.html#wagtail-user-bar) in Django Templates only requires loading a tag library and using a template tag:
+
+```twig
+{% load wagtailuserbar %}
+{% wagtailuserbar %}
+```
+
+In a headless setup, the code could be similar but have much more underlying requirements:
+
+```html
+<script src="https://cms.example.com/static/wagtail-userbar.js">
+<wagtail-userbar page-id="5"></wagtail-userbar>
+```
+
+In this implementation example, there is some effort to keep the integration requirements simple, but still a need for the headless CMS to serve a script file, and for the site implementer to provide the page ID to the userbar (rather than it inferring it from context).
+
+## Current and desired state
+
+To support future headless improvements work, here is a non-exhaustive list of key areas and their current vs. ideal state.
+
+### Overview
+
+| Feature              | Current state    | Ideal state               |
+| -------------------- | ---------------- | ------------------------- |
+| Documentation        | External docs    | docs.wagtail.org          |
+| REST API             | Built-in support | Improved built-in support |
+| API schemas          | No support       | Built-in support          |
+| GraphQL              | External package | External package          |
+| Page preview         | External package | Built-in support          |
+| Images               | Built-in support | Improved built-in support |
+| Page URL routing     | Built-in support | Improved built-in support |
+| Redirects            | Built-in support | Improved built-in support |
+| Rich Text            | Built-in support | Improved built-in support |
+| Multi-site support   | Built-in support | Improved built-in support |
+| Form submissions     | No support       | Built-in support          |
+| Private pages        | No support       | Built-in support          |
+| Internationalisation | Built-in support | Improved built-in support |
+| StreamField          | Built-in support | Improved built-in support |
+| Userbar              | No support       | Built-in support          |
+| Content checks       | No support       | Built-in support          |
+
+### Documentation
+
+See [Headless docs](https://github.com/wagtail/wagtail/pull/12039) pull request. Headless support for various features needs to be covered in the developer documentation, either as a dedicated “headless support” page, or separately feature by feature, or both.
+
+### REST API
+
+The REST API needs better documentation, and improvements to its capabilities. This could take the form of a "v3" API, or gradual improvements to the current v2 API.
+
+See all [issues tagged component:API](https://github.com/wagtail/wagtail/issues?q=sort%3Aupdated-desc+is%3Aopen+label%3Acomponent%3AAPI). Here are specific issues worth highlighting:
+
+- [Allow unlimited API results with `limit=-1` #12604](https://github.com/wagtail/wagtail/issues/12604)
+- [Wagtail API: Greater than/less than filters #7497](https://github.com/wagtail/wagtail/issues/7497)
+- [Wagtail API: OR filtering related models #5755](https://github.com/wagtail/wagtail/issues/5755)
+- [API search order has no effect #3514](https://github.com/wagtail/wagtail/issues/3514)
+- [Add ability to include and filter via detail fields on pages' list endpoints #11404](https://github.com/wagtail/wagtail/issues/11404)
+- [Admin API shouldn't be affected by global REST_FRAMEWORK configuration #5628](https://github.com/wagtail/wagtail/issues/5628)
+- [Random order in the API leading to an AttributeError #3512](https://github.com/wagtail/wagtail/issues/3512)
+- [Wagtail API should have a browsable root URL #1921](https://github.com/wagtail/wagtail/issues/1921)
+- [Duplicate db query on api detail page #6133](https://github.com/wagtail/wagtail/issues/6133)
+- [Adding per-subclass filter backend/class to the v2 API Pages Endpoint #3403](https://github.com/wagtail/wagtail/issues/3403)
+- [Future release enhancement: Implement APIField for listing_default_fields, too #3562](https://github.com/wagtail/wagtail/issues/3562)
+- [Document `nested_default_fields` in APIv2 #11587](https://github.com/wagtail/wagtail/issues/11587)
+- [Add a UUIDField to the Page model #6162](https://github.com/wagtail/wagtail/issues/6162)
+- [Support customizing/encoding IDs in the API #6917](https://github.com/wagtail/wagtail/issues/6917)
+
+### API schemas
+
+In addition to discrete improvements to the API endpoints, an often-requested feature is API schema generation (OpenAPI / Swagger). See: [Support OpenAPI Schema generation for Wagtail API #6209](https://github.com/wagtail/wagtail/issues/6209).
+
+### GraphQL
+
+GraphQL and packages like [wagtail-grapple](https://github.com/torchbox/wagtail-grapple) or [strawberry-wagtail](https://github.com/patrick91/strawberry-wagtail) should remain separate. There is no requirement for Wagtail to support multiple types of APIs as a core feature.
 
 ### Page Preview
 
-Support depends on the [wagtail-headless-preview](https://github.com/torchbox/wagtail-headless-preview) package.
-This should instead be part of Wagtail core, either as-is implementation or equivalent.
+Page previews should be supported by Wagtail core. Currently, [wagtail-headless-preview](https://github.com/torchbox/wagtail-headless-preview) is required.
 
 ### Images
 
-- Add first-class support for responsive images and multi-format image generation in API responses.
+It should be simpler to retrieve renditions of images via the API, and there are a few other pain points. See:
+
+- [ImagesAPIViewSet query params for rendition? #7973](https://github.com/wagtail/wagtail/issues/7973)
+- [No Image URL in the API for ImageChooserBlock #2087](https://github.com/wagtail/wagtail/issues/2087)
+- [Feature request: Include image's title in ImageRenditionField #5435](https://github.com/wagtail/wagtail/issues/5435)
+- [Documentation for using the "Dynamic image serve" view for generating image renditions on a headless site #6113](https://github.com/wagtail/wagtail/issues/6113/)
+
+### Page URL Routing
+
+The `get_url_parts` method needs better "how-to" documentation representative of its usage for headless websites. There are other known pain points in querying the data for the correct page for a given route:
+
+- [Keep queries other than html_path in /api/v2/pages/find/ #6577](https://github.com/wagtail/wagtail/issues/6577)
+- [Finding pages by HTML Path - redirect missing port #7595](https://github.com/wagtail/wagtail/issues/7595)
+- [Improvements to API router reverse lookups. #11310](https://github.com/wagtail/wagtail/pull/11310)
+- [Add ability to support custom renderers for Page views (e.g. JSON API response at page URLs) #11752](https://github.com/wagtail/wagtail/issues/11752)
+- [Accept page change in before_serve_page handling #5753](https://github.com/wagtail/wagtail/issues/5753/)
+
+### Redirects
+
+Wagtail provides a `RedirectsAPIViewSet`. It needs further improvements – see [Refactor redirect middleware to use its lookup logic for redirects API #11524](https://github.com/wagtail/wagtail/pull/11524).
 
 ### Rich Text
 
-- Add a built-in way to render rich text fields in the API.
+Wagtail should make it more straightforward to access rendered HTML. See [API should provide access to the HTML-converted versions of rich text fields #2695](https://github.com/wagtail/wagtail/issues/2695).
+
+### Multi-site support
+
+The Wagtail API only allows requests from one site at a time to make sure any site listings are isolated from other sites by default. But the API could be improved in the following ways:
+
+- Allow the site to be specified in the API request.
+- Allow all pages across all sites to be queried on an opt-in basis.
+
+With these approaches, the site record in the Wagtail admin of Headless Wagtail would be set to the domain or port that the end user sees so URLs could be reversed correctly. All API requests would specify the site as a GET parameter.
+
+### Form submissions
+
+This feature is a regular selling point for Wagtail, though its usage is limited on headless projects. Nonetheless, Wagtail should have basic support for API interactions with forms and form submissions, or documented workarounds.
+
+Currently, Wagtail supports [adding form fields to the API](https://docs.wagtail.org/en/stable/advanced_topics/api/v2/configuration.html#adding-form-fields-to-the-api) but lacks support for submissions: [Ability to accept Form Builder Page as a POST request to the API (headless) #6950](https://github.com/wagtail/wagtail/issues/6950).
 
 ### Password-protected Pages
 
-Missing support in the API.
+Password-protected pages are currently excluded from the API. There currently isn’t a way to view a password-protected page from a headless frontend.
+
+### Internationalisation
+
+See [Support internationalized routes in API pages/find/?html_path view #6679](https://github.com/wagtail/wagtail/issues/6679).
+
+### StreamField
+
+There are a number of very simple improvements that could be made so developers have more control over the API representation of StreamField blocks, starting with documentation of the `get_api_representation` method.
+
+- [Override serializing StreamBlocks to JSON api #3454](https://github.com/wagtail/wagtail/issues/3454)
+- [Apply custom-per-block-type StreamField serializers #5174](https://github.com/wagtail/wagtail/issues/5174)
+- [parent_context or just "parent Page" for Block.get_api_representation() #7976](https://github.com/wagtail/wagtail/issues/7976)
 
 ### Userbar
 
 Only available as a Django Templates template tag or Jinja2 function. Requires:
 
-- Authentication and authorization
 - Loading of Wagtail static assets (CSS & JS)
 - Loading of Wagtail UI components (HTML / Django Templates)
+- (Authentication and authorization)
 
 ### Content checks
 
@@ -78,4 +206,10 @@ Only available via the userbar. In addition to the userbar, also requires:
 
 ## Open Questions
 
-TODO
+### How actively should we consider alternatives to Django REST Framework?
+
+See [Moving REST framework forward #9270](https://github.com/encode/django-rest-framework/discussions/9270), and the popularity of [Django Ninja](https://django-ninja.dev/).
+
+### How about a write API?
+
+Any improvements towards a "headless admin" are considered out of scope for this RFC. For example, proposals for a [write API](https://github.com/wagtail/wagtail/issues/4667) are welcome, but aren’t relevant for the majority of headless websites.
