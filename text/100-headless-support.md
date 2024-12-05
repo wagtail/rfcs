@@ -93,6 +93,8 @@ To support future headless improvements work, here is a non-exhaustive list of k
 | StreamField          | Built-in support | Improved built-in support |
 | Userbar              | No support       | Built-in support          |
 | Content checks       | No support       | Built-in support          |
+| Snippets             | No support       | Built-in support          |
+| Settings             | No support       | Built-in support          |
 
 ### Documentation
 
@@ -119,6 +121,10 @@ See all [issues tagged component:API](https://github.com/wagtail/wagtail/issues?
 - [Add a UUIDField to the Page model #6162](https://github.com/wagtail/wagtail/issues/6162)
 - [Support customizing/encoding IDs in the API #6917](https://github.com/wagtail/wagtail/issues/6917)
 
+Other ideas:
+
+- Have an endpoint to retrieve all page URLs.
+
 ### API schemas
 
 In addition to discrete improvements to the API endpoints, an often-requested feature is API schema generation (OpenAPI / Swagger). See: [Support OpenAPI Schema generation for Wagtail API #6209](https://github.com/wagtail/wagtail/issues/6209).
@@ -135,6 +141,7 @@ Page previews should be supported by Wagtail core. Currently, [wagtail-headless-
 
 It should be simpler to retrieve renditions of images via the API, and there are a few other pain points. See:
 
+- Add focal point information in the API response, to match support for [accessing the focal point in templates](https://docs.wagtail.org/en/stable/advanced_topics/images/focal_points.html#accessing-the-focal-point-in-templates).
 - [ImagesAPIViewSet query params for rendition? #7973](https://github.com/wagtail/wagtail/issues/7973)
 - [No Image URL in the API for ImageChooserBlock #2087](https://github.com/wagtail/wagtail/issues/2087)
 - [Feature request: Include image's title in ImageRenditionField #5435](https://github.com/wagtail/wagtail/issues/5435)
@@ -142,7 +149,7 @@ It should be simpler to retrieve renditions of images via the API, and there are
 
 ### Page URL Routing
 
-The [`get_url_parts`](https://docs.wagtail.org/en/stable/reference/pages/model_reference.html#wagtail.models.Page.get_url_parts) method needs better "how-to" documentation representative of its usage for headless websites. There are other known pain points in querying the data for the correct page for a given route:
+The [`get_url_parts`](https://docs.wagtail.org/en/stable/reference/pages/model_reference.html#wagtail.models.Page.get_url_parts) method needs better "how-to" documentation representative of its usage for headless websites. There could be room for improvement with `RoutablePageMixin` too. There are other known pain points in querying the data for the correct page for a given route:
 
 - [Keep queries other than html_path in /api/v2/pages/find/ #6577](https://github.com/wagtail/wagtail/issues/6577)
 - [Finding pages by HTML Path - redirect missing port #7595](https://github.com/wagtail/wagtail/issues/7595)
@@ -172,6 +179,8 @@ With these approaches, the site record in the Wagtail admin of Headless Wagtail 
 This feature is a regular selling point for Wagtail, though its usage is limited on headless projects. Nonetheless, Wagtail should have basic support for API interactions with forms and form submissions, or documented workarounds.
 
 Currently, Wagtail supports [adding form fields to the API](https://docs.wagtail.org/en/stable/advanced_topics/api/v2/configuration.html#adding-form-fields-to-the-api) but lacks support for submissions: [Ability to accept Form Builder Page as a POST request to the API (headless) #6950](https://github.com/wagtail/wagtail/issues/6950).
+
+In addition to facilitating data management, this would also help developers avoid reinventing form validation.
 
 ### Password-protected Pages
 
@@ -205,12 +214,30 @@ Likely implementation:
 
 ### Content checks
 
-Only available via the userbar. In addition to the userbar, also requires:
+Including all [accessibility checker](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html#built-in-accessibility-checker) capabilities, and content metrics. Only available via the userbar. In addition to the userbar, also requires:
 
 - Page Preview
 - Cross-domain cross-frame communication
 
+### Snippets
+
+There is currently no specific support to retrieve snippets via the API. There is room for Wagtail to provide a good recipe in the documentation.
+
+### Settings
+
+There is currently no specific support to retrieve settings via the API. There is room for Wagtail to provide a good recipe in the documentation.
+
 ## Open Questions
+
+### Is there a point in supporting JSON schemas of API responses?
+
+This would be as an alternative to OpenAPI.
+
+### Is there room to better support (front-end) cache invalidation?
+
+Possibly?
+
+> Because the frontend acts as a cache, it needs to be invalidated/purged. In Wagtail, it is necessary to track which object is used on which page so that when content is mutated, the correct frontend components/pages are invalidated/purged.
 
 ### How actively should we consider alternatives to Django REST Framework?
 
@@ -219,3 +246,11 @@ See [Moving REST framework forward #9270](https://github.com/encode/django-rest-
 ### How about a write API?
 
 Any improvements towards a "headless admin" are considered out of scope for this RFC. For example, proposals for a [write API](https://github.com/wagtail/wagtail/issues/4667) are welcome, but aren’t relevant for the majority of headless websites.
+
+### What kind of story to we want to tell when it comes to emerging community practice such as HTMX/Turbo style applications? Or do we consider this not really 'headless'?
+
+Those are relevant patterns for Wagtail to consider but out of scope for this RFC, as with those patterns it’s still the CMS application server that generates the pages’ HTML.
+
+### Would we want to consider a more open schema driven response structure ever?
+
+Maybe! As in – [JSON:API](https://jsonapi.org/) or JSON-LD.
