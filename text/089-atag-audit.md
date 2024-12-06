@@ -26,21 +26,21 @@ Validating the audit’s results will help make sure the findings as part of upc
 
 At the success criteria level as per the [W3C ATAG report tool](https://www.w3.org/WAI/atag/report-tool/), pass/fail:
 
-- Total: 22 **Pass**, 28 **Fail**, 12 **Not applicable**.
-- Part A: 12 **Pass**, 15 **Fail**, 4 **Not applicable**.
-- Part B: 10 **Pass**, 13 **Fail**, 8 **Not applicable**.
+- Total: 28 **Pass**, 22 **Fail**, 13 **Not applicable**.
+- Part A: 14 **Pass**, 13 **Fail**, 4 **Not applicable**.
+- Part B: 14 **Pass**, 9 **Fail**, 9 **Not applicable**.
 
 At the success criteria level, by [level of conformance](https://www.w3.org/TR/ATAG20/#intro_understand_levels_conformance):
 
-- Level A: 12 **Pass**, 7 **Fail**, 8 **Not applicable**.
-- Level AA: 7 **Pass**, 5 **Fail**, 3 **Not applicable**.
-- Level AAA: 3 **Pass**, 8 **Fail**, 0 **Not applicable**.
+- Level A: 11 **Pass**, 7 **Fail**, 6 **Not applicable**.
+- Level AA: 13 **Pass**, 8 **Fail**, 7 **Not applicable**.
+- Level AAA: 4 **Pass**, 7 **Fail**, 0 **Not applicable**.
 
 At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org/WAI/tools-list/authoring/), with partial support:
 
-- Total: 5 **Pass**, 15 **Partially**, 2 **Fail**, 2 **Not applicable**.
+- Total: 6 **Pass**, 14 **Partially**, 2 **Fail**, 2 **Not applicable**.
 - Part A: 2 **Pass**, 9 **Partially**, 1 **Fail**, 1 **Not applicable**.
-- Part B: 3 **Pass**, 6 **Partially**, 1 **Fail**, 1 **Not applicable**.
+- Part B: 4 **Pass**, 5 **Partially**, 1 **Fail**, 1 **Not applicable**.
 
 ### [A. Make the authoring tool user interface accessible](#a-make-the-authoring-tool-user-interface-accessible)
 
@@ -64,7 +64,7 @@ At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org
     - **Pass**: [A.3.1.3 Efficient Keyboard Access](#a313-efficient-keyboard-access) (Level AA)
     - **Fail**: [A.3.1.4 Keyboard Access (Enhanced)](#a314-keyboard-access-enhanced) (Level AAA)
     - **Fail**: [A.3.1.5 Customize Keyboard Access](#a315-customize-keyboard-access) (Level AAA)
-    - **Fail**: [A.3.1.6 Present Keyboard Commands](#a316-present-keyboard-commands) (Level AAA)
+    - **Pass**: [A.3.1.6 Present Keyboard Commands](#a316-present-keyboard-commands) (Level AAA)
   - **Partially**: [A.3.2. (For the authoring tool user interface) Provide authors with enough time](#a32-for-the-authoring-tool-user-interface-provide-authors-with-enough-time)
     - **Fail**: [A.3.2.1 Auto-Save (Minimum)](#a321-auto-save-minimum) (Level A)
     - **Pass**: [A.3.2.2 Timing Adjustable](#a322-timing-adjustable) (Level A)
@@ -90,15 +90,15 @@ At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org
     - **Pass**: [A.4.1.2 Settings Change Confirmation](#a412-settings-change-confirmation) (Level A)
     - **Pass**: [A.4.1.3 Content Changes Reversible (Enhanced)](#a413-content-changes-reversible-enhanced) (Level AAA)
   - **Partially**: [A.4.2. (For the authoring tool user interface) Document the user interface, including all accessibility features](#a42-for-the-authoring-tool-user-interface-document-the-user-interface-including-all-accessibility-features)
-    - **Fail**: [A.4.2.1 Describe Accessibility Features](#a421-describe-accessibility-features) (Level A)
+    - **Pass**: [A.4.2.1 Describe Accessibility Features](#a421-describe-accessibility-features) (Level A)
     - **Fail**: [A.4.2.2 Document All Features](#a422-document-all-features) (Level AA)
 
 ### [B. Support the production of accessible content](#b-support-the-production-of-accessible-content)
 
 - [B.1. Fully automatic processes produce accessible content](#b1-fully-automatic-processes-produce-accessible-content)
-  - **Partially**: [B.1.1. Ensure that automatically-specified content is accessible](#b11-ensure-that-automatically-specified-content-is-accessible)
+  - **Pass**: [B.1.1. Ensure that automatically-specified content is accessible](#b11-ensure-that-automatically-specified-content-is-accessible)
     - **Pass**: [B.1.1.1 Content Auto-Generation After Authoring Sessions (WCAG)](#b111-content-auto-generation-after-authoring-sessions-wcag) (Level A / AA / AAA)
-    - **Fail**: [B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)](#b112-content-auto-generation-during-authoring-sessions-wcag) (Level A / AA / AAA)
+    - **Pass**: [B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)](#b112-content-auto-generation-during-authoring-sessions-wcag) (Level A / AA / AAA)
   - **Pass**: [B.1.2. Ensure that accessibility information is preserved](#b12-ensure-that-accessibility-information-is-preserved)
     - **Not applicable**: [B.1.2.1 Restructuring and Recoding Transformations (WCAG)](#b121-restructuring-and-recoding-transformations-wcag) (Level A / AA / AAA)
     - **Pass**: [B.1.2.2 Copy-Paste Inside Authoring Tool (WCAG)](#b122-copy-paste-inside-authoring-tool-wcag) (Level A / AA / AAA)
@@ -111,7 +111,7 @@ At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org
     - **Pass**: [B.2.2.1 Accessible Option Prominence (WCAG)](#b221-accessible-option-prominence-wcag) (Level A / AA / AAA)
     - **Not applicable**: [B.2.2.2 Setting Accessibility Properties (WCAG)](#b222-setting-accessibility-properties-wcag) (Level A / AA / AAA)
   - **Partially**: [B.2.3. Assist authors with managing alternative content for non-text content](#b23-assist-authors-with-managing-alternative-content-for-non-text-content)
-    - **Fail**: [B.2.3.1 Alternative Content is Editable (WCAG)](#b231-alternative-content-is-editable-wcag) (Level A / AA / AAA)
+    - **Pass**: [B.2.3.1 Alternative Content is Editable (WCAG)](#b231-alternative-content-is-editable-wcag) (Level A / AA / AAA)
     - **Pass**: [B.2.3.2 Automating Repair of Text Alternatives](#b232-automating-repair-of-text-alternatives) (Level A)
     - **Fail**: [B.2.3.3 Save for Reuse](#b233-save-for-reuse) (Level AAA)
   - **Partially**: [B.2.4. Assist authors with accessible templates](#b24-assist-authors-with-accessible-templates)
@@ -124,7 +124,7 @@ At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org
     - **Not applicable**: [B.2.5.2 Identify Pre-Authored Content Accessibility](#b252-identify-pre-authored-content-accessibility) (Level AA)
 - [B.3. Authors are supported in improving the accessibility of existing content](#b3-authors-are-supported-in-improving-the-accessibility-of-existing-content)
   - **Partially**: [B.3.1. Assist authors in checking for accessibility problems](#b31-assist-authors-in-checking-for-accessibility-problems)
-    - **Fail**: [B.3.1.1 Checking Assistance (WCAG)](#b311-checking-assistance-wcag) (Level A / AA / AAA)
+    - **Pass**: [B.3.1.1 Checking Assistance (WCAG)](#b311-checking-assistance-wcag) (Level A / AA / AAA)
     - **Not applicable**: [B.3.1.2 Help Authors Decide](#b312-help-authors-decide) (Level A)
     - **Not applicable**: [B.3.1.3 Help Authors Locate](#b313-help-authors-locate) (Level A)
     - **Pass**: [B.3.1.4 Status Report](#b314-status-report) (Level AA)
@@ -139,7 +139,7 @@ At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org
     - **Pass**: [B.4.1.4 Feature Prominence](#b414-feature-prominence) (Level AA)
   - **Partially**: [B.4.2. Ensure that documentation promotes the production of accessible content](#b42-ensure-that-documentation-promotes-the-production-of-accessible-content)
     - **Fail**: [B.4.2.1 Model Practice (WCAG)](#b421-model-practice-wcag) (Level A / AA / AAA)
-    - **Fail**: [B.4.2.2 Feature Instructions](#b422-feature-instructions) (Level A)
+    - **Pass**: [B.4.2.2 Feature Instructions](#b422-feature-instructions) (Level A)
     - **Fail**: [B.4.2.3 Tutorial](#b423-tutorial) (Level AAA)
     - **Fail**: [B.4.2.4 Instruction Index](#b424-instruction-index) (Level AAA)
 
@@ -155,12 +155,16 @@ See [Implementing A.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 > (Level A / AA / AAA). See [Implementing A.1.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a111).
 
-**Fail**. Evaluated as: **Level AA**. Wagtail [currently targets WCAG 2.2 AA conformance](https://wagtail.org/accessibility/) for the administrative interface of the CMS. Though a lot of progress has been made, there are still [known conformance issues](https://github.com/orgs/wagtail/projects/9/views/1).
+**Fail**. Evaluated as: **Level AA**. Wagtail [currently targets WCAG 2.2 AA and ATAG 2.0 AA conformance](https://wagtail.org/accessibility/) for the administrative interface of the CMS. Though a lot of progress has been made, there are still [known conformance issues and possible improvements](https://github.com/orgs/wagtail/projects/9/views/1).
 
-As a representation of the state of Wagtail’s WCAG 2.2 AA conformance, here is a summary of WCAG 2.2 AA and best practice issues across releases, for the page editor UI (tested with [Welcome to the Wagtail bakery!](https://static-wagtail-v6-3.netlify.app/admin/pages/60/edit/)):
+As a representation of the state of Wagtail’s WCAG 2.1 AA conformance, here is a summary of WCAG 2.2 AA and best practice issues across releases, for the page editor UI (tested with [Welcome to the Wagtail bakery!](https://static-wagtail-v6-3.netlify.app/admin/pages/60/edit/)):
 
 | Version                                                               | Total | [Color contrast](https://dequeuniversity.com/rules/axe/4.4/color-contrast) | [`nested-interactive`](https://www.browserstack.com/docs/accessibility/rules/wcag/nested-interactive) | [`aria-valid-attr-value`](https://accessibilityinsights.io/info-examples/web/aria-valid-attr-value/) | [`aria-input-field-name`](https://www.browserstack.com/docs/accessibility/rules/wcag/aria-input-field-name) | [Links purpose](https://dequeuniversity.com/rules/axe/4.4/identical-links-same-purpose) | [Empty heading](https://www.browserstack.com/docs/accessibility/rules/best-practice/empty-heading) | [Heading order](https://accessibility.browserstack.com/api/more-info/4.4/heading-order) | [`region`](https://accessibility.browserstack.com/api/more-info/4.4/region) | [Landmark unique](https://www.browserstack.com/docs/accessibility/rules/best-practice/landmark-unique) |
 | --------------------------------------------------------------------- | ----- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [6.3](https://static-wagtail-v6-3.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
+| [6.2](https://static-wagtail-v6-2.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
+| [6.1](https://static-wagtail-v6-1.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
+| [6.0](https://static-wagtail-v6-0.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
 | [5.2](https://static-wagtail-v5-2.netlify.app/admin/pages/60/edit/)   | 6     | 2                                                                          | 0                                                                                                     | 1                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 1                                                                                                      |
 | [5.1](https://static-wagtail-v5-1.netlify.app/admin/pages/60/edit/)   | 6     | 2                                                                          | 0                                                                                                     | 1                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 1                                                                                                      |
 | [5.0](https://static-wagtail-v5-0.netlify.app/admin/pages/60/edit/)   | 7     | 2                                                                          | 0                                                                                                     | 1                                                                                                    | 2                                                                                                           | 2                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
@@ -172,41 +176,60 @@ As a representation of the state of Wagtail’s WCAG 2.2 AA conformance, here is
 
 Suggested next steps:
 
-- [WCAG 2.2 manual audit #63](https://github.com/wagtail/roadmap/issues/63)
-- Interviews with users of assistive technologies
+- More test coverage for automated accessibility tests
+- More feedback from users of assistive technologies
 
 References:
 
-- Largest outstanding issue: [Making Wagtail Accessible for users with disabilities #4199](https://github.com/wagtail/wagtail/issues/4199)
-- Most recent major improvement: [Support for WHCM / Contrast themes](https://docs.wagtail.org/en/stable/releases/4.0.html#windows-high-contrast-mode-support-improvements).
-- [Living accessibility audit (last update: 2021)](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit)
+- Most recent major improvement: [Enhanced contrast admin theme](https://docs.wagtail.org/en/stable/releases/6.3.html#enhanced-contrast-admin-theme).
+- [WCAG 2.2 & ATAG 2.0 CMS admin](https://github.com/orgs/wagtail/projects/9/views/1)
+- [Living accessibility audit (last update: December 2024)](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit)
 
-Full list of 24 currently-documented accessibility issues in GitHub:
+Full list of 21 currently-documented accessibility issues in GitHub:
 
-- [Radio inputs do not correctly get associated with their parent (group) label for accessibility #10228](https://github.com/wagtail/wagtail/issues/10228)
-- [Chooser buttons focus colour is too dark in dark mode #10875](https://github.com/wagtail/wagtail/issues/10875)
-- [Replace date & date time picker widget with native browser date pickers #8056](https://github.com/wagtail/wagtail/issues/8056)
+- [Rich text ctrl + K keyboard shortcut should open the link or document tooltip #11627](https://github.com/wagtail/wagtail/issues/11627)
+- [Add comment button should move focus to the new comment when the panel is closed #11021](https://github.com/wagtail/wagtail/issues/11021)
+- [Row headers for permission forms as tables #12288](https://github.com/wagtail/wagtail/issues/12288)
+- [Status icons need alternative text #12174](https://github.com/wagtail/wagtail/issues/12174)
+- [StreamField FieldBlock / widgets labels’ missing semantic association with inputs #11179](https://github.com/wagtail/wagtail/issues/11179)
+- [Confusing Markdown rich text keyboard shortcuts announcement in screen readers #12107](https://github.com/wagtail/wagtail/issues/12107)
+- [Contrast themes / WHCM support improvements #11449](https://github.com/wagtail/wagtail/issues/11449)
+- [Admin interface must implement 3.1.2 Language of Parts for multilingual interfaces #11376](https://github.com/wagtail/wagtail/issues/11376)
+- [Admin interface must implement 3.1.2 Language of Parts for multilingual websites #11375](https://github.com/wagtail/wagtail/issues/11375)
 - [Revamp revision comparison diff styles #10576](https://github.com/wagtail/wagtail/issues/10576)
+- [Radio inputs do not correctly get associated with their parent (group) label for accessibility #10228](https://github.com/wagtail/wagtail/issues/10228)
 - [Contrast themes – Info side panel’s button links need a border #8834](https://github.com/wagtail/wagtail/issues/8834)
 - [Missing HTML widget attributes in StreamField widget rendering #10300](https://github.com/wagtail/wagtail/issues/10300)
 - [Barriers for speech recognition users #9666](https://github.com/wagtail/wagtail/issues/9666)
 - [Accessibility regression in userbar #10674](https://github.com/wagtail/wagtail/issues/10674)
-- [Page editing actions dropdown doesn’t support keyboard or screen reader navigation #7366](https://github.com/wagtail/wagtail/issues/7366)
-- [Enhancement to Progress button behaviour #10076](https://github.com/wagtail/wagtail/issues/10076)
-- [Activating a tab based on the URL hash should also set focus to the corresponding tabpanel #8483](https://github.com/wagtail/wagtail/issues/8483)
 - [Page chooser should use buttons instead of links with invalid targets #5408](https://github.com/wagtail/wagtail/issues/5408)
-- [Keyboard support improvements in accessibility checker #10135](https://github.com/wagtail/wagtail/issues/10135)
-- [Feature request: Switch TableBlock’s header controls to a field that requires user input #5989](https://github.com/wagtail/wagtail/issues/5989)
 - [Implement focus management for chooser modals #5338](https://github.com/wagtail/wagtail/issues/5338)
 - [Accessibility and UI issues with typed table block #7646](https://github.com/wagtail/wagtail/issues/7646)
-- [TableBlock is impossible to reach with the keyboard #8893](https://github.com/wagtail/wagtail/issues/8893)
-- ["Unpublished" styles in pages listings are very hard / impossible to see #5370](https://github.com/wagtail/wagtail/issues/5370)
-- [Status tag contrast is too low #5778](https://github.com/wagtail/wagtail/issues/5778)
-- [Add table caption option as part of TypedTableBlock for accessibility #8507](https://github.com/wagtail/wagtail/issues/8507)
 - [Rework the admin UI’s landmark based on established best practices #5411](https://github.com/wagtail/wagtail/issues/5411)
 - [Keyboard navigation breaks with links in paragraph in Chrome on MacOS #7693](https://github.com/wagtail/wagtail/issues/7693)
 - [Datetimepicker UI component is not accessible to screen-reader and keyboard users #5325](https://github.com/wagtail/wagtail/issues/5325)
+
+There have been 19 issues fixed since the last ATAG 2.0 audit:
+
+- [Status tag contrast is too low #5778](https://github.com/wagtail/wagtail/issues/5778)
+- [Empty table header usage across the admin #11596](https://github.com/wagtail/wagtail/issues/11596)
+- [Draftail (rich text editor) - using cmd + left arrow to navigate to the start of the line is broken in Firefox #9366](https://github.com/wagtail/wagtail/issues/9366)
+- [Accessibility issue with 'live' link's accessible text #12611](https://github.com/wagtail/wagtail/issues/12611)
+- [Sub-menus within the main menu cannot be closed on mobile #10747](https://github.com/wagtail/wagtail/issues/10747)
 - [Making Wagtail Accessible for users with disabilities #4199](https://github.com/wagtail/wagtail/issues/4199)
+- [Action buttons are easy to miss in list views for high contrast mode users #12126](https://github.com/wagtail/wagtail/issues/12126)
+- [Minimap component needs a toggle button #12175](https://github.com/wagtail/wagtail/issues/12175)
+- [Page deletion confirmation text lacks sufficient contrast #12232](https://github.com/wagtail/wagtail/issues/12232)
+- [Synchronisation between wagtailuserbar and "Checks" admin panel. #12157](https://github.com/wagtail/wagtail/issues/12157)
+- ["Unpublished" styles in pages listings are very hard / impossible to see #5370](https://github.com/wagtail/wagtail/issues/5370)
+- [Action buttons in chooser components are cut off by overflow in 5.0 #10553](https://github.com/wagtail/wagtail/issues/10553)
+- [Empty table header found in the 'Your locked pages' dashboard section #11459](https://github.com/wagtail/wagtail/issues/11459)
+- [TableBlock is impossible to reach with the keyboard #8893](https://github.com/wagtail/wagtail/issues/8893)
+- [Chooser buttons focus colour is too dark in dark mode #10875](https://github.com/wagtail/wagtail/issues/10875)
+- [Panel anchor target sizes are too small on mobile viewports #11411](https://github.com/wagtail/wagtail/issues/11411)
+- [Page editing actions dropdown doesn’t support keyboard or screen reader navigation #7366](https://github.com/wagtail/wagtail/issues/7366)
+- [Label-visible content mismatch 'Admin' and 'Edit your account' in sidebar #11372](https://github.com/wagtail/wagtail/issues/11372)
+- [New Dialog (modal) does not visibly show a close button if there is no message #11306](https://github.com/wagtail/wagtail/issues/11306)
 
 #### [A.1.2. (For the authoring tool user interface) Ensure that non-web-based functionality is accessible](https://www.w3.org/TR/ATAG20/#gl_a12)
 
@@ -236,27 +259,24 @@ See [Implementing A.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 **Fail**. For icons within the CMS, all have appropriate alt text. For CMS-managed images, Wagtail renders non-text content in nine scenarios, five of which are related to editing views and would require changes:
 
-- Fail: Image upload fields in the image edit/create form. The image’s title displays as a field next to the visuals. The title acts as alt text by default in Wagtail. This is missing a programmatic association between the title text and image.
+- Fail: Image upload fields in the image edit/create form. The image’s title displays as a field next to the visuals. The title acts as alt text by default in Wagtail. This is missing a programmatic association between the title or description text, and the image.
   - Example: [Wagtail 6.3 - Editing image Boston Cream Pie](https://static-wagtail-v6-3.netlify.app/admin/images/43/)
   - Current: The alt text is permanently set to the contents of the Title field on page load.
   - Proposed actions:
-    - The image could be more clearly associated with the live title field with an `aria-labelledby`.
-    - The title field could have help text to clarify its use as the image’s alt text (at least in the CMS).
-    - Take CMS users into account in [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51)
-    - Research alt text requirements for CMS users with disabilities with ATAG experts.
-- Fail: Image chooser fields in forms. The selected image’s title displays next to the visuals. The title acts as alt text by default in Wagtail. This is missing a programmatic association between the title text and image.
+    - The image could be more clearly associated with the live title and description fields with an `aria-labelledby`.
+    - The description field could have help text to clarify its use as the image’s alt text (at least in the CMS).
+- Fail: Image chooser fields in forms. The selected image’s title displays next to the visuals. The description acts as alt text by default in Wagtail. This is missing a programmatic association between the title text and image.
   - Example: [Wagtail 6.3 - Editing Blog Page: Desserts with Benefits, Image field](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#panel-child-content-image-section)
   - Current: Alt text set to `alt=""`, with title displayed after the image.
   - Proposed actions:
     - Associate the visible text with the image with `aria-labelledby`.
+    - Switch to the description field as alt text in the CMS.
 - Fail: Image chooser fields with a custom alt text field next to them. The custom alt text field is not programmatically associated with the image.
   - Example (with Caption field): [Wagtail 6.3 - Editing Blog Page: Desserts with Benefits, Image block](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#block-556e76b0-0f5a-42bb-b039-653f3d6b1f0b-section)
   - Alt text set to `alt=""`, with title displayed after the image, and custom field further down.
   - Proposed actions:
-    - Implement this pattern in the bakerydemo website.
-    - Take CMS users into account in [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51)
+    - Implement this pattern in the bakerydemo website, based on the new Wagtail 6.3 ImageBlock.
     - Associate both the title of the image, and the custom field, with `aria-labelledby`, or a combination of it and `aria-describedby`.
-    - Research alt text requirements for CMS users with disabilities with ATAG experts.
 - Fail: Images within rich text fields. Here the image’s title is displayed in a tooltip associated with the image, but there is no programmatic association.
   - Example: unavailable
   - Proposed actions:
@@ -278,21 +298,24 @@ Outside editing views (possibly not part of ATAG requirements), Wagtail renders 
   - Proposed actions:
     - Add demo content following this pattern in bakerydemo.
     - Display the images’ titles in the UI, with programmatic `aria-labelledby` associations.
+    - Switch to the `description` field as alt text.
 - Revisions comparison with images or embeds in rich text: currently unimplemented.
 - Snippets listings. When there is an image column, its alt text is set but invisible in the UI.
   - Example: [Wagtail 6.3 – Snippets People](https://static-wagtail-v6-3.netlify.app/admin/snippets/base/person/)
   - Current: the image title is used as `alt` attribute.
   - Proposed actions:
     - Display the images’ titles in the UI, with programmatic `aria-labelledby` associations.
+    - Switch to the `description` field as alt text.
 - Image gallery. Here we display the title underneath the image as alt text, in a `figcaption`.
   - Example: [Wagtail 6.3 – Images](https://static-wagtail-v6-3.netlify.app/admin/images/)
   - Current: Alt text set to `alt=""`, but the image is within a `figure` with the image’s title as `figcaption`.
   - Proposed actions:
     - Associate the text and the image with `aria-labelledby`.
+    - Switch to the `description` field as alt text.
 
-Recommendation for Wagtail: Consider whether to sign-post the Title field as the image’s alt text in the CMS, or add another mandatory "default alt text" to the image model, which can be used as alt text whenever images are rendered _in the CMS_, and potentially also in the frontend (with clear options to mark images as decorative or define alt text in context).
+Recommendation for Wagtail: Consider how best to sign-post the Description field as the image’s alt text in the CMS, and potentially also in the frontend (with clear options to mark images as decorative or define alt text in context).
 
-Reference: [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51)
+Reference: [RFC 97: Alt Text Capabilities](https://github.com/wagtail/rfcs/pull/97).
 
 ##### A.2.1.2 Alternatives for Rendered Time-Based Media
 
@@ -314,7 +337,7 @@ See [Implementing A.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
   - Example: [Editing Home Page: Welcome to the Wagtail bakery!](https://static-wagtail-v6-3.netlify.app/admin/pages/60/edit/)
   - Proposed actions:
     - Add a programmatic association between fields and their comment presence indicator
-    - Make the comment presence indicator visible at all times.
+    - Make the comment presence indicator visible at all times, either for all users or users of "prefers contrast" theming.
     - (WCAG issue) Make the comment addition buttons visible at all times in commenting mode.
 - Fail: Comments in rich text. Comments are displayed as highlighted text within the rich text field. The association isn’t programmatically exposed.
   - Example: none available
@@ -323,6 +346,7 @@ See [Implementing A.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
     - Research how other WYSIWYG interfaces programmatically associate comments with runs of text.
 - Pass: Character count for rich text fields. The character count is displayed as a number next to the field it is associated with. The association is programmatically exposed with `aria-describedby` ("Character count: 18/120").
   - Example [Editing Recipe page: Southern Cornbread, Preface field](https://static-wagtail-v6-3.netlify.app/admin/pages/82/edit/#panel-child-content-preface-section)
+- Pass: Concurrent editing notifications. The notification status is associated with a `aria-label` and tooltip on the status button.
 - TBC (work in progress): content quality checks within page editor.
 
 Outside editing views (possibly not part of ATAG requirements), Wagtail renders status indicators in the following scenarios:
@@ -347,11 +371,6 @@ See [Implementing A.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 **Fail**. Though the majority of the authoring tool’s functionality is keyboard accessible, there are specific areas that aren’t:
 
-- In all forms of content with "draft" support – access to the "Publish", "Submit to moderation", "Request changes", "Approve and Publish", "Approve with comment and Publish".
-  - Example: [Wagtail 6.3 - Styleguide: Dropdown buttons](https://static-wagtail-v6-3.netlify.app/admin/styleguide/#dropdowns-section)
-  - See [Page editing actions dropdown doesn’t support keyboard or screen reader navigation #7366](https://github.com/wagtail/wagtail/issues/7366)
-  - Proposed actions:
-    - Will be fixed as part of [Re-implement footer actions according to new designs #9030](https://github.com/wagtail/wagtail/issues/9030)
 - In rich text fields, pin/unpin of the rich text toolbar.
   - Example: [Wagtail 6.3 - Editing Blog Page: Tracking Wild Yeast](https://static-wagtail-v6-3.netlify.app/admin/pages/62/edit/)
   - Proposed actions:
@@ -365,6 +384,7 @@ See [Implementing A.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
   - Proposed actions:
     - Research how other WYSIWYG interfaces allow keyboard interactions with all toolbar controls.
     - Possibly support selection of all those content types and press "Enter" to move focus to their UI.
+    - See [Rich text ctrl + K keyboard shortcut should open the link or document tooltip #11627](https://github.com/wagtail/wagtail/issues/11627)
 - In image/document/page/task/snippet choosers, the chooser dialog.
   - See [Making Wagtail Accessible for users with disabilities #4199](https://github.com/wagtail/wagtail/issues/4199)
   - See also [Implement focus management for chooser modals #5338](https://github.com/wagtail/wagtail/issues/5338)
@@ -376,10 +396,6 @@ See [Implementing A.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
     - Tasks: [Wagtail 6.3 - Editing workflow Moderator approval](https://static-wagtail-v6-3.netlify.app/admin/workflows/edit/1/#inline_child_workflow_tasks-0-panel-section)
   - Proposed actions:
     - Complete [Re-implement chooser modals with new design #9246](https://github.com/wagtail/wagtail/pull/9246)
-- In page listings, manual sorting of pages.
-  - Example: not available
-  - Proposed actions:
-    - Review why the fix to [Page reordering UI isn’t accessible for keyboard users #5410](https://github.com/wagtail/wagtail/issues/5410) isn’t working.
 - In image create/edit forms, creation or editing of a focal area.
   - Current: it’s impossible to set a focal area without a mouse.
   - Example: [Wagtail 6.3 - Editing Boston Cream Pie](https://static-wagtail-v6-3.netlify.app/admin/images/43/)
@@ -421,25 +437,23 @@ See [Implementing A.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 Proposed actions:
 
-- Document all keyboard commands (SC _A.3.1.6 Present Keyboard Commands_)
 - Implement a "key map" for Wagtail’s keyboard commands and-or command palette, with a way to upload a new key map as JSON.
 
 ##### A.3.1.6 Present Keyboard Commands
 
 > (Level AAA). See [Implementing A.3.1.6](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a316).
 
-**Fail**. Across specific areas:
+**Pass**. Across specific areas:
 
 - Pass: In rich text fields, Markdown keyboard commands or keyboard shortcuts are displayed within tooltips for specific toolbar buttons.
 - Pass: In rich text fields, "command palette" commands are displayed in the block chooser, and the command palette trigger is displayed in the fields’ placeholder.
-- Fail: Wagtail’s other traditional "key combinations" keyboard shortcuts are not displayed in the UI. This includes:
-  - Commenting
+- Pass: Wagtail’s other traditional "key combinations" keyboard shortcuts are displayed in the "Keyboard shortcuts" dialog. This includes:
   - Save draft
   - Preview
 
 Proposed actions:
 
-- Implement [Keyboard shortcut documentation for editor in the Wagtail UI #3949](https://github.com/wagtail/wagtail/issues/3949)
+- View possible improvements in [Keyboard shortcut documentation for editor in the Wagtail UI #12050](https://github.com/wagtail/wagtail/discussions/12050)
 - Consider a "Command palette" concept for Wagtail
 
 #### [A.3.2. (For the authoring tool user interface) Provide authors with enough time](https://www.w3.org/TR/ATAG20/#gl_a32)
@@ -514,9 +528,8 @@ See [Implementing A.3.5](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 Proposed actions:
 
-- Research whether browser searching could/should support finding matches across all tabs.
+- Implement [hidden="until-found"](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden).
 - Research how other content management systems cater for this requirement.
-- Investigate a possible bespoke CMS search implementation with matches across all CMS views.
 - Fix [Activating a tab based on the URL hash should also set focus to the corresponding tabpanel #8483](https://github.com/wagtail/wagtail/issues/8483)
 
 #### [A.3.6. (For the authoring tool user interface) Manage preference settings](https://www.w3.org/TR/ATAG20/#gl_a36)
@@ -539,6 +552,8 @@ See [Implementing A.3.6](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 - Time zone
 - Notification settings
 - Admin interface theme
+- UI density
+- Contrast theme
 
 The following settings are persistent for a given browser, across all sessions within said browser:
 
@@ -598,6 +613,8 @@ The following actions are not reversible and do not require confirmation to proc
   - Consider implementing an in-browser undo-redo stack for those interactions.
 - Authoring actions on content that does not support revisions such as images, documents, etc.
   - Implement either a confirmation step for those actions, or revisions/versioning support.
+- Reordering of pages within list views
+  - Implement either a confirmation step for those actions, or revisions/versioning support.
 
 ##### A.4.1.2 Settings Change Confirmation
 
@@ -624,10 +641,21 @@ See [Implementing A.4.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 > (Level A). See [Implementing A.4.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_a421).
 
-**Fail**. The following functionality would be used to meet Part A and needs to be described either in the documentation or in the user interface:
+**Pass**. The following functionality would be used to meet Part A and needs to be described either in the documentation or in the user interface:
 
-- Image title fields’ usage as alt text
-- Page-level keyboard shortcuts
+The following functionality is described in the user interface:
+
+- Restore revisions
+- Command palette trigger
+- Keyboard shortcuts
+  - Page-level keyboard shortcuts
+  - Rich text formatting
+  - Markdown commands for rich text
+  - Comment in rich text
+
+The following functionality is described in the documentation:
+
+- Images’ alt text management
 - Skip link
 - Collapsible sections
 - Link to specific collapsible sections
@@ -646,19 +674,15 @@ See [Implementing A.4.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
   - Time zone
   - Notification settings
   - Admin interface theme
+  - Density
+  - Contrast theme
 - Live preview
 - Command palette available commands
-
-The following functionality is described in the user interface:
-
-- Restore revisions
-- Markdown keyboard commands for rich text
-- Command palette trigger
-
-The following functionality is described in the documentation:
-
-- Comment shortcut
-- Rich text keyboard shortcuts
+- Keyboard shortcuts
+  - Page-level keyboard shortcuts
+  - Rich text formatting
+  - Markdown commands for rich text
+  - Comment in rich text
 
 The following functionality is provided by the underlying platform:
 
@@ -670,15 +694,15 @@ The following functionality is provided by the underlying platform:
 
 **Fail**. Here is a high-level record of whether given functionality is documented. As a summary:
 
-- For 19 high-level functional areas, 11 are partially documented and one is fully documented.
-- For 141 specific features, 38 are documented.
+- For 19 high-level functional areas, 9 are partially documented and 4 are fully documented.
+- For 145 specific features, 52 are documented.
 
 This record does not cover functionality provided by the underlying platform (for example; automated embed creation) or unused by authors.
 
 | Functionality                                     | Documented? |
 | ------------------------------------------------- | ----------- |
 | **Global**                                        | Partial     |
-| Skip link                                         | No          |
+| Skip link                                         | Yes         |
 | No-JS warning message                             | No          |
 | Sidebar                                           | Yes         |
 | Header                                            | No          |
@@ -695,8 +719,8 @@ This record does not cover functionality provided by the underlying platform (fo
 | **Pages**                                         | Partial     |
 | Pages explorer                                    | Yes         |
 | Add child page                                    | Yes         |
-| Page type usage                                   | No          |
-| Privacy                                           | No          |
+| Page type usage                                   | Yes         |
+| Privacy                                           | Yes         |
 | Move pages                                        | No          |
 | Copy                                              | Yes         |
 | Delete                                            | No          |
@@ -709,7 +733,7 @@ This record does not cover functionality provided by the underlying platform (fo
 | Edit                                              | Yes         |
 | Edit - Promote tab                                | No          |
 | Preview                                           | No          |
-| Scheduled publishing                              | No          |
+| Scheduled publishing                              | Yes         |
 | Explorer - Bulk actions                           | Yes         |
 | Explorer - Bulk move                              | No          |
 | Explorer - Bulk delete                            | No          |
@@ -770,6 +794,7 @@ This record does not cover functionality provided by the underlying platform (fo
 | Workflow tasks                                    | Yes         |
 | Site history                                      | Yes         |
 | Aging pages                                       | Yes         |
+| Page types usage                                  | Yes         |
 | **Workflows**                                     | Partial     |
 | View all                                          | Yes         |
 | Add                                               | No          |
@@ -814,23 +839,23 @@ This record does not cover functionality provided by the underlying platform (fo
 | Edit                                              | No          |
 | Add a collection                                  | Yes         |
 | Privacy                                           | Yes         |
-| **Redirects**                                     | Partial     |
-| View all                                          | No          |
-| Search                                            | Yes         |
-| Import redirects                                  | No          |
-| Add                                               | Yes         |
-| Export Redirects                                  | No          |
-| Edit                                              | Yes         |
-| Delete                                            | No          |
-| **Promoted search**                               | Partial     |
+| **Redirects**                                     | Yes         |
 | View all                                          | Yes         |
-| Search                                            | No          |
+| Search                                            | Yes         |
+| Import redirects                                  | Yes         |
+| Add                                               | Yes         |
+| Export Redirects                                  | Yes         |
 | Edit                                              | Yes         |
-| Add results                                       | No          |
-| Delete                                            | No          |
-| **User account**                                  | No          |
-| Account profile                                   | No          |
-| Account notifications                             | No          |
+| Delete                                            | Yes         |
+| **Promoted search**                               | Yes         |
+| View all                                          | Yes         |
+| Search                                            | Yes         |
+| Edit                                              | Yes         |
+| Add results                                       | Yes         |
+| Delete                                            | Yes         |
+| **User account**                                  | Yes         |
+| Account profile                                   | Yes         |
+| Account notifications                             | Yes         |
 | **Styleguide**                                    | No          |
 | Styleguide                                        | No          |
 | **Auth**                                          | No          |
@@ -856,26 +881,19 @@ See [Implementing B.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 > (Level A / AA / AAA). See [Implementing B.1.1.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b112).
 
-**Fail**. Evaluated as: **Level AA**. Wagtail automatically generates content in a few scenarios. In the following scenarios, markup is accessible without further work:
+**Pass**. Evaluated as: **Level AA**. Wagtail automatically generates content in a few scenarios. In the following scenarios, markup is accessible without further work:
 
 - Pass: Links markup for links to pages, documents, external URLs, email addresses, phone numbers, and internal anchors within rich text fields.
 - Pass: Embeds for external resources within rich text fields.
 - Pass: Embeds for external resources in StreamField.
 - Pass: Image markup for images in rich text fields. Images are rendered with alt text from an editable field, and a checkbox to mark the image as decorative.
+- Pass: Image markup for images in StreamField. The Image block is rendered with alt text from an editable field, and a checkbox to mark the image as decorative.
 - Pass: Table markup from TableBlock.
-
-In the following scenarios, markup isn’t accessible out of the box:
-
-- Fail: Image markup for images in other content. By default, Wagtail does not make it possible to change the image’s alt text in context, and doesn’t make it possible to mark images as decorative. See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51). Example: [Wagtail 6.3 - Editing Blog page Bread and Ciruses](https://static-wagtail-v6-3.netlify.app/admin-dark/pages/68/edit/).
-- Fail: Table markup from TypedTableBlock. This is lacking the ability to set row or column headers. See [TypedTableBlock issue #8507](https://github.com/wagtail/wagtail/issues/8507). Example: [Wagtail 6.3 - Editing Recipe page Hot Cross Bun](https://static-wagtail-v6-3.netlify.app/admin-dark/pages/81/edit/).
-
-Wagtail provides automatic checking for specific accessibility problems but this checking is only performed when authors use the full-screen live preview, and there is no prompt / suggestion to perform this check (or any other). See [Accessibility checker in page editor #10136](https://github.com/wagtail/wagtail/issues/10136).
+- Pass: Table markup for TypedTableBlock.
 
 Proposed actions:
 
-- Complete alt text improvements as part of [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51)
-- Implement [Accessibility checker in page editor #10136](https://github.com/wagtail/wagtail/issues/10136)
-- Fix [TypedTableBlock issue #8507](https://github.com/wagtail/wagtail/issues/8507)
+- Consider enforcing all editor accessibility-checks have to pass before publishing content.
 
 #### [B.1.2. Ensure that accessibility information is preserved](https://www.w3.org/TR/ATAG20/#gl_b12)
 
@@ -919,14 +937,10 @@ See [Implementing B.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 **Fail**. Evaluated as: **Level AA**. Wagtail places extensive restrictions on the production of web content, which all nonetheless allow for the production of accessible content, with the exception of:
 
-- Missing support for marking images as decorative / setting alt text in context for image chooser fields. See _B.1.1.2 Content Auto-Generation During Authoring Sessions (WCAG)_. This could be worked around by only creating images within rich text fields, which is possible but unlikely. Example: [Wagtail 6.3 - Editing Blog page Bread and Ciruses](https://static-wagtail-v6-3.netlify.app/admin-dark/pages/68/edit/).
-- Missing support for table/row headers with TypedTableBlock. This could be worked around by only creating tables with TableBlock, which is possible but unlikely. Example: [Wagtail 6.3 - Editing Recipe page Hot Cross Bun](https://static-wagtail-v6-3.netlify.app/admin-dark/pages/81/edit/).
 - Missing support for setting `lang` attributes within rich text. This could be worked around by using other types of content modeling for multilingual content, which is possible but unlikely.
 
 Proposed actions:
 
-- Complete alt text improvements as part of [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51)
-- Fix [TypedTableBlock issue #8507](https://github.com/wagtail/wagtail/issues/8507)
 - Implement [Feature request: Support for declaring language on elements in rich text. #4694](https://github.com/wagtail/wagtail/issues/4694)
 
 #### [B.2.2. Guide authors to produce accessible content](https://www.w3.org/TR/ATAG20/#gl_b22)
@@ -960,7 +974,11 @@ See [Implementing B.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 > (Level A / AA / AAA). See [Implementing B.2.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b231).
 
-**Fail**. Evaluated as: **Level AA**. Though Wagtail provides support for editing alt text everywhere images can be added, it doesn’t provide support for marking images as decorative (set to empty alt text), or changing alt text in context. See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51).
+**Pass**. Evaluated as: **Level AA**. All areas where images can be used support providing alt text. This includes:
+
+- Global alt text via the built-in "Description" field.
+- Contextual alt text within rich text via the "Alt text" field and "Decorative" checkbox.
+- Contextual alt text in blocks via the "Alt text" field and "Decorative" checkbox.
 
 ##### B.2.3.2 Automating Repair of Text Alternatives
 
@@ -974,7 +992,7 @@ See [Implementing B.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 **Fail**. By default, Wagtail saves each image’s text alternative and reuses it everywhere the image is reused ("Save and Suggest"). It is possible to replace this text alternative with a new one, but it isn’t possible to delete it.
 
-Suggested action: incorporate this requirement into [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51).
+Suggested action: incorporate this requirement into the contextual alt text support.
 
 #### [B.2.4. Assist authors with accessible templates](https://www.w3.org/TR/ATAG20/#gl_b24)
 
@@ -988,36 +1006,39 @@ See [Implementing B.2.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 ###### Rich text formats
 
-Blockquote - Missing cite attribute or a cite element within.
+Note: Blockquote formatting does not support the optional blockquote `cite` attribute or `<cite>` element.
 
 ###### Field block types
 
-| Template             | Accessibility issues with output                                                        |
-| -------------------- | --------------------------------------------------------------------------------------- |
-| CharBlock            | None                                                                                    |
-| TextBlock            | None                                                                                    |
-| EmailBlock           | None                                                                                    |
-| IntegerBlock         | None                                                                                    |
-| FloatBlock           | None                                                                                    |
-| DecimalBlock         | None                                                                                    |
-| RegexBlock           | None                                                                                    |
-| URLBlock             | None                                                                                    |
-| BooleanBlock         | None                                                                                    |
-| DateBlock            | None                                                                                    |
-| TimeBlock            | None                                                                                    |
-| DateTimeBlock        | None                                                                                    |
-| RichTextBlock        | None                                                                                    |
-| RawHTMLBlock         | None                                                                                    |
-| BlockQuoteBlock      | No support for `cite` attribute or a `<cite>` element within.                           |
-| ChoiceBlock          | None                                                                                    |
-| MultipleChoiceBlock  | None                                                                                    |
-| PageChooserBlock     | None                                                                                    |
-| DocumentChooserBlock | None                                                                                    |
-| ImageChooserBlock    | No support for alt text in context or marking as decorative.                            |
-| SnippetChooserBlock  | None                                                                                    |
-| EmbedBlock           | None                                                                                    |
-| TableBlock           | None                                                                                    |
-| TypedTableBlock      | No caption support. Header cells hard-coded to first row. No option to set row headers. |
+| Template             | Accessibility issues with output |
+| -------------------- | -------------------------------- |
+| CharBlock            | None                             |
+| TextBlock            | None                             |
+| EmailBlock           | None                             |
+| IntegerBlock         | None                             |
+| FloatBlock           | None                             |
+| DecimalBlock         | None                             |
+| RegexBlock           | None                             |
+| URLBlock             | None                             |
+| BooleanBlock         | None                             |
+| DateBlock            | None                             |
+| TimeBlock            | None                             |
+| DateTimeBlock        | None                             |
+| RichTextBlock        | None                             |
+| RawHTMLBlock         | None                             |
+| BlockQuoteBlock      | None                             |
+| ChoiceBlock          | None                             |
+| MultipleChoiceBlock  | None                             |
+| PageChooserBlock     | None                             |
+| DocumentChooserBlock | None                             |
+| ImageBlock           | None                             |
+| ImageChooserBlock    | None                             |
+| SnippetChooserBlock  | None                             |
+| EmbedBlock           | None                             |
+| TableBlock           | None                             |
+| TypedTableBlock      | None                             |
+
+Note: BlockQuoteBlock does not support the optional blockquote `cite` attribute or `<cite>` element.
 
 ###### Structural block types
 
@@ -1032,37 +1053,32 @@ Structural block types do not render any content and as such have no accessibili
 
 ###### Form builder field types
 
-All form builder fields suffer from the same issues:
+All form builder fields suffer from the same issue: Error messages aren’t programmatically associated with the field.
 
-- Error states can’t be determined programmatically.
-- Error messages aren’t programmatically associated with the field.
-- Help text isn’t programmatically associated with the field.
-
-| Template         | Accessibility issues               |
-| ---------------- | ---------------------------------- |
-| Single line text | Programmatic errors and help text. |
-| Multi-line text  | Programmatic errors and help text. |
-| Email            | Programmatic errors and help text. |
-| Number           | Programmatic errors and help text. |
-| URL              | Programmatic errors and help text. |
-| Checkbox         | Programmatic errors and help text. |
-| Checkboxes       | Programmatic errors and help text. |
-| Drop down        | Programmatic errors and help text. |
-| Multiple select  | Programmatic errors and help text. |
-| Radio buttons    | Programmatic errors and help text. |
-| Date             | Programmatic errors and help text. |
-| Date/time        | Programmatic errors and help text. |
-| Hidden field     | None                               |
+| Template         | Accessibility issues            |
+| ---------------- | ------------------------------- |
+| Single line text | Errors association with fields. |
+| Multi-line text  | Errors association with fields. |
+| Email            | Errors association with fields. |
+| Number           | Errors association with fields. |
+| URL              | Errors association with fields. |
+| Checkbox         | Errors association with fields. |
+| Checkboxes       | Errors association with fields. |
+| Drop down        | Errors association with fields. |
+| Multiple select  | Errors association with fields. |
+| Radio buttons    | Errors association with fields. |
+| Date             | Errors association with fields. |
+| Date/time        | Errors association with fields. |
+| Hidden field     | None                            |
 
 This may be addressed in the future, via improvements in Django. See:
 
-- [Django ticket #32820 – Fields’ errors should be programmatically associated with fields.](https://code.djangoproject.com/ticket/32820)
 - [Django ticket #32819 - Fields’ help text and errors should be associated with input](https://code.djangoproject.com/ticket/32819)
+- [Fixed #32819 -- Established relationship between form fields and their errors. #17520](https://github.com/django/django/pull/17520)
 
 Proposed actions:
 
-- [Re-review with Django 5.0 improvements](https://docs.djangoproject.com/en/dev/releases/5.0/)
-- Add cite attribute support to BlockQuote block
+- Support improvements in Django
 
 ##### B.2.4.2 Identify Template Accessibility
 
@@ -1108,7 +1124,7 @@ See [Implementing B.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 > (Level A / AA / AAA). See [Implementing B.3.1.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b311).
 
-**Fail**. Evaluated as: **Level AAA**. There are a number of formatting / content entry options in the CMS that can lead to accessibility issues. The built-in accessibility checker provides automated tests for a number of possible issues, but not all. Available checks are:
+**Pass**. Evaluated as: **Level A**. There are a number of formatting / content entry options in the CMS that can lead to accessibility issues. The built-in accessibility checker provides automated tests for a number of possible issues, but not all. Available checks are:
 
 - `button-name`: `<button>` elements must always have a text label.
 - `empty-heading`: This rule checks for headings with no text content. Empty headings are confusing to screen readers users and should be avoided.
@@ -1118,10 +1134,10 @@ See [Implementing B.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 - `input-button-name`: `<input>` button elements must always have a text label.
 - `link-name`: `<a>` link elements must always have a text label.
 - `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
+- `alt-text-quality`: A custom rule ensures that image alt texts don’t contain anti-patterns like file extensions and underscores.
 
 There are a number of success criteria that do not have automated checks nor instructions for manual checking:
 
-- 1.1.1 Non-text Content (A) – specifically instructions on correct entry of alt text, and marking images as decorative when appropriate
 - 2.4.4 Link Purpose (In Context) (AA) – instructions and potentially limited automated checks on correct link text (avoid "click here")
 - 1.4.5 Images of Text (AA) – instructions on avoiding images of text except for scenarios where there is no alternative
 - 2.4.9 Link Purpose (Link Only) (AAA) – see above
@@ -1181,12 +1197,11 @@ See [Implementing B.2.3](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 > (Level A / AA / AAA). See [Implementing B.3.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b321).
 
-**Fail**. Evaluated as: **Level A**. Currently Wagtail’s 8 rules report the presence of a problem but do not suggest specific solutions.
+**Fail**. Evaluated as: **Level A**. Currently Wagtail’s 9 rules report the presence of a problem but do not suggest specific solutions.
 
 Proposed improvements:
 
 - [Content quality checkers #11063](https://github.com/wagtail/wagtail/discussions/11063)
-- [Accessibility checker in page editor #10136](https://github.com/wagtail/wagtail/issues/10136)
 - Correct identification of Wagtail content so errors are only reported on CMS-managed content
 
 ### [B.4. Authoring tools promote and integrate their accessibility features](https://www.w3.org/TR/ATAG20/#principle_b4)
@@ -1243,13 +1258,11 @@ Proposed actions:
 
 > (Level A). See [Implementing B.4.2.2](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b422).
 
-**Fail**. Wagtail’s accessibility checker and alt text setting aren’t documented in the guide for content authors. The [documentation for developers](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html) does cover this.
+**Pass**. Wagtail’s accessibility checker, heading levels, and alt text implementation are documented in the guide for content authors. The [documentation for developers](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html) also cover this.
 
 Proposed actions:
 
-- Documentation review to ensure all accessibility features are documented.
-  - Document all accessibility features in developer documentation.
-  - [Accessibility features documentation #69](https://github.com/wagtail/roadmap/issues/69)
+- Create a single page summarizing all accessibility-related information.
 
 ##### B.4.2.3 Tutorial
 
