@@ -56,7 +56,7 @@ See [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/1
 
 ### Site settings permissions
 
-TBC
+See [RFC 105: Site settings permissions](https://github.com/wagtail/rfcs/pull/105).
 
 ### CSP compatibility audit
 
