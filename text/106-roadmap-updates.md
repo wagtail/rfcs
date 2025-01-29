@@ -22,15 +22,15 @@ With no specific discussion to date, we currently expect the February 2025 relea
 The following Wagtail 6.4 roadmap items will be marked as Done:
 
 - [StreamField blocks preview](https://github.com/wagtail/roadmap/issues/84)
+
+The following Wagtail 6.4 roadmap items will be marked as Done and there will be follow-up work outside of the formal roadmap in v6.5\*:
+
+- [Admin UI performance improvements](https://github.com/wagtail/roadmap/issues/80)
 - [StreamField blocks drag'n'drop](https://github.com/wagtail/roadmap/issues/85)
 
 The following Wagtail 6.4 roadmap items will be marked as Done and there will be a follow-up item in v6.5\*:
 
 - [Headless improvements roadmap](https://github.com/wagtail/roadmap/issues/91)
-
-The following Wagtail 6.4 roadmap items will be marked as Done and there will be follow-up work outside of the formal roadmap in v6.5\*:
-
-- [Admin UI performance improvements](https://github.com/wagtail/roadmap/issues/80)
 
 The following Wagtail 6.4 roadmap items will be moved to v6.6\*:
 
