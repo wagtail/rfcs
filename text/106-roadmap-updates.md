@@ -42,8 +42,6 @@ The following Wagtail 6.4 roadmap items will be moved to Future:
 
 ## Proposed roadmap items for Wagtail 6.5\* (May 2025)
 
-### Site settings permissions
-
 ### Validation on publish
 
 See [RFC 104: Validation on publish](https://github.com/wagtail/rfcs/pull/104).
@@ -56,32 +54,48 @@ See [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/1
 
 See [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/100).
 
-### SEO quick wins
+### Site settings permissions
 
-### Accessibility checker UX improvements
+TBC
 
 ### CSP compatibility audit
 
+TBC
+
+### SEO quick wins
+
+TBC
+
+### Accessibility checker UX improvements
+
+TBC
+
 ## Proposed roadmap items for Wagtail 6.6\* (August 2025)
 
-## Proposed roadmap items for "Future" releases
+### Google Summer of Code 2025
+
+TBC
+
+### Headless demo site
+
+TBC
+
+### Automated tests tooling
+
+TBC
+
+### Incremental choosers improvements
+
+TBC
 
 ### [Sustainability improvements #72](https://github.com/wagtail/roadmap/issues/72)
 
 Existing item – moving to "Future" to earmark more specific improvements / find a feature sponsor.
+
+## Proposed roadmap items for "Future" releases
 
 ## Proposed roadmap items to close
 
 ### [Admin interface accessibility improvements #71](https://github.com/wagtail/roadmap/issues/71)
 
 This seems too fuzzy at this stage to be meaningfully considered "done" in any specific release.
-
-### Content Security Policy
-
-This will involve:
-
-- Providing official recommendations for compatible CSP settings.
-- Ensuring essential functionality works with a strict CSP.
-- Documenting or backlogging all CSP-related issues.
-
-See [CSP compatibility issues #1288](https://github.com/wagtail/wagtail/issues/1288) and the [Wagtail Stimulus Adoption Schedule (2022-25) 🎛️](https://docs.google.com/spreadsheets/d/1LdrXlj8OeCWy3B_moYZ-ynhfZZtFVHPahG9GFoT-XBs/edit).
