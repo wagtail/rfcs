@@ -3,7 +3,7 @@
 - RFC: 100
 - Author: Thibaud Colas
 - Created: 2024-07-31
-- Last Modified: 2024-12-05
+- Last Modified: 2025-01-29
 
 ## Abstract
 
@@ -75,30 +75,32 @@ To support future headless improvements work, here is a non-exhaustive list of k
 
 ### Overview
 
+Items in this overview are ordered per the [Results of the 2024 Wagtail headless survey](https://wagtail.org/blog/2024-headless-survey/).
+
 | Feature              | Current state    | Ideal state               |
 | -------------------- | ---------------- | ------------------------- |
-| Documentation        | External docs    | docs.wagtail.org          |
-| REST API             | Built-in support | Improved built-in support |
-| API schemas          | No support       | Built-in support          |
-| GraphQL              | External package | External package          |
 | Page preview         | External package | Built-in support          |
+| REST API             | Built-in support | Improved built-in support |
+| Documentation        | High-level docs  | Detailed docs, how-tos    |
+| API schemas          | No support       | Built-in support          |
 | Images               | Built-in support | Improved built-in support |
 | Page URL routing     | Built-in support | Improved built-in support |
-| Redirects            | Built-in support | Improved built-in support |
-| Rich Text            | Built-in support | Improved built-in support |
 | Multi-site support   | Built-in support | Improved built-in support |
+| Rich Text            | Built-in support | Improved built-in support |
+| Redirects            | Built-in support | Improved built-in support |
 | Form submissions     | No support       | Built-in support          |
-| Private pages        | No support       | Built-in support          |
-| Internationalisation | Built-in support | Improved built-in support |
 | StreamField          | Built-in support | Improved built-in support |
-| Userbar              | No support       | Built-in support          |
+| GraphQL              | External package | External package          |
+| Internationalisation | Built-in support | Improved built-in support |
 | Content checks       | No support       | Built-in support          |
+| Private pages        | No support       | Built-in support          |
+| Userbar              | No support       | Built-in support          |
 | Snippets             | No support       | Built-in support          |
 | Settings             | No support       | Built-in support          |
 
-### Documentation
+### Page Preview
 
-See [Headless docs](https://github.com/wagtail/wagtail/pull/12039) pull request. Headless support for various features needs to be covered in the developer documentation, either as a dedicated “headless support” page, or separately feature by feature, or both.
+Page previews should be supported by Wagtail core. Currently, [wagtail-headless-preview](https://github.com/torchbox/wagtail-headless-preview) is required.
 
 ### REST API
 
@@ -123,17 +125,13 @@ Other ideas:
 
 - Have an endpoint to retrieve all page URLs.
 
+### Documentation
+
+See [Headless docs](https://github.com/wagtail/wagtail/pull/12039) pull request. Headless support for various features needs to be covered in the developer documentation, either as a dedicated “headless support” page, or separately feature by feature, or both.
+
 ### API schemas
 
 In addition to discrete improvements to the API endpoints, an often-requested feature is API schema generation (OpenAPI / Swagger). See: [Support OpenAPI Schema generation for Wagtail API #6209](https://github.com/wagtail/wagtail/issues/6209).
-
-### GraphQL
-
-GraphQL and packages like [wagtail-grapple](https://github.com/torchbox/wagtail-grapple) or [strawberry-wagtail](https://github.com/patrick91/strawberry-wagtail) should remain separate. There is no requirement for Wagtail to support multiple types of APIs as a core feature.
-
-### Page Preview
-
-Page previews should be supported by Wagtail core. Currently, [wagtail-headless-preview](https://github.com/torchbox/wagtail-headless-preview) is required.
 
 ### Images
 
@@ -155,14 +153,6 @@ The [`get_url_parts`](https://docs.wagtail.org/en/stable/reference/pages/model_r
 - [Add ability to support custom renderers for Page views (e.g. JSON API response at page URLs) #11752](https://github.com/wagtail/wagtail/issues/11752)
 - [Accept page change in before_serve_page handling #5753](https://github.com/wagtail/wagtail/issues/5753/)
 
-### Redirects
-
-Wagtail provides a `RedirectsAPIViewSet`. It needs further improvements – see [Refactor redirect middleware to use its lookup logic for redirects API #11524](https://github.com/wagtail/wagtail/pull/11524).
-
-### Rich Text
-
-Wagtail should make it more straightforward to access rendered HTML. See [API should provide access to the HTML-converted versions of rich text fields #2695](https://github.com/wagtail/wagtail/issues/2695).
-
 ### Multi-site support
 
 The Wagtail API only allows requests from one site at a time to make sure any site listings are isolated from other sites by default. But the API could be improved in the following ways:
@@ -172,6 +162,14 @@ The Wagtail API only allows requests from one site at a time to make sure any si
 
 With these approaches, the site record in the Wagtail admin of Headless Wagtail would be set to the domain or port that the end user sees so URLs could be reversed correctly. All API requests would specify the site as a GET parameter.
 
+### Rich Text
+
+Wagtail should make it more straightforward to access rendered HTML. See [API should provide access to the HTML-converted versions of rich text fields #2695](https://github.com/wagtail/wagtail/issues/2695).
+
+### Redirects
+
+Wagtail provides a `RedirectsAPIViewSet`. It needs further improvements – see [Refactor redirect middleware to use its lookup logic for redirects API #11524](https://github.com/wagtail/wagtail/pull/11524).
+
 ### Form submissions
 
 This feature is a regular selling point for Wagtail, though its usage is limited on headless projects. Nonetheless, Wagtail should have basic support for API interactions with forms and form submissions, or documented workarounds.
@@ -180,14 +178,6 @@ Currently, Wagtail supports [adding form fields to the API](https://docs.wagtail
 
 In addition to facilitating data management, this would also help developers avoid reinventing form validation.
 
-### Password-protected Pages
-
-Password-protected pages are currently excluded from the API. There currently isn’t a way to view a password-protected page from a headless frontend.
-
-### Internationalisation
-
-See [Support internationalized routes in API pages/find/?html_path view #6679](https://github.com/wagtail/wagtail/issues/6679).
-
 ### StreamField
 
 There are a number of very simple improvements that could be made so developers have more control over the API representation of StreamField blocks, starting with documentation of the `get_api_representation` method.
@@ -195,6 +185,25 @@ There are a number of very simple improvements that could be made so developers 
 - [Override serializing StreamBlocks to JSON api #3454](https://github.com/wagtail/wagtail/issues/3454)
 - [Apply custom-per-block-type StreamField serializers #5174](https://github.com/wagtail/wagtail/issues/5174)
 - [parent_context or just "parent Page" for Block.get_api_representation() #7976](https://github.com/wagtail/wagtail/issues/7976)
+
+### GraphQL
+
+GraphQL and packages like [wagtail-grapple](https://github.com/torchbox/wagtail-grapple) or [strawberry-wagtail](https://github.com/patrick91/strawberry-wagtail) should remain separate. There is no requirement for Wagtail to support multiple types of APIs as a core feature.
+
+### Internationalisation
+
+See [Support internationalized routes in API pages/find/?html_path view #6679](https://github.com/wagtail/wagtail/issues/6679).
+
+### Content checks
+
+Including all [accessibility checker](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html#built-in-accessibility-checker) capabilities, and content metrics. Only available via the userbar. In addition to the userbar, also requires:
+
+- Page Preview
+- Cross-domain cross-frame communication
+
+### Private Pages
+
+Password-protected pages are currently excluded from the API. There currently isn’t a way to view a password-protected page from a headless frontend.
 
 ### Userbar
 
@@ -209,13 +218,6 @@ Likely implementation:
 - Web Component (`<wagtail-userbar content-type="blog.BlogPage" pk="80"></wagtail-userbar>`)
 - Data fetching from Wagtail backend via dedicated API endpoint.
 - UI fetching from script tag or from Wagtail backend (via API endpoint?)
-
-### Content checks
-
-Including all [accessibility checker](https://docs.wagtail.org/en/stable/advanced_topics/accessibility_considerations.html#built-in-accessibility-checker) capabilities, and content metrics. Only available via the userbar. In addition to the userbar, also requires:
-
-- Page Preview
-- Cross-domain cross-frame communication
 
 ### Snippets
 
