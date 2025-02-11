@@ -55,6 +55,19 @@ In the final implementation, this change to the edit / create views will also be
 
 In the proof of concept, the model-level validation on `save_revision` and `save` has been bypassed by calling `page.save_revision(clean=False)` on the views in question, and flipping the behaviour of `save` to default to `clean=False` so that the call to `form.save` does not trigger `full_clean`. This change will need to be considered carefully to ensure that it does not bypass necessary housekeeping such as setting the slug, including in external code that creates pages programmatically. One possible refinement is to continue defaulting to `clean=True` on `save` when the page's `live` flag is True.
 
+## Handling of non-text fields
+
+This process relies on the assumption that the model instance resulting from the form submission is in a state that can be legally saved to the database, even if some application-level validation rules have been skipped. This assumption holds for text-based fields (`CharField` and `TextField`) that have skipped a `blank=False` check, since databases will still allow empty strings to be saved (unless there is an explicit check constraint preventing this - in which case it is the developer's responsibility to enforce that on draft saves using `required_on_save=True`). However, this is not true for non-text fields such as `IntegerField`, as Django will attempt to save blank values as `NULL`, causing a database-level validation error if the field has not been defined as `null=True`.
+
+For this reason, a developer must define such a field as `IntegerField(null=True)` to allow it to be left blank during drafts but enforce it as required on publish. This is in contrast to `IntegerField(null=True, blank=True)` which will also permit the field to be blank on publish.
+
+To minimise the possibility of uncaught validation errors, `FieldPanel` will incorporate the following check:
+
+* If the field name corresponds to a field on the model, and
+* that field is a non-text type, and
+* that field does not permit nulls, and
+* the FieldPanel has not been passed an explicit `required_on_save` argument, then
+* the FieldPanel will behave as if `required_on_save=True` has been passed, i.e. it will not add the field to the model form's `defer_required_on_fields` list.
 
 ## Open Questions
 
