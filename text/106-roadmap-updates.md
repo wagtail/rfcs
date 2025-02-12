@@ -51,6 +51,19 @@ For more information, see [RFC 104: Validation on publish](https://github.com/wa
 
 Implementation of top 3-5 headless improvements as identified in the [2024 headless survey](https://wagtail.org/blog/2024-headless-survey/), with a particular focus on the built-in REST API and documentation.
 
+Currently earmarked tasks:
+
+- New version of [headless support documentation](https://docs.wagtail.org/en/stable/advanced_topics/headless.html)
+- [Fix headless Wagtail page URL #9984](https://github.com/wagtail/wagtail/pull/9984)
+- [Improvements to API router reverse lookups #11310](https://github.com/wagtail/wagtail/pull/11310)
+- [Retain fields parameter when redirecting from find_view of API #12141](https://github.com/wagtail/wagtail/pull/12141)
+- [Refactor redirect middleware to use its lookup logic for redirects API #11524](https://github.com/wagtail/wagtail/pull/11524)
+- [Override serializing StreamBlocks to JSON api #3454](https://github.com/wagtail/wagtail/issues/3454)
+- [Documentation for using the "Dynamic image serve" view for generating image renditions on a headless site #6113](https://github.com/wagtail/wagtail/issues/6113)
+- [API should provide access to the HTML-converted versions of rich text fields #2695](https://github.com/wagtail/wagtail/issues/2695)
+- [No Image URL in the API for ImageChooserBlock #2087](https://github.com/wagtail/wagtail/issues/2087)
+- Some work towards of [Support OpenAPI Schema generation for Wagtail API #6209](https://github.com/wagtail/wagtail/issues/6209)
+
 For more information, see [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/100).
 
 ### Site settings permissions
@@ -62,6 +75,14 @@ For more information, see [RFC 105: Site settings permissions](https://github.co
 ### CSP compatibility audit
 
 An up-to-date review of [CSP compatibility issues](https://github.com/wagtail/wagtail/issues/1288) in Wagtail, with the view to help resolve them all in future releases.
+
+This will replace the [last feature-by-feature review](https://github.com/wagtail/wagtail/issues/7053) which was 4 years ago. We need a clearer record as we now have CSP [on our roadmap](https://github.com/wagtail/roadmap/issues/92) and [as a GSoC project idea](https://github.com/wagtail/gsoc/blob/main/project-ideas.md#content-security-policy-compatibility). Aside from auditing, this will involve adding findings in Wagtail issues, or logged to a "CSP compatibility" board in GitHub Projects.
+
+And if there is time, here are stretch tasks on our way to the [CSP roadmap item](https://github.com/wagtail/roadmap/issues/92):
+
+- [Updating the bakerydemo CSP](https://github.com/wagtail/bakerydemo/blob/main/.env.example) to be on by default, and document stricter options that are compatible, if possible.
+- Updating the developer docs to document current level of CSP support
+- Updating guide.wagtail.org or wagtail.org with a CSP
 
 ## Proposed roadmap items for Wagtail 6.6\* (August 2025)
 
@@ -92,3 +113,22 @@ For more information, see [RFC 100: Enhancing headless support](https://github.c
 ### [Admin interface accessibility improvements #71](https://github.com/wagtail/roadmap/issues/71)
 
 This seems too fuzzy at this stage to be meaningfully considered "done" in any specific release.
+
+## Open questions
+
+### What’s the current plan for the headless demo site?
+
+The primary goal is to be able to demo / test the headless capabilities of Wagtail in a representative site. Demonstrating best practices would be good, where it makes sense.
+
+For long-term maintenance, we aim to keep ongoing efforts as low as possible: no hosted environment, make changes in the [existing bakerydemo](https://github.com/wagtail/bakerydemo) as much as possible (for example server-side API configuration), limit adoption of patterns that are very framework-specific where possible.
+
+Here is the provisional choices made with the vue to repurpose the [bakerydemo-nextjs](https://github.com/thibaudcolas/bakerydemo-nextjs) as this new demo site:
+
+- Keep Next.js, as it’s the most popular option per our survey. Use server-rendered Next.js as it will be a better test of headless Wagtail capabilities.
+- Keep TypeScript. Keep using the existing bakerydemo’s styles and template markup wherever possible
+- Switch from GraphQL to the built-in Wagtail REST API (more popular and it’s better to demo core features).
+
+Features which are (currently) out of scope:
+
+- Multi-site
+- GraphQL
