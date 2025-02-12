@@ -3,7 +3,7 @@
 - RFC: 106
 - Author: Thibaud Colas
 - Created: 2025-01-29
-- Last Modified: 2025-02-05
+- Last Modified: 2025-02-12
 
 ## Abstract
 
@@ -37,6 +37,7 @@ The following Wagtail 6.4 roadmap items will be moved to v6.6\*:
 The following Wagtail 6.4 roadmap items will be moved to Future:
 
 - [Autosave support refactorings with Telepath](https://github.com/wagtail/roadmap/issues/47)
+  - Switching to _Validation on publish_ as the next step in the auto-save journey.
 
 ## Proposed roadmap items for Wagtail 6.5\* (May 2025)
 
@@ -45,12 +46,6 @@ The following Wagtail 6.4 roadmap items will be moved to Future:
 Implementation of a frequently-requested feature: save draft versions of pages in an incomplete state, while still enforcing validation when publishing. This is a pre-requisite to implementing auto-save as proposed in [RFC 99: Preliminary work to support auto-save functionality](https://github.com/wagtail/rfcs/pull/99).
 
 For more information, see [RFC 104: Validation on publish](https://github.com/wagtail/rfcs/pull/104).
-
-### Headless userbar
-
-Adding built-in support for the Wagtail userbar in headless mode, including accessibility checks, and built-in headless preview support.
-
-For more information, see [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/100).
 
 ### Headless API improvements
 
@@ -85,6 +80,12 @@ For more information, see [RFC 100: Enhancing headless support](https://github.c
 ### [Sustainability improvements #72](https://github.com/wagtail/roadmap/issues/72)
 
 Existing item – moving to "Future" to earmark more specific improvements / find a feature sponsor.
+
+### Headless preview & userbar
+
+Adding built-in support for the Wagtail userbar in headless mode, including accessibility checks, and built-in headless preview support.
+
+For more information, see [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/100).
 
 ## Proposed roadmap items to close
 
