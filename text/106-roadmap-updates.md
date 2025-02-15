@@ -102,9 +102,15 @@ For more information, see [RFC 100: Enhancing headless support](https://github.c
 
 Existing item – moving to "Future" to earmark more specific improvements / find a feature sponsor.
 
-### Headless preview & userbar
+### Headless preview
 
-Adding built-in support for the Wagtail userbar in headless mode, including accessibility checks, and built-in headless preview support.
+Moving preview support for headless sites from a separate package to a built-in feature.
+
+For more information, see [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/100).
+
+### Headless userbar
+
+Adding built-in support for the Wagtail userbar in headless mode, including accessibility checks, based on built-in preview support.
 
 For more information, see [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/100).
 
