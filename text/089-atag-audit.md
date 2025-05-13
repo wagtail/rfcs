@@ -26,21 +26,28 @@ Validating the audit’s results will help make sure the findings as part of upc
 
 At the success criteria level as per the [W3C ATAG report tool](https://www.w3.org/WAI/atag/report-tool/), pass/fail:
 
-- Total: 28 **Pass**, 22 **Fail**, 13 **Not applicable**.
-- Part A: 14 **Pass**, 13 **Fail**, 4 **Not applicable**.
-- Part B: 14 **Pass**, 9 **Fail**, 9 **Not applicable**.
+| Conformance Level | Total      | Part A     | Part B     |
+| ----------------- | ---------- | ---------- | ---------- |
+| Pass              | 30 (+8 🎉) | 14 (+2 🤘) | 16 (+6 🚀) |
+| Fail              | 20 (-8)    | 15 (-2)    | 5 (-8)     |
+| Not applicable    | 13         | 4          | 9          |
 
 At the success criteria level, by [level of conformance](https://www.w3.org/TR/ATAG20/#intro_understand_levels_conformance):
 
-- Level A: 11 **Pass**, 7 **Fail**, 6 **Not applicable**.
-- Level AA: 13 **Pass**, 8 **Fail**, 7 **Not applicable**.
-- Level AAA: 4 **Pass**, 7 **Fail**, 0 **Not applicable**.
+| Conformance Level | Level A | Level AA | Level AAA |
+| ----------------- | ------- | -------- | --------- |
+| Pass              | 12 (+3) | 12 (+3)  | 6 (+2)    |
+| Fail              | 7 (-3)  | 7 (-2)   | 6 (-3)    |
+| Not applicable    | 6       | 6        | 1         |
 
 At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org/WAI/tools-list/authoring/), with partial support:
 
-- Total: 6 **Pass**, 14 **Partially**, 2 **Fail**, 2 **Not applicable**.
-- Part A: 2 **Pass**, 9 **Partially**, 1 **Fail**, 1 **Not applicable**.
-- Part B: 4 **Pass**, 5 **Partially**, 1 **Fail**, 1 **Not applicable**.
+| Conformance Level | Total   | Part A | Part B |
+| ----------------- | ------- | ------ | ------ |
+| Pass              | 7 (+2)  | 2      | 5 (+2) |
+| Partially         | 13 (-2) | 9      | 4 (-2) |
+| Fail              | 2       | 1      | 1      |
+| Not applicable    | 2       | 1      | 1      |
 
 ### [A. Make the authoring tool user interface accessible](#a-make-the-authoring-tool-user-interface-accessible)
 
@@ -114,11 +121,11 @@ At the guidelines level as per the [W3C Authoring Tools list](https://www.w3.org
     - **Pass**: [B.2.3.1 Alternative Content is Editable (WCAG)](#b231-alternative-content-is-editable-wcag) (Level A / AA / AAA)
     - **Pass**: [B.2.3.2 Automating Repair of Text Alternatives](#b232-automating-repair-of-text-alternatives) (Level A)
     - **Fail**: [B.2.3.3 Save for Reuse](#b233-save-for-reuse) (Level AAA)
-  - **Partially**: [B.2.4. Assist authors with accessible templates](#b24-assist-authors-with-accessible-templates)
-    - **Fail**: [B.2.4.1 Accessible Template Options (WCAG)](#b241-accessible-template-options-wcag) (Level A / AA / AAA)
+  - **Pass**: [B.2.4. Assist authors with accessible templates](#b24-assist-authors-with-accessible-templates)
+    - **Pass**: [B.2.4.1 Accessible Template Options (WCAG)](#b241-accessible-template-options-wcag) (Level A / AA / AAA)
     - **Pass**: [B.2.4.2 Identify Template Accessibility](#b242-identify-template-accessibility) (Level AA)
     - **Not applicable**: [B.2.4.3 Author-Created Templates](#b243-author-created-templates) (Level AA)
-    - **Fail**: [B.2.4.4 Accessible Template Options (Enhanced)](#b244-accessible-template-options-enhanced) (Level AAA)
+    - **Pass**: [B.2.4.4 Accessible Template Options (Enhanced)](#b244-accessible-template-options-enhanced) (Level AAA)
   - **Not applicable**: [B.2.5. Assist authors with accessible pre-authored content](#b25-assist-authors-with-accessible-pre-authored-content)
     - **Not applicable**: [B.2.5.1 Accessible Pre-Authored Content Options](#b251-accessible-pre-authored-content-options) (Level AA)
     - **Not applicable**: [B.2.5.2 Identify Pre-Authored Content Accessibility](#b252-identify-pre-authored-content-accessibility) (Level AA)
@@ -161,6 +168,8 @@ As a representation of the state of Wagtail’s WCAG 2.1 AA conformance, here is
 
 | Version                                                               | Total | [Color contrast](https://dequeuniversity.com/rules/axe/4.4/color-contrast) | [`nested-interactive`](https://www.browserstack.com/docs/accessibility/rules/wcag/nested-interactive) | [`aria-valid-attr-value`](https://accessibilityinsights.io/info-examples/web/aria-valid-attr-value/) | [`aria-input-field-name`](https://www.browserstack.com/docs/accessibility/rules/wcag/aria-input-field-name) | [Links purpose](https://dequeuniversity.com/rules/axe/4.4/identical-links-same-purpose) | [Empty heading](https://www.browserstack.com/docs/accessibility/rules/best-practice/empty-heading) | [Heading order](https://accessibility.browserstack.com/api/more-info/4.4/heading-order) | [`region`](https://accessibility.browserstack.com/api/more-info/4.4/region) | [Landmark unique](https://www.browserstack.com/docs/accessibility/rules/best-practice/landmark-unique) |
 | --------------------------------------------------------------------- | ----- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [7.0](https://static-wagtail-v7-0.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
+| [6.4](https://static-wagtail-v6-4.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
 | [6.3](https://static-wagtail-v6-3.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
 | [6.2](https://static-wagtail-v6-2.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
 | [6.1](https://static-wagtail-v6-1.netlify.app/admin/pages/60/edit/)   | 2     | 0                                                                          | 0                                                                                                     | 0                                                                                                    | 2                                                                                                           | 0                                                                                       | 0                                                                                                  | 0                                                                                       | 0                                                                           | 0                                                                                                      |
@@ -185,8 +194,9 @@ References:
 - [WCAG 2.2 & ATAG 2.0 CMS admin](https://github.com/orgs/wagtail/projects/9/views/1)
 - [Living accessibility audit (last update: December 2024)](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit)
 
-Full list of 21 currently-documented accessibility issues in GitHub:
+Full list of 22 currently-documented accessibility issues in GitHub:
 
+- [Low-contrast active menu item indicator #12644](https://github.com/wagtail/wagtail/issues/12644)
 - [Rich text ctrl + K keyboard shortcut should open the link or document tooltip #11627](https://github.com/wagtail/wagtail/issues/11627)
 - [Add comment button should move focus to the new comment when the panel is closed #11021](https://github.com/wagtail/wagtail/issues/11021)
 - [Row headers for permission forms as tables #12288](https://github.com/wagtail/wagtail/issues/12288)
@@ -260,22 +270,22 @@ See [Implementing A.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 **Fail**. For icons within the CMS, all have appropriate alt text. For CMS-managed images, Wagtail renders non-text content in nine scenarios, five of which are related to editing views and would require changes:
 
 - Fail: Image upload fields in the image edit/create form. The image’s title displays as a field next to the visuals. The title acts as alt text by default in Wagtail. This is missing a programmatic association between the title or description text, and the image.
-  - Example: [Wagtail 6.3 - Editing image Boston Cream Pie](https://static-wagtail-v6-3.netlify.app/admin/images/43/)
+  - Example: [Editing image Boston Cream Pie](https://static-wagtail-v6-3.netlify.app/admin/images/43/)
   - Current: The alt text is permanently set to the contents of the Title field on page load.
   - Proposed actions:
     - The image could be more clearly associated with the live title and description fields with an `aria-labelledby`.
     - The description field could have help text to clarify its use as the image’s alt text (at least in the CMS).
 - Fail: Image chooser fields in forms. The selected image’s title displays next to the visuals. The description acts as alt text by default in Wagtail. This is missing a programmatic association between the title text and image.
-  - Example: [Wagtail 6.3 - Editing Blog Page: Desserts with Benefits, Image field](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#panel-child-content-image-section)
+  - Example: [Editing Blog Page: Desserts with Benefits, Image field](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#panel-child-content-image-section)
   - Current: Alt text set to `alt=""`, with title displayed after the image.
   - Proposed actions:
     - Associate the visible text with the image with `aria-labelledby`.
     - Switch to the description field as alt text in the CMS.
 - Fail: Image chooser fields with a custom alt text field next to them. The custom alt text field is not programmatically associated with the image.
-  - Example (with Caption field): [Wagtail 6.3 - Editing Blog Page: Desserts with Benefits, Image block](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#block-556e76b0-0f5a-42bb-b039-653f3d6b1f0b-section)
+  - Example (with Caption field): [Editing Blog Page: Desserts with Benefits, Image block](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#block-556e76b0-0f5a-42bb-b039-653f3d6b1f0b-section)
   - Alt text set to `alt=""`, with title displayed after the image, and custom field further down.
   - Proposed actions:
-    - Implement this pattern in the bakerydemo website, based on the new Wagtail 6.3 ImageBlock.
+    - Implement this pattern in the bakerydemo website, based on the built-in ImageBlock.
     - Associate both the title of the image, and the custom field, with `aria-labelledby`, or a combination of it and `aria-describedby`.
 - Fail: Images within rich text fields. Here the image’s title is displayed in a tooltip associated with the image, but there is no programmatic association.
   - Example: unavailable
@@ -284,7 +294,7 @@ See [Implementing A.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
     - Add a programmatic association between tooltip text and image with `aria-labelledby`.
     - Make sure the image has alt text accessible even when the tooltip is closed.
 - Fail: Embeds within rich text fields. Here we display the embed’s thumbnail if there is one. The embed’s title is displayed in a tooltip associated with the embed, but there is no programmatic association.
-  - Example: [Wagtail 6.3 - Editing Blog Page: Desserts with Benefits, Paragraph block](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#block-ac48af95-b3be-4602-8c2f-5c43fc080f17-section)
+  - Example: [Editing Blog Page: Desserts with Benefits, Paragraph block](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/#block-ac48af95-b3be-4602-8c2f-5c43fc080f17-section)
   - Current: Alt text set to `alt=""`, with no text displayed near the image.
   - Proposed actions:
     - Add a programmatic association between tooltip text and image with `aria-labelledby`.
@@ -293,7 +303,7 @@ See [Implementing A.2.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 Outside editing views (possibly not part of ATAG requirements), Wagtail renders images in the following scenarios:
 
 - Revisions comparison with images. The image’s title is used as alt text. The title should be visible to the user in the UI, but it is not.
-  - Example: [Wagtail 6.3 - Comparing Bread and Circuses](https://static-wagtail-v6-3.netlify.app/admin/pages/68/revisions/compare/46...108/)
+  - Example: [Comparing Bread and Circuses](https://static-wagtail-v6-3.netlify.app/admin/pages/68/revisions/compare/46...108/)
   - Current: the image title is used as `alt` attribute.
   - Proposed actions:
     - Add demo content following this pattern in bakerydemo.
@@ -301,13 +311,13 @@ Outside editing views (possibly not part of ATAG requirements), Wagtail renders 
     - Switch to the `description` field as alt text.
 - Revisions comparison with images or embeds in rich text: currently unimplemented.
 - Snippets listings. When there is an image column, its alt text is set but invisible in the UI.
-  - Example: [Wagtail 6.3 – Snippets People](https://static-wagtail-v6-3.netlify.app/admin/snippets/base/person/)
+  - Example: [Snippets People](https://static-wagtail-v6-3.netlify.app/admin/snippets/base/person/)
   - Current: the image title is used as `alt` attribute.
   - Proposed actions:
     - Display the images’ titles in the UI, with programmatic `aria-labelledby` associations.
     - Switch to the `description` field as alt text.
 - Image gallery. Here we display the title underneath the image as alt text, in a `figcaption`.
-  - Example: [Wagtail 6.3 – Images](https://static-wagtail-v6-3.netlify.app/admin/images/)
+  - Example: [Images](https://static-wagtail-v6-3.netlify.app/admin/images/)
   - Current: Alt text set to `alt=""`, but the image is within a `figure` with the image’s title as `figcaption`.
   - Proposed actions:
     - Associate the text and the image with `aria-labelledby`.
@@ -372,15 +382,15 @@ See [Implementing A.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 **Fail**. Though the majority of the authoring tool’s functionality is keyboard accessible, there are specific areas that aren’t:
 
 - In rich text fields, pin/unpin of the rich text toolbar.
-  - Example: [Wagtail 6.3 - Editing Blog Page: Tracking Wild Yeast](https://static-wagtail-v6-3.netlify.app/admin/pages/62/edit/)
+  - Example: [Editing Blog Page: Tracking Wild Yeast](https://static-wagtail-v6-3.netlify.app/admin/pages/62/edit/)
   - Proposed actions:
     - Research how other WYSIWYG interfaces allow keyboard interactions with all toolbar controls.
 - In rich text fields, Edit functionality for links, documents, images, embeds.
   - Examples:
-    - Links: [Wagtail 6.3 - Editing Standard page: About](https://static-wagtail-v6-3.netlify.app/admin/pages/76/edit/#panel-child-content-body-section)
-    - Documents: [Wagtail 6.3 - Editing Recipe page: Southern Cornbread](https://static-wagtail-v6-3.netlify.app/admin/pages/82/edit/#block-910c5024-a47a-45b1-a3a3-8f8bb5a8fa70-section)
+    - Links: [Editing Standard page: About](https://static-wagtail-v6-3.netlify.app/admin/pages/76/edit/#panel-child-content-body-section)
+    - Documents: [Editing Recipe page: Southern Cornbread](https://static-wagtail-v6-3.netlify.app/admin/pages/82/edit/#block-910c5024-a47a-45b1-a3a3-8f8bb5a8fa70-section)
     - Images: no example
-    - Embeds: [Wagtail 6.3 - Editing Blog page: Desserts with Benefits](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/)
+    - Embeds: [Editing Blog page: Desserts with Benefits](https://static-wagtail-v6-3.netlify.app/admin/pages/77/edit/)
   - Proposed actions:
     - Research how other WYSIWYG interfaces allow keyboard interactions with all toolbar controls.
     - Possibly support selection of all those content types and press "Enter" to move focus to their UI.
@@ -389,21 +399,21 @@ See [Implementing A.3.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
   - See [Making Wagtail Accessible for users with disabilities #4199](https://github.com/wagtail/wagtail/issues/4199)
   - See also [Implement focus management for chooser modals #5338](https://github.com/wagtail/wagtail/issues/5338)
   - Examples:
-    - Images: [Wagtail 6.3 - Editing Bread page: Arepa](https://static-wagtail-v6-3.netlify.app/admin/pages/37/edit/#panel-child-content-image-section)
-    - Snippets: [Wagtail 6.3 - Editing Bread page: Arepa](https://static-wagtail-v6-3.netlify.app/admin/pages/37/edit/#panel-child-content-origin-section)
+    - Images: [Editing Bread page: Arepa](https://static-wagtail-v6-3.netlify.app/admin/pages/37/edit/#panel-child-content-image-section)
+    - Snippets: [Editing Bread page: Arepa](https://static-wagtail-v6-3.netlify.app/admin/pages/37/edit/#panel-child-content-origin-section)
     - Documents: no example
-    - Pages: [Wagtail 6.3 - Editing workflow Moderator approval](https://static-wagtail-v6-3.netlify.app/admin/workflows/edit/1/#workflow-pages-section)
-    - Tasks: [Wagtail 6.3 - Editing workflow Moderator approval](https://static-wagtail-v6-3.netlify.app/admin/workflows/edit/1/#inline_child_workflow_tasks-0-panel-section)
+    - Pages: [Editing workflow Moderator approval](https://static-wagtail-v6-3.netlify.app/admin/workflows/edit/1/#workflow-pages-section)
+    - Tasks: [Editing workflow Moderator approval](https://static-wagtail-v6-3.netlify.app/admin/workflows/edit/1/#inline_child_workflow_tasks-0-panel-section)
   - Proposed actions:
     - Complete [Re-implement chooser modals with new design #9246](https://github.com/wagtail/wagtail/pull/9246)
 - In image create/edit forms, creation or editing of a focal area.
   - Current: it’s impossible to set a focal area without a mouse.
-  - Example: [Wagtail 6.3 - Editing Boston Cream Pie](https://static-wagtail-v6-3.netlify.app/admin/images/43/)
+  - Example: [Editing Boston Cream Pie](https://static-wagtail-v6-3.netlify.app/admin/images/43/)
   - Proposed actions:
     - Add keyboard support with a new implementation
     - Factor in [possible requirements](https://github.com/wagtail/wagtail/issues/10947#issuecomment-1746464044) for other types of image manipulation.
 - In table blocks, editing of the table.
-  - Example: [Wagtail 6.3 – Editing Recipe page: Hot Cross Bun](https://static-wagtail-v6-3.netlify.app/admin/pages/81/edit/#block-2b9b59cb-4dd7-4ebf-ac66-1ed43471609b-section)
+  - Example: [Editing Recipe page: Hot Cross Bun](https://static-wagtail-v6-3.netlify.app/admin/pages/81/edit/#block-2b9b59cb-4dd7-4ebf-ac66-1ed43471609b-section)
 
 ##### A.3.1.2 No Keyboard Traps
 
@@ -695,7 +705,7 @@ The following functionality is provided by the underlying platform:
 **Fail**. Here is a high-level record of whether given functionality is documented. As a summary:
 
 - For 19 high-level functional areas, 9 are partially documented and 4 are fully documented.
-- For 145 specific features, 52 are documented.
+- For 148 specific features, 55 are documented.
 
 This record does not cover functionality provided by the underlying platform (for example; automated embed creation) or unused by authors.
 
@@ -733,6 +743,7 @@ This record does not cover functionality provided by the underlying platform (fo
 | Edit                                              | Yes         |
 | Edit - Promote tab                                | No          |
 | Preview                                           | No          |
+| Block previews                                    | Yes         |
 | Scheduled publishing                              | Yes         |
 | Explorer - Bulk actions                           | Yes         |
 | Explorer - Bulk move                              | No          |
@@ -754,6 +765,7 @@ This record does not cover functionality provided by the underlying platform (fo
 | Add multiple images                               | No          |
 | Delete                                            | No          |
 | Image URL generator                               | No          |
+| Alt text management                               | Yes         |
 | Bulk actions                                      | Yes         |
 | Bulk add tags                                     | No          |
 | Bulk add to collection                            | No          |
@@ -795,6 +807,7 @@ This record does not cover functionality provided by the underlying platform (fo
 | Site history                                      | Yes         |
 | Aging pages                                       | Yes         |
 | Page types usage                                  | Yes         |
+| Search terms                                      | Yes         |
 | **Workflows**                                     | Partial     |
 | View all                                          | Yes         |
 | Add                                               | No          |
@@ -1002,7 +1015,7 @@ See [Implementing B.2.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-2015
 
 > (Level A / AA / AAA). See [Implementing B.2.4.1](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b241).
 
-**Fail**. Evaluated as: **Level AA**. With rich text formatting and StreamField blocks, Wagtail provides templates for basic text content as well as complex formatting like tables. Wagtail also provides templates for form fields within its forms module. Specific templates have accessibility issues.
+**Pass**. Evaluated as: **Level AA**. With rich text formatting and StreamField blocks, Wagtail provides templates for basic text content as well as complex formatting like tables. Wagtail also provides templates for form fields within its forms module. As of now, none of those templates have accessibility issues.
 
 ###### Rich text formats
 
@@ -1053,22 +1066,22 @@ Structural block types do not render any content and as such have no accessibili
 
 ###### Form builder field types
 
-All form builder fields suffer from the same issue: Error messages aren’t programmatically associated with the field.
+There are no issues with the latest Django 5.2. In past versions, error messages weren’t [programmatically associated with the field](https://code.djangoproject.com/ticket/32819).
 
 | Template         | Accessibility issues            |
 | ---------------- | ------------------------------- |
-| Single line text | Errors association with fields. |
-| Multi-line text  | Errors association with fields. |
-| Email            | Errors association with fields. |
-| Number           | Errors association with fields. |
-| URL              | Errors association with fields. |
-| Checkbox         | Errors association with fields. |
-| Checkboxes       | Errors association with fields. |
-| Drop down        | Errors association with fields. |
-| Multiple select  | Errors association with fields. |
-| Radio buttons    | Errors association with fields. |
-| Date             | Errors association with fields. |
-| Date/time        | Errors association with fields. |
+| Single line text | None |
+| Multi-line text  | None |
+| Email            | None |
+| Number           | None |
+| URL              | None |
+| Checkbox         | None |
+| Checkboxes       | None |
+| Drop down        | None |
+| Multiple select  | None |
+| Radio buttons    | None |
+| Date             | None |
+| Date/time        | None |
 | Hidden field     | None                            |
 
 This may be addressed in the future, via improvements in Django. See:
@@ -1096,7 +1109,7 @@ Proposed actions:
 
 > (Level AAA). See [Implementing B.2.4.4](http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/#sc_b244).
 
-**Fail**. Some of Wagtail’s template options aren’t accessible. See _B.2.4.1 Accessible Template Options_.
+**Pass**. All of the template options are accessible. See _B.2.4.1 Accessible Template Options_.
 
 #### [B.2.5. Assist authors with accessible pre-authored content](https://www.w3.org/TR/ATAG20/#gl_b25)
 
