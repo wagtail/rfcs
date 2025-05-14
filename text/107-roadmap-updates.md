@@ -55,11 +55,41 @@ Adding built-in support for the Wagtail userbar in headless mode, including acce
 
 For more information, see [RFC 100: Enhancing headless support](https://github.com/wagtail/rfcs/pull/100).
 
+### [Headless demo site](https://github.com/wagtail/roadmap/issues/98)
+
+An official headless demo site – primarily so our contributors and maintainers can more easily work on headless improvements.
+
 ### [Headless preview](https://github.com/wagtail/roadmap/issues/99)
 
 TBC
 
+### Autosave MVP
+
+TBC
+
+### Image library UX improvements
+
+TBC
+
+### Customizable page explorer
+
+TBC - custom columns, filters (based on parent page type)
+
+### Block settings
+
+TBC
+
 ## Proposed roadmap items for Wagtail 7.2\* (November 2025)
+
+### Search backend rewrite
+
+TBC
+
+### SEO power tools
+
+TBC
+
+### Polish Sites showcase
 
 TBC
 
@@ -70,6 +100,22 @@ TBC
 TBC
 
 ### Search backend overhaul
+
+TBC
+
+### New TableBlock
+
+TBC
+
+### Package maintainers guide
+
+TBC
+
+### Choosers UI improvements
+
+TBC
+
+### Image optimization performance
 
 TBC
 
@@ -91,5 +137,15 @@ TBC
 ## Proposed roadmap items to close
 
 None
+
+## Items that didn’t make the cut
+
+Here are discussed potential roadmap items that were not included in the roadmap this time, provided for feedback and for future reference:
+
+- StreamField form builder
+- Typed Wagtail proof-of-concept
+- More UI components for AI packages
+- Blocks drag-and-drop polish
+- Blocks copy-paste
 
 ## Open questions
