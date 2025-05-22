@@ -49,6 +49,19 @@ This extends the capabilities of `WagtailAdminModelForm` (Wagtail's `ModelForm` 
 
 `FieldPanel.get_form_options` has been modified to include this list in the set of `Meta` options passed to the form, alongside the existing ones such as `fields` and `widgets`. Individual fields can be excluded from this list by passing `required_on_save=True` to the `FieldPanel` constructor, meaning that they will continue the current behaviour of being required on draft saves. This is the case for the `title` field (since even draft pages must have a title to show in page listings), and so `TitleFieldPanel` enables this option by default.
 
+Further research has shown that there is widespread use (including in Wagtail's own tests and bakerydemo) of a plain `FieldPanel` for the `title` field, so attaching this behaviour at the level of `TitleFieldPanel` is insufficient. Instead, in the final implementation, the base `FieldPanel` will recognise a `required_on_save` flag being set on the model field:
+
+```python
+    title = models.CharField(
+        verbose_name=_("title"),
+        max_length=255,
+        help_text=_("The page title as you'd like it to be seen by the public"),
+    )
+    title.required_on_save = True
+```
+
+This will take effect whenever an explicit `required_on_save` argument has not been passed to the FieldPanel.
+
 `EditView` and `CreateView` for pages have been refactored to check the requested action before validating the form, and if the action is `save` (indicating a save as draft) then `form.defer_required_fields()` is called ahead of validation to bypass the `blank=False` checks. All other validation rules run as normal, and validation errors are displayed in the form as usual. (As a minor point, the `defer_required_fields` operation should be reversed before the form is redisplayed, to ensure that those required fields are displayed with their asterisk as normal.)
 
 In the final implementation, this change to the edit / create views will also be applied on the snippet views, for snippet models that inherit from `DraftStateMixin`.
