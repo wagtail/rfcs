@@ -82,6 +82,15 @@ To minimise the possibility of uncaught validation errors, `FieldPanel` will inc
 * the FieldPanel has not been passed an explicit `required_on_save` argument, then
 * the FieldPanel will behave as if `required_on_save=True` has been passed, i.e. it will not add the field to the model form's `defer_required_on_fields` list.
 
+## Implications for text representations of snippet models
+
+As mentioned above, the new validation behaviour will be in place for snippet models that inherit from `DraftStateMixin`. Unlike pages, Wagtail provides no "built-in" required fields for these. As a result, if the developer has not taken the explicit step of marking fields as `required_on_save`, it will be possible for editors to create draft snippets where all fields are left blank. This may result in the `__str__`  method (or others that provide a string representation, such as `get_admin_display_title`) also being blank.
+
+It is therefore necessary for Wagtail to guard against this case and provide its own fallback representation such as `[Foo object]` where a blank representation would cause issues:
+
+* In log entries, the `label` field of `BaseLogEntry` is a non-blank field that is populated with the instance's text representation;
+* In listing views, any label used as the link for an object's edit view must be non-empty in order to be clickable.
+
 ## Open Questions
 
 // Include any questions until Status is ‘Accepted’
