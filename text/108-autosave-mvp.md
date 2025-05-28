@@ -56,7 +56,7 @@ On page load, the client-side code sets up the following state:
 * `overwrite_revision_id`: initially null
 * `submit_url`: the action URL of the form
 
-At a defined interval (say 30 seconds), the serialized data of the form is assembled. If this differs from `last_saved_form_state`, a POST request is made to `submit_url`, with an `Accepts: application/json` header, consisting of the new saved form state, plus `overwrite_revision_id` if this is non-null.
+At a defined interval (say 30 seconds), the serialized data of the form is assembled. If this differs from `last_saved_form_state`, and there is no active POST request pending a response, a POST request is made to `submit_url`, with an `Accepts: application/json` header, consisting of the new saved form state, plus `overwrite_revision_id` if this is non-null.
 
 On receiving a 'success' response to this request, `last_saved_form_state` will be replaced with the updated form state as submitted; `overwrite_revision_id` will be updated with the revision ID in the response (so that subsequent POSTs overwrite this revision instead of creating a new one); and if the POST request was made to a 'create' endpoint, `submit_url` is changed to the appropriate 'update' endpoint, using the object ID in the response (so that subsequent POSTs are sent as updates rather than creations).
 
@@ -68,3 +68,4 @@ In the initial implementation of the feature, validation errors encountered whil
 
 * As a performance optimisation, can we combine the background requests to the 'save' endpoint with the background HTTP requests that already exist - namely, the 'ping' endpoint for concurrent editing notifications, and live previews?
 * After submitting the form, what changes need to be made to the form state to ensure that subsequent POSTs are valid (which up to now would have been handled by a full page reload)? For example, do we need to populate hidden ID fields in InlinePanel children (so that they get updated on subsequent saves, rather than creating new instances)? UUIDs on StreamField blocks? Is any handling required for comments? Is there any graceful way to support user-defined server-side logic (e.g. field modifications that happen in custom `save` methods)?
+* How should we handle POST requests that never complete or fail with a non-JSON response - due to a loss of network connection, for example? In this situation there is no way to know whether the save actually occurred, and thus whether it is safe to resubmit in the case that the previous save involved creating objects such as InlinePanel children. (This is probably equally true for regular manual saves, though.)
