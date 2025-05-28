@@ -64,8 +64,16 @@ On receiving an 'error' response to the request, a message will be displayed to 
 
 In the initial implementation of the feature, validation errors encountered while auto-saving will not be displayed alongside the corresponding field, as the logic for doing this correctly is currently only in place in server-side code as part of a full page render. Editors will need to manually save a draft, triggering a full page render, to see the validation errors in place.
 
+### Updating form state post-save
+
+After a successful save, it may be necessary to update certain elements of the form to ensure that subsequent saves are valid. For example, child objects within an InlinePanel are inserted with a blank hidden ID field, and these are created as new database records upon saving a draft. If the form were to be fully re-rendered at this point, the hidden ID field would be populated with the record's primary key, causing subsequent saves to update the existing record. Since the form is not re-rendered in full upon auto-save, we must explicitly update the hidden field with the assigned value - failing to do so would cause duplicate objects to be created on the next save. A similar effect would be seen in the comments mechanism, which like InlinePanel is built upon Django's inline formsets.
+
+(StreamFields do not appear to be affected by this - blocks are assigned a UUID client-side on insertion, so there is no change to the form state on save.)
+
+To address this, the `WagtailAdminModelForm` class (and the panels mechanism if necessary) will be extended so that after a successful save, it is possible to retrieve a dictionary of form fields that have received updated values in the save operation, mapping form field names to their new values. This dictionary will be returned as part of the 'success' JSON response, and the client-side code will use this to update form fields within the HTML.
+
 ## Open Questions
 
 * As a performance optimisation, can we combine the background requests to the 'save' endpoint with the background HTTP requests that already exist - namely, the 'ping' endpoint for concurrent editing notifications, and live previews?
-* After submitting the form, what changes need to be made to the form state to ensure that subsequent POSTs are valid (which up to now would have been handled by a full page reload)? For example, do we need to populate hidden ID fields in InlinePanel children (so that they get updated on subsequent saves, rather than creating new instances)? UUIDs on StreamField blocks? Is any handling required for comments? Is there any graceful way to support user-defined server-side logic (e.g. field modifications that happen in custom `save` methods)?
+* Is there a need to support user-defined server-side logic within the "updating form state" mechanism, or is it sufficient to support inline formsets?
 * How should we handle POST requests that never complete or fail with a non-JSON response - due to a loss of network connection, for example? In this situation there is no way to know whether the save actually occurred, and thus whether it is safe to resubmit in the case that the previous save involved creating objects such as InlinePanel children. (This is probably equally true for regular manual saves, though.)
