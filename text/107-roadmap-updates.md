@@ -68,10 +68,6 @@ For more information, see [RFC 100: Enhancing headless support](https://github.c
 
 An official headless demo site – primarily so our contributors and maintainers can more easily work on headless improvements.
 
-### [Autosave](https://github.com/wagtail/roadmap/issues/24) MVP
-
-Incremental steps towards [autosave functionality](https://github.com/wagtail/roadmap/issues/24), building upon [Validation on publish](https://github.com/wagtail/roadmap/issues/93).
-
 ### Image library UX improvements
 
 Improvements to the design and user experience of image management in Wagtail, complementing the existing "Media listings UX" GSoC Project. Currently-earmarked changes for GSoC 2025:
@@ -166,6 +162,10 @@ An independent audit of the product and-or project for us to procure, potentiall
 - Infrastructure audit
 
 See for example the [Sovereign Tech Resilience](https://www.sovereign.tech/programs/bug-resilience/) program and the [Open Tech Fund Security Lab](https://www.opentech.fund/labs/security-lab/).
+
+### [Autosave](https://github.com/wagtail/roadmap/issues/24) MVP
+
+Incremental steps towards [autosave functionality](https://github.com/wagtail/roadmap/issues/24), building upon [Validation on publish](https://github.com/wagtail/roadmap/issues/93).
 
 ## Proposed roadmap items to close
 
