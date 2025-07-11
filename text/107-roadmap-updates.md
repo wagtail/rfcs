@@ -109,19 +109,15 @@ See:
 
 Refactoring of Wagtail’s search backends API to better support future improvements, such as vector indexing as a search backend.
 
-### SEO power tools
-
-See [Looking for sponsorship: SEO power tools](https://wagtail.org/blog/looking-for-sponsorship-seo-power-tools/). New built-in SEO and content quality assurance features, with opportunities for integration with SEO and analytics tools, as well as generative AI.
-
 ### Polish Sites showcase
 
 Improvements to the [Wagtail.org sites showcase](https://wagtail.org/showcase/) and-or [Made with Wagtail](https://madewithwagtail.org/) to better showcase our community’s work.
 
 ## Proposed roadmap items for "Future" releases
 
-### [SEO power tools](https://wagtail.org/blog/looking-for-sponsorship-seo-power-tools/)
+### SEO power tools
 
-Showcasing new concepts to bring SEO features in Wagtail core, such as:
+See [Looking for sponsorship: SEO power tools](https://wagtail.org/blog/looking-for-sponsorship-seo-power-tools/). New built-in SEO and content quality assurance features, with opportunities for integration with SEO and analytics tools, as well as generative AI. Examples:
 
 - Manual quality assurance tools (metadata preview in the page editor and site-wide reporting)
 - Automated quality checks ([SEO search description automated content check #12252](https://github.com/wagtail/wagtail/issues/12252))
@@ -134,7 +130,7 @@ Creation of a new table editing UI in the CMS, addressing the shortcomings of th
 
 ### Package maintainers guide
 
-Revamp of the existing [Python Package Maintenance Guidelines](https://github.com/wagtail/wagtail/wiki/Python-Package-Maintenance-Guidelines), to add more content, reflect the work on [Wagtail Nest](https://github.com/wagtail-nest), and
+Revamp of the existing [Python Package Maintenance Guidelines](https://github.com/wagtail/wagtail/wiki/Python-Package-Maintenance-Guidelines), to add more content, reflect the work on [Wagtail Nest](https://github.com/wagtail-nest), and modernize.
 
 ### Choosers UI improvements
 
