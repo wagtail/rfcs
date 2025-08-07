@@ -88,4 +88,4 @@ Here are possible roadmap items that were discussed but not included in the road
 - [Autosave MVP](https://github.com/wagtail/roadmap/issues/47)
 - Better support for test data ([pytest fixtures](https://github.com/wagtail/wagtail/issues/11488), [factories](https://github.com/wagtail/wagtail/issues/10628))
 - Migration packages
-- Orderable snippets
+- [Orderable snippets](https://github.com/wagtail/wagtail/issues/10816) & [PR #12857](https://github.com/wagtail/wagtail/pull/12857)
