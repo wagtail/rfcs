@@ -61,7 +61,10 @@ Other popular Content Management Systems (CMS) do not strip EXIF metadata from i
 
 ## Impact on users of Wagtail
 
-The author is not aware of any Wagtail users who actively rely on EXIF metadata (please make yourself and your use-cases known!), but some may. photography-focused sites are most likely to be affected; for them, defaults can be disabled.
+Through discussion of this RFC, the author has been made aware of the following Wagtail users who actively rely on EXIF metadata. Photography or art-focused sites are most likely to be affected; for them, defaults can be disabled.
+
+- [www.tate.org.uk](https://www.tate.org.uk/) - Art gallery in the United Kingdom, [requires several EXIF tags to be present in artwork images](https://github.com/wagtail/rfcs/pull/110#discussion_r2324385680). Thanks to Thibaud Colas for reporting.
+- (please report other sites that may be affected to the author)
 
 This will be documented in release notes as a potentially breaking change, and the default behaviour (stripping GPS and camera info) will be noted on guide.wagtail.org.
 
