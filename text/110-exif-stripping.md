@@ -66,7 +66,7 @@ Through discussion of this RFC, the author has been made aware of the following 
 - [www.tate.org.uk](https://www.tate.org.uk/) - Art gallery in the United Kingdom, [requires several EXIF tags to be present in artwork images](https://github.com/wagtail/rfcs/pull/110#discussion_r2324385680). Thanks to Thibaud Colas for reporting.
 - (please report other sites that may be affected to the author)
 
-This will be documented in release notes as a potentially breaking change, and the default behaviour (stripping GPS and camera info) will be noted on guide.wagtail.org.
+This will be documented in release notes as a breaking change affecting users that rely on EXIF metadata. The default behaviour (stripping GPS and camera info) will be noted on guide.wagtail.org to make editors aware of the existence of EXIF metadata and how Wagtail handles it.
 
 Existing images are unaffected until renditions are regenerated (via `manage.py wagtail wagtail_update_image_renditions`). Earlier behaviour can be restored by disabling EXIF processing in settings.
 
