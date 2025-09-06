@@ -15,9 +15,15 @@ The feature will be configurable so site implementers can choose which tags to k
 
 EXIF metadata can include camera details, timestamps, and GPS coordinates. While useful in some cases, this data can expose sensitive information (such as home address in a recipe photo). Many cameras also embed unnecessary data like thumbnails, which increase file size. Stripping such data reduces transfer/storage overhead and supports Wagtail’s sustainability goals.
 
-## EXIF tags will be stripped (by default)
+## Configurability
 
-By default, Wagtail will strip the following EXIF tags from <abbr title="resized or cropped versions of the original image">image renditions</abbr>. The original uploaded image in `original_images` remains unchanged.
+Recognizing that different websites may have varying requirements regarding EXIF data, for example a photography portfolio site may want to always retain camera information, this feature will be configurable via Wagtail settings.
+
+Making this configurable allows site administrators to control which EXIF tags to strip or retain based on their specific requirements. The default configuration prioritises privacy and sustainability, but provide flexibility for other use cases.
+
+### Default configuration: list of common sensitive EXIF tags to strip
+
+By default, Wagtail will strip the following EXIF tags from <abbr title="resized or cropped versions of the original image">image renditions</abbr>. The original uploaded image in the `original_images` folder remains unchanged.
 
 - GPSInfo (location data)
 - Camera make and model (information about the device used to take the photo)
@@ -25,11 +31,15 @@ By default, Wagtail will strip the following EXIF tags from <abbr title="resized
 - Software (information about the software or firmware running on the camera, which may include version numbers)
 - Thumbnail (often embedded by digital cameras for their own use, not needed for web display, size is often in the order of a few kilobytes)
 
-## Optional configuration: Retain only certain non-sensitive EXIF tags
+This list is based on analysis of images uploaded by to clients of the author and common knowledge about EXIF tags. There may be non-standard tags that are not covered by this list that may still contain sensitive information. An initial implementation of this RFC will not attempt to cover all possible non-standard tags, new additions can be made later through issue reports and contributions.
 
-In the default configuration, Wagtail will retain all other EXIF tags not listed in the previous section about common sensitive tags.
+### Optional extended configuration: allowlist of EXIF tags to retain
 
-We will include an option that is based on an allowlist of tags to keep. These tags are important for proper display or have reasonable uses:
+We will include a configuration option to retain only a predefined set of non-sensitive EXIF tags, removing all others. Since this feature will be much more aggressive in stripping EXIF data, it may remove (future, not yet known) tags not in the predefined list that are necessary for proper display or have a important purpose. For forwards-compatibility and safety, this feature will be opt-in and not enabled by default.
+
+The author believes this is a reasonable trade-off to make, as the default configuration already removes the most sensitive tags. Removing all tags will only marginally decrease file size, since most tags don't contribute much to overall file size.
+
+List of EXIF tags to **retain** by this configuration option (subject to change based on feedback and further analysis):
 
 - Orientation (ensures correct display of images taken in portrait mode)
 - ICCProfile (color profile for accurate color representation)
@@ -37,15 +47,6 @@ We will include an option that is based on an allowlist of tags to keep. These t
 - XResolution and YResolution (image resolution)
 - Copyright (intellectual property rights)
 - DateTimeOriginal (when the photo was taken)
-- (any other tags determined to be non-sensitive and useful - please suggest!)
-
-Because this feature is much more rigorous in stripping EXIF data, it will not be the default configuration and must be explicitly enabled by site administrators.
-
-## Configurability
-
-Recognizing that different websites may have varying requirements regarding EXIF data, for example a photography portfolio site may want to always retain camera information, this feature will be configurable via Wagtail settings.
-
-Making this configurable allows site administrators to control which EXIF tags to strip or retain based on their specific requirements. The default configuration prioritises privacy and sustainability, but provide flexibility for other use cases.
 
 ## Comparison to other Content Management Systems
 
@@ -131,10 +132,10 @@ with image.get_willow_image() as willow_image:
 
 A new setting `WAGTAILIMAGES_EXIF_PROCESSORS` setting will be introduced to configure which functions will be called during the image rendition generation process. This setting will be a list of callables (functions) that will be executed in sequence, each receiving the current EXIF data and returning the modified EXIF data. Later functions in the list will receive the EXIF data modified by earlier functions. To entirely disable EXIF processing, the list can be empty.
 
-Wagtail will provide one built-in default EXIF processing function, which is also the default configuration:
+Wagtail will provide two built-in functions that can be used out-of-the-box:
 
-- `wagtail.images.exif.strip_common_sensitive_exif`: Strips common sensitive EXIF tags such as GPSInfo and camera make/model [^2].
-- `wagtail.images.exif.retain_only_common_exif`: (optional) Retains only a predefined set of non-sensitive EXIF tags, removing all others.
+- `wagtail.images.exif.strip_common_sensitive_exif`: (enabled by default) Strips sensitive EXIF tags from a list of know tags, such as GPSInfo and camera make/model. This refers to the list described in [Default configuration: list of common sensitive EXIF tags to strip](#default-configuration-list-of-common-sensitive-exif-tags-to-strip).
+- `wagtail.images.exif.retain_only_common_exif`: Retains only a predefined set of non-sensitive EXIF tags present on an allowlist, removing all others. This refers to the allowlist described in [Optional extended configuration: allowlist of EXIF tags to retain](#optional-extended-configuration-allowlist-of-exif-tags-to-retain).
 
 Site administrators can customize this setting to add their own EXIF processing functions or modify the default behaviour. For example, to add a custom function that adds a copyright tag, the configuration would look like this:
 
