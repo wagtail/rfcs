@@ -59,6 +59,10 @@ Other popular Content Management Systems (CMS) do not strip EXIF metadata from i
 - **Squarespace**: no option to strip EXIF; users must remove it manually.
 - **Wix**: retains EXIF; removal requires external tools before upload.
 
+The author has searched the issue trackers for above CMS systems and found some discussions about EXIF stripping[^1], but it seems most these discussions have not led to changes in default behaviour for backwards compatibility reasons. The general take seems to be that uploaded content should be preserved as-is, and users can choose to strip EXIF data themselves if desired through plugins or by enabling configuration options.
+
+It is this authors' opinion that this is an unreasonable burden to place on end-users and site administrators, who may not be aware of what EXIF metadata is or how to remove it.
+
 ## Impact on users of Wagtail
 
 Through discussion of this RFC, the author has been made aware of the following Wagtail users who actively rely on EXIF metadata. Photography or art-focused sites are most likely to be affected; for them, defaults can be disabled.
@@ -110,7 +114,7 @@ with open("path/to/image.jpg", "rb") as f:
 
 It is also possible for the custom EXIF processing function to take more than one argument, for example to accept configuration options. This allows for more complex EXIF manipulation based on image specific settings. Wagtail will always pass `image` as keyword argument to the function, which is the Wagtail image instance being processed. This allows for EXIF processing functions to access fields on the Wagtail image model, such as `title`, `description`, or custom fields added through model inheritance.
 
-Here is an example that encodes the Wagtail image's description field into the EXIF `ImageDescription` tag [^1]:
+Here is an example that encodes the Wagtail image's description field into the EXIF `ImageDescription` tag [^2]:
 
 ```python
 from PIL import ExifTags
@@ -173,5 +177,5 @@ This RFC opens the door to further possibilities, like showing EXIF data in the 
 
 ## Footnotes
 
-[^1]: The EXIF `ImageDescription` tag is a standardised tag used to store a textual description of the image. However, it is not commonly used or widely supported across all platforms and software. Since there is little benefit to using this tag, we haven't included a function to populate it by default.
-[^2]: The `strip_common_sensitive_exif` function will be implemented on best-effort basis, as non-standard tags may exist in practice that may still contain sensitive information.
+[^1]: Discussion from 2014 about clearing EXIF data, thumbnail data in particular: https://core.trac.wordpress.org/ticket/28634
+[^2]: The EXIF `ImageDescription` tag is a standardised tag used to store a textual description of the image. However, it is not commonly used or widely supported across all platforms and software. Since there is little benefit to using this tag, we haven't included a function to populate it by default.
