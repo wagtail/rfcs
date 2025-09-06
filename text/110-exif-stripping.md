@@ -15,6 +15,8 @@ The feature will be configurable so site implementers can choose which tags to k
 
 EXIF metadata can include camera details, timestamps, and GPS coordinates. While useful in some cases, this data can expose sensitive information (such as home address in a recipe photo). Many cameras also embed unnecessary data like thumbnails, which increase file size. Stripping such data reduces transfer/storage overhead and supports Wagtail’s sustainability goals.
 
+End users of Wagtail (editors) are generally not aware of the existence of EXIF metadata in the images they upload and subsequently publish on the web. This makes it easy to inadvertently share sensitive information.
+
 ## Configurability
 
 Recognizing that different websites may have varying requirements regarding EXIF data, for example a photography portfolio site may want to always retain camera information, this feature will be configurable via Wagtail settings.
