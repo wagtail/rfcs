@@ -32,11 +32,97 @@ Here is the status of roadmap items for the latest release:
 
 ## Roadmap for v7.3\* (February 2026)
 
+### [Autosave MVP](https://github.com/wagtail/roadmap/issues/47)
+
+Size: L
+
+**Save draft without page reload, on demand** – an incremental steps towards [autosave functionality](https://github.com/wagtail/roadmap/issues/24). Mockup of future auto-save UI:
+
+<img width="1577" height="1187" alt="auto-saving UI with status message and success toast" src="https://github.com/user-attachments/assets/168b410e-3376-4efc-993b-8d39f814aa40" />
+
+### [Block settings](https://github.com/wagtail/roadmap/issues/103)
+
+Size: M
+
+A new capability for StreamField blocks, to group "settings" or rarely-used fields in a separate section to reduce clutter in the editor. Mockup:
+
+![animated block settings sub-block within blocks list](https://github.com/user-attachments/assets/556ca413-75d6-44bc-b912-40491e9342b2)
+
+### Model search improvements
+
+Size: L
+
+Incremental improvements to the new [django-modelsearch](https://github.com/kaedroho/django-modelsearch) re-implementation of Wagtail search backends. Tentatively including:
+
+- Vector indexing support
+- Search permission handling
+- Filtering on related objects
+
+### llms.txt for Wagtail docs
+
+Size: S
+
+Adoption of the [llms.txt](https://llmstxt.org/) proposal for the Wagtail developer documentation and user guide, to help Wagtail users more easily find information via AI tools.
+
+See also: [llms.txt to make the docs more accessible to LLMs #13097](https://github.com/wagtail/wagtail/issues/13097).
+
+### AI checker concepts
+
+Size: M
+
+Enhancements of [Wagtail AI](https://github.com/wagtail/wagtail-ai) functionality, with a focus on better integration with content checks and metrics. Features considered to date:
+
+- **Qualitative content feedback**: think readability improvements or style guide alignment.
+- **Quantitative feedback**: repeatable metrics based on the page’s content.
+- **Improvements suggestions**: based on automated accessibility and SEO checks.
+
+Related:
+
+- [SEO power tools](https://github.com/wagtail/roadmap/issues/106)
+- [SEO search description automated content check #12252](https://github.com/wagtail/wagtail/issues/12252)
+- [Custom content metrics support in page editor #12935](https://github.com/wagtail/wagtail/issues/12935)
+
 ## Roadmap for v7.4\* (May 2026)
+
+### [Customizable page explorer](https://github.com/wagtail/roadmap/issues/102)
+
+Size: M
+
+(Moved from v7.3\* to v7.4\* to accommodate other priorities)
+
+Support for customizations such as additional columns (and filters), reducing the need for developers to create custom views for pages.
+
+### [Independent security audit](https://github.com/wagtail/roadmap/issues/111)
+
+Size: S
+
+An independent audit of the product and-or project for us to procure.
+
+### [Package maintainers guide](https://github.com/wagtail/roadmap/issues/108)
+
+Size: XS
+
+Revamp of the existing [Python Package Maintenance Guidelines](https://github.com/wagtail/wagtail/wiki/Python-Package-Maintenance-Guidelines), to add more content, reflect the work on [Wagtail Nest](https://github.com/wagtail-nest), and modernize.
+
+### Natural language search
+
+Size: L
+
+**Tentative item, highly dependent on evolution of vector indexing / search capabilities across database backends**. Improvement to Wagtail’s search interface to support natural language queries. Depending on underlying search backend capabilities, this would either be:
+
+- Vector search, with semantic understanding of queries and content.
+- Or RAG (retrieval-augmented generation) approach, combining traditional search with LLMs to interpret queries and content.
+- Or (TBC) conversational search interface, with follow-up questions and clarifications.
 
 ## Roadmap for "Future" releases
 
-None
+### Flexible forms
+
+Size: M
+
+Revamp of Wagtail’s forms creation, to create more flexible forms with StreamField.
+
+See [New StreamField-based form builder](https://github.com/wagtail/wagtail/discussions/11389) and [wagtail-flexible-forms](https://github.com/coderedcorp/wagtail-flexible-forms).
 
 ## Proposed roadmap items to close
 
@@ -46,15 +132,8 @@ None
 
 Here are possible roadmap items that were discussed but not included in the roadmap this time, provided for feedback and for future reference. If one of those items is important to you, please comment! They may be available for external contributions or for a [feature sponsorship](https://wagtail.org/sponsor/).
 
-- AI-driven docs overhaul
-- llms.txt for Wagtail docs
 - Improved permissions policy
-- Search permission handling
-- Allow searching across multiple indexes in ES
-- Search - filtering on related objects
 - Improved document library
-- Plan to go from 300 bugs to 100 bugs
-- Built-in "public draft link"
-- Drop upper dependency bounds
-- User invites
-- More docs of Wagtail internals
+- Choosers UI improvements
+- Increased django.tasks usage
+- Customizable dashboard
