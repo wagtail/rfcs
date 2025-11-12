@@ -28,7 +28,7 @@ Here is the status of roadmap items for the latest release:
 | [Content Security Policy compatibility](https://github.com/wagtail/roadmap/issues/92) | Done   | Follow-ups outside the roadmap                                                          |
 | [Readability checks](https://github.com/wagtail/roadmap/issues/50)                    | Done   |                                                                                         |
 | [Orderable snippets](https://github.com/wagtail/roadmap/issues/108)                   | Done   |                                                                                         |
-| [Maintainer week](https://github.com/wagtail/roadmap/issues/89)                       | Done   | Planned for next week                                                                   |
+| [Maintainer week](https://github.com/wagtail/roadmap/issues/115)                       | Done   | Planned for next week                                                                   |
 
 ## Roadmap for v7.3\* (February 2026)
 
