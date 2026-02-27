@@ -24,7 +24,7 @@ Here is the status of roadmap items for the latest release:
 | [Wagtail Space 2025 🚀](https://github.com/wagtail/roadmap/issues/112)                | Done   |                                                                                         |
 | [Search backend rewrite](https://github.com/wagtail/roadmap/issues/104)               | Done   | Follow-ups outside the roadmap                                                          |
 | [Polish sites showcase](https://github.com/wagtail/roadmap/issues/105)                | Close  | Will be worked on outside the roadmap                                                   |
-| [AI concepts](https://github.com/wagtail/roadmap/issues/106)                          | Done   | Possible follow-ups, see [AI roadmap](https://github.com/wagtail/wagtail-ai/issues/124) |
+| [AI concepts](https://github.com/wagtail/roadmap/issues/113)                          | Done   | Possible follow-ups, see [AI roadmap](https://github.com/wagtail/wagtail-ai/issues/124) |
 | [Content Security Policy compatibility](https://github.com/wagtail/roadmap/issues/92) | Done   | Follow-ups outside the roadmap                                                          |
 | [Readability checks](https://github.com/wagtail/roadmap/issues/50)                    | Done   |                                                                                         |
 | [Orderable snippets](https://github.com/wagtail/roadmap/issues/108)                   | Done   |                                                                                         |
