@@ -36,13 +36,9 @@ Proposed roadmap items for v8.0 (August 2026).
 
 Size: M
 
+TBC: which specific improvements we focus on, which we might defer.
+
 See [Looking for sponsorship: SEO power tools](https://wagtail.org/blog/looking-for-sponsorship-seo-power-tools/). New built-in SEO and content quality assurance features, with opportunities for integration with SEO and analytics tools, as well as generative AI.
-
-### [Choosers UI improvements](https://github.com/wagtail/roadmap/issues/109)
-
-Size: XL
-
-Iterative improvements towards a new design for choosers, which brings them closer to the "Universal listings" UX rolled out across listing views.
 
 ### [Starter kit relaunch](https://github.com/wagtail/roadmap/issues/124)
 
@@ -56,9 +52,29 @@ Size: M
 
 Introduce an overridable AbstractPage class to allow base page fields to be customized per-project.
 
+### Cyber Resilience Act readiness
+
+TODO: Explain what the EU Cyber Resilience is and why it matters. For roadmap next release: focus on supply chain management
+
+- SBOM & release signing
+- Revising our [security policy](https://docs.wagtail.org/en/stable/contributing/security.html), in particular with more information on our behind-the-scenes security team process
+- Package ecosystem (this ideally should happen for all packages)
+
+### Write API
+
+A new official CMS API that supports programmatic creation and modification of Wagtail-managed content, including pages, snippets, revisions, and editorial workflow state transitions. The goal is to support integrations, automation, structured content workflows, and AI-assisted tooling while preserving Wagtail’s editorial governance, permissions, accessibility, and auditability guarantees.
+
+See [RFC 115: write API](https://github.com/wagtail/rfcs/pull/115).
+
 ## Roadmap for the next+1 release
 
-TBC
+### [Choosers UI improvements](https://github.com/wagtail/roadmap/issues/109)
+
+Size: XL
+
+TBC: Moving back one release :(
+
+Iterative improvements towards a new design for choosers, which brings them closer to the "Universal listings" UX rolled out across listing views.
 
 ## Roadmap for "Future" releases
 
