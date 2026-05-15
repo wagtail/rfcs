@@ -1,9 +1,9 @@
-# Write API \- Wagtail RFC 115
+# RFC 115: Write API
 
 - RFC: 115
 - Author: Thibaud Colas
 - Created: 2026-05-06
-- Last Modified: 2026-05-06
+- Last Modified: 2026-05-15
 
 ## Abstract
 
