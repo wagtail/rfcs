@@ -8,12 +8,12 @@ The "RFC" (request for comments) process is intended to provide a consistent and
 
 ## Open RFCs
 
-Proposed new features or other major changes:
+Proposed new features or other major changes. RFCs progress through the following phases, each tracked by a label on the pull request. See [What the process is](#what-the-process-is) below for the full workflow.
 
-- [New](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A1%3ANew)
-- [Accepted](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A2%3AAccepted)
-- [Review](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A3%3AReview)
-- [Final Comment Period](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A%224%3AFinal+Comment+Period%22)
+- [`1:New`](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A1%3ANew) - Newly-submitted RFC, awaiting initial triage by the core team.
+- [`2:Accepted`](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A2%3AAccepted) - The core team has accepted the RFC for further review.
+- [`3:Review`](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A3%3AReview) - The RFC is undergoing detailed design review and consensus-building with the community.
+- [`4:Final Comment Period`](https://github.com/wagtail/rfcs/pulls?q=is%3Apr+is%3Aopen+label%3A%224%3AFinal+Comment+Period%22) - A 10-day final review window before the RFC is merged ('active') or rejected.
 
 ## Active RFCs
 
