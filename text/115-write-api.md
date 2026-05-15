@@ -1,4 +1,4 @@
-# Write API \- Wagtail RFC 115
+# RFC 115: Write API
 
 - RFC: 115
 - Author: Thibaud Colas
@@ -71,9 +71,9 @@ Key models ordered by importance for the API to support.
 4. Images
 5. Rich text
 6. Snippets
-   1. RevisionMixin
-   2. DraftStateMixin
-   3. WorkflowMixin
+    1. RevisionMixin
+    2. DraftStateMixin
+    3. WorkflowMixin
 7. StreamField
 8. Documents
 9. Redirects
@@ -173,8 +173,8 @@ As an example, see the existing [MovePageAction](https://github.com/wagtail/wagt
 The separate transport layer would use an established Django API framework that comes with a lot of what we need to provide an API:
 
 - Great developer experience
-  - OpenAPI schema support
-  - Good filtering options
+    - OpenAPI schema support
+    - Good filtering options
 - Authentication options
 
 The transport layer would ideally allow us to provide "read" access to public data and internal CMS data without a lot of boilerplate, so we can focus our design decisions and implementation effort on CMS operations.
@@ -308,13 +308,13 @@ See also how WordPress represents its data model via HTML comments:
 
 <!-- wp:list {"ordered":true} -->
 <ol class="wp-block-list">
-  <!-- wp:list-item -->
-  <li>
-    <strong>From London</strong>: Take the Eurostar to Lille, and then connect
-    via Thalys to Paris. From Paris, you can catch a train to Cherbourg, where
-    ferries to Dublin operate regularly.
-  </li>
-  <!-- /wp:list-item -->
+    <!-- wp:list-item -->
+    <li>
+        <strong>From London</strong>: Take the Eurostar to Lille, and then
+        connect via Thalys to Paris. From Paris, you can catch a train to
+        Cherbourg, where ferries to Dublin operate regularly.
+    </li>
+    <!-- /wp:list-item -->
 </ol>
 ```
 
@@ -413,9 +413,9 @@ The v3 API needs explicit extension points for the breadth of Django/Wagtail dat
 - **Custom field types**: registration hook (e.g. `@register_api_field(MyField)`) so packages can describe their JSON shape. Replaces the hardcoded `isinstance` ladder in `wagtail-write-api`'s `map_django_field()`.
 - **Custom block types**: per-block JSON schema exposure should be hookable per block class. Wagtail blocks already have `get_form_class` / `get_definition` / `get_api_representation` plumbing to build on.
 - **Custom operations**: package-defined actions register against the operations layer; the API exposes them via a per-resource action endpoint.
-  - **TBC** URL shape (`POST /pages/{id}/actions/{action_name}/`?).
+    - **TBC** URL shape (`POST /pages/{id}/actions/{action_name}/`?).
 - **Lifecycle hooks**: existing Wagtail hooks (`before_create_page`, `after_create_page`, `before_publish_page`, `construct_pages_query_set`, …) fire for API operations because the API routes through the operations layer.
-  - **TBC**: do we need new API-only hooks (e.g. `construct_api_response`, `construct_api_field`)?
+    - **TBC**: do we need new API-only hooks (e.g. `construct_api_response`, `construct_api_field`)?
 - **Signals**: API mutations emit the same Django signals (`pre_save`, `post_save`, `page_published`, …) as admin UI mutations, also for free via the operations layer.
 
 #### Compatibility policy
