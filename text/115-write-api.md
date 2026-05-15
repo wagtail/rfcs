@@ -1,9 +1,9 @@
-# RFC 115: Write API
+# Write API \- Wagtail RFC 115
 
 - RFC: 115
 - Author: Thibaud Colas
 - Created: 2026-05-06
-- Last Modified: 2026-05-15
+- Last Modified: 2026-05-06
 
 ## Abstract
 
@@ -582,8 +582,26 @@ If feasible, the [headless bakerydemo](https://github.com/wagtail/bakerydemo-hea
 
 ## Open questions
 
-- GraphQL support? no
-- StreamField or rich text patching? no
-- Bulk operations? no
-- Provenance reqs? basic
-- IDs over API?
+### Do we want GraphQL mutations support?
+
+No. Maybe later. Outside core.
+
+### Should we support StreamField / rich text patching?
+
+No. This is interesting but not clear the ROI is there.
+
+### Does the API support bulk operations?
+
+No. Maybe it will in the future. For now there is already too much to consider.
+
+### How does the API support provenance / traceability requirements?
+
+The first iteration would be very basic. In the future, we might provide more provenance information in audit logs / revisions. Potentially surface it at the field level (think "git blame" for CMS data).
+
+In the meantime, projects needing this will be encouraged to create service accounts, so they can use Wagtail’s Users / Groups to understand what content was updated via the API.
+
+### Do we really want auto-incrementing IDs in the API?
+
+Maybe, maybe not? See [Add a UUIDField to the Page model #6162](https://github.com/wagtail/wagtail/issues/6162), and [Support customizing/encoding IDs in the API #6917](https://github.com/wagtail/wagtail/issues/6917).
+
+The write API is viable regardless of the IDs being used but it’s a good time to revisit this if we wanted.
