@@ -32,6 +32,20 @@ Here is the status of roadmap items for the latest release, v7.4 LTS (May 2026):
 
 Proposed roadmap items for v8.0 (August 2026).
 
+### [Customizable base page model](https://github.com/wagtail/roadmap/issues/126)
+
+Size: XL
+
+Introduce an overridable AbstractPage class to allow base page fields to be customized per-project.
+
+### Write API
+
+Size: XL
+
+A new official CMS API that supports programmatic creation and modification of Wagtail-managed content, including pages, snippets, revisions, and editorial workflow state transitions. The goal is to support integrations, automation, structured content workflows, and AI-assisted tooling while preserving Wagtail’s editorial governance, permissions, accessibility, and auditability guarantees.
+
+See [RFC 115: write API](https://github.com/wagtail/rfcs/pull/115).
+
 ### [SEO power tools](https://github.com/wagtail/roadmap/issues/106)
 
 Size: M
@@ -46,25 +60,15 @@ Size: M
 
 Overhaul of the `wagtail start` support for custom templates and the news template for higher usability and maintainability.
 
-### [Customizable base page model](https://github.com/wagtail/roadmap/issues/126)
-
-Size: M
-
-Introduce an overridable AbstractPage class to allow base page fields to be customized per-project.
-
 ### Cyber Resilience Act readiness
+
+Size: S
 
 TODO: Explain what the EU Cyber Resilience is and why it matters. For roadmap next release: focus on supply chain management
 
 - SBOM & release signing
 - Revising our [security policy](https://docs.wagtail.org/en/stable/contributing/security.html), in particular with more information on our behind-the-scenes security team process
 - Package ecosystem (this ideally should happen for all packages)
-
-### Write API
-
-A new official CMS API that supports programmatic creation and modification of Wagtail-managed content, including pages, snippets, revisions, and editorial workflow state transitions. The goal is to support integrations, automation, structured content workflows, and AI-assisted tooling while preserving Wagtail’s editorial governance, permissions, accessibility, and auditability guarantees.
-
-See [RFC 115: write API](https://github.com/wagtail/rfcs/pull/115).
 
 ## Roadmap for the next+1 release
 
