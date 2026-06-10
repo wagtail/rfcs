@@ -312,7 +312,7 @@ Validation happens in distinct layers, ordered by failure point:
 2. **Content format layer** — StreamField block types validated against registered block definitions; rich text content validated against the declared `RichTextField` features whitelist. Failure → **422**.
 3. **Model layer** — `full_clean()` and other model-level constraints. Failure → **422**.
 4. **Permission layer** — checked before model save. Failure → **403**.
-5. **Workflow / state layer** — valid field shape but invalid workflow state. Failure → **409** or **422**.
+5. **Workflow / state layer** — valid field shape but invalid workflow state. Failure → **422**.
 
 We expect the API will use [RFC 7807 `application/problem+json`](https://datatracker.ietf.org/doc/html/rfc7807) (TBC based on early implementation choices) as the error envelope, asserted in the OpenAPI schema. Ninja's default Pydantic 422 responses will be wrapped to match this shape. Precedent for field-level detail: [`wagtail-write-api`](https://github.com/tomdyson/wagtail-write-api)'s `{"error": "...", "message": "...", "details": [...]}` structure, migrated to RFC 7807 fields (`type`, `title`, `status`, `detail`, `errors`).
 
@@ -326,7 +326,8 @@ Per-content-type schemas would be auto-generated from model and panel definition
 
 The design goal is for schemas to convey and enforce the same constraints as the admin UI:
 
-- **Lean: `api_fields` for both read and write**, extending the current v2 usage. `wagtail-write-api` uses an all-fields opt-out model; for core we will use `api_fields` (opt-in) with per-direction (`read`, `write`) scoping. This keeps parity with v2 and avoids accidentally exposing internal fields. [`wagtail-ninja`](./wagtail-ninja/) demonstrates read-side `api_fields` integration with Ninja `ModelSchema`.
+- `api_fields` for both read and write\*\*, extending the current v2 usage.
+    - TBC: `wagtail-write-api` uses an all-fields opt-out model; for core we will use `api_fields` (opt-in) with per-direction (`read`, `write`) scoping. This keeps parity with v2 and avoids accidentally exposing internal fields. [`wagtail-ninja`](https://github.com/sinnwerkstatt/wagtail-ninja) demonstrates read-side `api_fields` integration with Ninja `ModelSchema`.
 - [`FieldPanel`](https://docs.wagtail.org/en/stable/reference/panels.html) configuration: `help_text`, `read_only`, `required_on_save`, `permission`, `disable_comments`.
 - Capabilities of other panels, such as [`PageChooserPanel`](https://docs.wagtail.org/en/stable/reference/panels.html#wagtail.admin.panels.PageChooserPanel) page-type filtering.
 - [`RichTextField` features whitelist](https://docs.wagtail.org/en/stable/advanced_topics/customization/page_editing_interface.html#limiting-features-in-a-rich-text-field) — surfaced in the schema and enforced at the block layer.
@@ -427,8 +428,8 @@ API usage documentation / any official client should:
 Long-term, we expect we would want ways to distinguish different types of edits within the CMS. Either at the level of revisions, or per field. It’s not clear if this should be a goal in the short term.
 
 - **Who / when / how**: captured for free via the audit log + revision authorship.
-- TBC: **Human vs. automated**: flag derived from the token's `service_account` attribute; surfaced on revisions and log entries.
-- TBC: **AI-assisted**: finer-grained authoring source enum (`human`, `assisted`, `automated`). Adding this later requires a data migration on revisions.
+- **Human vs. automated**: surfaced on revisions and log entries.
+- **AI-assisted**: finer-grained authoring source enum (`human`, `assisted`, `generated`). Adding this requires a data migration on revisions.
 
 ### Content quality
 
@@ -463,7 +464,7 @@ An official client will make it easier for us to iterate on API design. Keeping 
 | Implementation       | Framework                                                                                                                                                                        | Role                                                                                                                           |
 | :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
 | **Python prototype** | [Typer](https://typer.tiangolo.com/) and [Clientele](https://github.com/phalt/clientele) or [openapi-python-client](https://github.com/openapi-generators/openapi-python-client) | Fast iteration, OpenAPI client generation via `clientele` / `openapi-python-client`, rich text / StreamField conversion reuse. |
-| **Go CLI**           | TBC (likely [`cobra`](https://github.com/spf13/cobra))                                                                                                                           | Lower install barrier, single static binary, faster runtime speed.                                                             |
+| **Go CLI**           | To be determined (likely [`cobra`](https://github.com/spf13/cobra))                                                                                                              | Lower install barrier, single static binary, faster runtime speed.                                                             |
 
 #### Conventions (from [`wagapi`](https://github.com/tomdyson/wagapi))
 
@@ -580,7 +581,7 @@ Here is complementary information that sits outside of the RFC to approve but is
 
 ### Comparison: DRF vs. Ninja
 
-**Outcome:** Django Ninja for v3 write/CMS API; DRF retained for v2 read API. The comparison below documents the evaluation that led to this split-stack decision. Full assessment: [DJANGO_NINJA_ASSESSMENT.md](./DJANGO_NINJA_ASSESSMENT.md).
+**Outcome:** Django Ninja for v3 write/CMS API.
 
 DRF has clear advantages from a maintenance standpoint (no dependencies, very stable, large group of maintainers) but our v3 goals would require also adding [drf-spectacular](https://github.com/tfranzel/drf-spectacular), which reduces those advantages. Keeping v2 on DRF avoids porting a stable read API; Ninja is adopted only where DRF's serializer/OpenAPI story is the bottleneck.
 
@@ -677,63 +678,3 @@ django-ninja v1.6.2
     ├── typing-extensions v4.15.0
     └── typing-inspection v0.4.2
 ```
-
-### Planning
-
-#### RFC discovery tasks
-
-Tasks to do ahead of the RFC being approved. Goal: confirm direction and reduce largest uncertainties.
-
-- [ ] **Use cases / user research**
-    - [ ] ✅ Ecosystem review (CLIs, clients) — 1h
-    - [ ] ⌛️ Competitor analysis: Sanity — 3h
-    - [ ] ⌛️ Competitor analysis: Drupal — 1h
-- [ ] **Design decisions** (see above)
-    - [ ] ✅ Review `wagtail-write-api` — 2h
-    - [ ] ✅ Retrofit notes for `wagtail-write-api` + `wagapi`
-    - [ ] ✅ Review existing v2 API, incl. potentially unused write actions — 2h
-    - [ ] ✅ Reviews of existing issues / RFC — 1h
-    - [ ] ✅ Review Django Ninja vs. DRF for v3 — 3h
-    - [ ] ✅ Naming decision (v3 vs. Write API vs. CMS API) — 0.5h
-    - [ ] ✅ Complete API framework comparison — decision: Ninja for v3, DRF retained for v2
-    - [ ] ✅ Review usability of the actions layer as a Python API — confirmed: document as public Python API
-    - [ ] Field access tiers (public read / authenticated read / authenticated write) — 1h
-    - [ ] ✅ `api_fields` for read + write vs. opt-out — lean: opt-in `api_fields` with read/write scoping
-    - [ ] ✅ Allowed-actions / HATEOAS-flavoured affordances on resources — lean: both array + error response
-    - [ ] ✅ Custom action endpoint URL shape — lean: `POST /pages/{id}/actions/{action_name}/`
-    - [ ] ✅ Stability tiers — `stable` / `provisional` / `experimental`
-    - [ ] Field-level deprecation surface aligned with release cadence — 1h
-    - [ ] Token model (hashed at rest, scoped, expiring, named, service-account) — 1h
-    - [ ] Content quality: store metrics & checker results against revisions — 1h
-    - [ ] IDs over API: numeric vs. slugs vs. opaque (#6917) — 1h
-    - [ ] Markdown input support: optional dep vs. plugin-only — 0.5h
-    - [ ] ContentState rich text input support — 0.5h
-- [ ] **Technical architecture**
-    - [ ] ✅ Foundation & transport layer choices — Ninja for v3 at `/api/v3/`
-    - [ ] Whoami / `OPTIONS` permission introspection design — 1h
-    - [ ] Per-block JSON Schema export ([#6495](https://github.com/wagtail/wagtail/issues/6495)) feasibility
-    - [ ] Field-mapper / block-mapper registration hooks — 2h
-    - [ ] API-only hooks vs. reuse of existing Wagtail hooks — lean: defer; revisit during prototyping
-- [ ] **Compatibility & migration**
-    - [ ] Per-endpoint compatibility tests v2 ↔ v3 in CI — deferred until v3 read parity
-- [ ] **CLI client**
-    - [ ] ✅ Language & tooling choice — Python/Typer prototype + Go CLI in parallel; outside core
-    - [ ] ✅ Scope: API client only (outside core); `wagtail api` delegates to `wagtail-api-cli`
-    - [ ] ✅ LLM orchestration as a first-class CLI design constraint — confirmed via `wagapi` conventions
-    - [ ] ✅ Output / exit-code / `--dry-run` protocol — confirmed via `wagapi` POC
-- [ ] **Documentation plan**
-    - [ ] Authentication & tokens guide outline — 1h
-    - [ ] Permissions guide outline — 1h
-    - [ ] Programmatic content manipulation in Python guide outline — 2h
-- [ ] **QA capabilities**
-    - [ ] Test app extensions: custom blocks, snippets with the three mixins, localized pages, custom log models — 3h
-    - [ ] bakerydemo + headless-bakerydemo additions outline — 2h
-- [ ] **Prototype**
-    - [ ] ✅ API POC: [`wagtail-write-api`](https://github.com/tomdyson/wagtail-write-api) — pages, snippets, images, schema, auth on Django Ninja
-    - [ ] ✅ Read POC: [`wagtail-ninja`](./wagtail-ninja/) — Ninja-based page/redirect read routers with `api_fields`
-    - [ ] ✅ CLI POC: [`wagapi`](./wagapi/) — Click-based client validating agent-oriented conventions
-    - [ ] Port `wagtail-write-api` operations to `wagtail.actions.*` in core prototype
-    - [ ] Re-target Typer prototype / Go CLI against core v3 for ergonomics check — 3h
-    - [ ] Confirm `wagtail.actions.*` coverage by implementing one missing action (lock or revert) — 4h
-- [ ] **Phased implementation plan**
-    - [ ] With estimates (unblocked — transport-layer decision landed)
