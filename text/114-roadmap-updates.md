@@ -56,11 +56,11 @@ Overhaul of the `wagtail start` support for custom templates and the news templa
 
 Size: S
 
-TODO: Explain what the EU Cyber Resilience is and why it matters. For roadmap next release: focus on supply chain management
+We want to improve our processes around vulnerability disclosure and supply chain management, ahead of the EU Cyber Resilience Act. For now the focus will be on improvements that are generally valuable for a wide range cybersecurity requirements, such as:
 
-- SBOM & release signing
+- Producing SBOMs for our releases, and signing release artifacts
 - Revising our [security policy](https://docs.wagtail.org/en/stable/contributing/security.html), in particular with more information on our behind-the-scenes security team process
-- Package ecosystem (this ideally should happen for all packages)
+- Signposting and sharing how to do this as part of the package ecosystem, via changes to our [package guidelines](https://wagtail.org/package-guidelines/).
 
 ### [Demo website redesign](https://github.com/wagtail/bakerydemo/issues/566)
 
