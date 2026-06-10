@@ -46,14 +46,6 @@ A new official CMS API that supports programmatic creation and modification of W
 
 See [RFC 115: write API](https://github.com/wagtail/rfcs/pull/115).
 
-### [SEO power tools](https://github.com/wagtail/roadmap/issues/106)
-
-Size: M
-
-TBC: which specific improvements we focus on, which we might defer.
-
-See [Looking for sponsorship: SEO power tools](https://wagtail.org/blog/looking-for-sponsorship-seo-power-tools/). New built-in SEO and content quality assurance features, with opportunities for integration with SEO and analytics tools, as well as generative AI.
-
 ### [Starter kit relaunch](https://github.com/wagtail/roadmap/issues/124)
 
 Size: M
@@ -70,40 +62,30 @@ TODO: Explain what the EU Cyber Resilience is and why it matters. For roadmap ne
 - Revising our [security policy](https://docs.wagtail.org/en/stable/contributing/security.html), in particular with more information on our behind-the-scenes security team process
 - Package ecosystem (this ideally should happen for all packages)
 
+### [Demo website redesign](https://github.com/wagtail/bakerydemo/issues/566)
+
+An incremental redesign of the [Wagtail bakery demo site](https://github.com/wagtail/bakerydemo?rgh-link-date=2025-10-23T15%3A14%3A12.000Z), with the intention to make it a more suitable demo for larger projects, and other verticals than breadmaking. This is done as a Google Summer of Code project, started in June 2026.
+
 ## Roadmap for the next+1 release
+
+### [SEO power tools](https://github.com/wagtail/roadmap/issues/106)
+
+Size: M
+
+See [Looking for sponsorship: SEO power tools](https://wagtail.org/blog/looking-for-sponsorship-seo-power-tools/). New built-in SEO and content quality assurance features, with opportunities for integration with SEO and analytics tools, as well as generative AI.
+
+## Roadmap for "Future" releases
 
 ### [Choosers UI improvements](https://github.com/wagtail/roadmap/issues/109)
 
 Size: XL
 
-TBC: Moving back one release :(
-
 Iterative improvements towards a new design for choosers, which brings them closer to the "Universal listings" UX rolled out across listing views.
-
-## Roadmap for "Future" releases
-
-TBC
 
 ## Proposed roadmap items to close
 
-### [Draftail for general text entry](https://github.com/wagtail/roadmap/issues/26)
-
-> Switch to a rich text style UI for plain text inputs, to support more advanced text interactions.
-
-This kind of switch is still desirable but Draftail is likely not the right foundation as the underlying Draft.js library is [unmaintained since 2022](https://github.com/wagtail/draftail/issues/456).
-
-### [Sustainability improvements](https://github.com/wagtail/roadmap/issues/72)
-
-> Improvements across three key areas for Wagtail sites’ carbon footprints: measurements, awareness, tangible reductions.
-
-Most of the improvements tracked in the roadmap item have been happening incrementally, and the remaining ones will be better served by more precise tracking either on the roadmap or directly in our feature backlog.
-
-### [Fully accessible admin](https://github.com/wagtail/roadmap/issues/27)
-
-> Work towards making [Wagtail’s accessibility](https://wagtail.org/accessibility/) world-class – stellar feedback from users of assistive technologies on the admin interface. Full compliance with relevant standards: WCAG, ATAG.
-
-This is the right long-term goal but it’s not served well by being on the roadmap in "Future" with a vague roadmap item. We’re making continuous improvements to the accessibility of Wagtail, so this work is happening anyway.
+None
 
 ## Items that didn't make the cut
 
-TBC
+None
