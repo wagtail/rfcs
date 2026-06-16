@@ -56,11 +56,16 @@ Overhaul of the `wagtail start` support for custom templates and the news templa
 
 Size: S
 
-We want to improve our processes around vulnerability disclosure and supply chain management, ahead of the EU Cyber Resilience Act. For now the focus will be on improvements that are generally valuable for a wide range cybersecurity requirements, such as:
+Establish what the [EU Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act) means for Wagtail, as an upstream project in the open source software supply chain, and related security improvements that could be considered. For now the focus will be on improvements that are generally valuable for a wide range cybersecurity requirements, such as:
 
-- Producing SBOMs for our releases, and signing release artifacts
-- Revising our [security policy](https://docs.wagtail.org/en/stable/contributing/security.html), in particular with more information on our behind-the-scenes security team process
+- Revising our [security policies and docs](https://docs.wagtail.org/en/stable/contributing/security.html), in particular with more information on our behind-the-scenes security team process.
+- Producing SBOMs for our releases, and signing release artifacts.
 - Signposting and sharing how to do this as part of the package ecosystem, via changes to our [package guidelines](https://wagtail.org/package-guidelines/).
+
+More info:
+
+- [Security process improvements](https://github.com/wagtail/wagtail/issues/14293)
+- [Self-certification of Wagtail](https://github.com/wagtail/wagtail/issues/14287) under the [OpenSSF Best Practices Badge program](https://openssf.org/projects/best-practices-badge/).
 
 ### [Demo website redesign](https://github.com/wagtail/bakerydemo/issues/566)
 
