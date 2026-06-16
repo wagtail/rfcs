@@ -69,6 +69,8 @@ More info:
 
 ### [Demo website redesign](https://github.com/wagtail/bakerydemo/issues/566)
 
+Size: M
+
 An incremental redesign of the [Wagtail bakery demo site](https://github.com/wagtail/bakerydemo?rgh-link-date=2025-10-23T15%3A14%3A12.000Z), with the intention to make it a more suitable demo for larger projects, and other verticals than breadmaking. This is done as a Google Summer of Code project, started in June 2026.
 
 ## Roadmap for the next+1 release
