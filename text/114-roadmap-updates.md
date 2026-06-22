@@ -50,7 +50,8 @@ See [RFC 115: write API](https://github.com/wagtail/rfcs/pull/115).
 
 Size: M
 
-Overhaul of the `wagtail start` support for custom templates and the news template for higher usability and maintainability.
+Overhaul of the `wagtail start` support for custom templates and the news template for higher usability and maintainability. Possible `start` command improvements: [start command DX improvements
+ #14350](https://github.com/wagtail/wagtail/issues/14350).
 
 ### Cyber Resilience Act readiness
 
