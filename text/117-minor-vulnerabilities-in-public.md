@@ -44,9 +44,9 @@ Low severity vulnerabilities will include:
 
 ### Changes to reporting process
 
-High severity vulnerabilities should be reported via email to `security@wagtail.org`, as they are now. Moderate or low severity vulnerabilities should either be reported via email to `security@wagtail.org`, or opened as public GitHub issues. Where a reporter is unsure whether a vulnerability qualifies as high severity, they should email `security@wagtail.org`.
+High severity vulnerabilities should be reported via email to `security@wagtail.org`, as they are now. Moderate or low severity vulnerabilities should be opened as public GitHub issues, unless there is a strong reason for them to be handled privately. A new issue template will be created for this purpose, which will be tuned to the needs of security reports, and will tag the issue with the "component:Security" label. Where a reporter is unsure whether a vulnerability qualifies as high severity, they should email `security@wagtail.org`.
 
-The security team will assess the severity of all reports received by email. If an issue is determined to be moderate or low severity, they will open a public issue on GitHub, or ask the reporter to do so, at their discretion.
+The security team will assess the severity of all reports received by email. If an issue is determined to be moderate or low severity, they will ask the reporter to open a public issue on GitHub, or open an issue themselves if the reporter does not do so within a few weeks.
 
 ### Changes to patching and release process
 
@@ -59,3 +59,7 @@ Fixes will be backported to all release series that are currently in security su
 ### Benefits
 
 Handling medium and low severity vulnerabilities through public GitHub issues will allow a wider audience to participate in assessing and fixing these issues, and potentially ease the security team's workload. It will also permit the use of our CI infrastructure to validate fixes, which is not possible when using temporary private forks. Finally, it will make the process of preparing security releases simpler and less error-prone, as the maintainer will be able to merge and push branches at their leisure and make full use of the GitHub UI, rather than having to work extensively on their local machine to minimise the time between the first public push to GitHub and the final PyPI release.
+
+### Open questions
+
+* What fields should the issue template for security reports contain? "Steps to reproduce" is definitely one, although that's in the standard issue template anyhow. It's probably better _not_ to prompt reporters for details such as severity, as we will make our own assessment on that, and researchers have a tendency to overstate this and write more than we would like in the name of justifying it. I recall that curl has some good guidelines on writing helpful security reports that would provide a good steer here.
