@@ -1,4 +1,4 @@
-# RFC 117: Handling minor security vulnerabilities in public
+# RFC 117: Handling moderate/low severity security vulnerabilities in public
 
 * RFC: 117
 * Author: Matthew Westcott
@@ -7,7 +7,7 @@
 
 ## Abstract
 
-Following [the precedent set by the `curl` project](https://daniel.haxx.se/blog/2026/10/20/do-minor-curl-vulnerabilities-in-the-open/), we propose to revise our policy on [reporting security issues](https://docs.wagtail.org/en/latest/contributing/security.html) so that minor vulnerabilities are handled through public issues and PRs. This is in recognition of AI assistance dramatically increasing the speed and effectiveness with which researchers can find vulnerabilities, to the point that keeping details private while working on fixes is no longer effective. Additionally, most of the vulnerabilities handled by Wagtail's security team involve improper access controls on editor-level user accounts, and are not exploitable by ordinary website visitors. This is a very different risk model to the one that the policy of secrecy is intended to address; namely, opportunists learning of a new exploit and scouring the public internet for vulnerable sites. Working on minor vulnerabilities through public GitHub pull requests will allow more people to participate in assessing and fixing them, allow for our CI testing infrastructure to be used in that process, and simplify the release process for security updates.
+Following [the precedent set by the `curl` project](https://daniel.haxx.se/blog/2026/10/20/do-minor-curl-vulnerabilities-in-the-open/), we propose to revise our policy on [reporting security issues](https://docs.wagtail.org/en/latest/contributing/security.html) so that moderate and low severity vulnerabilities are handled through public issues and PRs. This is in recognition of AI assistance dramatically increasing the speed and effectiveness with which researchers can find vulnerabilities, to the point that keeping details private while working on fixes is no longer effective. Additionally, most of the vulnerabilities handled by Wagtail's security team involve improper access controls on editor-level user accounts, and are not exploitable by ordinary website visitors. This is a very different risk model to the one that the policy of secrecy is intended to address; namely, opportunists learning of a new exploit and scouring the public internet for vulnerable sites. Working on minor vulnerabilities through public GitHub pull requests will allow more people to participate in assessing and fixing them, allow for our CI testing infrastructure to be used in that process, and simplify the release process for security updates.
 
 ## Details
 
