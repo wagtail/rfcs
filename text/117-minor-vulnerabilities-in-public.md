@@ -62,6 +62,12 @@ Fixes will be backported to all release series that are currently in security su
 
 Handling medium and low severity vulnerabilities through public GitHub issues will allow a wider audience to participate in assessing and fixing these issues, and potentially ease the security team's workload. It will also permit the use of our CI infrastructure to validate fixes, which is not possible when using temporary private forks. Finally, it will make the process of preparing security releases simpler and less error-prone, as the maintainer will be able to merge and push branches at their leisure and make full use of the GitHub UI, rather than having to work extensively on their local machine to minimise the time between the first public push to GitHub and the final PyPI release.
 
+### Actions to take on adopting this policy
+
+* Update `docs/contributing/security.md`
+* Create issue template for security issues in `.github/ISSUE_TEMPLATE/`
+* Announce via wagtail.org blog and GitHub discussions
+
 ### Open questions
 
 * What fields should the issue template for security reports contain? "Steps to reproduce" is definitely one, although that's in the standard issue template anyhow. It's probably better _not_ to prompt reporters for details such as severity, as we will make our own assessment on that, and researchers have a tendency to overstate this and write more than we would like in the name of justifying it. I recall that curl has some good guidelines on writing helpful security reports that would provide a good steer here.
