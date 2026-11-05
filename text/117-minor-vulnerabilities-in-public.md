@@ -42,6 +42,8 @@ Low severity vulnerabilities will include:
 * Exposure of sensitive data to users with admin access
 * Issues requiring an uncommon configuration
 
+The Wagtail security team will retain the authority to adjust severity levels based on the specific characteristics, context, and potential real-world impact of individual vulnerabilities. For example, a denial-of-service vulnerability that is exploitable by unauthenticated attackers on default Wagtail configurations, causing severe performance degradation or service unavailability, may be elevated to Moderate.
+
 ### Changes to reporting process
 
 High severity vulnerabilities should be reported via email to `security@wagtail.org`, as they are now. Moderate or low severity vulnerabilities should be opened as public GitHub issues, unless there is a strong reason for them to be handled privately. A new issue template will be created for this purpose, which will be tuned to the needs of security reports, and will tag the issue with the "component:Security" label. Where a reporter is unsure whether a vulnerability qualifies as high severity, they should email `security@wagtail.org`.
